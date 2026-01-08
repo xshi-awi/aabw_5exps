@@ -101,6 +101,31 @@ def smooth_data(data, sigma=1.5):
 
     return result
 
+def add_cyclic_point(data, lon):
+    """
+    Add cyclic (wraparound) point in longitude to avoid discontinuity
+    Returns extended data and longitude arrays
+    """
+    if lon.ndim == 1:
+        # 1D longitude array
+        if data.ndim == 2:
+            # 2D data array (lat, lon)
+            cyclic_data = np.concatenate([data, data[:, 0:1]], axis=1)
+        else:
+            # 1D data array
+            cyclic_data = np.concatenate([data, [data[0]]])
+
+        cyclic_lon = np.concatenate([lon, [lon[0] + 360]])
+    else:
+        # 2D longitude array (lat, lon)
+        if data.ndim == 2:
+            cyclic_data = np.concatenate([data, data[:, 0:1]], axis=1)
+            cyclic_lon = np.concatenate([lon, lon[:, 0:1] + 360], axis=1)
+        else:
+            raise ValueError("Dimension mismatch between data and lon")
+
+    return cyclic_data, cyclic_lon
+
 def plot_figure1():
     """
     Figure 1: SST/SSS/Density anomalies (JJA)
@@ -183,6 +208,16 @@ def plot_figure1():
             anomaly = data_exp - var_info['pi_data']
             anomaly_smooth = smooth_data(anomaly, sigma=1.5)
 
+            # Add cyclic point to avoid longitude discontinuity
+            anomaly_cyclic, lon_cyclic = add_cyclic_point(anomaly_smooth, lon)
+            if lon_2d.ndim == 1:
+                lon_2d_cyclic, lat_2d_cyclic = np.meshgrid(lon_cyclic, lat)
+            else:
+                lon_2d_cyclic, lat_2d_cyclic = lon_cyclic, lat_2d
+
+            # Also create cyclic version of PI data for contours
+            pi_smooth_cyclic, _ = add_cyclic_point(var_info['pi_smooth'], lon)
+
             # Choose colorbar range based on experiment
             if exp in ['mh', 'lig']:
                 levels = var_info['anom_levels_warm']
@@ -190,7 +225,7 @@ def plot_figure1():
                 levels = var_info['anom_levels_cold']
 
             # Plot anomaly with contourf for smooth colors
-            im = ax.contourf(lon_2d, lat_2d, anomaly_smooth,
+            im = ax.contourf(lon_2d_cyclic, lat_2d_cyclic, anomaly_cyclic,
                            levels=levels,
                            cmap=var_info['cmap'],
                            transform=ccrs.PlateCarree(),
@@ -203,7 +238,7 @@ def plot_figure1():
                 im_cold = im
 
             # Overlay PI contours (smoothed)
-            cs = ax.contour(lon_2d, lat_2d, var_info['pi_smooth'],
+            cs = ax.contour(lon_2d_cyclic, lat_2d_cyclic, pi_smooth_cyclic,
                            levels=var_info['pi_levels'],
                            colors='black', linewidths=0.7,
                            transform=ccrs.PlateCarree(),
@@ -249,9 +284,6 @@ def plot_figure1():
         cbar_cold = fig.colorbar(im_cold, cax=cbar_ax_cold, orientation='horizontal')
         cbar_cold.set_label(f'Δ{var_info["name"]} ({var_info["unit"]})', fontsize=9)
         cbar_cold.ax.tick_params(labelsize=8)
-
-    plt.suptitle('Figure 1: SST/SSS/Density Anomalies (JJA, Paleo - PI)',
-                fontsize=14, fontweight='bold', y=0.96)
 
     output_file = f'{base_dir}/fig01_climate_sst_sss_density_jja.pdf'
     plt.savefig(output_file, dpi=300, bbox_inches='tight')
@@ -300,8 +332,12 @@ def plot_figure2():
             # Smooth data
             data_smooth = smooth_data(data, sigma=1.5)
 
+            # Add cyclic point to avoid longitude discontinuity
+            data_cyclic, lon_cyclic = add_cyclic_point(data_smooth, lon)
+            lon_2d_cyclic, lat_2d_cyclic = np.meshgrid(lon_cyclic, lat)
+
             # Plot with contourf for smooth colors
-            im = ax.contourf(lon_2d, lat_2d, data_smooth,
+            im = ax.contourf(lon_2d_cyclic, lat_2d_cyclic, data_cyclic,
                             levels=var_info['levels'],
                             cmap=var_info['cmap'],
                             transform=ccrs.PlateCarree(),
@@ -338,9 +374,6 @@ def plot_figure2():
         cbar = fig.colorbar(im_row, cax=cbar_ax, orientation='horizontal')
         cbar.set_label(f'{var_info["name"]} ({var_info["unit"]})', fontsize=10)
         cbar.ax.tick_params(labelsize=8)
-
-    plt.suptitle('Figure 2: Mixed Layer Depth and Sea Ice Concentration (JJA)',
-                fontsize=14, fontweight='bold', y=0.96)
 
     output_file = f'{base_dir}/fig02_climate_mld_seaice_jja.pdf'
     plt.savefig(output_file, dpi=300, bbox_inches='tight')
@@ -395,9 +428,13 @@ def plot_figure3():
         windspeed_anom = windspeed_exp - windspeed_pi
         windspeed_anom_smooth = smooth_data(windspeed_anom, sigma=1.5)
 
+        # Add cyclic point to avoid longitude discontinuity
+        windspeed_anom_cyclic, lon_cyclic = add_cyclic_point(windspeed_anom_smooth, lon)
+        lon_2d_cyclic, lat_2d_cyclic = np.meshgrid(lon_cyclic, lat)
+
         # Plot wind speed anomaly with contourf
         levels = np.linspace(-4, 4, 21)
-        im = ax.contourf(lon_2d, lat_2d, windspeed_anom_smooth,
+        im = ax.contourf(lon_2d_cyclic, lat_2d_cyclic, windspeed_anom_cyclic,
                         levels=levels,
                         cmap='RdBu_r',
                         transform=ccrs.PlateCarree(),
@@ -439,9 +476,6 @@ def plot_figure3():
     cbar = fig.colorbar(im_row, cax=cbar_ax, orientation='horizontal')
     cbar.set_label('ΔWind Speed (m/s)', fontsize=10)
     cbar.ax.tick_params(labelsize=8)
-
-    plt.suptitle('Figure 3: 10m Wind Speed Anomalies (JJA, Paleo - PI)\nPI wind vectors overlaid',
-                fontsize=14, fontweight='bold', y=0.98)
 
     output_file = f'{base_dir}/fig03_climate_winds_jja.pdf'
     plt.savefig(output_file, dpi=300, bbox_inches='tight')
