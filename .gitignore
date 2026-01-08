@@ -1,0 +1,23 @@
+# NetCDF files
+*.nc
+*.nc4
+
+# Large data files
+*.dat
+*.bin
+*.h5
+*.hdf5
+
+# Python temporary files
+*.pyc
+__pycache__/
+.ipynb_checkpoints/
+
+# Environment files
+.env
+*.log
+
+# Output directories
+output/
+results/
+figures/
