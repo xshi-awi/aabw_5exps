@@ -28,7 +28,7 @@ exp_labels = {'pi': 'PI', 'mh': 'MH', 'lig': 'LIG', 'lgm': 'LGM', 'mis': 'MIS3'}
 paleo_exps = ['mh', 'lig', 'lgm', 'mis']
 
 # Base directory
-base_dir = '/work/ba0989/a270064/bb1029/wmt/exps'
+base_dir = './'
 
 # JJA months (austral winter): June(5), July(6), August(7) - 0-indexed for Python
 jja_months = [5, 6, 7]
@@ -210,10 +210,7 @@ def plot_figure1():
 
             # Add cyclic point to avoid longitude discontinuity
             anomaly_cyclic, lon_cyclic = add_cyclic_point(anomaly_smooth, lon)
-            if lon_2d.ndim == 1:
-                lon_2d_cyclic, lat_2d_cyclic = np.meshgrid(lon_cyclic, lat)
-            else:
-                lon_2d_cyclic, lat_2d_cyclic = lon_cyclic, lat_2d
+            lon_2d_cyclic, lat_2d_cyclic = np.meshgrid(lon_cyclic, lat)
 
             # Also create cyclic version of PI data for contours
             pi_smooth_cyclic, _ = add_cyclic_point(var_info['pi_smooth'], lon)
