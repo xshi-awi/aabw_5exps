@@ -43,3 +43,27 @@ sst/sss/density: merged into one figure
 mld/seaice: merged into one figure
 u10: one figure
 
+
+## Project Progress
+
+### 2026-01-08 14:30
+
+**Progress**: Git repository initialized and pushed to GitHub; plotting script improved
+
+**Technical Stack**:
+- Git repository setup with proper .gitignore for NetCDF and data files
+- GitHub remote: https://github.com/xshi-awi/aabw_5exps
+- Modified `plot_climate_patterns_jja.py`:
+  - Removed all `plt.suptitle()` calls from figures 1-3
+  - Added `add_cyclic_point()` function to handle longitude wraparound
+  - Applied cyclic point using `np.concatenate()` to extend data/lon arrays
+  - Fixed longitude discontinuity in all three figures by adding cyclic points before `ax.contourf()`
+
+**Key Findings**:
+- Longitude discontinuity at -180/180° boundary caused visual artifacts in polar stereographic projection
+- Solution: append first longitude column to end with +360° offset for seamless wraparound
+
+**Next Steps**:
+- Run plotting script to generate updated figures without titles and discontinuities
+- Verify visual quality of polar plots
+- Consider creating DJF (austral summer) versions if needed
