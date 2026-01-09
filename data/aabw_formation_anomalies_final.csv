@@ -1,0 +1,17 @@
+Experiment,Region,ΔWMT,ΔHeat,ΔSeaIce,ΔOther_FW
+MH,Southern Ocean,-0.427,-0.858,0.368,0.063
+MH,Weddell Sea,-0.366,-0.781,0.252,0.163
+MH,Ross Sea,0.180,-0.130,0.338,-0.027
+MH,Adélie Land,-0.241,0.054,-0.221,-0.073
+LIG,Southern Ocean,-1.294,0.807,-2.960,0.859
+LIG,Weddell Sea,-1.543,-1.739,-0.120,0.316
+LIG,Ross Sea,2.123,3.383,-1.699,0.438
+LIG,Adélie Land,-1.874,-0.836,-1.142,0.104
+LGM,Southern Ocean,3.232,-12.767,14.663,1.336
+LGM,Weddell Sea,1.507,-7.466,7.427,1.546
+LGM,Ross Sea,2.426,-0.207,3.985,-1.352
+LGM,Adélie Land,-0.701,-5.094,3.252,1.142
+MIS3,Southern Ocean,0.228,-11.766,16.292,-4.298
+MIS3,Weddell Sea,0.886,-7.174,9.652,-1.592
+MIS3,Ross Sea,1.556,-0.167,4.422,-2.699
+MIS3,Adélie Land,-2.214,-4.426,2.219,-0.006

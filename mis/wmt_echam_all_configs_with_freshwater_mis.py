@@ -416,7 +416,7 @@ for region_name, region_info in REGIONS.items():
 
         wmt_obj = xwmt.WaterMassTransformations(grid, decomposed_budgets)
 
-        sigma2_bins = np.arange(0, 40, 0.25)
+        sigma2_bins = np.arange(0, 40, 0.1)
 
         with warnings.catch_warnings():
             warnings.simplefilter(action='ignore', category=FutureWarning)

@@ -105,7 +105,7 @@ print('-'*80)
 
 DATA_DIR = Path(".")
 
-mesh = xr.open_dataset("../../data/fesom.mesh.diag.nc")
+mesh = xr.open_dataset("/home/a/a270064/bb1029/inputs/mesh_core2/fesom.mesh.diag.nc")
 areacello_1d = mesh['nod_area'].isel(nl=0).values
 fesom_lon_1d = np.degrees(mesh['nodes'].isel(n2=0).values)
 fesom_lat_1d = np.degrees(mesh['nodes'].isel(n2=1).values)
@@ -410,7 +410,7 @@ for region_name, region_info in REGIONS.items():
 
         wmt_obj = xwmt.WaterMassTransformations(grid, decomposed_budgets)
 
-        sigma2_bins = np.arange(0, 40, 0.25)
+        sigma2_bins = np.arange(0, 40, 0.1)
 
         with warnings.catch_warnings():
             warnings.simplefilter(action='ignore', category=FutureWarning)
