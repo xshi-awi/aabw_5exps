@@ -1,0 +1,493 @@
+\documentclass[12pt,a4paper]{article}
+
+% ============================================================================
+% Packages
+% ============================================================================
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{natbib}  % For citation management
+\usepackage{hyperref}
+\usepackage{lineno}
+\linenumbers
+
+% ============================================================================
+% Document Settings
+% ============================================================================
+\bibliographystyle{agsm}  % Harvard style, or use 'plainnat', 'apalike', etc.
+% Other common styles: abbrvnat, unsrtnat, plainnat
+
+\title{Antarctic Bottom Water Formation Mechanisms Across Paleoclimate States: \\
+Insights from Water Mass Transformation Analysis and Ventilation Age Simulations Using AWI-ESM}
+
+\author{Your Name$^{1,2}$ and Co-authors \\
+\\
+\small $^1$Alfred Wegener Institute for Polar and Marine Research, Bremerhaven, Germany \\
+\small $^2$Department of Geosciences, University of Bremen, Bremen, Germany}
+
+\date{\today}
+
+% ============================================================================
+% Document Begin
+% ============================================================================
+\begin{document}
+
+\maketitle
+
+% ============================================================================
+% Abstract
+% ============================================================================
+\begin{abstract}
+Antarctic Bottom Water (AABW) is a critical component of the global meridional overturning circulation, 
+driving abyssal ventilation, heat storage, and carbon sequestration on centennial to millennial timescales. 
+Despite its importance, the mechanisms governing AABW formation across different climate states remain 
+poorly understood. Here we investigate AABW production during five paleoclimate periods---preindustrial (PI), 
+mid-Holocene (MH), Last Interglacial (LIG), Last Glacial Maximum (LGM), and Marine Isotope Stage 3 (MIS3)---using 
+the AWI-ESM coupled climate model. Through water mass transformation (WMT) analysis, we decompose surface 
+buoyancy fluxes into thermal (longwave, shortwave, sensible, and latent heat) and haline (sea ice and 
+precipitation-evaporation-runoff) components to quantify their relative contributions to AABW precursor 
+water formation. Our results reveal a fundamental shift in formation mechanisms between climate states: 
+during interglacial periods (PI/MH/LIG), heat fluxes dominate AABW precursor water production, whereas 
+glacial conditions (LGM/MIS3) are characterized by suppressed heat fluxes and enhanced sea ice-driven 
+transformation. Ideal age tracer simulations demonstrate that AABW ventilation ages during LGM/MIS3 
+exceed preindustrial values by approximately 1,500 years, consistent with paleoceanographic proxy 
+reconstructions and indicating substantially reduced formation rates. In contrast, the LIG Ross Sea 
+exhibits anomalously young ventilation ages attributed to ice-free conditions and intensified thermal 
+forcing. These findings provide mechanistic insights into how AABW formation responds to climate forcing 
+and contribute to understanding of deep ocean carbon storage variations across glacial-interglacial cycles.
+
+\noindent\textbf{Keywords:} Antarctic Bottom Water, paleoclimate, water mass transformation, ventilation age, 
+Southern Ocean, sea ice, Last Glacial Maximum, Last Interglacial
+\end{abstract}
+
+% ============================================================================
+% Introduction
+% ============================================================================
+\section{Introduction}
+
+\subsection{The critical role of Antarctic Bottom Water in the climate system}
+
+Antarctic Bottom Water (AABW) represents the densest and coldest water mass in the global ocean, 
+ventilating the abyssal ocean and playing a fundamental role in the global meridional overturning 
+circulation (MOC) \citep{Orsi1999, Marshall2012}. Forming primarily around the Antarctic continental 
+margin, AABW sinks to the ocean floor and spreads northward through the Atlantic, Indian, and Pacific 
+basins, constituting the lower limb of the global overturning circulation \citep{Talley2013}. The 
+Southern Ocean, where AABW originates, is increasingly recognized as the region where deep waters 
+return to the surface through wind-driven upwelling, effectively closing the global MOC 
+\citep{Marshall2012}. This dual-cell structure---with northward-flowing NADW above and 
+southward-spreading AABW below---fundamentally controls the ocean's capacity to store and transport 
+heat, carbon, and nutrients on centennial to millennial timescales.
+
+The climatic significance of AABW extends far beyond its role in ocean circulation. Observations 
+from repeat hydrographic sections reveal that the deep ocean below 4,000~m has accumulated heat 
+at a rate of 12.9$\pm$1.8~TW since the mid-1980s, with the strongest warming signals near 
+AABW source regions \citep{Purkey2010}. This abyssal warming contributes approximately 0.1~mm/yr 
+to global sea level rise through thermal expansion and represents a significant component of Earth's 
+energy imbalance \citep{Purkey2010}. Simultaneously, AABW has undergone substantial volume 
+contraction, with the coldest and densest water classes disappearing fastest 
+\citep{Purkey2012, Gunn2023}. Recent projections suggest that under high-emission scenarios, 
+Antarctic meltwater could drive more than 40\% slowdown of abyssal overturning by 2050 
+\citep{Li2023Nature}, with profound implications for ocean biogeochemistry and climate.
+
+The Southern Ocean's role in the global carbon cycle is equally critical. As the primary pathway 
+for deep water ventilation, the Southern Ocean mediates carbon exchange between the deep ocean 
+reservoir and the atmosphere \citep{Marinov2006, Gray2024}. The Antarctic Polar Front acts as a 
+biogeochemical divide, with AABW formation and sinking carrying unutilized nutrients and respired 
+carbon to depth \citep{Marinov2006}. The efficiency of this biological carbon pump, and thus 
+atmospheric CO$_2$ concentrations, depends sensitively on the rate and properties of AABW 
+formation. The most comprehensive synthesis indicates that the Southern Ocean absorbs approximately 
+40\% of oceanic anthropogenic CO$_2$ uptake, underscoring its central role in modulating 
+climate change \citep{Gray2024, Rintoul2025}.
+
+\subsection{Modern understanding of AABW formation mechanisms}
+
+AABW formation occurs through the production and export of Dense Shelf Water (DSW) from four 
+primary source regions: the Weddell Sea, Ross Sea, Adélie Coast, and Cape Darnley polynya 
+\citep{Orsi1999, Ohshima2013}. The fundamental process involves transformation of surface and 
+intermediate waters into extremely dense shelf waters through two interrelated mechanisms: 
+intense surface heat loss and brine rejection during sea ice formation in coastal polynyas 
+\citep{Silvano2023Frontiers, Ohshima2016}. High Salinity Shelf Water (HSSW) forms when 
+persistent offshore katabatic winds maintain open-water polynyas, exposing the ocean surface 
+to intense cooling while simultaneously enhancing sea ice production and associated brine 
+rejection \citep{Miller2023, Ohshima2022}. The resulting HSSW, with salinities exceeding 
+34.6~g/kg, either descends directly down the continental slope or first interacts with 
+floating ice shelves to form even colder Ice Shelf Water (ISW) below $-2$°C 
+\citep{Silvano2023Frontiers}.
+
+The relative importance of thermal versus haline forcing in driving DSW formation varies 
+regionally and seasonally. At Cape Darnley, intense sea ice production through frazil ice 
+formation dominates, with underwater frazil penetrating depths exceeding 80~m and preventing 
+heat-insulating surface ice from forming \citep{Ohshima2022}. This process enables highly 
+efficient brine rejection and accounts for 6--13\% of circumpolar AABW production 
+\citep{Ohshima2013}. In contrast, the Ross and Weddell Seas exhibit more complex interactions 
+between polynya-driven HSSW production and ice shelf cavity circulation, with approximately 
+50\% of DSW export involving ISW mixing \citep{Williams2008, Silvano2020}. Recent observations 
+demonstrate that glacial meltwater input can partially offset brine injection; in the Amundsen 
+Sea and Sabrina Coast, freshwater from basal melting prevents full-depth convection despite 
+strong polynya activity \citep{Silvano2018}.
+
+Climate variability strongly modulates AABW production on interannual to decadal timescales. 
+The Weddell Sea has experienced a 30\% reduction in bottom water volume since 1992, 
+driven primarily by more than 40\% decline in sea ice formation rates associated with northerly 
+wind trends linked to the Interdecadal Pacific Oscillation \citep{Zhou2023}. Conversely, the 
+Ross Sea exhibited recovery of AABW salinity, density, and thickness between 2015--2019, caused 
+by anomalous wind forcing from positive Southern Annular Mode combined with extreme El Niño 
+events that enhanced local sea ice formation \citep{Silvano2020}. These observations highlight 
+the sensitivity of AABW production to both local surface forcing and remote climate teleconnections.
+
+\subsection{Water mass transformation framework for AABW analysis}
+
+The water mass transformation (WMT) framework provides a thermodynamic approach to quantifying 
+how air-sea fluxes drive changes in water mass properties and thus constrain rates of dense 
+water formation \citep{Walin1982, Groeskamp2019}. Originally developed by \citet{Walin1982} 
+to relate surface heat fluxes to cross-isothermal mass transport, the framework was subsequently 
+extended by \citet{Speer1992} to incorporate both thermal and freshwater contributions to 
+surface density flux:
+\begin{equation}
+f_\rho = \frac{\alpha Q_{net}}{c_p} - \rho \beta S (E - P)
+\end{equation}
+where $\alpha$ and $\beta$ are the thermal expansion and haline contraction coefficients, 
+$Q_{net}$ is the net surface heat flux, and $(E-P)$ represents net evaporation minus 
+precipitation. The transformation rate across a given density surface is then obtained by 
+integrating this density flux over the outcrop area \citep{Groeskamp2019}.
+
+Modern implementations of WMT analysis decompose surface fluxes into multiple components to 
+isolate specific physical processes \citep{Iudicone2008a, Iudicone2008b}. Heat flux contributions 
+can be separated into shortwave radiation (accounting for penetrative effects), longwave 
+radiation, sensible heat, and latent heat fluxes \citep{Iudicone2008a}. Critically, 
+\citet{Iudicone2008a} demonstrated that neglecting shortwave penetration can cause 100\% 
+errors in water mass formation estimates, particularly in the Southern Ocean where penetrative 
+radiation affects mixed layer dynamics. Freshwater flux decomposition distinguishes between 
+sea ice formation/melt, glacial meltwater, and precipitation-evaporation-runoff 
+\citep{Abernathey2016, Bailey2023}. The sea ice component proves particularly important for 
+AABW studies, as it acts as a ``pump'' removing freshwater from high latitudes and concentrating 
+brine \citep{Abernathey2016}.
+
+Observation-based WMT analyses have fundamentally advanced understanding of Southern Ocean 
+overturning. \citet{Pellichero2018} used Argo floats, ship data, and instrumented marine 
+mammals to show that seasonal sea ice growth and melt dominates water mass transformation 
+in the ice-covered sector, with freshwater fluxes---rather than heat fluxes---driving the 
+meridional overturning that feeds AABW formation. Their estimates indicate approximately 
+27$\pm$7~Sv of deep water upwells to the surface, transforming into 22$\pm$4~Sv of lighter 
+water (upper cell) and 5$\pm$5~Sv entering denser AABW classes (lower cell) 
+\citep{Pellichero2018}. In the Weddell Sea specifically, closed-budget WMT analysis reveals 
+minimal precipitation-evaporation-runoff contribution, with sea ice brine rejection dominating 
+the surface salt flux throughout most seasons \citep{Bailey2023}.
+
+\subsection{Why paleoclimate AABW research matters: implications for the global carbon cycle}
+
+Understanding AABW variability across glacial-interglacial cycles is fundamental to explaining 
+one of the most profound puzzles in Earth system science: the 80--100~ppm atmospheric CO$_2$ 
+variations that tightly couple with temperature changes throughout the Quaternary. Ice core 
+records demonstrate that CO$_2$ was among the early parameters to change at glacial terminations, 
+roughly synchronous with Southern Hemisphere warming and preceding Northern Hemisphere ice 
+volume decline \citep{SigmanBoyle2000}. The deep ocean, particularly the abyssal realm dominated 
+by AABW, represents the primary carbon reservoir capable of explaining this magnitude of 
+CO$_2$ drawdown on glacial-interglacial timescales \citep{SigmanBoyle2000, Kohfeld2005}.
+
+The mechanistic link between AABW and atmospheric CO$_2$ operates through multiple pathways. 
+Enhanced AABW formation during glacials, driven by intensified brine rejection from expanded 
+sea ice, created strongly stratified deep ocean conditions that effectively isolated 
+carbon-rich deep waters from atmospheric exchange \citep{Ferrari2014, Jansen2017}. Model 
+studies indicate that at the Last Glacial Maximum, Antarctic-origin waters filled nearly 
+the entire ocean volume below 2~km---representing approximately a fourfold increase compared 
+to present---while shoaling North Atlantic Deep Water to intermediate depths 
+\citep{Ferrari2014}. This reconfigured circulation trapped respired carbon at depth, with 
+the Southern Ocean sea ice cap acting as an insulating lid that prevented CO$_2$ outgassing 
+\citep{Ferrari2014, Marzocchi2017}. Radiocarbon evidence reveals that glacial deep ocean 
+ventilation ages increased by approximately 689$\pm$53~$^{14}$C-yr compared to the Holocene, 
+with southern-sourced abyssal waters particularly isolated \citep{Skinner2017}. This 
+enhanced isolation could account for more than 50\% of the observed 80--100~ppm glacial 
+CO$_2$ drawdown \citep{Skinner2017}.
+
+Beyond its role in glacial CO$_2$ storage, AABW behavior during past warm periods provides 
+crucial insights for projecting future climate trajectories. During Marine Isotope Stage 4 
+(MIS4; $\sim$70--60~ka), atmospheric CO$_2$ decreased by approximately 40~ppm within 
+several thousand years, driven by multiple carbon cycle mechanisms including enhanced AABW 
+formation and export that strengthened deep ocean carbon storage \citep{Baggenstos2019}. 
+Conversely, interglacial AABW weakening events---as documented during the Last Interglacial 
+\citep{Hayes2014} and recurrent across multiple interglacials \citep{Glasscock2020}---demonstrate 
+the sensitivity of deep ocean ventilation to high-latitude freshwater forcing. These past 
+analogs are particularly relevant given projections of substantial Antarctic ice sheet mass 
+loss and associated meltwater discharge under future warming scenarios \citep{Li2023Nature}.
+
+The paleoclimate perspective is essential because the modern instrumental record provides 
+insufficient temporal scope to evaluate climate model performance on centennial-to-millennial 
+timescales \citep{ZhouWEA2016, Tierney2020Paleo}. The climate system is far from equilibrium 
+within the $\sim$150-year observational period, limiting our ability to constrain equilibrium 
+climate sensitivity and assess long-term climate feedbacks \citep{Sherwood2020}. Paleoclimate 
+states spanning dramatically different CO$_2$ levels, ice sheet configurations, and ocean 
+circulation patterns provide ``out-of-sample'' tests for models developed primarily using 
+modern observations \citep{Zhu2021NCC}. For AABW specifically, paleoclimate constraints 
+offer the only means to evaluate how formation mechanisms respond to forcing changes 
+spanning full glacial-interglacial amplitudes.
+
+\subsection{State of paleoclimate AABW research: proxy records and modeling advances}
+
+\subsubsection{Proxy-based reconstructions of past AABW variability}
+
+Multiple geochemical tracers have been developed to reconstruct past AABW properties and 
+circulation pathways. Benthic foraminiferal $\delta^{13}$C has been extensively applied as 
+a quasi-conservative water mass tracer, exploiting the distinct isotopic signatures of NADW 
+(high $\delta^{13}$C from nutrient-depleted source waters) versus AABW (low $\delta^{13}$C 
+from incomplete surface nutrient utilization) \citep{Curry1988, OppoFairbanks1987}. Compilations 
+of benthic $\delta^{13}$C from the Atlantic reveal a dramatic restructuring at the LGM, with 
+NADW shoaling to intermediate depths ($\sim$2,000~m) and AABW expanding to fill the abyssal 
+Atlantic \citep{Curry2005, Hines2021}. However, $\delta^{13}$C is influenced by both circulation 
+and biogeochemistry (air-sea gas exchange, biological productivity, respiration), complicating 
+interpretation \citep{Eide2017}.
+
+Neodymium isotopes ($\epsilon_{Nd}$) have emerged as a powerful quasi-conservative tracer 
+for reconstructing deep water mass geometry \citep{Goldstein2003, Piotrowski2005}. Modern 
+observations show NADW characterized by unradiogenic $\epsilon_{Nd}$ values ($\sim$-13), 
+whereas AABW and Pacific deep waters display more radiogenic signatures ($\sim$-8 to -7) 
+\citep{Lacan2005, Lambelet2016}. High-resolution $\epsilon_{Nd}$ records spanning the last 
+glacial cycle demonstrate oscillating NADW and AABW contributions to deep Atlantic ventilation, 
+with AABW influence maximized during stadials and Heinrich events \citep{Piotrowski2008, 
+Huang2020}. Recent modeling studies incorporating neodymium cycling confirm that $\epsilon_{Nd}$ 
+variations primarily reflect changes in NADW versus AABW formation rates and mixing patterns, 
+with boundary exchange processes as the dominant Nd source \citep{Gu2019, Poppelmeier2022}.
+
+Radiocarbon-based ventilation ages provide the most direct constraint on deep ocean circulation 
+rates. Benthic-planktonic (B-P) $^{14}$C age offsets reveal globally increased deep ocean 
+isolation during glacials, with the most extreme values in the deep Pacific and Southern Ocean 
+\citep{Broecker1984, Skinner2010}. However, methodological refinements demonstrate that bulk 
+B-P ages comprise both circulation age and ``preformed $^{14}$C-age'' arising from incomplete 
+atmosphere-ocean equilibration at formation regions---particularly problematic in the sea 
+ice-covered Southern Ocean \citep{Koeve2015}. Recent deglacial reconstructions reveal a 
+``radiocarbon ventilation seesaw,'' with deep Pacific and Atlantic ventilation ages changing 
+in opposite phases, explained by alternating NADW versus AABW production \citep{Skinner2014, 
+Skinner2021}. Transient simulations using ideal age tracers demonstrate that true (ideal) 
+ventilation age was modestly younger at the LGM compared to present due to stronger AABW 
+transport from enhanced brine rejection, reconciling the apparently contradictory radiocarbon 
+evidence \citep{Li2024CP}.
+
+Additional proxies provide complementary constraints. Authigenic uranium (aU) records detect 
+deep ocean oxygenation changes, with reduced aU accumulation indicating decreased bottom 
+water oxygenation during AABW weakening events \citep{Hayes2014, Glasscock2020}. Benthic 
+$^{231}$Pa/$^{230}$Th ratios constrain meridional overturning intensity, though interpretation 
+is complicated by boundary scavenging effects \citep{Negre2010, Lippold2016}. Benthic 
+foraminiferal $\delta^{18}$O and Mg/Ca jointly constrain deep ocean temperature and salinity 
+evolution \citep{Adkins2002, Elderfield2012}, revealing that the glacial deep ocean was 
+near freezing point globally with the Southern Ocean containing the saltiest deep water 
+(37.1~psu) \citep{Adkins2002}.
+
+\subsubsection{Modeling studies of AABW across paleoclimate states}
+
+Paleoclimate modeling has advanced from simplified box models \citep{Toggweiler1999, 
+Gildor2001} through intermediate complexity models \citep{Menviel2012, Bouttes2012} to 
+comprehensive Earth System Models participating in the Paleoclimate Modelling Intercomparison 
+Project (PMIP) \citep{Braconnot2012, Kageyama2017}. Early studies using conceptual models 
+identified key mechanisms linking Southern Ocean processes to atmospheric CO$_2$: enhanced 
+stratification reducing CO$_2$ outgassing \citep{Francois1997, Toggweiler1999}, equatorward 
+wind shifts reducing upwelling of CO$_2$-rich waters \citep{Toggweiler2006}, and expanded 
+sea ice capping deep waters \citep{Stephens2000}.
+
+Comprehensive model intercomparisons under PMIP3/CMIP5 revealed substantial inter-model 
+spread in simulated glacial ocean circulation changes \citep{Weber2007, Marzocchi2019}. 
+Some models show weakened Atlantic overturning at the LGM, while others maintain vigorous 
+circulation \citep{Weber2007}. The representation of Antarctic sea ice varies dramatically, 
+with PMIP3 models showing September sea ice extent ranging from 10--30$\times10^6$~km$^2$ 
+compared to proxy-based estimates of $\sim$17$\times10^6$~km$^2$ \citep{Lhardy2022}. These 
+discrepancies propagate to simulated deep ocean ventilation and carbon storage.
+
+Recent advances include transient deglacial simulations that capture temporal evolution 
+of circulation changes. The TRACE-21ka simulation demonstrates that AABW transport variations 
+primarily control global deep ocean ventilation age, with ages peaking at 1,900--2,200~years 
+around 14--12~ka during weakened AABW transport \citep{Liu2009, Li2024CP}. Isotope-enabled 
+simulations (e.g., iLOVECLIM, iCESM) now incorporate radiocarbon, stable isotopes, and trace 
+elements, enabling direct model-data comparison using the same tracers measured in proxy 
+records \citep{Menviel2017, Gu2019, Poppelmeier2022}. These developments allow quantitative 
+assessment of whether models capture first-order circulation changes indicated by proxy 
+compilations.
+
+Despite progress, fundamental limitations persist. As discussed earlier, most CMIP6 models 
+form AABW through open-ocean deep convection rather than realistic shelf processes 
+\citep{Heuze2021}. This affects not only the spatial distribution of formation but potentially 
+the sensitivity of AABW to climate forcing. Resolution constraints prevent explicit 
+representation of critical small-scale processes: coastal polynyas ($\sim$10--100~km), 
+dense water cascades down continental slopes, and ice shelf cavity circulation 
+\citep{Schmidt2025}. Parameterizations attempt to compensate but introduce additional 
+uncertainties and tuning requirements \citep{Dufour2017}.
+
+\subsubsection{Model-data comparison challenges and uncertainties}
+
+Quantitative model-data comparison faces multiple obstacles. Proxy records and model outputs 
+represent fundamentally different quantities: proxies measure geochemical tracers integrated 
+over specific time windows, whereas models directly simulate physical variables 
+\citep{Phipps2013, Evans2013}. Proxy System Models (PSMs) provide a framework for translating 
+model output into proxy space, but PSM uncertainties can be substantial \citep{Evans2013, 
+Dee2015}. For instance, benthic foraminiferal $\delta^{18}$O reflects both temperature and 
+seawater $\delta^{18}$O (itself influenced by salinity, ice volume, and local hydrology), 
+requiring multi-proxy approaches or model-derived seawater $\delta^{18}$O fields to isolate 
+temperature \citep{Rohling1998}.
+
+Chronological uncertainties pose additional challenges, particularly for integrating records 
+across multiple sites. Radiocarbon dating uncertainties of $\pm$100--300~years are typical 
+for the last glacial period, with larger uncertainties for older periods or in archives with 
+low carbonate content \citep{Reimer2020}. Reservoir age corrections for marine radiocarbon 
+introduce further uncertainty, particularly where past reservoir ages differed from modern 
+\citep{Skinner2019}. These age uncertainties complicate identification of lead-lag relationships 
+and assessment of synchroneity between different regions or climate components.
+
+Spatial coverage remains limited. High-quality proxy records concentrate in specific regions 
+(North Atlantic, Southern Ocean sectors) with large data gaps elsewhere. The deep Pacific, 
+which contains $\sim$50\% of ocean volume, has relatively sparse coverage \citep{Skinner2019}. 
+This spatial heterogeneity challenges global synthesis efforts and means model-data comparisons 
+rely heavily on regional patterns that may not represent global-scale changes.
+
+Recent efforts have improved these challenges through coordinated data synthesis initiatives 
+(e.g., MARGO for LGM sea surface temperatures \citep{MARGO2009}, LGMNd isotope compilation 
+\citep{Piotrowski2012}), standardized model-data comparison metrics \citep{Hargreaves2011, 
+Kageyama2021}, and paleoclimate data assimilation techniques that formally combine proxy 
+information with model simulations while accounting for respective uncertainties 
+\citep{Tierney2020Paleo, Osman2021}. Despite progress, model-data consistency varies 
+substantially across variables and regions, with models often underestimating the magnitude 
+of reconstructed regional changes \citep{Harrison2012}.
+
+\subsection{Knowledge gaps and research objectives}
+
+Despite substantial progress, several critical gaps constrain our understanding of AABW 
+formation mechanisms across paleoclimate states. First, \textbf{the relative importance of 
+thermal versus haline forcing in AABW precursor water formation has not been systematically 
+quantified across multiple climate states using consistent methodology}. While modern 
+observations and reanalysis-driven water mass transformation analyses have illuminated 
+contemporary formation mechanisms \citep{Pellichero2018, Bailey2023}, comparable analysis 
+across glacial and interglacial climates remains absent. The limited studies that exist 
+focus on single climate states or employ different methodological approaches, precluding 
+robust inter-period comparison.
+
+Second, \textbf{mechanistic understanding of regional differences in AABW response to climate 
+forcing requires further investigation}. Why does the Ross Sea exhibit particularly young 
+ventilation ages during the LIG despite other Southern Ocean regions showing slightly older 
+ages? What controls the spatial distribution of AABW formation intensity changes between 
+glacial and interglacial periods? These regional variations likely reflect complex interactions 
+between sea ice dynamics, ice shelf geometry, bathymetry, and atmospheric forcing, but 
+systematic analysis linking surface forcing to formation rate changes across source regions 
+is lacking.
+
+Third, \textbf{model-simulated ventilation ages have not been comprehensively validated 
+against proxy reconstructions across the full spectrum of warm and cold climate states}. 
+Most model-data radiocarbon comparisons focus on the LGM and deglaciation \citep{Menviel2017, 
+Li2024CP}, with fewer studies examining interglacial periods including the LIG and 
+mid-Holocene. Given evidence for distinct AABW behavior during warm versus cold periods 
+\citep{Hayes2014, Ferrari2014}, systematic validation across this full range is essential 
+for assessing whether models capture first-order circulation physics.
+
+Fourth, \textbf{the implications of model limitations in representing AABW formation processes 
+remain poorly quantified}. While it is recognized that most models form AABW through 
+open-ocean deep convection rather than shelf overflows \citep{Heuze2021, deLavergne2014}, 
+the consequences for paleoclimate applications are unclear. Does incorrect formation 
+mechanism compromise the models' ability to simulate AABW's response to forcing? Under 
+what circumstances might models still provide useful insights despite this limitation? 
+Some evidence suggests relative changes may be more robust than absolute values 
+\citep{Menviel2021CP}, but systematic evaluation is lacking.
+
+Finally, \textbf{integrated analysis combining mechanistic process studies, tracer-based 
+validation, and systematic comparison across multiple climate states is rare}. Most studies 
+focus on single aspects: circulation changes OR carbon cycle implications OR specific 
+formation mechanisms. Comprehensive studies that link surface forcing $\rightarrow$ water 
+mass transformation $\rightarrow$ AABW properties $\rightarrow$ ventilation changes 
+$\rightarrow$ biogeochemical impacts across multiple climate states would provide crucial 
+mechanistic insights.
+
+This study addresses these gaps through systematic water mass transformation analysis and 
+ventilation age diagnostics across five carefully selected paleoclimate periods spanning 
+glacial and interglacial conditions. By decomposing surface buoyancy fluxes into individual 
+thermal and haline components, we quantify how the dominant driver of AABW precursor water 
+formation shifts between climate states. Ideal age tracer simulations enable comparison 
+with radiocarbon-based proxy reconstructions, validating the model's representation of 
+circulation changes. While acknowledging that our model, like most climate models, produces 
+AABW through open-ocean convection rather than fully realistic shelf processes, we demonstrate 
+that comparative analysis across climate states reveals robust mechanistic patterns. These 
+results illuminate fundamental controls on deep ocean ventilation and carbon storage across 
+glacial-interglacial cycles, providing process-level insights essential for understanding 
+past climate variations and projecting future deep ocean changes.
+
+\subsection{Model representation challenges}
+
+Climate models face systematic challenges in representing AABW formation. Comprehensive 
+assessment of CMIP6 models reveals that 28 out of 35 models form AABW predominantly through 
+open-ocean deep convection rather than realistic shelf overflow processes \citep{Heuze2021}. 
+This limitation stems primarily from insufficient horizontal resolution to resolve shelf 
+processes, which require approximately 2--4~km resolution \citep{Schmidt2025}. However, 
+recent model developments show promising improvements \citep{Mohrmann2021}, and models 
+with overflow parameterizations can achieve accurate AABW properties even at coarse resolution 
+\citep{Schmidt2025}. Despite these limitations, paleoclimate model studies remain valuable 
+when constraints are properly acknowledged, as relative changes in response to forcing may 
+be robust even when absolute values contain biases \citep{Menviel2021CP, Zhu2025}.
+
+% Continue with more subsections...
+
+% ============================================================================
+% Methods (example section)
+% ============================================================================
+\section{Methods}
+
+\subsection{Model description and experimental design}
+
+
+The model used in this study, AWIESM2, is a state-of-the-art Earth system model developed at the Alfred Wegener Institute (AWI) \citep{sidorenko2019evaluation}. It consists of an atmospheric component, ECHAM6 \citep{stevens2013atmospheric},  which includes a land-surface component JSBACH representing dynamic vegetation with two types of bare surface and multiple plant functional types \citep{brovkin2009global,reick2013representation,reick2021jsbach}, as well as an ice-ocean model FESOM2 employing a multi-resolution dynamical core based on finite volume formulation \citep{danilov2017finite}. The atmosphere grid applied in the present study is T63L47, which has a global mean spatial resolution of 1.875° with 47 vertical levels.  A spatially-variable resolution is used for the ice-ocean component (Fig. S1), from about 100 km in the open ocean to 25 km over polar areas and 35 km for the equatorial belt and along coastlines. Vertically, there are 46 uneven layers in the ocean. 
+
+% Continue with your methods...
+We perform 5 equilibrium simulations, representing 3 interglacial time periods, i.e., pre-industrial (PI), mid-Holocene (MH), and last interglacial (LIG), as well as 2 glacial periods, i.e., Last Glacial Maximum (LGM) and Marine Isotope Stage 3 (MIS3).  The initial conditions for the atmosphere in our PI simulation are derived from the Atmospheric Model Intercomparison Project (AMIP) \citep{roeckner2004atmospheric}. The ocean model is initialized with the  World Ocean Atlas (WOA)  climatological temperature and salinity data for the years 1950-2000 \citep{levitus2010world}. We run the PI simulation for 1,500 model years with dynamic vegetation. The MH and LIG simulations are initialized from the PI run. The boundary conditions are configured following the criteria of PMIP4 \citep{otto2017pmip4}. Orbital parameters are calculated following \citet{berger1977long}, and the greenhouse gas concentrations are taken from multi-archive reconstructions from ice core records and recent measurements of firn air and atmospheric samples \citep{fluckiger2002high,monnin2004evidence,schilt2010glacial,buiron2011taldice,schneider2013reconstruction,kohler2017156}.
+The CO$_2$ concentration used in our study is 284.32 ppm for PI, 264.4 ppm for MH, 275 ppm for LIG, 210.5 ppm for MIS3, and 190 ppm for LGM. For LGM and MIS3, we fix the boundary conditions at 21 ka and 38 ka respectively. The topography and ice-sheet properties are derived from the GLAC1D reconstruction  \citep{tarasov2003greenland,tarasov2012data,briggs2014data}. Both LGM and MIS3 experiments are initialized from a previous LGM model study \citep{werner2016glacial}. All of the 4 paleo simulations are integrated for  1,000 model years, with the simulated climate  being in a quasi-equilibrium state for the final 100 model years. 
+
+% ============================================================================
+% Results (example structure)
+% ============================================================================
+\section{Results}
+
+\subsection{Large-scale features of the Southern Ocean}
+
+
+\subsection{Water mass transformation analysis}
+
+% Your results...
+
+\subsection{Ventilation age simulations}
+
+% Your results...
+
+% ============================================================================
+% Discussion
+% ============================================================================
+\section{Discussion}
+
+% Your discussion comparing with literature using citations from ref.bib
+
+% ============================================================================
+% Conclusions
+% ============================================================================
+\section{Conclusions}
+
+% Your conclusions...
+
+% ============================================================================
+% Acknowledgments
+% ============================================================================
+\section*{Acknowledgments}
+This research was supported by... We acknowledge helpful discussions with...
+
+% ============================================================================
+% Bibliography
+% ============================================================================
+% This command includes your ref.bib file
+% Make sure ref.bib is in the same directory as this .tex file
+\bibliography{ref}
+
+% ============================================================================
+% HOW TO COMPILE:
+% ============================================================================
+% Run the following commands in order:
+% 1. pdflatex manuscript.tex
+% 2. bibtex manuscript
+% 3. pdflatex manuscript.tex
+% 4. pdflatex manuscript.tex
+%
+% Or use your LaTeX editor's "Build" button which usually does this automatically
+% ============================================================================
+
+\end{document}
