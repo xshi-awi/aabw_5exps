@@ -5,7 +5,6 @@
 - 所有数据乘以-1
 - 黑色粗实线：总WMT（热+淡水）
 - 红色实线：总热通量
-- 暖色调虚线：热通量分量 (lw, sw, lh, sh)
 - 蓝绿色虚线：海冰淡水贡献
 - 蓝色虚线：其他淡水贡献（蒸发+降水+径流+雪）
 """
@@ -103,12 +102,6 @@ def plot_wmt_comparison(season_name, month_selector=None):
             # 热通量总量
             total_heat = -ds_sel['total_heat_surface_exchange_flux_nonadvective_heat'].mean(dim='time') / 1e9
 
-            # 热通量分量
-            lw_heat = -ds_sel['lw_only_surface_exchange_flux_nonadvective_heat'].mean(dim='time') / 1e9
-            sw_heat = -ds_sel['sw_only_surface_exchange_flux_nonadvective_heat'].mean(dim='time') / 1e9
-            latent_heat = -ds_sel['latent_only_surface_exchange_flux_nonadvective_heat'].mean(dim='time') / 1e9
-            sensible_heat = -ds_sel['sensible_only_surface_exchange_flux_nonadvective_heat'].mean(dim='time') / 1e9
-
             # 盐通量（淡水贡献）
             evap_salt = -ds_sel['surface_ocean_flux_advective_negative_rhs_evaporation_salt'].mean(dim='time') / 1e9
             snow_salt = -ds_sel['surface_ocean_flux_advective_negative_rhs_snow_salt'].mean(dim='time') / 1e9
@@ -138,34 +131,13 @@ def plot_wmt_comparison(season_name, month_selector=None):
                    label='Heat',
                    zorder=8)
 
-            # 3. 热通量分量（暖色调虚线）
-            ax.plot(sigma2, lw_heat.values,
-                   color='#ff7f50', linestyle='--', linewidth=1.3,
-                   label='LW',
-                   alpha=0.85, zorder=7)
-
-            ax.plot(sigma2, sw_heat.values,
-                   color='#ffa500', linestyle='--', linewidth=1.3,
-                   label='SW',
-                   alpha=0.85, zorder=7)
-
-            ax.plot(sigma2, latent_heat.values,
-                   color='#ff6347', linestyle='--', linewidth=1.3,
-                   label='LH',
-                   alpha=0.85, zorder=7)
-
-            ax.plot(sigma2, sensible_heat.values,
-                   color='#ff4500', linestyle='--', linewidth=1.3,
-                   label='SH',
-                   alpha=0.85, zorder=7)
-
-            # 4. 海冰淡水贡献（蓝绿色虚线）
+            # 3. 海冰淡水贡献（蓝绿色虚线）
             ax.plot(sigma2, seaice_fw.values,
                    color='#16a085', linestyle='--', linewidth=1.5,
                    label='Sea Ice FW',
                    alpha=0.9, zorder=6)
 
-            # 5. 其他淡水贡献（蓝色虚线）
+            # 4. 其他淡水贡献（蓝色虚线）
             ax.plot(sigma2, other_fw.values,
                    color='#2980b9', linestyle='--', linewidth=1.5,
                    label='Other FW',
@@ -196,11 +168,14 @@ def plot_wmt_comparison(season_name, month_selector=None):
             ax.grid(True, alpha=0.3, linestyle='--')
             ax.axhline(y=0, color='k', linestyle='-', linewidth=0.8, alpha=0.5)
 
-            # 设置x轴范围
-            ax.set_xlim(34, 39)
+            # 设置x轴范围（根据实验不同设置）
+            if exp_key in ['pi', 'mh', 'lig']:
+                ax.set_xlim(35.5, 37.2)
+            else:  # lgm, mis
+                ax.set_xlim(36.0, 38.5)
 
-            # 图例（紧凑布局，两列）
-            ax.legend(loc='best', fontsize=6, framealpha=0.9, ncol=2)
+            # 图例（紧凑布局，单列）
+            ax.legend(loc='best', fontsize=7, framealpha=0.9, ncol=1)
 
             ds.close()
 
@@ -210,10 +185,10 @@ def plot_wmt_comparison(season_name, month_selector=None):
     # ========================================================================
     if month_selector is None:
         title_season = 'Annual Mean'
-        filename = 'plot_wmt_4regions_5exps_annual.pdf'
+        filename = 'figures/plot_wmt_4regions_5exps_annual.pdf'
     else:
         title_season = f'Winter Mean (Jun-Sep, AABW Formation Period)'
-        filename = 'plot_wmt_4regions_5exps_winter.pdf'
+        filename = 'figures/plot_wmt_4regions_5exps_winter.pdf'
 
     plt.suptitle(f'Water Mass Transformation: 4 Regions × 5 Experiments\n'
                  f'ECHAM Heat Flux + FESOM Freshwater ({title_season}, Sign Reversed)',
@@ -254,9 +229,12 @@ print()
 print('图例说明：')
 print('  黑色粗实线：Total WMT (Heat + Freshwater)')
 print('  红色实线：  Total Heat')
-print('  暖色虚线：  Heat Components (LW, SW, LH, SH)')
 print('  蓝绿色虚线：Sea Ice Freshwater')
 print('  蓝色虚线：  Other Freshwater (Evap+Prec+Runoff+Snow)')
+print()
+print('横坐标范围：')
+print('  PI/MH/LIG: σ₂ = 35.5-37.2 kg/m³')
+print('  LGM/MIS:   σ₂ = 36.0-38.5 kg/m³')
 print()
 print('注：冬季月份为6-9月（南半球冬季，AABW主要形成期）')
 print()

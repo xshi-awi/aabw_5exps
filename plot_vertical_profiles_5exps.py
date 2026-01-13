@@ -142,6 +142,6 @@ for idx, (exp, label) in enumerate(zip(exps, exp_labels)):
         ax.legend(lines, labels_leg, loc='lower left', fontsize=9, framealpha=0.9)
 
 # Save figure
-output_file = 'plot_vertical_profiles_5exps.pdf'
+output_file = 'figures/plot_vertical_profiles_5exps.pdf'
 plt.savefig(output_file, dpi=300, bbox_inches='tight')
 print(f"\nFigure saved: {output_file}")

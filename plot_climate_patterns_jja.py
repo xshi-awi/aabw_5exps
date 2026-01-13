@@ -3,13 +3,13 @@
 Plot publication-quality climate pattern figures for AABW paper
 Figure 1: SST/SSS/Density anomalies (JJA) - 3 rows x 4 columns
 Figure 2: MLD/Sea Ice absolute values (JJA) - 2 rows x 5 columns
-Figure 3: U10 wind anomalies (JJA) - 1 row x 4 columns
+Figure 3: U10 wind and wind stress anomalies (JJA) - 2 rows x 4 columns
 
 Uses interpolated regular grid data (*_reg.nc files)
 
 Author: Claude Code
 Date: 2026-01-06
-Updated: 2026-01-08 - Improved colorbars, panel labels, smoothing
+Updated: 2026-01-09 - Fixed contour closure, added wind stress, changed extent to 45S
 """
 
 import numpy as np
@@ -41,6 +41,13 @@ def load_variable_reg(exp, var_name, jja_only=True):
             data = ds['var165']
         else:
             data = ds['var166']
+    elif var_name in ['ustr', 'vstr']:
+        # Wind stress from echam_clim.nc
+        ds = xr.open_dataset(f'{base_dir}/{exp}/echam_clim.nc')
+        if var_name == 'ustr':
+            data = ds['var180']
+        else:
+            data = ds['var181']
     else:
         ds = xr.open_dataset(f'{base_dir}/{exp}/{var_name}_reg.nc')
         data = ds[var_name]
@@ -282,7 +289,7 @@ def plot_figure1():
         cbar_cold.set_label(f'Δ{var_info["name"]} ({var_info["unit"]})', fontsize=9)
         cbar_cold.ax.tick_params(labelsize=8)
 
-    output_file = f'{base_dir}/fig01_climate_sst_sss_density_jja.pdf'
+    output_file = f'{base_dir}/figures/fig01_climate_sst_sss_density_jja.pdf'
     plt.savefig(output_file, dpi=300, bbox_inches='tight')
     print(f"  Saved: {output_file}")
     plt.close()
@@ -372,49 +379,61 @@ def plot_figure2():
         cbar.set_label(f'{var_info["name"]} ({var_info["unit"]})', fontsize=10)
         cbar.ax.tick_params(labelsize=8)
 
-    output_file = f'{base_dir}/fig02_climate_mld_seaice_jja.pdf'
+    output_file = f'{base_dir}/figures/fig02_climate_mld_seaice_jja.pdf'
     plt.savefig(output_file, dpi=300, bbox_inches='tight')
     print(f"  Saved: {output_file}")
     plt.close()
 
 def plot_figure3():
     """
-    Figure 3: U10 wind anomalies (JJA)
-    Layout: 1 row x 4 columns (paleo experiments)
-    Anomalies in shading, PI wind vectors as arrows
+    Figure 3: U10 wind and wind stress anomalies (JJA)
+    Layout: 2 rows x 4 columns (paleo experiments)
+    Row 1: U10 wind speed anomalies with PI wind vectors
+    Row 2: Wind stress anomalies with PI wind stress vectors
     """
-    print("Creating Figure 3: U10 wind anomalies...")
+    print("Creating Figure 3: Wind and wind stress anomalies...")
 
-    fig = plt.figure(figsize=(16, 5.5))
+    fig = plt.figure(figsize=(16, 11))
 
     from matplotlib.gridspec import GridSpec
-    gs = GridSpec(1, 4, figure=fig, hspace=0.1, wspace=0.08,
-                  left=0.05, right=0.95, top=0.88, bottom=0.18)
+    gs = GridSpec(2, 4, figure=fig, hspace=0.30, wspace=0.08,
+                  left=0.05, right=0.95, top=0.92, bottom=0.12)
 
-    # Load PI reference
+    # Load PI reference data
     print("  Loading PI wind data...")
     u10_pi, lon, lat = load_variable_reg('pi', 'u10')
     v10_pi, _, _ = load_variable_reg('pi', 'v10')
     windspeed_pi = np.sqrt(u10_pi**2 + v10_pi**2)
 
+    print("  Loading PI wind stress data...")
+    ustr_pi, _, _ = load_variable_reg('pi', 'ustr')
+    vstr_pi, _, _ = load_variable_reg('pi', 'vstr')
+    windstress_pi = np.sqrt(ustr_pi**2 + vstr_pi**2)
+
     lon_2d, lat_2d = np.meshgrid(lon, lat)
 
     # Subsample for wind vectors - denser sampling
-    subsample = 6  # Changed from 10 to 6 for denser vectors
+    subsample = 6
     lon_sub = lon[::subsample]
     lat_sub = lat[::subsample]
     lon_2d_sub, lat_2d_sub = np.meshgrid(lon_sub, lat_sub)
-    u_sub = u10_pi[::subsample, ::subsample]
-    v_sub = v10_pi[::subsample, ::subsample]
+    u10_sub = u10_pi[::subsample, ::subsample]
+    v10_sub = v10_pi[::subsample, ::subsample]
+    ustr_sub = ustr_pi[::subsample, ::subsample]
+    vstr_sub = vstr_pi[::subsample, ::subsample]
 
-    axes_row = []
-    im_row = None
+    panel_label = 0
+
+    # Row 1: U10 wind speed anomalies
+    print("  Plotting U10 wind speed anomalies...")
+    axes_row1 = []
+    im_row1 = None
 
     for col, exp in enumerate(paleo_exps):
-        print(f"  Plotting {exp_labels[exp]}...")
+        print(f"    {exp_labels[exp]}...")
 
         ax = fig.add_subplot(gs[0, col], projection=ccrs.SouthPolarStereo())
-        axes_row.append(ax)
+        axes_row1.append(ax)
 
         # Load paleo wind data
         u10_exp, _, _ = load_variable_reg(exp, 'u10')
@@ -436,45 +455,123 @@ def plot_figure3():
                         cmap='RdBu_r',
                         transform=ccrs.PlateCarree(),
                         extend='both')
-        im_row = im
+        im_row1 = im
 
         # Overlay PI wind vectors - larger and denser
-        q = ax.quiver(lon_2d_sub, lat_2d_sub, u_sub, v_sub,
+        q1 = ax.quiver(lon_2d_sub, lat_2d_sub, u10_sub, v10_sub,
                      transform=ccrs.PlateCarree(),
                      scale=100, width=0.004, alpha=0.7, color='black',
                      headwidth=4, headlength=5)
 
-        # Map settings
-        ax.set_extent([-180, 180, -90, -50], crs=ccrs.PlateCarree())
+        # Map settings - changed to 45S
+        ax.set_extent([-180, 180, -90, -45], crs=ccrs.PlateCarree())
         ax.add_feature(cfeature.LAND, facecolor='lightgray', zorder=2)
         ax.coastlines(linewidth=0.5, zorder=3)
         ax.gridlines(draw_labels=False, linewidth=0.5, alpha=0.5, linestyle='--')
 
         # Panel labels
-        ax.text(0.02, 0.98, f'({chr(97+col)})',
+        ax.text(0.02, 0.98, f'({chr(97+panel_label)})',
                transform=ax.transAxes, fontsize=11, fontweight='bold',
                va='top', ha='left', bbox=dict(boxstyle='round',
                facecolor='white', alpha=0.8, edgecolor='none'))
+        panel_label += 1
 
         # Title
+        if col == 0:
+            ax.text(-0.15, 0.5, 'U10 Wind',
+                   transform=ax.transAxes, fontsize=12, fontweight='bold',
+                   rotation=90, va='center', ha='right')
         ax.set_title(f'{exp_labels[exp]}', fontsize=12, fontweight='bold')
 
-    # Add quiver key
-    ax_last = axes_row[-1]
-    ax_last.quiverkey(q, 0.95, 0.02, 10, '10 m/s', labelpos='W',
+    # Add quiver key for row 1
+    ax_last = axes_row1[-1]
+    ax_last.quiverkey(q1, 0.95, 0.02, 10, '10 m/s', labelpos='W',
                       coordinates='axes', fontproperties={'size': 9})
 
-    # Colorbar at bottom center of row
-    pos_first = axes_row[0].get_position()
-    pos_last = axes_row[-1].get_position()
+    # Colorbar for row 1
+    pos_first = axes_row1[0].get_position()
+    pos_last = axes_row1[-1].get_position()
     cbar_width = (pos_last.x1 - pos_first.x0) * 0.6
     cbar_x0 = (pos_first.x0 + pos_last.x1 - cbar_width) / 2
-    cbar_ax = fig.add_axes([cbar_x0, 0.08, cbar_width, 0.025])
-    cbar = fig.colorbar(im_row, cax=cbar_ax, orientation='horizontal')
-    cbar.set_label('ΔWind Speed (m/s)', fontsize=10)
-    cbar.ax.tick_params(labelsize=8)
+    cbar_ax1 = fig.add_axes([cbar_x0, pos_first.y0 - 0.04, cbar_width, 0.015])
+    cbar1 = fig.colorbar(im_row1, cax=cbar_ax1, orientation='horizontal')
+    cbar1.set_label('ΔWind Speed (m/s)', fontsize=10)
+    cbar1.ax.tick_params(labelsize=8)
 
-    output_file = f'{base_dir}/fig03_climate_winds_jja.pdf'
+    # Row 2: Wind stress anomalies
+    print("  Plotting wind stress anomalies...")
+    axes_row2 = []
+    im_row2 = None
+
+    for col, exp in enumerate(paleo_exps):
+        print(f"    {exp_labels[exp]}...")
+
+        ax = fig.add_subplot(gs[1, col], projection=ccrs.SouthPolarStereo())
+        axes_row2.append(ax)
+
+        # Load paleo wind stress data
+        ustr_exp, _, _ = load_variable_reg(exp, 'ustr')
+        vstr_exp, _, _ = load_variable_reg(exp, 'vstr')
+        windstress_exp = np.sqrt(ustr_exp**2 + vstr_exp**2)
+
+        # Calculate anomaly and smooth
+        windstress_anom = windstress_exp - windstress_pi
+        windstress_anom_smooth = smooth_data(windstress_anom, sigma=1.5)
+
+        # Add cyclic point to avoid longitude discontinuity
+        windstress_anom_cyclic, lon_cyclic = add_cyclic_point(windstress_anom_smooth, lon)
+        lon_2d_cyclic, lat_2d_cyclic = np.meshgrid(lon_cyclic, lat)
+
+        # Plot wind stress anomaly with contourf
+        levels = np.linspace(-0.08, 0.08, 21)
+        im = ax.contourf(lon_2d_cyclic, lat_2d_cyclic, windstress_anom_cyclic,
+                        levels=levels,
+                        cmap='RdBu_r',
+                        transform=ccrs.PlateCarree(),
+                        extend='both')
+        im_row2 = im
+
+        # Overlay PI wind stress vectors
+        q2 = ax.quiver(lon_2d_sub, lat_2d_sub, ustr_sub, vstr_sub,
+                     transform=ccrs.PlateCarree(),
+                     scale=2, width=0.004, alpha=0.7, color='black',
+                     headwidth=4, headlength=5)
+
+        # Map settings - changed to 45S
+        ax.set_extent([-180, 180, -90, -45], crs=ccrs.PlateCarree())
+        ax.add_feature(cfeature.LAND, facecolor='lightgray', zorder=2)
+        ax.coastlines(linewidth=0.5, zorder=3)
+        ax.gridlines(draw_labels=False, linewidth=0.5, alpha=0.5, linestyle='--')
+
+        # Panel labels
+        ax.text(0.02, 0.98, f'({chr(97+panel_label)})',
+               transform=ax.transAxes, fontsize=11, fontweight='bold',
+               va='top', ha='left', bbox=dict(boxstyle='round',
+               facecolor='white', alpha=0.8, edgecolor='none'))
+        panel_label += 1
+
+        # Row label
+        if col == 0:
+            ax.text(-0.15, 0.5, 'Wind Stress',
+                   transform=ax.transAxes, fontsize=12, fontweight='bold',
+                   rotation=90, va='center', ha='right')
+
+    # Add quiver key for row 2
+    ax_last = axes_row2[-1]
+    ax_last.quiverkey(q2, 0.95, 0.02, 0.2, '0.2 N/m²', labelpos='W',
+                      coordinates='axes', fontproperties={'size': 9})
+
+    # Colorbar for row 2
+    pos_first = axes_row2[0].get_position()
+    pos_last = axes_row2[-1].get_position()
+    cbar_width = (pos_last.x1 - pos_first.x0) * 0.6
+    cbar_x0 = (pos_first.x0 + pos_last.x1 - cbar_width) / 2
+    cbar_ax2 = fig.add_axes([cbar_x0, pos_first.y0 - 0.04, cbar_width, 0.015])
+    cbar2 = fig.colorbar(im_row2, cax=cbar_ax2, orientation='horizontal')
+    cbar2.set_label('ΔWind Stress (N/m²)', fontsize=10)
+    cbar2.ax.tick_params(labelsize=8)
+
+    output_file = f'{base_dir}/figures/fig03_climate_winds_jja.pdf'
     plt.savefig(output_file, dpi=300, bbox_inches='tight')
     print(f"  Saved: {output_file}")
     plt.close()

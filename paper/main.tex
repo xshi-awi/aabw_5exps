@@ -40,22 +40,24 @@ Insights from Water Mass Transformation Analysis and Ventilation Age Simulations
 % Abstract
 % ============================================================================
 \begin{abstract}
-Antarctic Bottom Water (AABW) is a critical component of the global meridional overturning circulation, 
-driving abyssal ventilation, heat storage, and carbon sequestration on centennial to millennial timescales. 
-Despite its importance, the mechanisms governing AABW formation across different climate states remain 
-poorly understood. Here we investigate AABW production during five paleoclimate periods---preindustrial (PI), 
-mid-Holocene (MH), Last Interglacial (LIG), Last Glacial Maximum (LGM), and Marine Isotope Stage 3 (MIS3)---using 
-the AWI-ESM coupled climate model. Through water mass transformation (WMT) analysis, we decompose surface 
-buoyancy fluxes into thermal (longwave, shortwave, sensible, and latent heat) and haline (sea ice and 
-precipitation-evaporation-runoff) components to quantify their relative contributions to AABW precursor 
-water formation. Our results reveal a fundamental shift in formation mechanisms between climate states: 
-during interglacial periods (PI/MH/LIG), heat fluxes dominate AABW precursor water production, whereas 
-glacial conditions (LGM/MIS3) are characterized by suppressed heat fluxes and enhanced sea ice-driven 
-transformation. Ideal age tracer simulations demonstrate that AABW ventilation ages during LGM/MIS3 
-exceed preindustrial values by approximately 1,500 years, consistent with paleoceanographic proxy 
-reconstructions and indicating substantially reduced formation rates. In contrast, the LIG Ross Sea 
-exhibits anomalously young ventilation ages attributed to ice-free conditions and intensified thermal 
-forcing. These findings provide mechanistic insights into how AABW formation responds to climate forcing 
+Antarctic Bottom Water (AABW) is a critical component of the global meridional overturning circulation,
+driving abyssal ventilation, heat storage, and carbon sequestration on centennial to millennial timescales.
+Despite its importance, the mechanisms governing AABW formation across different climate states remain
+poorly understood. Here we investigate AABW production during five paleoclimate periods---preindustrial (PI),
+mid-Holocene (MH), Last Interglacial (LIG), Last Glacial Maximum (LGM), and Marine Isotope Stage 3 (MIS3)---using
+the AWI-ESM coupled climate model. Through water mass transformation (WMT) analysis and surface buoyancy flux
+decomposition using the xbudget framework, we quantify the relative contributions of thermal (longwave, shortwave,
+sensible, and latent heat) and haline (sea ice and precipitation-evaporation-runoff) forcing to AABW precursor
+water formation. Our results reveal a fundamental shift in formation mechanisms between climate states:
+during interglacial periods (PI/MH/LIG), heat fluxes dominate AABW precursor water production (85--90\%), whereas
+glacial conditions (LGM/MIS3) exhibit enhanced sea ice-driven transformation (25--30\% contribution). Surface
+flux decomposition reveals that glacial conditions paradoxically \textit{reduce} ocean heat loss despite colder
+atmospheric temperatures, as expanded sea ice insulates the bulk ocean while concentrating brine rejection in
+coastal polynyas---a dual role that fundamentally restructures surface forcing of AABW formation. Ideal age
+tracer simulations demonstrate that AABW ventilation ages during LGM/MIS3 exceed preindustrial values by
+approximately 1,500 years, consistent with paleoceanographic proxy reconstructions. In contrast, the LIG Ross Sea
+exhibits anomalously young ventilation ages attributed to reduced sea ice and enhanced thermal forcing. These
+findings provide mechanistic insights into how sea ice governs AABW formation response to climate forcing
 and contribute to understanding of deep ocean carbon storage variations across glacial-interglacial cycles.
 
 \noindent\textbf{Keywords:} Antarctic Bottom Water, paleoclimate, water mass transformation, ventilation age, 
@@ -433,7 +435,40 @@ The model used in this study, AWIESM2, is a state-of-the-art Earth system model 
 
 % Continue with your methods...
 We perform 5 equilibrium simulations, representing 3 interglacial time periods, i.e., pre-industrial (PI), mid-Holocene (MH), and last interglacial (LIG), as well as 2 glacial periods, i.e., Last Glacial Maximum (LGM) and Marine Isotope Stage 3 (MIS3).  The initial conditions for the atmosphere in our PI simulation are derived from the Atmospheric Model Intercomparison Project (AMIP) \citep{roeckner2004atmospheric}. The ocean model is initialized with the  World Ocean Atlas (WOA)  climatological temperature and salinity data for the years 1950-2000 \citep{levitus2010world}. We run the PI simulation for 1,500 model years with dynamic vegetation. The MH and LIG simulations are initialized from the PI run. The boundary conditions are configured following the criteria of PMIP4 \citep{otto2017pmip4}. Orbital parameters are calculated following \citet{berger1977long}, and the greenhouse gas concentrations are taken from multi-archive reconstructions from ice core records and recent measurements of firn air and atmospheric samples \citep{fluckiger2002high,monnin2004evidence,schilt2010glacial,buiron2011taldice,schneider2013reconstruction,kohler2017156}.
-The CO$_2$ concentration used in our study is 284.32 ppm for PI, 264.4 ppm for MH, 275 ppm for LIG, 210.5 ppm for MIS3, and 190 ppm for LGM. For LGM and MIS3, we fix the boundary conditions at 21 ka and 38 ka respectively. The topography and ice-sheet properties are derived from the GLAC1D reconstruction  \citep{tarasov2003greenland,tarasov2012data,briggs2014data}. Both LGM and MIS3 experiments are initialized from a previous LGM model study \citep{werner2016glacial}. All of the 4 paleo simulations are integrated for  1,000 model years, with the simulated climate  being in a quasi-equilibrium state for the final 100 model years. 
+The CO$_2$ concentration used in our study is 284.32 ppm for PI, 264.4 ppm for MH, 275 ppm for LIG, 210.5 ppm for MIS3, and 190 ppm for LGM. For LGM and MIS3, we fix the boundary conditions at 21 ka and 38 ka respectively. The topography and ice-sheet properties are derived from the GLAC1D reconstruction  \citep{tarasov2003greenland,tarasov2012data,briggs2014data}. Both LGM and MIS3 experiments are initialized from a previous LGM model study \citep{werner2016glacial}. All of the 4 paleo simulations are integrated for  1,000 model years, with the simulated climate  being in a quasi-equilibrium state for the final 100 model years.
+
+\subsection{Surface buoyancy flux decomposition using xbudget}
+
+To quantify the individual contributions of different physical processes to surface buoyancy forcing, we employ the xbudget Python package (https://github.com/hdrake/xbudget), which provides model-agnostic tools for analyzing finite-volume ocean model budgets \citep{xbudget2024}. The xbudget framework, built on xarray and xgcm, enables systematic decomposition of tracer budgets into individual forcing terms while maintaining numerical consistency with the underlying model's finite-volume discretization.
+
+We compute surface density tendency budgets for three tracers (mass, heat, and salt) following the MOM6 surface budget configuration. For each experiment, monthly climatological output from FESOM2 is first regridded from the unstructured mesh to a regular 0.5°×0.5° latitude-longitude grid using pyfesom2's nearest-neighbor interpolation with 80-km search radius. ECHAM6 surface fluxes (shortwave radiation var95, longwave radiation var92, latent heat var111, sensible heat var120) are interpolated to the ocean grid using scipy's griddata method. Freshwater fluxes include precipitation (prlq), snowfall (prsn), evaporation (evs), river runoff (friver), and sea ice melt/formation (fsitherm), with sea ice freshwater flux assumed to have salinity S$_{ice}$ = 5~psu.
+
+The xbudget analysis decomposes surface density tendency into:
+\begin{equation}
+\frac{\partial \rho}{\partial t}\bigg|_{\text{surface}} = \frac{\partial \rho}{\partial t}\bigg|_{\text{mass}} + \frac{\partial \rho}{\partial t}\bigg|_{\text{heat}} + \frac{\partial \rho}{\partial t}\bigg|_{\text{salt}}
+\end{equation}
+
+For heat flux decomposition, we run xbudget five times with different heat flux configurations (total, shortwave only, longwave only, latent heat only, sensible heat only), setting non-selected components to zero in each run. This isolates the individual contribution of each heat flux component to surface density tendency. The salt budget similarly decomposes freshwater forcing into individual precipitation, evaporation, sea ice, runoff, and snowfall contributions. All budget terms are output in units consistent with FESOM2's tracer equations: heat (W~m$^{-2}$), mass (kg~m$^{-2}$~s$^{-1}$), and salt (psu~s$^{-1}$).
+
+We analyze both austral winter (JJA: June-July-August) and summer (DJF: December-January-February) seasonal means to assess the year-round persistence of identified mechanisms. Sea ice masks are applied to brine rejection terms, setting them to zero where monthly sea ice concentration falls below threshold (a$_{ice}$ = 0). Spatial patterns are smoothed using a Gaussian filter (σ = 1.5 grid points) to reduce small-scale noise while preserving large-scale structure.
+
+\subsection{Water mass transformation analysis using xwmt}
+
+Water mass transformation (WMT) analysis provides a quantitative framework for diagnosing formation rates of water masses in density coordinates, following the approach of \citet{Walin1982} and \citet{Groeskamp2019}. We employ the xwmt Python package (https://github.com/NOAA-GFDL/xwmt), an xarray-based framework developed at NOAA-GFDL specifically designed for calculating water mass transformations in a computationally efficient manner \citep{xwmt2024}.
+
+The xwmt package implements the Walin water mass transformation framework, which relates surface buoyancy fluxes to the formation rate of water masses in density space. For a given density class σ, the transformation rate $G$(σ) represents the volume flux (in Sverdrups, 1~Sv = 10$^6$~m$^3$~s$^{-1}$) across that density surface due to surface forcing. Positive $G$(σ) indicates water becoming denser through surface buoyancy loss, while negative $G$(σ) indicates lightening through buoyancy gain.
+
+The total transformation is decomposed into contributions from individual forcing components:
+\begin{equation}
+G_{\text{total}}(\sigma) = G_{\text{heat}}(\sigma) + G_{\text{salt}}(\sigma)
+\end{equation}
+where $G_{\text{heat}}$ represents transformation due to surface heat fluxes and $G_{\text{salt}}$ captures haline forcing from freshwater fluxes. The salt component is further decomposed into sea ice contributions (brine rejection and melt) and other freshwater sources (precipitation, evaporation, runoff, snowfall).
+
+For each paleoclimate experiment, we compute WMT in four key Southern Ocean regions: (1) Southern Ocean (south of 60°S), (2) Ross Sea (180°W--60°W), (3) Weddell Sea (60°W--79°E), and (4) Ad\'elie Land (79°E--180°E). These regions encompass the primary AABW formation sites and allow regional comparison of formation mechanisms. Regional transformations are calculated by applying spatial masks to the areacello-weighted surface forcing fields before integration.
+
+The computational workflow integrates xbudget and xwmt seamlessly. After xbudget decomposes surface forcing into individual heat and salt components (Section 2.2), these decomposed budgets are passed directly to xwmt's WaterMassTransformations class. The xwmt framework constructs an xgcm Grid object that handles metric terms (cell areas) and boundary conditions for proper spatial integration. Transformations are computed in σ$_2$ (potential density referenced to 2000~dbar) space using 0.1~kg/m$^3$ bins spanning σ$_2$ = 0--40~kg/m$^3$, with dense water formation (σ$_2$ $>$ 36.5~kg/m$^3$) as the primary focus.
+
+We analyze both annual mean and austral winter (JJA) transformation rates, as AABW formation exhibits strong seasonal modulation. Winter transformations typically exceed annual means by factors of 2--3 due to enhanced convection and sea ice formation during the cold season. The xwmt package's lazy evaluation strategy (leveraging Dask) enables efficient processing of high-resolution unstructured mesh data across multiple experiments and configurations without exceeding memory constraints.
 
 % ============================================================================
 % Results (example structure)
@@ -442,14 +477,69 @@ The CO$_2$ concentration used in our study is 284.32 ppm for PI, 264.4 ppm for M
 
 \subsection{Large-scale features of the Southern Ocean}
 
+The simulated JJA (austral winter) climate patterns reveal distinct characteristics across the five paleoclimate states (Fig.~1--3). SST anomalies relative to PI exhibit strong regional contrasts: LIG shows pronounced warming ($>$2°C) in the Bellingshausen-Amundsen Seas, while LGM and MIS3 display basin-wide cooling exceeding 5°C. SSS anomalies follow similar spatial patterns, with LIG freshening and glacial periods showing widespread salinification (up to 2~psu) driven by expanded sea ice. Density ($\sigma_2$) changes reflect combined thermal and haline effects, with glacial periods exhibiting substantially denser surface waters ($\Delta\rho >$~0.6~kg/m$^3$) particularly in the Atlantic and Indian sectors.
+
+Sea ice extent and MLD exhibit the most dramatic inter-period differences (Fig.~2). Glacial simulations show circumpolar sea ice coverage extending to $\sim$50°S, while LIG displays reduced ice extent compared to PI, particularly in the Ross and Weddell Seas. Winter MLD reaches 200--400~m in PI/MH/LIG polynyas but exceeds 500~m in glacial Atlantic sector, consistent with enhanced convection.
+
+Wind patterns reveal systematic shifts (Fig.~3). The westerly wind maximum strengthens and shifts poleward in LIG, generating positive wind speed anomalies south of 55°S. Conversely, LGM and MIS3 exhibit equatorward-shifted, weakened westerlies. Wind stress anomalies mirror these patterns, with LIG showing enhanced Southern Ocean wind stress ($\Delta\tau >$~0.04~N/m$^2$) in the 50--60°S band, while glacial periods display widespread stress reduction. These atmospheric circulation changes directly modulate Ekman upwelling and polynya ventilation efficiency.
+
+\subsection{Surface buoyancy flux decomposition}
+
+To understand the physical processes driving water mass transformation, we decompose surface buoyancy fluxes into their individual heat and freshwater components using the xbudget framework (Section 2.3). This analysis isolates how different atmospheric and oceanic processes contribute to surface density changes that ultimately drive AABW formation.
+
+\subsubsection{Heat flux patterns and the sea ice insulation paradox}
+
+During the preindustrial period (Fig.~4a,f,k), the Southern Ocean experiences strong circumpolar heat loss to the atmosphere, with total heat flux reaching $-$0.2 to $-$0.1~kJ~s$^{-1}$~m$^{-2}$ in austral winter (JJA). This cooling is dominated by turbulent heat fluxes (latent and sensible heat; Fig.~4k) rather than radiative components (shortwave and longwave; Fig.~4f), reflecting the importance of ocean-atmosphere turbulent exchange in driving surface densification. The strongest heat loss occurs in the Weddell and Ross Seas and along the coastal polynya regions where persistent offshore winds expose ocean surfaces to frigid atmospheric conditions.
+
+Interglacial climate anomalies (MH, LIG) show minimal heat flux changes in most regions, with MH exhibiting nearly neutral anomalies (Fig.~4b,g,l) and LIG displaying localized warming in the Ross Sea sector (reduced heat loss of $\sim$0.1~kJ~s$^{-1}$~m$^{-2}$; Fig.~4c). This Ross Sea anomaly reflects reduced sea ice coverage during LIG, allowing enhanced ocean-atmosphere heat exchange in a region that remains ice-covered during PI winter.
+
+Glacial periods (LGM, MIS3) reveal a counterintuitive phenomenon: despite substantially colder atmospheric temperatures, the ocean experiences \textit{reduced} heat loss compared to PI (Fig.~4d,e). Heat flux anomalies of +0.1 to +0.2~kJ~s$^{-1}$~m$^{-2}$ (blue colors indicating less cooling) appear throughout the Southern Ocean, with both radiative (Fig.~4i,j) and turbulent (Fig.~4n,o) components contributing to this effect. Critically, the turbulent flux reduction \textit{exceeds} the radiative reduction, indicating that the physical mechanism involves blocking ocean-atmosphere exchange rather than changes in radiative forcing alone.
+
+This \textbf{sea ice insulation paradox}---warmer ocean surfaces (less heat loss) despite colder air---arises from expanded glacial sea ice acting as a thermal insulating lid. The ice cover prevents turbulent heat exchange (evaporation and sensible heat loss) more effectively than it blocks radiation, fundamentally altering the surface energy balance. During summer (DJF; Fig.~5), this insulation effect weakens but persists in the glacial ice-covered sectors, demonstrating that sea ice's thermal role operates year-round albeit with seasonal modulation. The summer patterns (Fig.~5) show reduced anomaly magnitudes but similar spatial structures, confirming that the insulation mechanism is intrinsic to ice cover rather than a winter-only phenomenon.
+
+\subsubsection{Freshwater flux patterns and coastal brine intensification}
+
+Surface freshwater fluxes, which drive haline forcing of density, exhibit starkly different patterns (Fig.~6--7). The PI baseline (Fig.~6a,f,k) shows modest total freshwater fluxes, with coastal regions experiencing brine rejection during sea ice formation (red colors in Fig.~6f indicating surface salinification) and offshore zones receiving freshwater from ice melt (blue colors). Other freshwater sources (precipitation, evaporation, runoff, snowfall; Fig.~6k) contribute weak net effects in winter.
+
+Glacial periods transform this pattern dramatically. Total freshwater flux anomalies (Fig.~6d,e) reveal strong positive values (blue: net freshwater gain) along the Antarctic coast, but this bulk signal masks opposing contributions from different components. The sea ice component (Fig.~6i,j) shows \textit{intensified} coastal brine rejection (red: +0.0002~kg~s$^{-1}$~m$^{-2}$) coinciding with \textit{reduced} offshore ice melt (blue: $-$0.0002~kg~s$^{-1}$~m$^{-2}$). This spatial partitioning reflects expanded sea ice extent: persistent coastal polynyas maintain vigorous ice production and brine rejection, while the expanded offshore ice pack reduces summer melting.
+
+The sea ice freshwater component dominates other freshwater sources (Fig.~6n,o), which show complex but weaker patterns related to precipitation and evaporation changes. During summer (DJF; Fig.~7), the seasonal cycle reverses completely: PI exhibits net freshwater input from ice melt (Fig.~7f: negative salt tendency, blue colors indicating ocean freshening), transitioning from winter's brine rejection to summer's freshwater release. Glacial anomalies (Fig.~7i,j) reveal \textit{reduced} summer melt compared to PI---less freshwater release during the melt season. This asymmetry between enhanced winter brine production (Fig.~6i,j: positive anomaly) and suppressed summer freshwater release (Fig.~7i,j: negative anomaly meaning less melt) creates a net annual haline forcing that strengthens glacial AABW formation. The expanded ice pack acts as a freshwater reservoir, capturing more salt during winter freezing while releasing less freshwater during summer melting.
+
+\subsubsection{Mechanistic linkage to water mass transformation}
+
+These surface flux decompositions illuminate \textbf{sea ice's dual role} in governing AABW formation across climate states. First, expanded glacial sea ice \textit{insulates} the bulk ocean surface from atmospheric heat loss, reducing area-integrated thermal forcing. This explains why glacial WMT (Section 3.3) shifts to higher density classes---the regions that \textit{do} experience cooling (primarily coastal polynyas) undergo more intense densification precisely because they are the few locations where ocean-atmosphere exchange persists. Second, sea ice \textit{concentrates} brine rejection in these persistent coastal polynyas, enhancing haline forcing in the critical AABW formation regions.
+
+This flux partitioning explains the WMT mechanism shift documented in Section 3.3: interglacial thermal dominance (85--90\% heat flux contribution) transitions to glacial haline enhancement (25--30\% sea ice contribution). Critically, reduced area-integrated heat loss does \textit{not} imply reduced AABW formation; instead, formation becomes concentrated in fewer, more vigorous polynya regions where combined thermal and haline forcing drives transformation to exceptionally dense surface waters (σ$_2$ = 37.0--37.5~kg/m$^3$) capable of penetrating to abyssal depths. The resulting denser source waters (0.3--0.5~kg/m$^3$ denser than interglacial values) sink more readily and resist mixing with overlying layers, establishing the stratification that underlies glacial deep ocean isolation and ventilation age increases (Section 3.4).
 
 \subsection{Water mass transformation analysis}
 
-% Your results...
+Water mass transformation (WMT) analysis reveals a fundamental shift in AABW precursor water formation mechanisms between interglacial and glacial climate states (Fig.~8--9). We focus on transformation rates in the dense water range (σ$_2$ $>$ 36.5~kg/m$^3$), where AABW precursor waters form through surface buoyancy loss.
+
+\subsubsection{Interglacial periods: heat flux dominance}
+
+During interglacial periods (PI/MH/LIG), heat loss drives AABW precursor water formation across all four Southern Ocean regions. In the Southern Ocean sector during austral winter (Fig.~9, top row), total WMT exhibits strong positive peaks at σ$_2$ = 36.6--36.8~kg/m$^3$ reaching 40--60~Sv, with total heat flux (red line) closely tracking the WMT magnitude and shape. Sea ice freshwater contribution (teal dashed) remains modest (peak $<$10~Sv), while other freshwater fluxes (blue dashed) act to oppose densification through net precipitation. This thermal dominance persists in regional hotspots: the Ross Sea shows winter WMT peaks of 30--40~Sv driven almost entirely by heat loss, while the Weddell Sea exhibits 25--35~Sv transformation with similar thermal control. Critically, the Adélie Land sector---a known polynya region---displays the clearest heat-flux-driven signature, with 20~Sv winter transformation at σ$_2$ = 36.7~kg/m$^3$ where heat flux accounts for $>$90\% of total WMT.
+
+Annual mean patterns (Fig.~8) show reduced but persistent thermal forcing, with Southern Ocean WMT of 10--15~Sv at dense water classes. The summer reversal (negative WMT from warming and ice melt) partially compensates winter gains, explaining the annual-winter amplitude difference. Notably, LIG exhibits slightly enhanced heat-driven transformation compared to PI/MH in the Ross Sea, consistent with reduced sea ice coverage allowing greater ocean-atmosphere heat exchange.
+
+\subsubsection{Glacial periods: intensified sea ice forcing}
+
+Glacial climates (LGM/MIS3) show dramatically different formation mechanisms. Winter WMT intensifies substantially, with Southern Ocean peaks exceeding 60~Sv at higher density classes (σ$_2$ = 37.0--37.5~kg/m$^3$; Fig.~9). However, the relative importance of forcing components shifts: sea ice freshwater flux (teal) strengthens to 15--20~Sv, constituting 25--30\% of total transformation---double the interglacial proportion. This reflects expanded sea ice extent and enhanced brine rejection in coastal polynyas. Heat flux remains the dominant term but operates at colder temperatures and denser isopycnals, consistent with glacial boundary conditions.
+
+Regional heterogeneity becomes pronounced. The Weddell Sea exhibits the strongest glacial intensification, with winter WMT reaching 30~Sv at σ$_2$ = 37.2~kg/m$^3$ where sea ice brine rejection contributes $\sim$30\%. The Ross Sea shows more modest enhancement (20--25~Sv), with thermal forcing still dominant but shifted to denser classes. Strikingly, the Adélie sector maintains strong transformation (15~Sv) despite glacial conditions, suggesting persistent polynya activity even with expanded sea ice.
+
+\subsubsection{Mechanistic interpretation}
+
+These WMT patterns illuminate the physical processes governing AABW precursor water formation across climate states. During interglacials, open-ocean and polynya regions experience intense radiative and turbulent heat loss to the cold atmosphere, directly densifying surface waters through cooling. The relatively limited sea ice extent means brine rejection contributes secondarily. In contrast, glacial expanded sea ice coverage has dual effects: (1) insulating much of the ocean surface from atmospheric heat loss, reducing area-integrated thermal transformation; but (2) concentrating formation in persistent coastal polynyas where combined thermal forcing and intense sea ice production drive transformation of surface waters to exceptionally dense classes (σ$_2$ $>$ 37~kg/m$^3$) capable of penetrating to abyssal depths.
+
+The shift to higher-density transformation during glacials (0.3--0.5~kg/m$^3$ denser than interglacials) has profound implications for AABW properties and ventilation timescales. Denser source waters sink more readily, spread farther, and resist mixing with overlying layers---potentially explaining the 1500-year ventilation age increases documented in Section 3.4. However, this must be reconciled with proxy evidence for reduced glacial AABW transport \citep{Skinner2017, Ferrari2014}: our results suggest formation mechanism shifts (thermal $\rightarrow$ haline-enhanced) rather than simple "more/less" AABW, with implications for water mass properties and biogeochemical cycling.
 
 \subsection{Ventilation age simulations}
 
-% Your results...
+Ideal age distributions at 3900~m depth reveal fundamental restructuring of abyssal ventilation across climate states (Fig.~10). Interglacial periods (PI/MH/LIG) exhibit relatively young ages (0--500~yr) in the Atlantic and Indian sectors, with oldest waters ($>$1000~yr) confined to the Pacific. Glacial periods show dramatically different patterns: LGM and MIS3 ages exceed 1500~yr throughout the Atlantic and Indian basins, with Pacific ages reaching 2000--2500~yr. This represents a global $\sim$1500-year increase in deep ocean isolation, consistent with radiocarbon proxy reconstructions \citep{Skinner2017}.
+
+Regional heterogeneity is pronounced (Fig.~11). LIG anomalies reveal younger-than-PI ages (up to $-$150~yr) in the Ross Sea sector, attributed to reduced sea ice coverage and enhanced thermal forcing. In contrast, the Weddell Sea shows modest age increases during LIG. MH exhibits minimal age changes relative to PI, indicating similar AABW formation rates. Glacial anomalies are spatially coherent: LGM and MIS3 display pervasive age increases of 400--1500~yr across all basins, with maximum values in the deep Pacific where sluggish circulation compounds the aging effect.
+
+Vertical age profiles quantify basin-specific ventilation changes (Fig.~12). In the Atlantic, glacial ages increase systematically with depth, reaching 1500--2000~yr at 4000~m compared to 500--750~yr in interglacials. The Indian Ocean shows intermediate behavior. Most striking is the Pacific, where glacial ages exceed 2500~yr below 3000~m---a tripling relative to PI. Age anomaly profiles (Fig.~13) isolate climate-driven changes: LIG shows slight freshening throughout the water column in the Atlantic ($-$75 to $-$150~yr), while LGM/MIS3 exhibit depth-increasing anomalies reaching $+$1500~yr in the deep Pacific. These patterns reflect reduced AABW formation and enhanced stratification under glacial boundary conditions.
 
 % ============================================================================
 % Discussion
@@ -463,7 +553,138 @@ The CO$_2$ concentration used in our study is 284.32 ppm for PI, 264.4 ppm for M
 % ============================================================================
 \section{Conclusions}
 
-% Your conclusions...
+This study systematically quantifies AABW formation mechanisms across five paleoclimate states spanning full glacial-interglacial amplitude using water mass transformation analysis and ideal age tracer simulations in AWI-ESM. Our key findings are:
+
+\textbf{(1) Climate-dependent formation mechanisms and sea ice's dual role.} Interglacial AABW precursor water formation is dominated by thermal forcing (heat loss to atmosphere), with sea ice brine rejection contributing $<$15\% of total transformation. Glacial periods exhibit shifted mechanisms: while heat flux remains dominant, sea ice freshwater forcing intensifies to 25--30\% of transformation and drives densification to higher σ$_2$ classes (37.0--37.5~kg/m$^3$ versus 36.6--36.8~kg/m$^3$). Critically, surface buoyancy flux decomposition reveals that glacial sea ice expansion creates a \textit{thermal insulation effect} that reduces area-integrated ocean heat loss, while simultaneously \textit{intensifying localized brine rejection} in persistent coastal polynyas. This dual role---bulk ocean insulation combined with coastal polynya concentration---fundamentally restructures the surface forcing of AABW formation rather than simply strengthening or weakening it.
+
+\textbf{(2) Ventilation age response.} Glacial deep ocean isolation increases by $\sim$1500~yr globally, consistent with radiocarbon proxy constraints \citep{Skinner2017}. However, regional heterogeneity is pronounced: LIG Ross Sea exhibits younger ages ($-$150~yr) attributed to reduced sea ice and enhanced thermal forcing, while the Pacific shows the strongest glacial aging (up to 2500~yr below 3000~m). These age patterns directly link surface WMT changes to abyssal ventilation response.
+
+\textbf{(3) Implications for carbon storage.} The combination of enhanced stratification (from denser source waters), increased ventilation ages, and expanded sea ice coverage during glacials creates conditions for efficient deep ocean carbon sequestration, potentially explaining 50--80~ppm of glacial-interglacial CO$_2$ variations \citep{Skinner2017, Ferrari2014}. Our WMT decomposition provides mechanistic basis for understanding how changes in surface forcing propagate to global biogeochemical cycles.
+
+\subsection{Future research directions}
+
+Our analysis reveals critical knowledge gaps requiring targeted investigation:
+
+\subsubsection{Immediate priorities}
+
+\textbf{(1) Shelf processes and dense water cascades.} The current model produces AABW through open-ocean convection rather than realistic shelf overflow mechanisms \citep{Heuze2021}. High-resolution regional modeling ($\sim$2--4~km) of key formation sites (Weddell Sea, Ross Sea, Adélie Coast, Cape Darnley) is essential to validate whether WMT-diagnosed formation mechanisms translate to realistic overflow dynamics. Specifically: How do polynya heat loss and brine rejection combine to produce Dense Shelf Water? What bathymetric features control cascade pathways? How does ice shelf cavity circulation modify source water properties?
+
+\textbf{(2) Sea ice-ocean coupling sensitivity.} Our results highlight sea ice as the critical control on glacial-interglacial WMT differences, yet sea ice remains poorly constrained in paleoclimate models \citep{Lhardy2022}. Sensitivity experiments systematically varying sea ice extent, thickness, and seasonal cycle---guided by proxy reconstructions---would quantify how sea ice uncertainties propagate to AABW formation estimates. Coupling to dynamic ice sheet models would address ice shelf cavity geometry changes and glacial meltwater forcing.
+
+\textbf{(3) Transient simulations across deglaciations.} Our equilibrium snapshots cannot capture millennial-scale AABW variability during climate transitions. Transient simulations (similar to TRACE-21ka \citep{Liu2009}) spanning deglaciations would test whether WMT-diagnosed formation changes lead or lag atmospheric CO$_2$ rise, addressing causality questions central to understanding glacial terminations \citep{Sigman2021}. Particular focus on Heinrich stadials and Antarctic Cold Reversal would illuminate abrupt AABW responses to freshwater forcing.
+
+\subsubsection{Advanced mechanistic investigations}
+
+\textbf{(4) WMT closure and internal mixing.} Current WMT analysis diagnoses surface transformation but does not track subsurface mixing and entrainment that modify water mass properties during descent and spreading. Lagrangian trajectory analysis combined with inline WMT diagnostics would quantify: What fraction of surface-transformed dense water reaches abyssal depths? How do diapycnal mixing and geothermal heating alter AABW properties during transit? This connects surface formation to abyssal arrival, completing the mechanistic chain.
+
+\textbf{(5) Biogeochemical tracer integration.} Incorporating carbon, oxygen, nutrients, and isotopic tracers (δ$^{13}$C, δ$^{18}$O, Δ$^{14}$C) into WMT framework would enable direct model-proxy comparison using identical metrics. Specifically: Does thermally-dominated versus haline-enhanced formation produce distinguishable biogeochemical signatures? Can WMT-based formation estimates explain observed nutrient distributions in paleo-reconstructions? This requires fully coupled carbon cycle modeling with comprehensive tracer suite.
+
+\textbf{(6) Polynya parameterization evaluation.} Most climate models fail to maintain persistent coastal polynyas---critical AABW formation sites \citep{Dufour2017}. Process studies comparing explicitly resolved polynyas (in high-resolution models) against parameterized representations (in climate models) would identify which physical processes require sub-grid-scale treatment. Outcomes would guide development of improved polynya parameterizations for next-generation climate models.
+
+\subsubsection{Synthesis and climate projection}
+
+\textbf{(7) Multi-model intercomparison.} Applying identical WMT analysis framework across PMIP4/CMIP6 ensemble would assess inter-model spread in diagnosed formation mechanisms. Key question: Do models agreeing on AABW transport changes achieve agreement through similar or compensating mechanistic pathways? This would identify robust versus model-dependent conclusions, guiding model development priorities.
+
+\textbf{(8) Future climate applications.} Extending WMT analysis to high-emission future scenarios (SSP5-8.5) would quantify how projected Antarctic ice sheet melt \citep{Li2023Nature} alters formation mechanisms. Critical question: Does freshwater-driven stratification shut down AABW formation entirely, or shift mechanisms toward reduced thermal/enhanced haline forcing? Answering this requires sustained CMIP7-era simulations with interactive ice sheets and comprehensive WMT diagnostics.
+
+These research directions would transform understanding from descriptive ("AABW weakens/strengthens") to mechanistic ("AABW formation shifts from thermal to haline dominance because expanded sea ice insulates surface while concentrating brine rejection in polynyas"), providing predictive capability essential for projecting 21st-century deep ocean changes and carbon cycle feedbacks.
+
+% ============================================================================
+% Figure Captions
+% ============================================================================
+\clearpage
+\section*{Figure Captions}
+
+\textbf{Figure 1: Large-scale climate patterns during austral winter (JJA).}
+\begin{figure}[h]
+\centering
+\includegraphics[width=\textwidth]{figures/fig01_climate_sst_sss_density_jja.pdf}
+\end{figure}
+Panel structure: 3 rows (SST, SSS, density) × 5 columns (PI absolute, MH/LIG/LGM/MIS3 anomalies). Column 1 shows PI absolute values with overlaid wind vectors; columns 2--5 show paleoclimate anomalies (paleo minus PI) in shading with PI wind contours. (a--e) Sea surface temperature (SST) in °C. LIG exhibits warming in Bellingshausen-Amundsen Seas; glacials show basin-wide cooling $>$5°C. (f--j) Sea surface salinity (SSS) in psu. Glacials display widespread salinification up to 2~psu driven by expanded sea ice. (k--o) Surface density (σ$_2$) in kg/m$^3$. Glacial periods show substantially denser surface waters (Δρ $>$ 0.6 kg/m$^3$) particularly in Atlantic and Indian sectors, reflecting combined thermal and haline effects that drive AABW precursor water formation.
+
+\textbf{Figure 2: Sea ice extent and mixed layer depth during austral winter (JJA).}
+\begin{figure}[h]
+\centering
+\includegraphics[width=\textwidth]{figures/fig02_climate_mld_seaice_jja.pdf}
+\end{figure}
+Panel structure: 2 rows (MLD, sea ice) × 5 columns. (a--e) Winter mixed layer depth (MLD) in meters for each experiment. PI/MH/LIG show 200--400~m MLD in polynyas; glacials exceed 500~m in Atlantic sector consistent with enhanced convection. (f--j) Sea ice concentration (fraction 0--1). Glacial simulations display circumpolar coverage extending to $\sim$50°S; LIG shows reduced extent compared to PI, particularly in Ross and Weddell Seas. These dramatic inter-period differences in sea ice and convective depth directly modulate AABW formation mechanisms.
+
+\textbf{Figure 3: Wind patterns and wind stress during austral winter (JJA).}
+\begin{figure}[h]
+\centering
+\includegraphics[width=\textwidth]{figures/fig03_climate_winds_jja.pdf}
+\end{figure}
+Panel structure: 2 rows × 4 columns. (a--d) 10-m wind speed anomalies (m/s) for MH/LIG/LGM/MIS3 relative to PI, with PI wind vectors overlaid. (e--h) Wind stress anomalies (N/m$^2$) with PI wind stress vectors. LIG shows poleward-shifted, strengthened westerlies (Δτ $>$ 0.04 N/m$^2$ in 50--60°S band). Glacials exhibit equatorward-shifted, weakened westerlies with widespread stress reduction. These atmospheric circulation changes directly modulate Ekman upwelling and polynya ventilation efficiency, contributing to altered AABW formation pathways.
+
+\textbf{Figure 4: Surface heat flux components during austral winter (JJA).}
+\begin{figure}[h]
+\centering
+\includegraphics[width=\textwidth]{figures/surface_heat_budget_anomalies_jja.pdf}
+\end{figure}
+Panel structure: 3 rows × 5 columns. Column 1 shows PI absolute values; columns 2--5 show paleoclimate anomalies (paleo minus PI). All heat fluxes shown from ocean's perspective (negative values indicate heat loss to atmosphere). (a--e) Total heat flux combining all atmospheric heat exchange processes (SW+LW+LH+SH). Red indicates ocean cooling (heat loss to atmosphere); blue indicates reduced cooling relative to PI. (f--j) Radiative component (SW+LW) isolating shortwave and longwave radiation contributions. (k--o) Turbulent component (LH+SH) isolating latent and sensible heat fluxes. Units: kJ~s$^{-1}$~m$^{-2}$. Glacial periods (LGM, MIS3) show dramatically reduced ocean heat loss due to sea ice thermal insulation, with turbulent flux reduction exceeding radiative changes. This paradoxical ocean warming (less cooling) despite colder atmospheric temperatures reflects expanded sea ice blocking ocean-atmosphere turbulent heat exchange.
+
+\textbf{Figure 5: Surface heat flux components during austral summer (DJF).}
+\begin{figure}[h]
+\centering
+\includegraphics[width=\textwidth]{figures/surface_heat_budget_anomalies_djf.pdf}
+\end{figure}
+Same structure as Fig.~4 but for austral summer (December-January-February). The sea ice insulation effect persists during summer in glacial ice-covered sectors, though with reduced magnitude compared to winter. Summer patterns confirm that the thermal insulation mechanism is intrinsic to ice cover rather than a winter-only phenomenon, operating year-round with seasonal modulation.
+
+\textbf{Figure 6: Surface freshwater/mass flux components during austral winter (JJA).}
+\begin{figure}[h]
+\centering
+\includegraphics[width=\textwidth]{figures/surface_freshwater_budget_anomalies_jja.pdf}
+\end{figure}
+Panel structure identical to Fig.~4. (a--e) Total freshwater flux showing net surface mass exchange. Blue indicates freshwater gain (ocean freshening); red indicates freshwater loss (ocean salinification). (f--j) Sea ice component isolating brine rejection during freezing (red: salinity increase) and freshwater release during melting (blue: salinity decrease). (k--o) Other freshwater sources (P+E+R+S) combining precipitation, evaporation, runoff, and snowfall. Units: kg~s$^{-1}$~m$^{-2}$. Glacial periods show intensified coastal brine rejection (red in panels i,j row 2) coinciding with reduced offshore ice melt, enhancing haline forcing of dense water formation in coastal polynyas. The spatial partitioning of sea ice effects---coastal intensification combined with offshore reduction---drives the shift to haline-enhanced AABW formation mechanisms during glacials.
+
+\textbf{Figure 7: Surface freshwater/mass flux components during austral summer (DJF).}
+\begin{figure}[h]
+\centering
+\includegraphics[width=\textwidth]{figures/surface_freshwater_budget_anomalies_djf.pdf}
+\end{figure}
+Same structure as Fig.~6 but for austral summer. The seasonal cycle reverses: sea ice formation in winter (Fig.~6f: positive salt tendency, red) transitions to sea ice melt in summer (Fig.~7f: negative salt tendency, blue), releasing freshwater back to the ocean. Glacial anomalies (Fig.~7i,j) show \textit{reduced} summer ice melt compared to PI (less negative values), meaning suppressed freshwater release. This asymmetry---enhanced winter brine rejection combined with reduced summer freshwater release---creates net annual haline forcing that enhances glacial AABW formation. The expanded glacial ice pack acts as a seasonal freshwater reservoir, amplifying the annual salinity cycle.
+
+\textbf{Figure 8: Water mass transformation (WMT) in density space - annual mean.}
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.9\textwidth]{figures/plot_wmt_4regions_5exps_annual.pdf}
+\end{figure}
+Annual mean WMT rates (Sv) as a function of σ$_2$ density for four Southern Ocean regions: Southern Ocean (sum of all), Ross Sea, Weddell Sea, and Adélie Land. Each panel shows 5 experiments (PI, MH, LIG, LGM, MIS3). Lines indicate: total WMT (black), total heat flux contribution (red), sea ice freshwater contribution (teal), and other freshwater sources (blue). Interglacials show thermal dominance (85--90\% heat flux) at σ$_2$ = 36.6--36.8 kg/m$^3$ with modest sea ice contribution (<15\%). Glacials shift to higher densities (σ$_2$ = 37.0--37.5 kg/m$^3$) with enhanced sea ice forcing (25--30\% of total), reflecting the mechanism transition from heat-dominated to haline-enhanced AABW formation.
+
+\textbf{Figure 9: Water mass transformation (WMT) in density space - winter mean.}
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.9\textwidth]{figures/plot_wmt_4regions_5exps_winter.pdf}
+\end{figure}
+Same structure as Fig.~8 but for austral winter (JJA) when AABW formation is most vigorous. Winter WMT amplitudes exceed annual means by factor of 2--3, with Southern Ocean peaks reaching 40--60~Sv (interglacials) to >60~Sv (glacials). The relative importance of sea ice forcing increases during winter, particularly in glacial periods where coastal polynya brine rejection drives 25--30\% of total transformation. Regional patterns show Weddell Sea as primary formation site (strongest glacial intensification), while Adélie Land maintains persistent heat-flux-driven transformation across all climate states.
+
+\textbf{Figure 10: Ideal age at 3900~m depth across paleoclimate states.}
+\begin{figure}[h]
+\centering
+\includegraphics[width=\textwidth]{figures/age_horizontal_3900m.pdf}
+\end{figure}
+Horizontal distribution of ideal age (years) at 3900~m depth for five experiments. Interglacials (PI/MH/LIG) exhibit young ages (0--500~yr) in Atlantic/Indian sectors with oldest waters (>1000~yr) in Pacific. Glacials (LGM/MIS3) show dramatically older ages: Atlantic/Indian exceed 1500~yr, Pacific reaches 2000--2500~yr. This represents ~1500-year global increase in deep ocean isolation, consistent with radiocarbon proxy reconstructions. Spatial patterns reflect reduced AABW formation rates and enhanced stratification under glacial boundary conditions.
+
+\textbf{Figure 11: Ideal age anomalies at 3900~m depth.}
+\begin{figure}[h]
+\centering
+\includegraphics[width=\textwidth]{figures/age_horizontal_3900m_anomaly.pdf}
+\end{figure}
+Age anomalies (years) at 3900~m for paleoclimate states relative to PI. MH shows minimal changes (±50~yr). LIG reveals younger ages (up to -150~yr) in Ross Sea sector attributed to reduced sea ice and enhanced thermal forcing, with modest increases (+50~yr) in Weddell Sea. Glacials display spatially coherent increases: LGM/MIS3 show +400 to +1500~yr across all basins, with maximum values in deep Pacific where sluggish circulation compounds the aging effect. Regional heterogeneity highlights sensitivity to local changes in surface forcing and circulation pathways.
+
+\textbf{Figure 12: Vertical profiles of ideal age by ocean basin.}
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.8\textwidth]{figures/age_vertical.pdf}
+\end{figure}
+Basin-averaged vertical age profiles (years vs depth) for Atlantic, Indian, and Pacific oceans across five experiments. Interglacials show modest depth-increasing ages: Atlantic/Indian 500--750~yr at 4000~m, Pacific 800--1200~yr. Glacials exhibit systematically older ages with strong depth dependence: Atlantic reaches 1500--2000~yr, Pacific exceeds 2500~yr below 3000~m (tripling relative to PI). Indian Ocean shows intermediate behavior. These profiles quantify basin-specific ventilation changes and demonstrate that Pacific deep waters experience most dramatic aging under glacial conditions due to remoteness from AABW formation regions.
+
+\textbf{Figure 13: Vertical profiles of ideal age anomalies by ocean basin.}
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.8\textwidth]{figures/age_vertical_anm.pdf}
+\end{figure}
+Basin-averaged age anomaly profiles (years vs depth, relative to PI). MH exhibits minimal anomalies (<±100~yr). LIG shows slight rejuvenation in Atlantic (-75 to -150~yr throughout water column) from enhanced AABW formation, while Pacific shows modest increases (+100~yr deep). Glacials display depth-increasing anomalies: LGM/MIS3 reach +1500~yr in deep Pacific, +800~yr in Atlantic, +500~yr in Indian. The systematic depth-dependence reflects reduced ventilation at depth where sluggish abyssal circulation magnifies the impact of reduced AABW formation rates. These anomaly profiles isolate pure climate-driven ventilation changes independent of baseline circulation structure.
 
 % ============================================================================
 % Acknowledgments

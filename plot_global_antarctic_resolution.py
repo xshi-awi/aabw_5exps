@@ -180,7 +180,7 @@ output_png = 'global_antarctic_resolution.png'
 plt.savefig(output_png, dpi=300, bbox_inches='tight', facecolor='white', edgecolor='none')
 print(f"\n✓ High-quality PNG saved to: {output_png}")
 
-output_pdf = 'global_antarctic_resolution.pdf'
+output_pdf = 'figures/global_antarctic_resolution.pdf'
 plt.savefig(output_pdf, dpi=300, bbox_inches='tight', facecolor='white', edgecolor='none')
 print(f"✓ Vector PDF saved to: {output_pdf}")
 

@@ -435,8 +435,10 @@ def process_experiment(exp_name, exp_config):
             if var_name in grid_total._ds.data_vars:
                 data_3d = grid_total._ds[var_name].values  # (time, yh, xh)
                 data_2d = data_3d[:, 0, :]  # (time, nod2)
-                output_ds[var_name] = (['time', 'nod2'], data_2d)
-                output_ds[var_name].attrs['units'] = 'kg m-2 s-1'
+                # 转换单位: kg/s → kg/s/m² (除以面积)
+                data_2d_flux = data_2d / areacello_1d[np.newaxis, :]
+                output_ds[var_name] = (['time', 'nod2'], data_2d_flux)
+                output_ds[var_name].attrs['units'] = 'kg s-1 m-2'
                 print(f'    ✓ {var_name}')
 
     print('  提取热量预算项 (按热通量分量)...')
@@ -454,8 +456,10 @@ def process_experiment(exp_name, exp_config):
             else:
                 new_var_name = f'{term_name}_{config_name}'
 
-            output_ds[new_var_name] = (['time', 'nod2'], data_2d)
-            output_ds[new_var_name].attrs['units'] = 'W m-2'
+            # 转换单位: J/s → kJ/s/m² (除以面积和1000)
+            data_2d_flux = data_2d / areacello_1d[np.newaxis, :] / 1000.0
+            output_ds[new_var_name] = (['time', 'nod2'], data_2d_flux)
+            output_ds[new_var_name].attrs['units'] = 'kJ s-1 m-2'
             output_ds[new_var_name].attrs['long_name'] = f'Heat budget from {config_name} flux'
             print(f'    ✓ {new_var_name}')
 
@@ -465,8 +469,10 @@ def process_experiment(exp_name, exp_config):
             if var_name in grid_total._ds.data_vars:
                 data_3d = grid_total._ds[var_name].values  # (time, yh, xh)
                 data_2d = data_3d[:, 0, :]  # (time, nod2)
-                output_ds[var_name] = (['time', 'nod2'], data_2d)
-                output_ds[var_name].attrs['units'] = 'psu s-1'
+                # 转换单位: kg/s → kg/s/m² (除以面积)
+                data_2d_flux = data_2d / areacello_1d[np.newaxis, :]
+                output_ds[var_name] = (['time', 'nod2'], data_2d_flux)
+                output_ds[var_name].attrs['units'] = 'kg s-1 m-2'
                 print(f'    ✓ {var_name}')
 
     print()
