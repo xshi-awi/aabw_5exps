@@ -86,3 +86,34 @@ glacial and last interglacial?" - LIG intensification is orbitally forced (high 
 different perihelion), the glacial one follows the expanded ice/steepened meridional
 temperature gradient. Both are model responses, not drift, and MH is essentially unchanged
 from PI which argues against a drift explanation.
+
+---
+
+## Citation audit of the revised manuscript (done at the end of the revision)
+
+Prompted by a warning about possible key collisions in `Ref.bib`. All clear:
+
+- **No duplicate BibTeX keys** in `build/ref.bib` (checked by extracting and sorting all keys).
+- **Gray2024 vs Gray2023 are distinct and both correct.** `Gray2024` is A. R. Gray's
+  carbon-cycle review, and it is cited only for Southern Ocean heat/carbon storage and the ~40%
+  anthropogenic CO2 uptake figure, which is what that review actually covers. `Gray2023` is
+  W. R. Gray et al. on the westerlies, newly added, cited only for the glacial wind shift. The
+  compiled bibliography renders both, as "Gray, A.~R." and "Gray, W.~R." respectively.
+- **Lhardy2022 vs Lhardy2021.** `Lhardy2022` (the companion sea-ice evaluation paper) exists in
+  the bib but is NOT cited anywhere in the manuscript, so there is no risk of it being read as the
+  2021 model analysis. `Lhardy2021` is newly added and resolves correctly in the .bbl.
+- **All five new references verified in the compiled bibliography**: Chen2025, Lhardy2021,
+  Gray2023, Millet2025, ToggweilerSamuels1995 all render with the correct titles.
+
+### The AWI-evaluation constraint is satisfied
+No Southern Ocean bias number is attributed to any AWI paper anywhere in the revision.
+`sidorenko2019evaluation` is cited exactly once, in the Methods, purely as model provenance
+("a coupled Earth system model developed at the Alfred Wegener Institute"). Rackow 2019,
+Semmler 2020 and Sidorenko 2021 are not cited at all in the revised text.
+Every statement about this model convecting in the open ocean is carried as OUR diagnosis from
+OUR output (the Weddell-sector mixed-layer statistics), supported by Heuze 2021 as the
+community-wide picture. This is the correct and defensible arrangement; do not "improve" it later
+by attaching an AWI citation to a bias number that no AWI paper actually states.
+
+Open item if a concrete AWI-specific sea-ice or MLD bias figure is ever wanted: the Sidorenko 2019
+PDF would have to be read directly first. Nothing in the current revision depends on it.
