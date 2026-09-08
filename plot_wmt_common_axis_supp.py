@@ -303,10 +303,10 @@ def plot_wmt_comparison(season_name, month_selector=None):
                        linewidth=0.8, alpha=0.6, zorder=1)
 
             # 设置x轴范围
-            if exp_key in ['pi', 'mh', 'lig']:
-                ax.set_xlim(35.5, 37.2)
-            else:  # lgm, mis
-                ax.set_xlim(36.0, 38.5)
+            ax.set_xlim(35.5, 38.5)
+
+            # common y-axis across ALL panels (supplementary variant)
+            ax.set_ylim(-45, 90)
 
             # Tick polish
             ax.tick_params(axis='both', which='major', labelsize=15,
@@ -319,9 +319,9 @@ def plot_wmt_comparison(season_name, month_selector=None):
     # 单一共享图例 (top, outside) + 保存
     # ========================================================================
     if month_selector is None:
-        filename = 'figures/plot_wmt_4regions_5exps_annual_from_100years.pdf'
+        filename = 'figures/figS_wmt_common_axis_annual.pdf'
     else:
-        filename = 'figures/plot_wmt_4regions_5exps_winter_from_100years.pdf'
+        filename = 'figures/figS_wmt_common_axis_winter.pdf'
 
     # Single, framed legend at the bottom of the figure
     if legend_handles is not None:

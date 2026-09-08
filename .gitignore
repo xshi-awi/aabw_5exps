@@ -21,3 +21,14 @@ __pycache__/
 output/
 results/
 figures/
+
+# Large generated manuscript PDFs (rebuild from nc_paper/build/)
+nc_paper/SUBMISSION/01_revised_manuscript.pdf
+nc_paper/SUBMISSION/02_revised_manuscript_tracked_changes.pdf
+nc_paper/build/*.pdf
+nc_paper/build/figures/
+nc_paper/build/*.aux
+nc_paper/build/*.log
+nc_paper/build/*.bbl
+nc_paper/build/*.blg
+nc_paper/build/*.out

@@ -1,0 +1,556 @@
+\documentclass[pdflatex,sn-nature]{sn-jnl}
+
+\usepackage{graphicx}%
+\usepackage{multirow}%
+\usepackage{amsmath,amssymb,amsfonts}%
+\usepackage{amsthm}%
+\usepackage{mathrsfs}%
+\usepackage[title]{appendix}%
+\usepackage{xcolor}%
+\usepackage{textcomp}%
+\usepackage{manyfoot}%
+\usepackage{booktabs}%
+\usepackage{algorithm}%
+\usepackage{algorithmicx}%
+\usepackage{algpseudocode}%
+\usepackage{listings}%
+
+\begin{document}
+
+\title[Southern Ocean WMT Across Climate States]{Glacial–interglacial regime shift in Southern Ocean dense water formation}
+
+
+
+%%------------------------------------------------------------
+%%  Authors and affiliations
+%%------------------------------------------------------------
+\author[1]{\fnm{Xiaoxu} \sur{Shi}}
+%\author*[1]{\fnm{Jiping} \sur{Liu}}\email{Jiping Liu (liujp63@mail.sysu.edu.cn)}
+\author*[2,1]{\fnm{Jiping} \sur{Liu}}\email{Jiping Liu (liujp63@awi.de)}
+\author[1]{\fnm{Hu} \sur{Yang}}
+\author[1]{\fnm{Chaoyuan} \sur{Yang}}
+\author[3]{\fnm{Gerrit} \sur{Lohmann}}
+
+%\affil[1]{\orgname{Alfred Wegener Institute, Helmholtz Center for Polar and Marine Research}, \orgaddress{\city{Bremerhaven}, \country{Germany}}}
+\affil[1]{\orgname{Southern Marine Science and Engineering Guangdong Laboratory (Zhuhai)}, \orgaddress{\city{Zhuhai}, \country{China}}}
+\affil[2]{\orgname{School of Atmospheric Sciences, Sun Yat-sen University)}, \orgaddress{\city{Zhuhai}, \country{China}}}
+\affil[3]{\orgname{Alfred Wegener Institute, Helmholtz Center for Polar and Marine Research}, \orgaddress{\city{Bremerhaven}, \country{Germany}}}
+
+
+
+\abstract{Winter dense water formation in the Southern Ocean drives global overturning and regulates deep-ocean heat and carbon storage, but how surface buoyancy forcing controls this process across past climate states remains unclear. Using water mass transformation analysis in AWI-ESM simulations of the pre-industrial, mid-Holocene, last interglacial, last glacial maximum, and marine isotope stage 3, we identify a sea-ice-mediated regime shift between climate states. In the model, interglacial dense water formation is driven mainly by turbulent heat loss over the open ocean, whereas glacial formation is haline-driven by brine rejection as expanded sea ice insulates the ocean from the atmosphere. Because the balance between these two pathways is set by how much of the surface is ice covered, it also governs the response to internal atmospheric variability. The Southern Annular Mode modulates transformation by 3--8 Sv between its positive and negative phases in every climate state, working through heat loss when the ocean is open and through brine rejection when it is ice covered. Weaker glacial transformation coincides with a collapse of the simulated abyssal overturning cell from about 10 to 2 Sv and with older abyssal water. Ideal ages at 4000 m remain below 500 years during interglacials but exceed 750 years basin-wide during glacials, reaching 1500 years in the Pacific. Our results provide a mechanistic framework for interpreting past Southern Ocean circulation, while also showing that the simulated pre-industrial state transforms water at lighter densities than observations indicate.}
+
+%\abstract{Winter dense water formation in the Southern Ocean drives global overturning circulation and regulates deep-ocean heat and carbon storage. However, understanding how surface buoyancy forcing affects this formation across different climate states remains a fundamental challenge. Using water mass transformation (WMT) analysis in AWI-ESM simulations spanning pre-industrial, mid-Holocene, last interglacial, last glacial maximum, and marine isotope stage 3, we identify a fundamental regime shift between climate states.  Interglacial WMT is thermally dominated, driven by surface heat loss, whereas glacial WMT is haline-dominated, governed by expanded sea ice through brine rejection. Superimposed on these mean states, the Southern Annular Mode (SAM) systematically modulates wintertime WMT across all  climate states, with anomalies of 3-8 Sv between high- and low-SAM winters. During positive SAM phases, dense water formation is intensified via enhanced heat loss over open ocean and amplified brine rejection within coastal areas. Thermal forcing dominates the SAM-induced response during interglacials, while haline forcing dominates during glacials.  In addition, simulated deep-ocean ventilation ages remain below 500 years in most basins during interglacials but exceeding 750 years basin-wide during glacials, with Pacific ages reaching 1500 years. These results highlight the state-dependence of surface forcing, offering a mechanistic framework for understanding past Southern Ocean circulation changes.}
+
+
+
+%Here, we analyze water mass transformation (WMT) in the AWI-ESM coupled model across five climate scenarios spanning pre-industrial (PI), mid-Holocene (MH), Last Interglacial (LIG), Last Glacial Maximum (LGM), and Marine Isotope Stage 3 (MIS3). By systematically decomposing  surface buoyancy fluxes into thermal (radiative and turbulent heat) and haline (sea ice, net precipitation, and runoff) components,  we identify a fundamental regime shift in forcing mechanisms. Specifically, interglacial WMT is thermally dominated, with surface heat loss being the primary contributor of dense water formation. Conversely, glacial states exhibit haline-dominated forcing, where expanded sea ice governs WMT through combined effects of enhanced heat loss and brine rejection. Superimposed on these mean states, we further demonstrate that the Southern Annular Mode (SAM) systematically modulates wintertime WMT across all climate states, with maximum anomalies of 3-8 Sv between high and low SAM winters.  During positive SAM phases, dense water formation is intensified via enhanced heat loss over open ocean and amplified brine rejection within coastal areas. Thermal forcing dominates the SAM-induced response during interglacials, while haline forcing dominates during glacials.  Reflecting the shift in ventilation efficiency, simulated deep ocean ventilation ages increase substantially during glacial periods, with Pacific ages reaching 1500 years compared to less than 500 years during interglacials with marked regional heterogeneity, consistent with radiocarbon proxy reconstructions. These results highlight the non-linear state-dependence of surface forcing, offering a mechanistic framework for interpreting past Southern Ocean circulation changes.
+
+\keywords{Southern Ocean, water mass transformation, paleoclimate, sea ice, Southern Annular Mode, glacial-interglacial}
+
+\maketitle
+
+% ============================================================================
+% Introduction
+% ============================================================================
+\section{Introduction}
+
+%\subsection{The Southern Ocean and global climate}
+
+The Southern Ocean plays an important role in Earth's climate system. It serves as the primary region where deep waters return to the surface through wind-driven upwelling and where surface waters are transformed into dense water masses that ventilate the global abyssal ocean \cite{Marshall2012,Talley2013}. This region is characterized by intense air-sea interaction, extensive seasonal sea ice coverage, and strong meridional density gradients that drive both the upper and lower cells of the global meridional overturning circulation (MOC) \cite{Speer2000,Lumpkin2007}. Through this overturning circulation, the Southern Ocean regulates the global heat and carbon storage \cite{Marinov2006,Gray2024}. The efficiency of this regulation depends critically on the rate of dense water formation and its subsequent isolation from atmospheric contact. Therefore, understanding physical processes behind dense water formation in the Southern Ocean across different climate states is essential for interpreting past and future ocean circulation changes and their climate impacts.
+
+%Quantitatively, the Southern Ocean accounts for approximately 40\% of global anthropogenic CO${_2}$ uptake \cite{Gray2024}, underscoring its central role in modulating atmospheric CO${_2}$ concentrations. Therefore, understanding the physical processes behind dense water formation in the Southern Ocean is crucial for predicting how the climate system will respond to future changes. %Through this overturning circulation, the Southern Ocean regulates the global capacity to store heat and carbon \cite{Marinov2006,Gray2024}.  As the primary pathway for deep water ventilation, it mediates carbon exchange between the abyssal reservoir and the atmosphere, with sequestration efficiency depending critically on the rate of dense water formation and its subsequent isolation from atmospheric contact. 
+
+
+Surface buoyancy fluxes fundamentally control the transformation of water masses in density space \cite{Walin1982,Speer1992,drake2025water}. These fluxes consist of heat exchange with the atmosphere and freshwater fluxes associated with precipitation, evaporation, river runoff, and sea ice processes. In the Southern Ocean, the surface buoyancy fluxes exhibit pronounced spatial and seasonal variability. Specifically, intense wintertime cooling drives surface densification in open water areas, whereas sea ice formation and melting produce strong haline forcing through brine rejection and freshwater release \cite{Abernathey2016,Pellichero2018}. Observational evidence suggests that freshwater fluxes, particularly those associated with sea ice thermodynamics, may dominate in ice-covered regions \cite{Pellichero2018,Bailey2023}. However, quantifying the relative contribution of thermal versus haline forcing to dense water formation across the entire Southern Ocean remains unclear.
+
+%The role of the Southern Ocean in the global carbon cycle is equally important. As the primary pathway for deep water ventilation, this region regulates carbon exchange between the deep ocean reservoir and the atmosphere \cite{Marinov2006,Gray2024}. The efficiency of this carbon sequestration process depends critically on the rate at which surface waters are transformed into dense bottom waters and subsequently isolated from direct atmospheric contact. Quantitatively, the Southern Ocean accounts for approximately 40\% of the global ocean's anthropogenic CO$_2$ uptake \cite{Gray2024}, underscoring its central role in modulating atmospheric CO$_2$ concentrations and climate change.
+
+
+
+%\subsection{The water mass transformation framework}
+
+The water mass transformation (WMT) framework provides a thermodynamic approach to quantifying how air-sea fluxes drive changes in water mass properties \cite{Walin1982,Groeskamp2019,drake2025water}. This method relates surface heat fluxes to cross-isothermal mass transport \cite{Walin1982}, and was subsequently extended  to incorporate both thermal and freshwater contributions to surface density flux \cite{Speer1992}.
+
+WMT implementations for the modern climate decompose surface fluxes into multiple components to isolate specific physical processes \cite{Iudicone2008a,Iudicone2008b}. Heat flux contributions are separated into radiative (shortwave and longwave) and turbulent (sensible and latent heat) components. Freshwater flux decomposition distinguishes between sea ice formation/melt, glacial meltwater, and meteoric sources such as precipitation and runoff \cite{Abernathey2016,Bailey2023}. The sea ice component is particularly important, as it acts as a freshwater pump that removes freshwater from the Southern Ocean through equatorward ice transport and melting, concentrating salt in formation regions \cite{Abernathey2016}.
+
+Observation-based WMT analyses have improved our understanding of Southern Ocean water mass formation.  Based on Argo floats, ship data, and instrumented marine mammals, a previous study showed that seasonal sea ice growth and melt dominates transformation in the ice-covered regions, with freshwater fluxes drive the meridional overturning that feeds dense water formation \cite{Pellichero2018}. Additionally, the closed-budget WMT analysis in the Weddell Sea reveals that sea ice brine rejection dominates the surface salt flux for most seasons \cite{Bailey2023}.
+
+
+The paleoclimate record, together with model simulations, offers a means for understanding Southern Ocean responses to climate forcings beyond the range of modern observations. Across glacial-interglacial cycles, atmospheric CO$_2$ \cite{SigmanBoyle2000,Kohfeld2005}, ice sheet extent \cite{huybrechts1990antarctic}, and deep ocean circulation \cite{rafter2022global} all varied dramatically. Radiocarbon-based reconstructions indicate that these circulation changes substantially altered deep water ventilation, with ventilation age increasing by $\sim$689$\pm$53 $^{14}$C-yr during glacial periods \cite{Skinner2017}, a slowdown closely tied to deep ocean carbon sequestration that may account for more than half of the glacial-interglacial CO$_2$ change \cite{Skinner2017}. A consistent mechanistic explanation for these changes is emerging from theory and modeling. Glacial Antarctic sea ice expansion is expected to enhance the haline contribution to surface buoyancy forcing through increased brine rejection, while simultaneously insulating the deep ocean from atmospheric forcing, thereby altering both the rate and properties of dense water formation \cite{Ferrari2014}. Coupled glacial simulations confirm that this brine-rejection-driven surface buoyancy loss exerts a strong control on abyssal stratification and overturning, although its magnitude varies substantially between models depending on how sea-ice formation is represented \cite{Marzocchi2017}. This points to a thermal-to-haline shift in surface forcing as climate cools, which needs to be quantified within a consistent WMT framework across a range of climate states. Indeed, existing paleoclimate modeling studies have largely diagnosed circulation changes through overturning streamfunctions, water mass volumes, or deep-ocean tracer distributions \cite{Weber2007,Wainer2012}, rather than by explicitly decomposing the surface buoyancy fluxes that drive those changes. A recent study using the same ocean model in a forced, ocean-only configuration attributes the large glacial volume of Atlantic bottom water to enhanced sea ice export and to weaker mixing between northern- and southern-sourced deep water \cite{Chen2025}. That result identifies sea ice as the central agent from the distribution of water masses and from the overturning streamfunction. It does not measure the surface transformation rates themselves, which is what a decomposed buoyancy budget provides and what allows the thermal and haline pathways to be compared directly and across several climate states. Beyond the mean state, dense water formation also responds to internal atmospheric variability. The Southern Annular Mode is the leading mode of extratropical Southern Hemisphere circulation variability, describing a meridional redistribution of atmospheric mass between mid-latitudes and Antarctica \cite{Marshall2003,Thompson2000}. Its positive phase strengthens the circumpolar westerlies and displaces them poleward, which changes Ekman divergence, air-sea heat exchange, and the northward export of sea ice. In the present-day ocean these adjustments modulate mixed-layer depth and surface buoyancy forcing \cite{Sallee2010}, and they have been linked to observed changes in bottom water properties \cite{Zhou2023,Silvano2020}. Whether the mode remains an effective modulator of dense water formation once the mean state changes, in particular once an expanded ice cover separates the ocean from the atmosphere, is not known.
+
+%The paleoclimate record and model simulations provide essential context for understanding Southern Ocean responses to climate forcings beyond the range of modern observations. Glacial-interglacial cycles feature dramatic changes in atmospheric CO$_2$ \cite{SigmanBoyle2000,Kohfeld2005}, ice sheet extent \cite{huybrechts1990antarctic}, and deep ocean circulation \cite{rafter2022global}. Proxy evidence indicates substantially altered deep water ventilation rates, i.e., radiocarbon-based reconstructions suggested that ventilation age increases of  $\sim$689$\pm$53 ${14}$C-yr during glacial periods \cite{Skinner2017}. These circulation changes are linked to the efficiency of deep water formation and ocean carbon sequestration, potentially explaining more than half of the glacial–interglacial CO$_2$ changes \cite{Skinner2017}.  Existing paleoclimate modeling studies have largely diagnosed circulation changes through overturning streamfunctions, water mass volumes, or deep-ocean tracer distributions \cite{Weber2007,Wainer2012}, without explicitly decomposing the surface buoyancy fluxes that drive those changes. Theoretical work further suggested that glacial Antarctic sea ice expansion enhances haline contributions to surface buoyancy forcing via increased brine rejection  while insulates deep waters from atmospheric forcing, thereby altering the rate and properties of dense water formation \cite{Ferrari2014}.  Coupled glacial simulations confirm that Antarctic sea-ice formation, through brine-rejection-driven surface buoyancy loss, exerts a significant control on abyssal stratification and overturning, but the magnitude of this effect varies substantially across models depending on their representation of sea-ice formation \cite{Marzocchi2017}. This regime transition has not been quantified within a consistent WMT framework across a range of climate states. Furthermore, while the Southern Annular Mode (SAM) is known to modulate present-day Southern Ocean mixed-layer depth and air-sea heat exchange\cite{Sallee2010}, whether this atmospheric pattern remains a robust modulator of dense water formation under different climate boundary conditions has not been examined. Bridging this gap requires explicit WMT decomposition across multiple climate states, spanning interglacials to glacials, to isolate the individual forcing components and assess the state-dependence of both mean-state and internally driven variability.
+
+%Despite recent progress, systematic WMT application to paleoclimate simulations remains limited.  
+
+%Despite current progress, systematic WMT analysis across multiple paleoclimate states remains limited. Most paleoclimate modeling studies have focused on circulation strength or water mass properties rather than the underlying surface forcing mechanisms \cite{Weber2007,shi2020early}. Understanding how surface buoyancy fluxes drive dense water formation and how this mechanism changes across climate states requires explicit WMT decomposition that isolates individual forcing components.
+
+%Ferrari2014: the expansion of permanent sea ice in the Southern Hemisphere results in a volume increase of Antarctic-origin abyssal waters and a reduction in mixing between abyssal waters of Arctic and Antarctic origin.
+
+
+%The paleoclimate perspective is particularly valuable as the modern instrumental record provides insufficient temporal scope to evaluate how ocean processes respond to large forcing changes \cite{Tierney2020Paleo}. Paleoclimate states spanning different CO$_2$ levels, ice sheet configurations, and sea ice extents provide out-of-sample tests for understanding process sensitivities. Specifically, for Southern Ocean dense water formation,  paleoclimate analysis offers the only means to evaluate how the balance of thermal versus haline forcing shifts under different boundary conditions.
+
+
+This study analyzes WMT in five AWI-ESM simulations spanning a range of interglacial and glacial climate states, by decomposing surface buoyancy fluxes into radiative, turbulent, and haline components to identify the mechanisms governing dense water formation across interglacial and glacial regimes. We further examine how the Southern Annular Mode  modulates WMT rates and whether its coupling with surface buoyancy forcing remains robust across varying climate states. Finally, deep ocean ventilation ages are assessed as an integral diagnostic of overturning efficiency. This analysis serves as  an integral proxy for evaluating the efficiency of the overturning circulation in response to surface forcing shifts.
+
+%Finally, to link these surface processes to large-scale circulation changes, we assess deep ocean ventilation ages and their regional heterogeneity. This diagnostic serves as  an integral proxy for evaluating the efficiency of the overturning circulation in response to surface forcing shifts. By focusing on the mechanistic drivers of buoyancy gain  and loss rather than specific water mass definitions, this framework provides robust physical constraints on how Southern Ocean ventilation responds to past, and potentially future, climate perturbations.
+
+%In section 2, we introduce the model used in our study and the methods for surface buoyancy flux decomposition and water mass transformation. Results of
+
+
+\section{Results}
+
+\subsection{Large-scale features of the Southern Ocean during austral winter}
+
+Throughout the Results we refer to the five simulated climate states by the abbreviations used in the figures: PI for pre-industrial, MH for mid-Holocene, LIG for the last interglacial, LGM for the Last Glacial Maximum, and MIS3 for Marine Isotope Stage 3. Their boundary conditions are summarised in Table \ref{tab:bc}.
+
+
+To understand the surface preconditioning for dense water formation, we first examine the surface thermodynamic and dynamic state during austral winter (JJA), the primary season for this process in the Southern Ocean. % The simulated JJA climate patterns reveal distinct characteristics across the five simulated periods (Fig. \ref{sst}-\ref{wind}).
+The simulated surface anomalies relative to PI (Fig. \ref{sst}) show a striking contrast between interglacial (MH, LIG) and glacial (LGM, MIS3) states. During the interglacial periods, anomalies are generally moderate. The MH shows weak SST and SSS changes across the Southern Ocean (Fig. \ref{sst}a, e). In LIG, the most important feature is a distinct warm-salty pattern in the Bellingshausen-Amundsen area, where pronounced warming (more than 2 °C) is density-compensated by concurrent salinification (Fig. \ref{sst}b, f). This compensation results in localized surface densification (Fig. \ref{wind}b).
+In  contrast, the glacial periods (LGM, MIS3) are characterized by profound basin-wide cooling (Fig. \ref{sst}c,d) and salinification (Fig. \ref{sst}g,h). Here the enhanced glacial salinification partly reflects our model initialization with higher global mean salinity, accounting for ice sheet storage of freshwater. Because that offset is applied uniformly, the anomaly maps in Fig. \ref{sst}g,h combine it with the locally generated signal, and the regional structure rather than the absolute magnitude is what reflects local dynamics. The combination of extreme cooling and salinification leads to a pronounced increase in surface density across the entire Southern Ocean (Fig. \ref{wind}c,d), particularly in the Pacific sector. The surface density anomalies (Fig. \ref{sst}i-l) follow the salinity field rather than the temperature field in the glacial states. Cooling and salinification both act to densify the surface, but at the near-freezing temperatures that prevail south of the ice edge the thermal expansion coefficient is small, so the haline term sets both the pattern and the magnitude. In LIG the warm and salty Bellingshausen-Amundsen anomaly is close to density compensated (Fig. \ref{sst}j), and the LGM retains weak negative density anomalies in parts of the Atlantic-Indian sector where surface freshening outweighs cooling.
+
+
+
+
+In the interglacial states (PI, MH, LIG), the model produces deep mixed layers ($>$400 m) in the Weddell and Ross Sea gyres (Fig. \ref{mld}a-c), indicating active open-ocean convection. In PI this convection is concentrated in the Weddell sector, which accounts for 70\% of the area with a winter mixed layer deeper than 400 m south of 55°S and for 97\% of the area deeper than 600 m, centred near 68°S in the interior of the gyre rather than over the continental shelf. Conversely, under glacial conditions (LGM, MIS3), the glacial cooling drives a dramatic northward expansion of sea ice extent (Fig. \ref{mld}i, j), covering the majority of the subpolar Southern Ocean (Fig. \ref{mld}i-j). This massive sea ice expansion creates an insulation effect, preventing the water column from direct heat loss to the atmosphere. As a result, the deep mixed layers characteristic of open-ocean convection are strongly reduced and become confined to narrow coastal bands and polynyas (Fig. \ref{reso}). The reduction is substantial rather than complete. Summed south of 55°S, the area with a winter mixed layer deeper than 400 m falls from $7.5\times10^{11}$~m$^2$ in PI to $1.7\times10^{11}$~m$^2$ in LGM and $1.6\times10^{11}$~m$^2$ in MIS3, and the maximum mixed-layer depth decreases from 991 m to 819 m and 768 m. Mixed layers deeper than 600 m, which cover $2.4\times10^{11}$~m$^2$ in PI, essentially disappear in both glacial states. The residual glacial signals in coastal regions are therefore genuinely shallower than their interglacial counterparts, consistent with dense water production that is confined to narrow coastal bands rather than distributed across the open gyres. %This spatial reorganization of MLD suggests a fundamental regime shift in the mechanism of dense water formation: transitioning from widespread open-ocean cooling in interglacials to processes dominated by brine rejection in coastal polynyas during glacials.
+
+
+These thermodynamic changes are accompanied by shifts in atmospheric forcing (Fig. \ref{sst}m-p). While the MH shows moderate changes in zonal wind, the LIG displays localized intensification (Fig. \ref{sst}n). Both LGM and MIS3 exhibit strong positive anomalies in zonal wind speed and wind stress ($>0.04$~N/m$^2$) across the circumpolar belt (Fig. \ref{sst}o,p; Fig. \ref{wind}g,h). This intensified wind stress enhances Ekman transport and facilitates the northward expansion of sea ice, fundamentally altering the air-sea interaction interface. The response is not uniform around the continent. In the Ross sector the stronger stress drives enhanced northward ice export, but the surface ocean there remains comparatively warm, so replacement ice growth is limited thermodynamically rather than dynamically. Brine rejection strengthens without a proportional increase in ice area, which is also why this sector departs from the circumpolar pattern in the variability analysis below.
+
+The simulated westerlies strengthen in both the glacial and the last interglacial states, for different reasons. Measured as the latitude and magnitude of the maximum winter zonal-mean 10 m zonal wind, the jet sits at 45.7°S with 5.83~m~s$^{-1}$ in PI and is unchanged in MH. It shifts to 47.6°S and 6.92~m~s$^{-1}$ in LIG, following the orbital configuration of that period, and to 49.4°S with 6.30 and 6.85~m~s$^{-1}$ in LGM and MIS3, following the steepened meridional temperature gradient imposed by the expanded ice sheets and sea ice. That MH remains indistinguishable from PI argues against residual model drift as the origin of these changes. We note that the simulated glacial jet is displaced poleward, whereas proxy reconstructions infer an equatorward shift of about 4.8° and a weakening of roughly 25\% at the Last Glacial Maximum relative to the mid-Holocene \cite{Gray2023}. This disagreement is shared across the PMIP ensemble and we return to it, and to its consequences for our conclusions, in the Discussion.
+
+
+
+
+
+
+
+\subsection{Water mass transformation analysis}
+
+
+
+The decomposition of WMT rates reveals a fundamental regime shift in dense water formation mechanisms between interglacial and glacial climate states (Fig. \ref{wmt_jja}).
+
+During interglacial periods, dense water formation is predominantly thermally driven. In the austral winter (JJA), when transformation rates peak, the Southern Ocean exhibits a WMT maximum of 60--80~Sv at $\sigma_2 \approx 36.5$-$36.8$ kg m$^{-3}$ across all simulated interglacial states (Fig. \ref{wmt_jja}). This transformation is dominated by surface heat loss (red line), which accounts for 70--85\% of the total at the transformation maximum, with limited sea ice extent restricting the haline contribution from brine rejection to a secondary role (15--30\%; green line). Other freshwater fluxes (blue lines) oppose densification through net precipitation and river runoff. We note that this thermally dominated maximum occurs at densities that correspond to intermediate and mode waters rather than to bottom water. In the densest classes that the simulated surface fluxes reach ($\sigma_2 \ge 37.0$~kg~m$^{-3}$), the PI transformation is already haline dominated, with the sea ice term contributing 0.79~Sv against 0.06~Sv from heat in the annual mean. The thermal dominance reported here is therefore a property of the integral over all density classes, and we quantify its sensitivity to the choice of integration domain and density range in the Discussion.
+
+Glacial periods exhibit a distinctly different regime. The winter WMT maximum weakens substantially to 48-58 Sv while shifting to higher density classes ($\sigma_2 = 37.0$-$37.5$ kg m$^{-3}$; Fig. \ref{wmt_jja}). More fundamentally, the dominant forcing mechanism reverses, with sea ice processes contributing almost the entire of  the total WMT. This haline dominance reflects expanded sea ice coverage, which exerts dual effects on dense water formation.  Extensive ice cover insulates the ocean surface from atmospheric heat exchange, suppressing thermally driven transformation. On the other hand, enhanced sea ice production concentrates brine rejection, intensifying haline-driven densification at higher density classes ($\sigma_2 > 37$ kg m$^{-3}$). Thermal forcing operates only secondarily.
+
+This interglacial thermal-dominance versus glacial haline-dominance signature is consistent across regional sectors, including the Ross Sea, Weddell Sea, and Ad\'{e}lie regions. Note that the vertical axes in Fig. \ref{wmt_jja} are scaled independently for each panel to make the shape of the transformation curves legible; a version with a common vertical axis, which allows the magnitudes to be compared directly between climate states, is provided as Supplementary Fig. \ref{s_common_axis}.
+
+%This thermally dominated regime persists in the annual mean (Fig.~\ref{wmt_ann}), where net heat loss maintains a transformation rate of up to 18 Sv, balancing the seasonal buoyancy gain from summer warming.
+%The glacial states mark a transition to a haline-modulated regime. While intense winter cooling remains the primary driver of instantaneous buoyancy loss (Fig.~\ref{wmt_jja}), the resulting water masses are shifted to significantly denser classes ($\sigma_2 > 37.0$~kg m${-3}$). Crucially, the role of sea ice freshwater flux shifts from a background player to a leading driver. In the annual mean (Fig.~\ref{wmt_ann}), the sea ice contribution (green line) in the LGM and MIS3 scenarios dramatically intensifies, becoming the dominant positive forcing term in the Southern Ocean and Weddell Sea sectors. This indicates that while heat loss drives the seasonal convection cycle, the expanded sea ice engine---via enhanced brine rejection---is the critical mechanism that locks these waters into the abyssal density classes.
+
+
+
+%Regional Heterogeneity
+%This mechanistic shift exhibits strong spatial heterogeneity. The Weddell Sea, serving as the classical engine of deep water formation, shows the most pronounced glacial intensification. Here, winter transformation increases to $\sim$30~Sv (at $\sigma_2 = 37.2$~kg m${-3}$), heavily reinforced by a threefold increase in sea ice-driven transformation compared to the PI state. In contrast, the Ross Sea maintains a quasi-thermal balance even under glacial conditions, suggesting that local polynya dynamics allow strong atmosphere-ocean heat fluxes to persist despite the broader expansion of the sea ice edge.
+
+
+
+
+
+\subsection{Surface density tendency from buoyancy forcing}
+
+To identify the geographic origins and specific physical components driving the identified WMT regimes, we convert heat and freshwater fluxes into surface density tendency during austral winter (see Methods for more details).
+
+In PI, strong thermal densification (red shading) is concentrated in the open ocean (Fig. \ref{density_heat}a), with maximal values reaching $5 \times 10^{-6}$~kg~m$^{-3}$~s$^{-1}$ in the circumpolar band between 50-65°S. This thermal densification is overwhelmingly controlled by turbulent fluxes (sensible and latent heat), with radiative fluxes playing a minor role in the buoyancy budget (Fig. \ref{density_heat}f-j vs. Fig. \ref{density_heat}k-o), consistent with observationally based surface buoyancy budgets for the Southern Ocean \cite{Cerovecki2013,Abernathey2016}.
+Interglacial anomalies (MH, LIG; Fig. \ref{density_heat}b,c,g,h,l,m) show modest changes relative to PI. MH exhibits no obvious thermal density tendency anomalies, while
+LIG exhibits pronounced increases in thermal-driven surface density tendency  localized to the Ross Sea sector. This arises from the local ice-free condition during LIG, which facilitates enhanced ocean-atmosphere heat flux in the Ross Sea, a region that remains ice-covered throughout PI and MH winter months.
+For glacial periods (LGM, MIS3; Fig. \ref{density_heat}d,e), despite colder atmospheric temperatures, thermal density tendency decreases throughout the Southern Ocean. Anomalies reach $-2 \times 10^{-6}$~kg~m$^{-3}$~s$^{-1}$ in the Pacific sector. This result arises from expanded glacial sea ice acting as a thermal insulating lid that prevents ocean-atmosphere heat exchange. The turbulent flux component (Fig. \ref{density_heat}n,o) shows the strongest reduction, confirming that ice cover blocks sensible and latent heat loss more effectively than radiative exchange.
+
+The sea ice contribution shows a dipole in space. Fig. \ref{density_fwf}f exhibits this classic pattern in the sea ice-driven density tendency.  Coastal divergence zones experience strong brine-driven densification while ice edge areas show weak buoyancy gain from ice melt. This pattern dominate the total haline density tendency (Fig. \ref{density_fwf}a). Other freshwater sources (net precipitation and runoff, Fig. \ref{density_fwf}k) contribute negligibly to the surface density tendency in these simulations. We note that this statement applies to the freshwater sources represented in our configuration. In the present-day ocean, meltwater derived from the Antarctic ice sheet, both as basal melt beneath ice shelves and as iceberg discharge, is an important part of the coastal freshwater budget and acts to suppress dense water formation \cite{Silvano2018,ToggweilerSamuels1995}. Because the model has no ice shelf cavities and no prescribed meltwater flux, that term is absent here, and the freshwater budget we decompose is dominated by sea ice thermodynamics.
+MH anomalies remain small (Fig. \ref{density_fwf}b,g,l), consistent with limited sea ice changes during MH compared to PI. During LIG, the reduced sea ice in the Ross Sea contributes to a weakening of brine rejection and therefore a weakened density tendency (Fig. \ref{density_fwf}c,h).
+Glacial periods show a pronounced northward expansion and intensification of the buoyancy loss signatures relative to PI (Fig. \ref{density_fwf}d,e,i,j). Total freshwater density tendency anomalies reach $+5 \times 10^{-9}$~kg~m$^{-3}$~s$^{-1}$ in a circumpolar band around Antarctica. The sea ice component (Fig.~5i,j) dominates this signal, with strongest anomalies in the coastal regions ($> 5 \times 10^{-9}$~kg~m$^{-3}$~s$^{-1}$).
+
+
+
+
+\subsection{Southern Annular Mode impact on water mass transformation}
+
+
+
+
+
+The Southern Annular Mode (SAM) is the dominant mode of atmospheric variability in the Southern Hemisphere extratropics, characterized by a meridional pressure gradient between mid-latitudes and Antarctica that modulates the strength and position of the circumpolar westerlies. This atmospheric variability superimposes on mean climate states   and exerts primary control on surface buoyancy forcing, thereby governing WMT rates. Through composite analysis comparing high-SAM versus low-SAM years  (defined as JJA-mean SAM index exceeding $\pm$1.2$\sigma$ from the climatological mean)  using 100-year monthly simulations, we examine how this atmospheric forcing modulates   dense water formation across different climate states and regional sectors  (Fig. \ref{sam_wmt}).
+
+Across all climate states, the positive phase of SAM systematically enhances WMT in the Southern Ocean (Fig.~\ref{sam_wmt}, black lines), indicating that a poleward shift and intensification of the westerlies favors dense water production. However, the magnitude and mechanism of this SAM-WMT coupling differ substantially between interglacial and glacial periods. For PI, the maximum impacts occur at $\sigma_2 = 36.7$ kg/m$^3$ with the SAM-induced WMT anomaly being 3.2 Sv,  while in MH and LIG, the maximum WMT anomaly between high and low SAM years can reach about 8 Sv, occuring at $\sigma_2 = 36.5$ kg/m$^3$, representing the strongest SAM-WMT coupling among all climate states. During glacial periods, peak anomalies are more modest (+4 Sv for LGM at $\sigma_2 = 37.5$~kg/m$^3$; +4.2 Sv for MIS at $\sigma_2 = 37.1$~kg/m$^3$) and shifted  toward higher density classes, reflecting colder and saltier background conditions.
+
+The partitioning between thermal and haline contributions reveals a fundamental  climate-state dependence in the SAM-WMT relationship. During interglacials, the thermal component (red lines) dominates the WMT response while the sea ice freshwater forcing plays a second role, especially in the Ross sea and Weddell sea sectors,  This thermal dominance reflects the mechanism whereby strengthened westerlies during positive SAM phases enhance turbulent heat loss at the air-sea interface, driving densification through surface cooling. In contrast, during glacial periods, sea ice freshwater flux (green lines) emerges as the primary contributor. This indicates that under extensive glacial sea ice cover, SAM-driven changes in brine rejection, rather than direct heat loss, become the dominant process for modulating dense water formation.
+
+Regional decomposition reveals that the Weddell Sea and Ad\'elie sectors contribute consistently to the circumpolar SAM-WMT signal across interglacial climate states, while the Ross Sea exhibits more variable and sometimes opposing responses. Moreover, the glacial WMT response to SAM is overall dominated by the Weddell Sea region, whereas the Ross Sea and Ad\'elie sectors play a minor role. These regional  heterogeneities reflect differences in local sea ice dynamics, and circulation patterns that modulate how atmospheric forcing translates to surface
+  buoyancy changes.
+
+
+To understand the mechanisms underlying these SAM-WMT relationships, we now turn to examine the spatial patterns of surface heat flux and freshwater flux anomalies between high and low SAM composite years.
+
+Heat flux composites reveals  distinct responses between interglacial and glacial periods (Fig. \ref{sam_heat}). During interglacials, positive SAM phases systematically enhance ocean heat loss by more than 15~W/m$^2$ over the ice-free parts of the Southern Ocean south of about 50°S, where open water permits direct atmosphere-ocean coupling  (Fig.~\ref{sam_heat}), particularly in the Weddell Sea, the Bellingshausen Sea, and the Indian Ocean sector. Decomposition into components shows that turbulent fluxes (sensible and latent heat fluxes) account for most of this anomaly, while radiative contributions (longwave and shortwave fluxes) remain negligible.  In contrast, glacial periods (LGM and MIS3) show only weak SAM-driven heat flux changes south of the ice edge, because the extensive sea ice cover limits direct atmosphere-ocean exchange.
+
+
+Freshwater flux composites indicate that SAM influences dense water formation primarily through sea ice processes rather than net precipitation or river runoff (Fig.~\ref{sam_fwf}). Total freshwater flux anomalies exhibit general dipole patterns with positive SAM driving freshwater loss (ocean salinification) in coastal regions accompanied by freshwater gain offshore. This pattern is controlled by sea ice processes. Under high-SAM conditions, strengthened winds enhance offshore sea ice transport and ice formation in coastal polynyas, leading to intensified brine rejection.
+
+Together, these results demonstrate that the Southern Annular Mode systematically modulates transformation rates in all five simulated climate states through two distinct contributors: thermal forcing, which dominates during interglacials via turbulent heat fluxes, and haline forcing, which dominates during glacials via sea ice processes.
+
+The heat and freshwater composites are shown in their native units in Fig. \ref{sam_heat} and Fig. \ref{sam_fwf}, which makes the two forcings difficult to compare directly. Expressed as equivalent surface density tendencies, the freshwater contribution is the larger of the two wherever sea ice is present, and the heat contribution is larger only in the ice-free sector, which is the same partition that governs the mean state.
+
+
+
+%Climate state dependency is pronounced. Interglacial periods (PI/MH/LIG) exhibit spatially coherent positive heat flux anomalies throughout the ice-free Southern Ocean, with maximum values in the Atlantic and Indian sectors where open water permits direct atmosphere-ocean coupling. In contrast, glacial periods (LGM/MIS3) show reduced SAM-driven heat flux variability due to expanded sea ice insulation that dampens atmosphere-ocean exchange. The heat flux anomaly magnitude decreases by approximately 40\% during glacials compared to interglacials, demonstrating that sea ice extent fundamentally modulates SAM's capacity to influence surface buoyancy forcing.
+
+%Regional patterns reflect local oceanographic conditions. The Ross Sea exhibits the strongest SAM sensitivity during interglacials, with heat flux anomalies exceeding 20~W/m$^2$ during high-SAM phases---consistent with this region's exposure to westerly wind variability and reduced sea ice buffering during warm periods. The Weddell Sea shows more muted response due to persistent open-water areas that maintain atmosphere-ocean coupling even during low-SAM conditions. This regional heterogeneity implies that SAM-driven WMT changes concentrate in specific sectors rather than occurring uniformly around Antarctica.
+
+
+%High-SAM drives complex dipole patterns with coastal freshwater loss (salinification from enhanced brine rejection) and offshore gain (from ice melt). The sea ice component (row 2) dominates other sources (row 3) by factors of 3--5, confirming that SAM influences WMT primarily through haline forcing via sea ice redistribution. Glacial periods exhibit amplified responses ($>$1.0~mm/day) due to expanded baseline sea ice coverage providing larger reservoir for SAM-driven redistribution.
+
+
+
+%The sea ice freshwater component dominates other sources (net precipitation and river runoff) in all climate states, confirming that SAM-driven WMT variability operates primarily through haline forcing via sea ice redistribution. Glacial periods exhibit amplified sea ice responses: LGM and MIS3 show freshwater flux anomalies exceeding 1.0~mm/day in coastal regions during high-SAM phases, compared to 0.5--0.7~mm/day in interglacials. This glacial amplification reflects expanded baseline sea ice coverage providing larger reservoir for SAM-driven redistribution.
+
+%Seasonal dependence is critical. Winter composites (JJA) show strongest signals when sea ice formation peaks, whereas summer patterns (not shown) exhibit reversed but weaker anomalies associated with melt season dynamics. The asymmetry between winter intensification and summer weakening creates net annual haline forcing that persists beyond individual SAM events, potentially influencing dense water properties on multi-year timescales.
+
+
+
+\subsection{Ventilation age simulations}
+
+
+
+
+
+
+
+%\textbf{Figure 12: Vertical profiles of ideal age by ocean basin.}
+%\begin{figure}[h]
+%\centering
+%\includegraphics[width=0.8\textwidth]{figures/age_vertical.pdf}
+%\end{figure}
+%Basin-averaged vertical age profiles (years vs depth) for Atlantic, Indian, and Pacific oceans across five experiments. Interglacials show modest depth-increasing ages: Atlantic/Indian 500--750~yr at 4000~m, Pacific 800--1200~yr. Glacials exhibit systematically older ages with strong depth dependence: Atlantic reaches 1500--2000~yr, Pacific exceeds 2500~yr below 3000~m (tripling relative to PI). Indian Ocean shows intermediate behavior. These profiles quantify basin-specific ventilation changes and demonstrate that Pacific deep waters experience most dramatic aging under glacial conditions due to remoteness from Southern Ocean formation regions.
+
+%\textbf{Figure 13: Vertical profiles of ideal age anomalies by ocean basin.}
+%\begin{figure}[h]
+%\centering
+%\includegraphics[width=0.8\textwidth]{figures/age_vertical_anm.pdf}
+%\end{figure}
+%Basin-averaged age anomaly profiles (years vs depth, relative to PI). MH exhibits minimal anomalies ($<\pm$100~yr). LIG shows slight rejuvenation in Atlantic ($-$75 to $-$150~yr throughout water column) from enhanced dense water formation, while Pacific shows modest increases (+100~yr deep). Glacials display depth-increasing anomalies: LGM/MIS3 reach +1500~yr in deep Pacific, +800~yr in Atlantic, +500~yr in Indian. The systematic depth-dependence reflects reduced ventilation at depth where sluggish abyssal circulation magnifies the impact of reduced formation rates. These anomaly profiles isolate pure climate-driven ventilation changes independent of baseline circulation structure.
+
+\subsection{Overturning circulation and deep ocean ventilation}
+
+The surface transformation changes described above should be reflected in the overturning circulation itself. We therefore examine the global overturning streamfunction diagnosed online by the model (Fig. \ref{moc}). In the interglacial states the abyssal cell, which represents the northward spreading of southern-sourced bottom water, reaches $-10.0$~Sv in PI, $-10.1$~Sv in MH and $-9.2$~Sv in LIG. In the glacial states it weakens to $-2.4$~Sv in LGM and $-1.6$~Sv in MIS3, a reduction of roughly 75 to 85\%. The upper cell associated with northern-sourced deep water changes comparatively little, from 19.1~Sv in PI to 20.0~Sv in LGM and 21.7~Sv in MIS3, so the glacial reorganisation in these simulations is concentrated in the abyssal cell and expresses a contraction of the southern-sourced cell rather than a wholesale collapse of the overturning.
+
+Having examined surface water mass transformation and the overturning response, we next assess deep ocean ventilation through ideal age distributions.
+
+
+Ideal age distributions at 4000 m depth reveal fundamental restructuring of abyssal ventilation across different climate states (Fig.\ref{age}). Interglacial periods are characterized by relatively young deep waters. PI, MH, and LIG all present ages below 500 years in the Atlantic and Indian sectors, with the oldest waters (more than 500 years) confined to the Pacific.  MH exhibits no obvious age changes relative to PI. LIG anomalies reveal younger-than-PI ages (up to $-$150 years) in the Belingshausen Sea sector. This can be attributed to reduced sea ice coverage and enhanced thermal forcing. The Atlantic and Indian Ocean sectors show relatively modest age increases during LIG (less than 70 years). Glacial periods exhibit different patterns. In LGM and MIS3, water ages exceed 750 year throughout the Atlantic and Indian basins, with Pacific ages reaching 1500 year. This represents a significant global increase in deep ocean isolation or a slowdown in overturning in glacial times, consistent with radiocarbon proxy reconstructions \cite{Skinner2017}.
+
+Because a single depth level gives an incomplete picture of ventilation, we also examine ideal age throughout the global ocean (Fig. \ref{age_global}). Averaged below 2000 m, the ageing is strongly basin dependent. The Atlantic increases only modestly, from 377 years in PI to 439 years in LGM and 508 years in MIS3, because it remains ventilated from the north. The Southern Ocean more than doubles, from 381 to 789 and 844 years, and the Pacific, already the oldest basin in the interglacials at 847 years, reaches 1291 and 1314 years. The zonal-mean sections (Fig. \ref{age_global}f-j) show that the glacial ageing is concentrated below roughly 2000 m and is largest in the deep Pacific, while the upper kilometre changes comparatively little. The contrast between a mildly ageing Atlantic and a strongly ageing Southern Ocean and Pacific is consistent with the abyssal cell weakening while the upper cell is maintained.
+
+We caution that ideal age in these simulations should be read as a lower bound. Each experiment was integrated for 1000 years, which is shorter than the oldest simulated ages, so the glacial age fields are not fully equilibrated and the true equilibrium contrast between climate states would probably be larger. Achieving equilibrated deep-ocean age tracers requires multi-millennial integrations \cite{Millet2025}.
+
+
+%Vertical age profiles quantify basin-specific ventilation changes (Fig.~12). In the Atlantic, glacial ages increase systematically with depth, reaching 1500--2000~yr at 4000~m compared to 500--750~yr in interglacials. The Indian Ocean shows intermediate behavior. Most striking is the Pacific, where glacial ages exceed 2500~yr below 3000~m---a tripling relative to PI. Age anomaly profiles (Fig.~13) isolate climate-driven changes: LIG shows slight rejuvenation throughout the water column in the Atlantic ($-$75 to $-$150~yr), while LGM/MIS3 exhibit depth-increasing anomalies reaching $+$1500~yr in the deep Pacific. These patterns reflect enhanced stratification and altered circulation under glacial boundary conditions.
+
+
+% ============================================================================
+% Methods
+% ============================================================================
+
+
+\section{Discussion and conclusions}
+
+In this study, we analyse five simulated climate states spanning PI, MH, LIG, LGM, and MIS3 to identify how surface buoyancy forcing mechanisms govern Southern Ocean dense water formation under varying boundary conditions. For this purpose, we apply the WMT framework \cite{Walin1982,Groeskamp2019,drake2025water}, which  provides a thermodynamic basis for relating surface buoyancy fluxes to dense water formation rates. Recent observational studies have successfully applied this framework to the modern Southern Ocean. For example, based on Argo floats and instrumented seals, Pellichero et al. \cite{Pellichero2018} show that seasonal sea ice growth and melt dominates WMT in the ice-covered region, with freshwater fluxes rather than heat fluxes driving the meridional overturning that feeds bottom water formation, yielding an annual mean of approximately 5$\pm$5 Sv transformation into denser bottom water classes. Bailey et al. \cite{Bailey2023} further quantified regional WMT patterns, emphasizing the dominant role of haline forcing in the Weddell Sea. However, these observational WMT analyses are inherently limited to the modern climate state and sea ice regions. Our study extends the WMT framework to PI and paleoclimate conditions for the entire Southern Ocean, and decomposes total transformation into individual heat and salt components across glacial-interglacial time periods. For the PI state, our model reproduces comparable annual-mean transformation magnitudes to modern observations (Fig. \ref{s2}). The forcing balance, however, differs. Pellichero et al. \cite{Pellichero2018} and Bailey et al. \cite{Bailey2023} find haline dominance in the modern seasonal ice zone, whereas our PI integral is thermally dominated. Because this difference concerns the central claim of the present study, we examined it directly rather than attributing it to unspecified model bias.
+
+Two factors contribute, and they can be separated. The first is the integration domain. Pellichero et al. analyse only the region enclosed by the September sea ice edge, whereas we integrate over everything south of 60°S. In our PI simulation, 42.7\% of that area lies outside the September 15\% ice contour and is water they do not analyse. It is also the part of the domain where the ocean is exposed to the atmosphere all year and where thermal forcing is strongest, and taken alone it is 89--91\% thermally driven in the dense classes. Recomputing the transformation over a sea ice sector defined exactly as theirs, which reproduces their domain to within 2.5\% in area, moves the partition in the direction they report. The thermal share of the dense-class transformation falls from 69\% to 61\% and the sea ice contribution at the transformation maximum roughly doubles, from 0.86 to 1.84~Sv (Fig. \ref{domain}).
+
+The second factor is the density range, and it accounts for most of the remaining difference. Converting our simulated surface properties inside the September ice zone to the neutral density coordinate used by Pellichero et al., our thermally dominated transformation maximum sits near $\gamma_n \approx 27.3$~kg~m$^{-3}$, whereas the haline-dominated lower cell they describe occupies $\gamma_n = 27.9$--$28.8$~kg~m$^{-3}$. Our surface transformation barely reaches the lighter edge of that range. In the densest classes our fluxes do populate ($\sigma_2 \ge 37.0$~kg~m$^{-3}$), the PI transformation is haline dominated, with 0.79~Sv from sea ice against 0.06~Sv from heat. The two analyses are therefore largely describing different water masses, ours weighted toward mode and intermediate densities and theirs toward bottom water densities, and where they overlap they agree in sign. This also indicates that the interglacial thermal pathway identified here is more relevant to the formation of intermediate and mode waters than to bottom water proper.
+
+A residual discrepancy remains, and it reflects a genuine limitation of the model rather than a difference in bookkeeping. We can exclude one candidate explanation: the simulated ice-covered sector is not warm biased in a way that would inflate the thermal term. Inside the September ice zone the area-weighted winter surface temperature is $-1.08$~°C, the median is $-1.71$~°C, 55\% of the area lies within 0.5~°C of the local freezing point, and the corresponding thermal expansion coefficient is $3.5\times10^{-5}$~K$^{-1}$. The near-freezing, weakly thermally sensitive regime invoked by Pellichero et al. is therefore reproduced. What differs is where dense water is made. In the model, PI dense water forms by open-ocean convection in the interior of the Weddell gyre near 68°S, not by the sequence of ice shelf melt, dense shelf water formation in coastal polynyas, and downslope overflow that operates in the real ocean \cite{Orsi1999,ToggweilerSamuels1995}. Because open-ocean convection exposes the water column to the atmosphere over a large area, it recruits an excessive thermal contribution and produces water that is not dense enough, which is precisely the offset in density class documented above.
+
+This bias is shared across the current generation of climate models rather than particular to AWI-ESM2. In the CMIP6 ensemble, 28 of 35 models form deep and bottom water by open-ocean deep convection that is too deep, too frequent, or too extensive, and no model shows convincing shelf export in the Weddell Sea \cite{Heuze2021}; the same behaviour was documented in CMIP5 \cite{Heuze2013}. The present configuration also has no ice shelf cavities, so basal melt beneath floating ice and the associated production of near-freezing shelf water are absent by construction. We state these limitations plainly because they bound what can be claimed. Our results should be read as a statement about how the partitioning of surface buoyancy forcing between heat and freshwater responds to changing sea ice cover, which is a robust property of the simulations, and not as a quantitative reconstruction of past bottom water formation rates.
+
+It is reasonable to ask whether the regime shift is then simply an artefact of a biased interglacial end member, with the glacial state being the more realistic of the two. Two results argue against that reading. First, the shift survives the domain test. Recomputed over the sea ice sector alone, the glacial states remain 15\% and 17\% thermally driven while the interglacials remain 53--88\% thermally driven (Fig. \ref{domain}), so the contrast is not created by including open water in the interglacial integrals. Second, the mechanism is the ice cover itself rather than the convection style. Insulation of the surface from the atmosphere and concentration of brine rejection follow from the areal expansion of sea ice, and both would operate in a model that formed its dense water on the shelf. What such a model would change is the density and the geographic origin of the resulting water, not the direction of the shift in the surface buoyancy budget.
+
+Our conclusions about the glacial state are consistent with recent work using the same ocean model in a forced configuration. Chen et al. \cite{Chen2025} attribute the large glacial volume of Atlantic bottom water to a substantial increase in sea ice export toward lower latitudes, which supplies dense shelf water year round, and to weaker mixing between northern- and southern-sourced water, which allows that water to retain the properties of its origin. The agreement is worth stating explicitly, and the two studies are complementary rather than overlapping. Chen et al. infer the role of sea ice from water mass volumes, the overturning streamfunction, and mixed-layer and sea ice fields, in ocean-only simulations of two states with a prescribed atmosphere. The transformation framework applied here measures the surface buoyancy forcing directly and attributes it to individual flux components in sverdrups, so the contribution of sea ice is quantified rather than inferred from covarying fields. Running the analysis across five coupled climate states, in which sea ice and the atmospheric fluxes evolve together, is also what makes the change of regime visible, since a shift between two forcing regimes cannot be identified from a single glacial state. The present analysis therefore tests and quantifies the mechanism that Chen et al. proposed.
+
+Though our analysis focuses on surface forcing rather than bottom water formation directly, these results have important implications for understanding how deep water formation mechanisms may respond to climate change (Fig. \ref{schematic}). Our finding that glacial sea ice acts as an amplifier of haline forcing aligns with the sea ice pump hypothesis \cite{Abernathey2016}. In this regime, the decoupling of thermal forcing implies that ventilation rates become sensitive to sea ice production rather than atmospheric cooling anomalies. Quantitatively, the interglacial Southern Ocean is characterized by thermally dominated WMT, with transformation maxima of 60-80~Sv at density classes of $\sigma_2 = 36.5$-$36.8$ kg m$^{-3}$, where turbulent heat exchange (sensible and latent heat fluxes) accounts for the majority of thermal forcing. Glacial conditions fundamentally restructure this forcing balance. The winter transformation maximum weakens to below 60~Sv and moves to $\sigma_2 = 37.0$--$37.5$~kg~m$^{-3}$, and the thermal share of the transformation falls to 12--17\% while the sea ice term becomes dominant. Extensive ice cover insulates the ocean from atmospheric heat exchange, and simultaneously intensifies haline forcing through enhanced brine rejection concentrated in coastal regions. This shift of forcing mechanisms can change pathways and distribution of dense water formation. Moreover, our paleoclimate analysis suggests that projected sea ice decline under global warming may lead to increased thermal dominance in the Southern Ocean.  However, concurrent Antarctic ice sheet mass loss could substantially modify this response through enhanced freshwater input \cite{Li2023Nature,Silvano2018}. The combined effects of reduced sea ice and increased meltwater highlight the need for comprehensive  assessments that account for both factors when projecting future changes in Southern Ocean ventilation and carbon uptake.
+
+The ability of the model to maintain an extensive glacial winter ice cover, and thereby to suppress open-ocean convection, is not a general feature of paleoclimate simulations. Many PMIP models underestimate glacial Southern Ocean sea ice and its seasonality, and colder glacial forcing on its own tends to intensify open-ocean convection rather than suppress it, which degrades the properties of the simulated bottom water; in one systematic study the only configuration that avoided an unrealistically deep northern-sourced cell was the one in which brine sinking along the Antarctic margin was parameterised explicitly \cite{Lhardy2021}. In our simulations the glacial ice cover expands sufficiently to insulate the interior gyres, and the area of deep winter mixed layers contracts to roughly one fifth of its PI value. This behaviour is what produces the haline-dominated glacial regime reported here, and it means our glacial result depends on the simulated sea ice expansion being realistic. Proxy-based reconstructions indicate extensive glacial winter ice, which supports the direction of the simulated change, but the quantitative agreement remains uncertain.
+
+A related limitation concerns the simulated glacial winds. As noted above, the westerlies in our glacial experiments shift poleward and strengthen, whereas proxy reconstructions infer an equatorward shift of about 4.8° and a weakening of about 25\% at the Last Glacial Maximum relative to the mid-Holocene \cite{Gray2023}. The inferred shift exceeds that produced by any member of the PMIP3/4 ensemble, so this is a systematic shortcoming of current models rather than a defect specific to AWI-ESM2, but it does affect how our wind-related results should be read. Two considerations limit the consequences for our conclusions. The mean-state regime shift is driven by the areal extent of sea ice and by brine rejection, not by the position of the jet, and Gray et al. \cite{Gray2023} find no correlation across the model ensemble between Antarctic sea ice extent and either the latitude of the westerlies or the position of the surface temperature front. A bias in jet position therefore does not automatically propagate into the sea ice field on which our main result depends. The Southern Annular Mode results, by contrast, describe the response to a wind perturbation superimposed on a background state whose winds are biased, and they should be read as a statement about the mechanism by which wind variability modulates transformation rather than as a reconstruction of glacial wind-driven variability.
+
+The Southern Annular Mode emerges as a persistent modulator of transformation across all climate states. In its positive phase it enhances turbulent heat loss over open water and simultaneously drives sea ice divergence that promotes brine rejection near the coast, with composite anomalies of 3--8 Sv between high and low phases. The dominant pathway shifts from thermal during interglacials to haline during glacials, mirroring the mean-state regime shift described above. This circumpolar picture does not hold uniformly in every sector. The Ross Sea in particular departs from it, showing weaker and at some densities opposing responses, and in the glacial states the circumpolar signal is carried largely by the Weddell sector while the Ross and Ad\'elie sectors contribute little. The robustness of this SAM-WMT coupling across dramatically different background conditions indicates that atmosphere-ocean-sea ice interactions operate through consistent physical mechanisms regardless of mean climate state. This finding agrees with recent observational evidence linking Weddell Sea bottom water reduction to wind-driven sea ice decline \cite{Zhou2023}, and the recovery of Ross Sea convection during 2015--2019 from positive SAM combined with El Ni\~no forcing \cite{Silvano2020}. Whether this persistent coupling could be exploited for proxy reconstruction is less clear than we previously suggested. Recovering an interannual-to-decadal signal from marine sediments would require accumulation rates and chronological precision that are rarely available around the Antarctic margin, where sedimentation is slow and bioturbation mixes the record over intervals far longer than the variability of interest. We therefore present the persistence of the coupling as a property of the simulated system rather than as a practical route to a marine Southern Annular Mode reconstruction.
+
+Finally, we evaluate the simulated deep ocean ventilation ages. Benthic-planktonic $^{14}$C age offsets indicate that the radiocarbon age of dissolved inorganic carbon in the glacial deep ocean increased globally, with the strongest signals in the Pacific and Southern Ocean \cite{Skinner2010,Skinner2017}. Our  simulated LGM ideal age increase of about 1000 years at 4000 m depth is of similar magnitude to radiocarbon-derived estimates of  689$\pm$53~$^{14}$C-yr \cite{Skinner2017}, though our model somewhat overestimates the age increase. However, direct comparison requires careful interpretation because benthic-planktonic $^{14}$C ages include both circulation age and preformed age arising from incomplete atmosphere-ocean equilibration \cite{Koeve2015}. Our glacial simulations present substantially increased ventilation ages, with Pacific ages reaching 1500 years compared to less than 500 years during interglacials, consistent with radiocarbon proxy reconstructions \cite{Skinner2017}. Two caveats apply to this comparison. The ideal age fields are not fully equilibrated after 1000 years of integration, so the simulated glacial ages, and the glacial-interglacial contrast, are best read as lower bounds; equilibrating deep-ocean age tracers requires multi-millennial simulations \cite{Millet2025}. Ideal age also responds to mixing as well as to advection, so it measures the combined effect of a weaker abyssal cell and altered interior mixing rather than the overturning rate alone. The overturning streamfunction shown in Fig. \ref{moc} provides the more direct measure, and the two diagnostics agree in indicating a substantially weaker glacial abyssal cell.
+
+While this study is based on a single model, the mechanisms identified here provide a framework for systematic inter-model comparison. Applying this analysis across the CMIP/PMIP ensemble would help address the current large inter-model spread in glacial-interglacial WMT and better constrain its implications for deep water formation.
+
+These paleoclimate results carry direct implications for the future Southern Ocean. The thermal-to-haline transition identified here is not a purely glacial phenomenon but a manifestation of a general state-dependence of surface buoyancy forcing, and the same competing mechanisms are projected to operate, in the opposite direction, under anthropogenic warming. Sea-ice decline reduces the insulation that currently suppresses open-ocean heat loss, favouring a more thermally driven regime and, at the extreme, the cessation of open-ocean deep convection \cite{deLavergne2014}. Acting against this, accelerating Antarctic ice-sheet mass loss freshens the surface and weakens the haline forcing that sustains dense water formation in coastal polynyas \cite{Silvano2018,Jeong2023}, a process already implicated in the observed contraction, warming, and reduced ventilation of the abyssal Southern Ocean \cite{Li2023Nature,Gunn2023}. The net outcome depends on which of these two pathways dominates, and our analysis shows that this balance is itself climate-state dependent. This implies that projections of Southern Ocean ventilation and its associated carbon uptake will remain uncertain until the thermal and haline components of surface buoyancy forcing are evaluated separately, rather than only through bulk overturning metrics.
+
+\section{Methods}
+
+\subsection{Model description and experimental design}
+
+We employ the AWI-ESM2, a state-of-the-art coupled Earth system model developed at the Alfred Wegener Institute \cite{sidorenko2019evaluation}. The model comprises the ECHAM6 atmospheric component \cite{stevens2013atmospheric} coupled to the JSBACH land-surface model, which represents dynamic vegetation through multiple plant functional types \cite{brovkin2009global,reick2021jsbach}. The ocean-sea ice component is FESOM2, which features a multi-resolution dynamical core based on a finite-volume formulation \cite{danilov2017finite}. The atmospheric component operates at T63L47 spectral resolution (approx. 1.875° horizontal resolution with 47 vertical levels). A key feature of AWI-ESM2 is the unstructured mesh of the ocean component, allowing for spatially variable resolution (Fig. \ref{reso}). In our configuration, the grid resolution ranges from $\sim$100 km in the open ocean to 25 km in polar regions and along coastlines, with 46 distinct vertical layers. At this resolution the larger coastal polynyas are represented as features, but the boundary layer processes that set polynya dynamics are not resolved. Sea ice growth and melt are computed thermodynamically at each surface node, and the associated brine release enters the ocean as a salt flux at that node, so the brine signal appears wherever the model forms ice; its intensity, however, depends on the simulated wind-driven ice divergence rather than on a resolved polynya circulation. The configuration does not include ice shelf cavities, so the ocean beneath floating ice shelves, and the basal melt it supplies, are absent from the simulations. Regions covered by floating ice shelves are therefore outside the model domain and appear blank in the map figures.
+  The ocean component employs the K-Profile Parameterization (KPP) scheme
+  \cite{large1994oceanic} for vertical mixing, which detects the ocean boundary
+  layer depth using a bulk Richardson number criterion ($Ri_{cr} = 0.3$) and
+  includes a non-local transport term to represent convective fluxes within the
+  unstable boundary layer. Static gravitational instabilities throughout the water
+  column are treated by enhancing the vertical diffusivity to 0.1~m$^2$~s$^{-1}$
+  wherever the squared Brunt-V\"{a}is\"{a}l\"{a} frequency becomes negative.
+  In addition, a Monin-Obukhov length scale mixing scheme following
+  \cite{timmermann2004parameterization} is applied at high latitudes to represent
+  surface buoyancy flux-driven convection, with a mixing coefficient of
+  0.01~m$^2$~s$^{-1}$. Mesoscale eddy-induced tracer transport is represented through
+  Gent-McWilliams thickness diffusion \cite{gent1990isopycnal,ferrari2008parameterization}
+  coupled with Redi isopycnal diffusion \cite{redi1982oceanic}.  The GM diffusivity
+  is allowed to vary between 2 and 2000~m$^2$~s$^{-1}$, scaled according to the
+  local model resolution relative to a reference scale of 100~km.
+
+We perform five equilibrium simulations spanning distinct climate states including three interglacial periods, i.e., pre-industrial (PI), mid-Holocene (MH), and last interglacial (LIG), and two glacial periods, i.e., the Last Glacial Maximum (LGM) and Marine Isotope Stage 3 (MIS3). The boundary conditions are configured following the criteria of PMIP4 \cite{otto2017pmip4} and are summarised in Table \ref{tab:bc}. Orbital parameters are calculated following \cite{berger1977long}, and the greenhouse gas concentrations are taken from multi-archive reconstructions from ice core records and recent measurements of firn air and atmospheric samples \cite{fluckiger2002high,monnin2004evidence,schilt2010glacial,buiron2011taldice,schneider2013reconstruction,kohler2017156}.  For LGM and MIS3, we fix the boundary conditions at 21 ka and 38 ka respectively, with the topography and ice-sheet properties deriving from the GLAC1D reconstruction \cite{tarasov2003greenland,tarasov2012data,briggs2014data}. The GLAC-1D reconstruction enters the model through several boundary fields simultaneously. It sets the ice sheet extent and surface elevation and the associated land-sea mask and orography used by the atmosphere and land-surface components, the river routing, and the vegetation distribution. It also determines the ocean bathymetry and coastline, which requires a dedicated unstructured ocean mesh for each glacial period; we use meshes constructed for 21 ka and 38 ka respectively, while PI, MH and LIG share the modern-geometry mesh. Global mean ocean salinity is raised in the glacial experiments to account for the water stored in the ice sheets. No prescribed ice sheet meltwater flux is applied in any of the equilibrium simulations, and the model configuration does not include ice shelf cavities, so basal melt beneath floating ice shelves is not represented.
+
+The PI control run was integrated for 1,500 years, initialized with AMIP atmospheric conditions \cite{roeckner2004atmospheric} and World Ocean Atlas climatology \cite{levitus2010world}. The MH and LIG simulations branched from the equilibrated PI state. The LGM and MIS3 experiments were initialized from a previous glacial state \cite{werner2016glacial}. All paleo-simulations were integrated for 1,000 model years. We analyze the final 100 years of each run, representing a quasi-equilibrium state.
+
+
+\subsection{Surface buoyancy flux decomposition}
+
+To quantify the individual contributions of different physical processes to surface buoyancy forcing, we employ the xbudget diagnostic tool (\url{https://github.com/hdrake/xbudget}) \cite{drake2025water}. This framework enables systematic decomposition of tracer budgets into individual forcing terms while maintaining numerical consistency with the underlying model's finite-volume discretization.
+
+The total surface density tendency, $\mathcal{B}$ (m$^2$ s$^{-3}$), is decomposed into thermal ($\mathcal{B}_{therm}$) and haline ($\mathcal{B}_{haline}$) components:
+\begin{equation}
+\mathcal{B} = \mathcal{B}_{therm} + \mathcal{B}_{haline} = -\frac{\alpha}{C_p} Q_{net} + \beta S F_{fw},
+\end{equation}
+where $\alpha$ and $\beta$ are the thermal expansion and haline contraction coefficients, respectively, and $C_p$ is the specific heat capacity of seawater. $Q_{net}$ represents the net surface heat flux (positive into the ocean). Here we further decompose the net heat flux into its shortwave radiative, longwave radiative, latent heat, and sensible heat components. In the figures the radiative component denotes the sum of the shortwave and longwave fluxes, and the turbulent component denotes the sum of the latent and sensible heat fluxes. Similarly, the freshwater fluxes $F_{fw}$ are partitioned into precipitation, evaporation, river runoff, and thermodynamic sea ice processes (brine rejection and freshwater release upon melting). This systematic decomposition allows us to isolate the specific role of sea ice thermodynamics versus atmospheric radiative and turbulent fluxes in driving water mass transformation. Note that under this convention, a heat loss ($Q_{\text{net}} < 0$) or freshwater loss ($F_{fw} < 0$) results in a negative buoyancy flux ($\mathcal{B} < 0$) and thus densification.
+
+We refer throughout to the thermal density tendency, meaning the surface density change produced by the net heat flux acting through the thermal expansion coefficient, that is the $-\left(\alpha/C_p\right)Q_{net}$ term, and to the sea-ice-driven density tendency, meaning the part of the haline term $\beta S F_{fw}$ that is carried by the thermodynamic growth and melt of sea ice. A positive value denotes densification of the surface water in both cases. Brine released during ice growth increases surface salinity and therefore density, whereas melting releases freshwater and reduces it.
+
+After xbudget decomposes surface density tendency into individual heat and salt components, these decomposed budgets are passed directly to xwmt (see the next subsection) for WMT calculation.
+
+
+\subsection{Water mass transformation framework}
+
+We quantify the production of dense water using the water mass transformation (WMT) framework \cite{Walin1982,Speer1992}. This method relates surface density tendency to the cross-isopycnal volume flux, providing a mechanistic link between air-sea-ice forcing and the overturning circulation.
+
+The water mass transformation rate, $F(\rho)$, represents the volume flux across a specific isopycnal surface $\rho$ driven by surface forcing. It is calculated by integrating the buoyancy flux over the outcrop area where the surface density is less than or equal to $\rho$:
+\begin{equation}
+F(\rho) = \iint_{\rho_{surf} \le \rho} \frac{\mathcal{B}}{\Delta \rho} \, dA,
+\end{equation}
+where $A$ denotes the surface area. In the discrete formulation used for analysis, we bin the surface fluxes into density classes with a bin width ($\Delta \rho$) of 0.2 kg m$^{-3}$.
+
+Finally, the water mass formation rate, $M(\rho)$, is defined as the convergence of the transformation rate in density space:
+\begin{equation}
+M(\rho) = - \frac{\partial F(\rho)}{\partial \rho}.
+\end{equation}
+A positive $M(\rho)$ indicates that surface fluxes act to accumulate water in a specific density class, effectively transferring water from the surface mixed layer into the interior ocean (subduction/ventilation). By decomposing $\mathcal{B}$, we can explicitly attribute changes in dense water formation to either thermal or haline forcing.
+
+We calculate these diagnostics using the xwmt package \cite{xwmt2024}, a Python-based framework developed at NOAA-GFDL specifically designed for calculating WMT in a computationally efficient manner \cite{drake2025water}. For each experiment, WMT is computed over four regions south of 60°S: (1) the entire Southern Ocean, (2) the Ross Sea sector (180°W--60°W), (3) the Weddell Sea sector (60°W--79°E), and (4) the Adélie sector (79°E--180°E). These regions encompass the primary Antarctic bottom water (AABW) formation sites and allow regional comparison of formation mechanisms. Regional transformations are calculated by applying spatial masks to the surface forcing fields before integration.
+
+To compare with observational estimates that are defined over the ice-covered sector, we additionally repeat the calculation over a seasonal sea ice zone, defined as the region where the climatological September sea ice concentration exceeds 15\%, following the domain definition of Pellichero et al. \cite{Pellichero2018}, and over the complementary part of the domain south of 60°S that lies outside that contour. These auxiliary calculations use the climatological monthly means and are otherwise identical to the main calculation. For the density-class comparison with observational studies that use neutral density, simulated surface properties were converted with the TEOS-10 routines.
+
+\begin{table}[htbp]
+\centering
+\caption{Boundary conditions prescribed in the five equilibrium simulations. Orbital parameters for PI are those of 1850~CE. Greenhouse gas concentrations are volume mixing ratios.\label{tab:bc}}
+\begin{tabular}{lccccccc}
+\toprule
+ & CO$_2$ & CH$_4$ & N$_2$O & Eccentricity & Obliquity & Perihelion & Ice sheet / \\
+ & (ppm) & (ppb) & (ppb) & & (°) & (°) & bathymetry \\
+\midrule
+PI   & 284.3 & 808.2 & 273.0 & 1850~CE  & 1850~CE & 1850~CE & modern \\
+MH   & 264.4 & 597.0 & 262.0 & 0.018682 & 24.105  & 180.87  & modern \\
+LIG  & 275.0 & 685.0 & 255.0 & 0.039378 & 24.040  & 95.41   & modern \\
+LGM  & 190.0 & 375.0 & 200.0 & 0.018994 & 22.949  & 294.42  & GLAC-1D 21~ka \\
+MIS3 & 210.5 & 556.2 & 247.4 & 0.013676 & 23.2591 & 25.99   & GLAC-1D 38~ka \\
+\botrule
+\end{tabular}
+\end{table}
+
+
+% ============================================================================
+% Discussion and Conclusions
+% ============================================================================
+
+% ============================================================================
+% Backmatter
+% ============================================================================
+\backmatter
+
+\section*{Acknowledgements}
+This research was supported by... We acknowledge helpful discussions with...
+
+\section*{Author contributions}
+X.S. and J.L. designed the study, performed the analysis, and wrote the manuscript. All authors discussed the results and commented on the manuscript.
+
+\section*{Competing interests}
+The authors declare no competing interests.
+
+\section*{Data availability}
+The model output required to reproduce every figure in this manuscript, comprising climatological monthly means for the five experiments, the 100-year monthly water mass transformation time series, the Southern Annular Mode composite fields, and the ocean mesh files, has been deposited in a public repository (DOI to be inserted upon acceptance). Source data for the line-graph figures are provided with this paper. The raw model output totals several tens of terabytes and is archived at the German Climate Computing Centre; it is available from the corresponding author on reasonable request.
+
+\section*{Code availability}
+The xbudget tool used for surface density tendency decomposition is available at \url{https://github.com/hdrake/xbudget}. The xwmt package used for water mass transformation calculations is available at \url{https://github.com/NOAA-GFDL/xwmt}. The analysis and plotting scripts specific to this study, covering the surface buoyancy flux decomposition, the transformation calculations including the sea ice sector comparison, the Southern Annular Mode compositing, and all figures, are archived together with the data deposit and are also available at \url{https://github.com/xshi-awi/aabw_5exps}.
+
+\bibliographystyle{sn-nature}
+\bibliography{ref}
+
+\clearpage
+
+
+
+
+\begin{figure}
+\centering
+\includegraphics[width=\textwidth]{figures/fig_main_climate_jja.pdf}
+ \caption{Simulated JJA-mean anomalies in MH, LIG, LGM, and MIS3 in relative to PI for (a-d) sea surface temperature   [$^{\circ}$C], (e-h) sea surface salinity  [psu],  (i-l) sea ice concentration, and (m-p) 10 m zonal wind  [m/s]. Vectors represent PI wind. Four columns represent MH, LIG, LGM, and MIS3, respectively. \label{sst}}
+\end{figure}
+
+
+
+
+\begin{figure}
+\centering
+\includegraphics[width=0.9\textwidth]{figures/plot_wmt_4regions_5exps_winter_from_100years.pdf}
+\caption{JJA-mean water mass transformation rates [Sv] as a function of density $\sigma_2$ [kg m$^{-3}$] for (a-e)) Southern Ocean, (f-j) Ross Sea,  (k-o) Weddell Sea, Adélie  Land, and (p-t). Five columns represent five climate experiments (PI, MH, LIG, LGM, and MIS3).  Lines show the mean values; shading denotes ±1  standard deviation across years.    \label{wmt_jja}}
+\end{figure}
+
+
+
+\begin{figure}
+\centering
+\includegraphics[width=\textwidth]{figures/surface_heat_density_tendency_from_raw_jja.pdf}
+\caption{Simulated JJA-mean surface density tendency caused by (a-e)  total heat flux, (f-j) radiative fluxes (shortwave plus long wave fluxes), and (k-o) turbulent fluxes (latent and sensible fluxes).  Column 1 shows PI absolute values, and columns 2-5 show anomalies in MH, LIG, LGM and MIS3 relative to PI, respectively.  Units: kg m$^{-3}$ s$^{-1}$. \label{density_heat}}
+\end{figure}
+
+
+
+
+\begin{figure}
+\centering
+\includegraphics[width=\textwidth]{figures/surface_freshwater_density_tendency_from_raw_jja.pdf}
+\caption{Simulated JJA-mean surface density tendency caused by (a-e)  total freshwater flux, (f-j) sea ice-induced freshwater flux, and (k-o) net precipitation plus river runoff. Column 1 shows PI absolute values, and columns 2-5 show anomalies in MH, LIG, LGM and MIS3 relative to PI, respectively. Units: kg m$^{-3}$ s$^{-1}$. \label{density_fwf}}
+\end{figure}
+
+
+
+\begin{figure}
+\centering
+\includegraphics[width=\textwidth]{figures/sam_heatflux_composite_t63_3rows_5cols.pdf}
+\caption{Austral winter (JJA) anomalies of (a-e) total heat flux (all components combined), (f-j) radiative component (longwave + shortwave), and (k-o) turbulent component (sensible + latent heat) for high-SAM minus low-SAM composites (1$\sigma$ threshold) across five paleoclimate states.  Five columns represent PI, MH, LIG, LGM, and MIS3, respectively. Units: W/m$^2$. Positive values indicates reduced ocean heat loss during high-SAM years.\label{sam_heat}}
+\end{figure}
+
+
+
+\begin{figure}
+\centering
+\includegraphics[width=\textwidth]{figures/sam_fwflux_composite_3rows_5cols.pdf}
+\caption{Austral winter (JJA) anomalies of (a-e) total freshwater flux, (f-j) sea ice component (brine rejection and melt), and (k-o) other sources (net precipitation + runoff) for high-SAM minus low-SAM composites (1$\sigma$ threshold) across five paleoclimate states. Five columns represent PI, MH, LIG, LGM, and MIS3, respectively.  Units: mm/day. Positive indicates net freshwater gain to ocean, negative indicates salinification. \label{sam_fwf}}
+\end{figure}
+
+
+\begin{figure}
+\centering
+\includegraphics[width=\textwidth]{figures/age_horizontal_3900m_combined.pdf}
+\caption{(a-e) Simulated spatial distribution of Southern Ocean ventilation age at 4000 m depth for (a) PI, (b) MH, (c) LIG, (d) LGM,  (e) MIS3.  (f-i) Simulated anomalies of ventilation age at 4000 m for (f) MH minus PI, (g) LIG minus PI, (h) LGM minus PI, and (i) MIS3 minus PI. Units: year. \label{age}}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width=\textwidth]{figures/figR2_moc_5exps.pdf}
+\caption{Global meridional overturning streamfunction, averaged over the final 20 years of the online model diagnostic. (a-e) Absolute streamfunction for PI, MH, LIG, LGM and MIS3. Positive values (red) denote clockwise circulation in the latitude-depth plane; the negative (blue) cell below about 2500 m represents the northward spreading of southern-sourced bottom water. The strength of that abyssal cell, defined as the streamfunction minimum below 2000 m and south of 30°S, is given in each panel. (f-i) Anomalies relative to PI for MH, LIG, LGM and MIS3. Units: Sv. \label{moc}}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width=\textwidth]{figures/figR3_age_global.pdf}
+\caption{Global ideal age. (a-d) Basin-mean vertical profiles for the Atlantic, Indian, Pacific and Southern Ocean, for the five climate states. (e) Basin-mean ideal age below 2000 m. (f-j) Zonal-mean ideal age sections for PI, MH, LIG, LGM and MIS3. Basins are defined as Atlantic 70°W-20°E and 35°S-65°N, Indian 20°E-115°E and 35°S-25°N, Pacific 120°E-70°W and 35°S-65°N, and Southern Ocean south of 35°S. Units: years. \label{age_global}}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width=\textwidth]{figures/figR1_wmt_domain_sensitivity.pdf}
+\caption{Sensitivity of the thermal and haline partition to the integration domain, shown as annual-mean transformation rates for the five climate states. (a-e) Integrated south of 60°S, the domain used throughout this study. (f-j) Integrated over the seasonal sea ice zone only, defined as the region where the climatological September sea ice concentration exceeds 15\%, which reproduces the domain of Pellichero et al. \cite{Pellichero2018} to within 2.5\% in area. The share of the total transformation carried by the thermal term at the transformation maximum, and the integrated area of each domain, are given in each panel. Restricting the integration to the ice-covered sector increases the haline share, as expected, but leaves the contrast between thermally dominated interglacials and haline dominated glacials intact. Units: Sv. \label{domain}}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width=\textwidth]{figures/figS_wmt_common_axis_winter.pdf}
+\caption{As Fig. \ref{wmt_jja}, but with a common vertical and horizontal axis for all panels, so that transformation magnitudes can be compared directly between climate states and regions. Rows show the Southern Ocean, Ross Sea, Weddell Sea and Ad\'{e}lie Land sectors; columns show PI, MH, LIG, LGM and MIS3. Lines show 100-year means and shading denotes $\pm$1 standard deviation across years. Units: Sv. \label{s_common_axis}}
+\end{figure}
+
+
+
+\begin{figure}
+\centering
+\centering\includegraphics[angle=270,width=\textwidth]{figures/frame.pdf}
+\caption{Mechanistic regime shift between interglacial and glacial Southern Ocean dense water formation. Two-panel schematic illustrating the thermal-to-haline transition in surface buoyancy forcing across climate states. Left: under interglacial conditions (PI, MH, LIG), limited sea ice cover allows strong turbulent heat loss over the open ocean to drive surface cooling and dense water formation at $\sigma_2 \approx 36.5$--$36.8$~kg~m$^{-3}$ (60--80~Sv). Right: under glacial conditions (LGM, MIS3), expanded sea ice insulates the ocean from atmospheric heat exchange while intensifying brine rejection in coastal polynyas, producing denser waters ($\sigma_2 > 37.0$~kg~m$^{-3}$) at lower rates (48--58~Sv). Ventilation ages at 4000~m depth correspondingly shift from $<500$~yr (interglacial) to $>750$~yr basin-wide (glacial), with Pacific values reaching $\sim$1500~yr. Positive SAM phases enhance dense water formation across all states, primarily through amplified heat loss in interglacials and amplified brine rejection in glacials. \label{schematic}}
+\end{figure}
+
+    
+\clearpage
+
+\begin{appendices}
+
+\section{Supplementary figures}\label{secA1}
+
+\clearpage
+
+    \begin{figure}
+      \centering\includegraphics[width=\textwidth]{figures/antarctic_resolution_wireframe.pdf}
+        \caption{Spatial resolution of the Southern Ocean. \label{reso}}
+    \end{figure}
+
+\clearpage
+
+\begin{figure}
+\centering
+\includegraphics[width=\textwidth]{figures/fig02_climate_mld_seaice_jja.pdf}
+\caption{Simulated JJA mean (a-e)  mixed layer depth [m] and (f-j) sea ice concentration for (a,f) PI, (b,g) MH, (c,h) LIG, (d,i) LGM, and (e,j) MIS3.  \label{mld}}
+\end{figure}
+
+\clearpage
+
+    \begin{figure}
+      \centering\includegraphics[width=0.8\textwidth]{figures/mld_lgm_mis_75S_jja.pdf}
+        \caption{Simulated JJA-mean mixed layer depth across Southern Ocean (south of 65°S) for (a) LGM and (b) MIS3. Units: m. \label{s1}}
+    \end{figure}
+
+
+    \clearpage
+    
+\begin{figure}
+\centering
+\includegraphics[width=\textwidth]{figures/figS_density_windstress_jja.pdf}
+\caption{Simulated JJA-mean anomalies in MH, LIG, LGM, and MIS3 in relative to PI for (a-d) sea surface density [kg/m$^3$], and (e-h) 10 m zonal wind stress [N/m$^2$]. Vectors represent PI wind stress. Four columns represent MH, LIG, LGM, and MIS3, respectively. \label{wind}}
+\end{figure}
+    
+
+\clearpage
+
+    \begin{figure}
+      \centering\includegraphics[width=0.8\textwidth]{figures/plot_wmt_4regions_5exps_annual_from_100years.pdf}
+        \caption{Annual-mean water mass transformation rates [Sv] as a function of density $\sigma_2$ [kg m$^{-3}$] for (a-e)) Southern Ocean, (f-j) Ross Sea,  (k-o) Weddell Sea, Adélie  Land, and (p-t). Five columns represent five climate experiments (PI, MH, LIG, LGM, and MIS3).  Lines show the mean values; shading denotes ±1  standard deviation across years.  \label{s2}}
+    \end{figure}
+
+\clearpage
+
+\begin{figure}
+\centering
+\includegraphics[width=0.9\textwidth]{figures/wmt_sam_composite_4regions_5exps.pdf}
+\caption{Composite JJA-mean anomalies of water mass transformation rates [Sv] as a function of potential density $\sigma_2$ [kg m$^{-3}$] for high-SAM minus low-SAM years , shown for (a-e) Southern Ocean, (f-j) Ross Sea,  (k-o) Weddell Sea, Adélie  Land, and (p-t). Five columns represent five climate experiments (PI, MH, LIG, LGM, and MIS3).   \label{sam_wmt}}
+\end{figure}
+
+\end{appendices}
+
+\clearpage
+% ============================================================================
+% HOW TO COMPILE:
+% ============================================================================
+% Run the following commands in order:
+% 1. pdflatex manuscript.tex
+% 2. bibtex manuscript
+% 3. pdflatex manuscript.tex
+% 4. pdflatex manuscript.tex
+%
+% Or use your LaTeX editor's "Build" button which usually does this automatically
+% ============================================================================
+
+\end{document}
+
+
+
