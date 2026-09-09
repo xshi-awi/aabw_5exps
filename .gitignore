@@ -32,3 +32,5 @@ nc_paper/build/*.log
 nc_paper/build/*.bbl
 nc_paper/build/*.blg
 nc_paper/build/*.out
+nc_paper/letter_figs/
+nc_paper/build/

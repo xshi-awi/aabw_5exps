@@ -467,3 +467,46 @@ polar map figures and corrected the 'MIS' column header to 'MIS3' (R3 request).
 
 **Next Steps**: build the Source Data spreadsheet; fill in Acknowledgements and funding; insert
 the Zenodo DOI; get user's call on the SAM section placement.
+
+### 2026-09-09 (SAM 折中处理 + 回复信配图)
+
+**Progress**: 按用户指示做了 SAM 的折中处理，并新增两项 SAM 分析回应审稿人 3。
+
+**折中方案（用户拍板）**: SAM 的图**全部**移入补充材料（满足审稿人 2），但正文加强 SAM 结果的文字描述，
+并新做分析（满足审稿人 3）。回复信**区别对待**：给审稿人 2 只说图已移走，不提加强分析；
+给审稿人 3 只说加强了分析和新结论，不提图被移走。已用脚本核验两段互不串味。
+
+**新分析：SAM 的 "push and pull" 分解**（审稿人 3 原话：wind affects not just the ekman
+divergence but also the salt pump via sea ice export）。脚本 `calc_sam_push_pull.py`：
+- PUSH = 60S 纬圈积分的向北 Ekman 输运，由 tau_x 算得；正位相增强 8.0-12.8 Sv（五个态全部）
+- PULL = 65S 以南沿岸 brine 输入；PI/LIG 增 51/42 mSv，LGM/MIS3 增 24/31 mSv
+- 两者跨五个气候态相关 r = 0.77 —— 定量证实了审稿人的假说
+- **意外发现（正文和回复信都写了）**: 冰期 Ekman 响应反而最弱（LGM 8.0 Sv < PI 11.2 Sv），
+  尽管冰期平均风应力更强。原因是大范围海冰削弱了风应力向海洋的传递。于是冰期改走 haline 路径，
+  净调制幅度相当但机制不同 —— 与平均态的 regime shift 相互呼应。
+
+**符号约定坑（已核实并写进脚本注释）**: `fw_clim.nc` 的 fw 在 PI 沿岸 JJA 为 **+0.164 Sv**、
+DJF 为 -0.470 Sv。冬季结冰应该是海洋失去淡水，所以这里 **正值 = 海洋失淡水 = brine 输入**，
+与 WMT 管线里 `fw2 = -fw*rho` 的取负一致。第一版标反了，已改正。
+
+**风应力数据**: `sam_wind/{exp}_taux.nc`，用 `ncks -v var180,var181` 从 `{exp}/echam_mergetime.nc`
+抽取（var180=ustr, var181=vstr，1200 个月）。每个实验约 52 秒、177 MB。注意 43 GB 源文件用
+`run_in_background` 会被中途杀掉产生 .tmp 残file，必须前台跑。
+
+**新图**:
+- `figures/figR4_sam_push_pull.pdf`（`plot_sam_push_pull.py`）4 panel: push / pull / 两者散点 / WMT 响应
+- `figures/figR5_sam_wind_ice.pdf`（`plot_sam_wind_ice.py`）2x5: 风应力异常 + 海冰浓度异常合成场
+  注意风应力异常最大到 +0.23 N/m2，色标必须用 ±0.12 而不是 ±0.06，否则整片饱和
+
+**回复信配图（用户要求）**: 五张图已内嵌进 `RESPONSE_LETTER.md`（`nc_paper/letter_figs/*.png`），
+pandoc 转 PDF 时加 `--resource-path=.`。回复信 16 页 -> 19 页，图以 615-646 ppi 嵌入。
+Unicode 转纯文本的替换表在 `update_letter.py` 里，pdflatex 不认 γ/σ₂/≥ 等字符。
+
+**审稿人态度判断**: 审稿人 3 是最不 positive 的一个 —— 只有他从头到尾没说过 "suitable for
+publication" 之类的话（R1 说 suitable after major revisions，R2 说 would like to support
+publication，R3 只说 "I would encourage the authors to think about what is generalisable"）。
+所以给他的回复要最用力，新增的 SAM 分析主要是为他做的。
+
+**Outstanding**: Zenodo DOI、致谢与基金信息仍待填。
+
+**Next Steps**: 用户上传 Zenodo 后回填 DOI；补致谢。
