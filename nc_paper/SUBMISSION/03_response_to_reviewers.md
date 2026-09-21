@@ -969,9 +969,35 @@ in LIG, LGM and MIS3 while leaving MH unchanged, which we think is implausible. 
 argument to the text. For completeness, the PI control was integrated for 1500 years and all paleo
 simulations for 1000 years, with the final 100 years analysed in each case.
 
+We also checked the deep ocean, which is the slower and more demanding test and the one that
+matters for a study about abyssal ventilation. Surface temperature equilibrates in decades whereas
+the abyss takes millennia, so a flat surface temperature is not by itself evidence that the deep
+ocean has stopped adjusting.
+
+![](letter_figs/figR10_deep_trend.png)
+
+**Figure R3.5 (new analysis).** Volume-weighted mean (a) potential temperature and (b) salinity
+below 2000 m over all available output years, with the analysed final century shaded. (c) The
+residual trend over that century. The interglacial deep ocean is flat and still decelerating, with
+the trend over the second half of each record 0.13 to 0.41 times that over the first half. The two
+glacial experiments are further from equilibrium: they drift at 0.113 and 0.160 K per century, warm
+by 0.58 and 0.89 K over the record, and are not decelerating.
+
+We report this openly rather than presenting the runs as fully equilibrated. The glacial deep ocean
+is still adjusting, which follows from those experiments being initialised from an earlier glacial
+state rather than branched from the pre-industrial control. It bears on the ideal ages, which we
+already describe as lower bounds, and it is a further reason to treat the surface transformation
+diagnostics, which respond to the surface forcing within years, as the more reliable part of this
+analysis than the absolute abyssal properties. The surface buoyancy fluxes and the transformation
+rates derived from them are not affected by a slow deep-ocean adjustment of this size.
+
+The corresponding passage added to the Methods reads:
+
+> *"The deep ocean is the slower and more demanding test, and we report it explicitly because this study concerns abyssal ventilation. Volume-weighted below 2000 m, the mean potential temperature over the analysed century drifts by 0.009, 0.016 and 0.007 K century^-1 in PI, MH and LIG, and the interglacial drift is decelerating, with the trend over the second half of each record between 0.13 and 0.41 times that over the first half. The two glacial experiments are further from equilibrium. Their deep ocean drifts by 0.113 and 0.160 K century^-1, it warms by 0.58 and 0.89 K over the available record, and the trend is not decelerating. This reflects their initialisation from an earlier glacial state rather than from the pre-industrial control, and it means the glacial abyssal properties reported here should be read as a state that is still adjusting. It bears directly on the ideal ages, which we already describe as lower bounds, and it is a further reason to treat the surface transformation diagnostics, which respond to the surface forcing within years, as the more reliable part of this analysis than the absolute abyssal properties."*
+
 The Methods now state:
 
-> *"Residual drift over the analysis period is small relative to the paleoclimate signals of interest. The trend in global mean 2 m temperature across the final century is +0.02 K century^-1 for PI, -0.03 for MH, -0.06 for LIG, +0.04 for LGM and +0.10 for MIS3. The last two values exceed the 0.05 K century^-1 criterion applied in earlier work with this model , and we note this explicitly rather than leaving it implicit. The glacial-interglacial differences examined here are large by comparison: the same five simulations give a JJAS global mean surface air temperature of 15.5, 15.6 and 16.9 °C for PI, MH and LIG against 11.1 and 13.0 °C for LGM and MIS3 , a contrast of several kelvin. A century-scale drift of 0.1 K is therefore two orders of magnitude smaller than the signal and cannot account for it. The mid-Holocene simulation is also indistinguishable from the pre-industrial control in both the latitude and the strength of the Southern Hemisphere westerly jet, which argues against residual drift as the origin of the wind changes reported in the other paleoclimate states."*
+> *"Residual drift over the analysis period is small relative to the paleoclimate signals of interest. The trend in global mean 2 m temperature across the final century is +0.02 K century^-1 for PI, -0.03 for MH, -0.06 for LIG, +0.04 for LGM and +0.10 for MIS3. The last two values exceed the 0.05 K century^-1 criterion applied in earlier work with this model , and we note this explicitly rather than leaving it implicit. The deep ocean is the slower and more demanding test, and we report it explicitly because this study concerns abyssal ventilation. Volume-weighted below 2000 m, the mean potential temperature over the analysed century drifts by 0.009, 0.016 and 0.007 K century^-1 in PI, MH and LIG, and the interglacial drift is decelerating, with the trend over the second half of each record between 0.13 and 0.41 times that over the first half. The two glacial experiments are further from equilibrium. Their deep ocean drifts by 0.113 and 0.160 K century^-1, it warms by 0.58 and 0.89 K over the available record, and the trend is not decelerating. This reflects their initialisation from an earlier glacial state rather than from the pre-industrial control, and it means the glacial abyssal properties reported here should be read as a state that is still adjusting. It bears directly on the ideal ages, which we already describe as lower bounds, and it is a further reason to treat the surface transformation diagnostics, which respond to the surface forcing within years, as the more reliable part of this analysis than the absolute abyssal properties. The glacial-interglacial differences examined here are large by comparison: the same five simulations give a JJAS global mean surface air temperature of 15.5, 15.6 and 16.9 °C for PI, MH and LIG against 11.1 and 13.0 °C for LGM and MIS3 , a contrast of several kelvin. A century-scale drift of 0.1 K is therefore two orders of magnitude smaller than the signal and cannot account for it. The mid-Holocene simulation is also indistinguishable from the pre-industrial control in both the latitude and the strength of the Southern Hemisphere westerly jet, which argues against residual drift as the origin of the wind changes reported in the other paleoclimate states."*
 
 > *The authors mention that they use ideal age as a proxy for overturning which seems odd given
 > the overturning can be directly computed within the model. Ideal age is also strongly affected
@@ -994,7 +1020,7 @@ simulations is therefore concentrated in the abyssal cell.
 
 ![](letter_figs/figR2_moc_5exps.png)
 
-**Figure R3.5 (manuscript Fig. 6).** Global overturning streamfunction for the five climate states
+**Figure R3.6 (manuscript Fig. 6).** Global overturning streamfunction for the five climate states
 (top) and anomalies relative to PI (bottom). The blue abyssal cell, representing northward
 spreading of southern-sourced bottom water, nearly disappears in the glacial states while the upper
 cell is largely maintained.
@@ -1008,7 +1034,7 @@ weakening while the upper cell is maintained.
 
 ![](letter_figs/figR3_age_global.png)
 
-**Figure R3.6 (manuscript Fig. 7).** Basin-mean ideal age profiles (a-d), mean age below 2000 m
+**Figure R3.7 (manuscript Fig. 7).** Basin-mean ideal age profiles (a-d), mean age below 2000 m
 (e), and zonal-mean sections for the five states (f-j). The glacial ageing is concentrated below
 about 2000 m and is largest in the deep Pacific and Southern Ocean, while the Atlantic, which
 remains ventilated from the north, changes comparatively little.

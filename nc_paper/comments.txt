@@ -1,0 +1,244 @@
+
+Dear Professor Shi,
+
+Thank you again for submitting your manuscript "Glacial–interglacial regime shift in Southern Ocean dense water formation" to Nature Communications. We have now received reports from 4 reviewers and, after careful consideration, we have decided to invite a major revision of the manuscript.
+
+As you will see from the reports copied below, the reviewers raise important concerns. We find that these concerns limit the strength of the study, and therefore we ask you to address them with additional work. Without substantial revisions, we will be unlikely to send the paper back to review. In particular, there are concerns regarding a mismatch between the model and observations and the limitations of the model that must be addressed.
+
+If you feel that you are able to comprehensively address the reviewers’ concerns, please provide a point-by-point response to these comments along with your revision. Please show all changes in the manuscript text file with track changes or colour highlighting. If you are unable to address specific reviewer requests or find any points invalid, please explain why in the point-by-point response.
+
+Important: In addition to the above, you must comply with the following editorial requests; we will not be able to proceed with your revised manuscript otherwise. Please also see the Nature Communications formatting instructions, which you may find useful while preparing your revised manuscript. Please also ensure that you comply with our editorial policies.
+
+POLICIES AND FORMS REQUIRED FOR RESUBMISSION
+
+Please follow all reporting standards below:
+
+* If Your work uses geological samples or palaeontological specimens, Please see the link below for reporting requirements. There is no form to upload but you may need to revise your manuscript to comply with this policy. https://www.nature.com/nature-portfolio/editorial-policies/reporting-standards#earth-science
+Please note that any submission detailing new material from protected sites should include information regarding the requisite permission obtained in the methods section.
+
+* Your paper uses custom code/software. Please complete the following code and software submission checklist and make your code available for reviewer assessment, if you have not already done so. The code/software can be provided in a zip file with a readme.txt file or other instructions for installing and running the software. If appropriate, also provide example data and expected output. If you have any issues with the file upload, please let me know.
+https://www.nature.com/documents/nr-software-policy.pdf
+
+* Please consider the needs of readers with colour vision deficiency when choosing colours for figures. Many of these readers cannot interpret visuals that rely on discrimination of green and red, for example. Thus, we ask you to recolour green-and-red heatmaps, graphs and schematics for which colours are chosen arbitrarily. Recolouring primary data, such as fluorescence or rainbow pseudo-coloured images, to colour-safe combinations such as green and magenta, turquoise and red, yellow and blue or other accessible colour palettes is strongly encouraged.
+
+DATA AND CODE AVAILABILITY
+
+* All Nature Communications manuscripts must include a “Data Availability” section after the Methods section but before the References. If any of the data can only be shared on request or are subject to restrictions, please specify the reasons and explain how, when, and by whom the data can be accessed. For more information on this policy and a list of examples, see:
+https://www.nature.com/documents/nr-data-availability-statements-data-citations.pdf
+
+* Please also include a “Code Availability” section after the “Data Availability” section. If the code can only be shared on request, please specify the reasons. For more information on our code sharing policy and requirements, please see:
+https://www.nature.com/nature-portfolio/editorial-policies/reporting-standards#availability-of-computer-code
+
+* As Nature Portfolio policies strongly encourages you to share your research data in a public repository (e.g. spreadsheets, text, images), we are partnering with the figshare repository so that you can use the figshare integration via the ‘Research Data Deposition’ tab when submitting your revised manuscript.
+
+Data are stored privately until a manuscript decision is reached and you can edit/withdraw them up to this point: you retain rights and control over your data. The data will be published at the same time as your article; you will receive a data DOI, with guidance on linking the data and manuscript. In the event your manuscript is not accepted, you can keep or remove your data in figshare.
+
+We recommend the use of discipline-specific repositories where available and for a number of data types this is mandatory. Ensure you do not submit these data types or any sensitive data to figshare.
+
+* We strongly encourage you to deposit all new data associated with the paper in a persistent repository where they can be freely and enduringly accessed. We recommend submitting the data to discipline-specific and community-recognised repositories; a list of repositories is provided here: http://www.nature.com/sdata/policies/repositories
+Refer to our data policies here: https://www.nature.com/nature-portfolio/editorial-policies/reporting-standards#availability-of-data
+
+* To maximise the reproducibility of research data, we ask that you provide a Source Data file containing the raw data underlying the following types of display items:
+- Any reported means/averages in box plots, bar charts, and tables
+- Dot plots/scatter plots, especially when there are overlapping points
+- Line graphs
+- Uncropped and unprocessed scans of all blots and gels including all quantified replicates. The edge of membranes, molecular weight ladders and loading controls should be presented on all blots. Where membranes have been cut, please ensure that at least one marker above and below is present. For an example of presentation of full scan blots, see the Source Data file of https://www.nature.com/articles/s41467-020-16984-1#Sec35 and for more information, please refer to https://www.nature.com/nature-research/editorial-policies/image-integrity.
+
+The data should be provided in a single Excel file with data for each figure/table in a separate sheet, or in multiple labelled files within a zipped folder. Name this file or folder ‘Source Data’, and include a brief description in your cover letter. The “Data Availability” section should also include the statement “Source Data are provided with this paper.”
+
+To learn more about our motivation behind this policy, please see: https://www.nature.com/articles/s41467-018-06012-8
+
+A Source Data file is not necessary if all display items presented in the main manuscript and supplementary information can be reproduced from raw data and code that have already been shared in a public repository.
+
+ORCID
+* Nature Communications is committed to improving transparency in authorship. As part of our efforts in this direction, we are now requesting that all authors identified as ‘corresponding author’ create and link their Open Researcher and Contributor Identifier (ORCID) with their account on the Manuscript Tracking System prior to acceptance. ORCID helps the scientific community achieve unambiguous attribution of all scholarly contributions.
+You can create and link your ORCID from the home page of the Manuscript Tracking System by clicking on ‘Modify my Springer Nature account’ and following these instructions. Please also inform all co-authors that they can add their ORCIDs to their accounts and that they must do so prior to acceptance.
+For more information please visit http://www.springernature.com/orcid
+If you experience problems in linking your ORCID, please contact the Platform Support Helpdesk.
+
+AUTHOR CHANGES ON REVISION
+If there are any changes to the author list in the revised manuscript, please use this approval form www.nature.com/documents/nr-author-list-change-form.pdf, arranging for all authors on your paper to sign the statement confirming that they agree to the author list being changed, and add this document to your resubmission.
+
+
+HOW TO SUBMIT
+Please use the link below to submit the following items as separate documents:
+- Revised manuscript
+- Any supplementary files
+- Point-by-point response to the reviewers’ comments, reproduced verbatim
+- Cover letter to the editor
+- Any completed checklist(s)
+https://mts-ncomms.nature.com/cgi-bin/main.plex?el=A5S2FLNO7A5SFSk4I5A9ftd2dJV9WLlI5qhiuQlB73sHAZ
+** If you wish to forward this email to your coauthors, please delete the link above **
+
+We hope to receive your revised paper within three months, but we understand that revisions may take longer. Please let us know if you find that the revision process will take substantially more time.
+
+When evaluating your revised manuscript, we will not consider any similar papers published independently in the meantime to compromise the novelty of your study. See here for more information. However, we ask that you cite and fully discuss all relevant literature, keeping your references up to date until manuscript publication.
+
+Best regards,
+
+Dr. Mackenzie Grieman
+Senior Editor, Nature Communications
+Nature Research
+1100 15th St. NW, Suite 04-W184
+Washington, DC 20002
+
+
+REVIEWER COMMENTS
+
+Reviewer #1 (Remarks to the Author):
+
+The manuscript presents a comprehensive investigation of Southern Ocean dense water formation across a range of glacial and interglacial climates using the AWI-ESM2 Earth system model. By applying a water mass transformation (WMT) framework, the authors successfully separate the relative roles of thermal and haline buoyancy forcing and demonstrate a compelling regime shift between interglacial and glacial climates. The manuscript is well structured, the analyses are technically rigorous, and the decomposition of the different buoyancy contributions provides valuable physical insight. The use of WMT diagnostics allows the underlying mechanisms to be quantified rather than inferred from changes in circulation alone.
+
+Overall, I found the study scientifically interesting and suitable for publication after major revisions. My comments below are primarily intended to strengthen the robustness of the conclusions and improve the clarity of the presentation.
+
+General comments
+Model evaluation and confidence in simulated dense water formation
+The conclusions of this study rely entirely on a single Earth system model. While I do not consider this to be a major limitation by itself, I think the manuscript would benefit from a more thorough discussion of how well AWI-ESM2 represents present-day Southern Ocean dense water formation and Antarctic Bottom Water formation. The manuscript briefly states that the PI simulation produces comparable WMT magnitudes to observational estimates, but Figure A4 only shows the model results, making it difficult for the reader to evaluate this statement.
+
+Given the importance of the model for all subsequent paleoclimate interpretations, I encourage the authors to provide stronger evidence supporting its performance. This could include a direct comparison with observational WMT estimates, or a more detailed discussion of known model strengths and biases in Southern Ocean stratification, sea ice, mixed-layer depth, and Antarctic Bottom Water formation. Even if such comparisons already exist in previous AWI-ESM2 publications, briefly summarising them here would substantially increase confidence in the conclusions.
+
+Boundary conditions
+The description of the prescribed boundary conditions for the paleoclimate simulations could be expanded. In particular, the glacial simulations use the GLAC-1D ice-sheet reconstruction, but it is not entirely clear how the ice-sheet changes are implemented in the model (e.g., topography, land-sea mask, ice-sheet extent, bathymetry, or other boundary conditions). As Antarctic dense water formation is highly sensitive to such factors, providing additional details on the experimental setup would help readers assess the robustness of the simulations.
+
+This is not a request for additional simulations, but rather for a clearer discussion of the robustness of the conclusions and the extent to which they may depend on the chosen model configuration and forcing datasets.
+A summary table listing the prescribed greenhouse gas concentrations, orbital parameters, and ice-sheet boundary conditions for each experiment would also improve the readability of the Methods section.
+
+Clarifying several interpretations
+Most interpretations are convincing, although a few statements could be presented more carefully or supported more explicitly. For example, some descriptions of the role of the Southern Annular Mode appear stronger than the presented evidence suggests, and several discussions would benefit from more direct references to the relevant figure panels.
+
+Model limitations: The manuscript convincingly demonstrates that sea ice drives the transition from a thermally dominated to a haline-dominated dense water formation regime. However, the discussion would benefit from a brief consideration of the known biases and limitations of AWI-ESM2, particularly regarding Southern Ocean sea ice, mixed-layer depths, and Antarctic Bottom Water formation. Discussing how these model characteristics may influence the proposed mechanism would help readers assess the robustness and broader applicability of the conclusions.
+
+Please consider adding latitude and longitude labels to all map figures where appropriate. In addition, referring to specific figure subpanels throughout the text, rather than only the full figure number, would make the discussion easier to follow.
+
+
+Specific comments :
+1. ' LIG, LGM and MIS should be capitalised.
+2. Line 21-22: The transition to SAM is quite abrupt.
+3. Line 24: "same mechanisms" sounds vague her without additional context. The abstract should be understandable on its own without requiring the reader to refer to the main text.
+4. Lines 25-27: Similar to Comment 2 above, additional context is needed before introducing the deep ocean ventilation results. The motivation for analysing ventilation ages only becomes clear later in the manuscript, whereas the abstract should be self-contained.
+5. Lines 102-105: SAM is introduced only briefly here. Given its importance throughout the Results and Discussion, please consider providing a slightly more detailed introduction.
+6. Line 125: typo: 'more'
+7. Line 127: Figure numbering; A3 can't be called before A1 and A2.
+8. Line 129: 'Here,'
+9. Line 140: As a result, the deep MLD signals, characteristic of open-ocean convection, largely…. Also, "vanish" is perhaps not the most scientific wording.
+10. Line 141: These signals are not particularly visible even in the coastal regions (the darker blue shading in LGM is at ~200m, so considerably shallower than the interglacials).
+11. Line 134-141: Fig.1 i-l subpanels are not discussed at all.
+12. Line 144-146: The LIG also exhibits similar behaviour, although the changes are smaller in some basins. Likewise, the LGM shows some negative anomalies in the Atlantic–Indian sector.
+13. Line 146-148: An explanation of why the wind stress changes do not lead to increased sea ice in the Ross Sea would be useful. Is this due to the presence of relatively warm water despite enhanced salinity, density, and Ekman transport in this region?
+14. Line 167: It would be helpful to quantify the thermal contribution, similar to the quantification provided for the haline contribution in line 157.
+15. Fig. 2 Would it be possible to share a figure with the same y-axis limits for all panels? This may not be necessary for the final manuscript, but it would make it easier to compare the magnitude of the changes across the different climate states.
+16. Line 174: "Section 4?"If this is intended to refer to the Methods section
+17. Fig.3 Please consider adding the climate-state labels at the top of each column, as in the other figures.
+18. Line 180/181: The LIG is first described as "showing modest changes", but later as "exhibiting a pronounced increase". These descriptions appear inconsistent.
+19. Could the authors briefly explain what is meant by thermal density tendency and sea-ice-driven density tendency in the methods.
+20. Line 209: Please add the appropriate reference(s) here to support this statement.
+21. Line216-246: Please refer to the relevant subpanels of Figure A5
+22. Line 249, 255: The phrase "across at high latitudes" is somewhat unclear. Does this refer specifically to the Antarctic coastal region or the Southern Ocean south of a particular latitude? Please consider rephrasing for clarity.
+23. Could the authors clarify where the primary deep water formation regions occur in this model? Identifying these regions would also help assess whether the SAM-related changes shown in Figure 5 are directly influencing the main regions of dense water formation, as relatively little signal is apparent over the Weddell and Ross Seas.
+24. Lines 261-263: Please consider expanding on the physical mechanism linking positive SAM to freshwater loss and intensified brine rejection by additional explanation and supporting references.
+25. Line 291, 294: Please check citation format
+26. Line 301:Figure A4 appears to show only model results. Please consider including the observational estimates in the figure (or referring to them directly) to support this statement. As noted above, it would also improve readability if the appendix figures were cited in numerical order.
+27. Lines 308-321: The discussion quantifies the interglacial changes (e.g., lines 315–316), but similar quantification is not provided for the glacial changes. For consistency, please consider including quantitative estimates for both.
+28. Lines 326 appear to repeat the statement made in line 323. In addition, the general statement in lines 323–325 does not appear to hold equally across all climate states. For example, the Ross Sea and Weddell Sea exhibit different behaviour for the peak-density classes.
+29. Line 339: Please provide a reference for the sediment-record evidence discussed here.
+30. Section 4.1: Please define the full names of the abbreviated components
+31. Line 388: Please check the citation formatting.
+32. Lines 394-403: Please consider including a summary table listing the prescribed boundary conditions for each experiment (e.g., greenhouse gas concentrations, orbital parameters, ice-sheet reconstruction, and any other relevant forcings). This would make the experimental setup considerably easier to follow.
+
+
+
+Reviewer #2 (Remarks to the Author):
+
+General
+
+This study uses the Water Mass transformation (WMT) framework to perform an analysis of the buoyancy forcing in the Southern Ocean under conditions corresponding to paleo scenarios (Last glacial maximum, Pre-industrial, also MIS3 and mid-Holocene). It uses a single model, the AWI-ESM.
+
+The model is quite impressive in that it gets a believable-looking circulation for the glacial simulations, with dense AABW that has an old ventilation age, and the main point of the paper is that this is achieved by a shift from thermally-driven bouyancy forcing in the Southern Ocean under inter-glacial situations, to freshwater-salt-driven by ice formation processes in glacial times.
+
+Though the WMT analysis was introduced over 40 years ago, it has enjoyed renewed attention more cecently. It has been increasingly used for novel studies and tools have become available to apply it to numerical model outputs, decomposing them into haline and thermal forcing. This is the first time I have seen it used in the context of a paleo model and potentially it adds explanatory power to the narrative of increased sea-ice buoyancy forcing in glacial time.
+
+So in principle this is an interesting and topical paper and I would like to be able to support its publication. However, I have two big issues with the present MS that in my view mean it needs at least some substantial revision.
+
+Major issues
+
+1) There is a mismatch with observational studies of the modern ocean. In their model the pre-industrial situation is dominated by thermal buoyancy forcing whereas Pellichero et al, (2018) find the opposite: The title of their observation-based paper makes this clear: “Southern Ocean meridional overturning is driven by freshwater fluxes”. Shi et al dismiss this difference in a single sentence, saying it is due to “model biases or regional differences in analysis domains” (line 305). Comparing their Fig 3a, Fig 4a with Pellichero Fig 2a and c, the regions look similar, suggesting it’s mostly model bias. But the switch from thermal to haline forcing is the present paper's main result, so if indeed it is due to model bias, this seems like a major problem.
+
+2) I’m puzzled that they don’t acknowledge or discuss the relation of their work with recent studies showing very similar results but analysed through different tools and language. Using the same ocean model Chen et al, 2025 (GRL 52, e2025GL114809) describe formation of very dense AABW in glacial time as due to the enhanced ice formation, where the resulting water mixes more slowly with overlying waters due to the greater density difference. One of the authors (Lohmann) is on both papers, yet this paper is not referenced, let alone discussed, by Shi et al. I ask myself what is learned from the WMT analysis that is not already discussed in that paper?
+
+More minor points
+
+
+The fundamental issue must be getting right the formation of sea ice and rejection of brine close to the continent, followed by the mixing of that dense water with the surroundings, all processes that intrinsically occur at fine spatial scales. In this regard the model looks good, by comparison to most paleo studies. The comparatively high resolution close to the continent must be helpful I’m sure, (though at 25 km it may still not be enough to realistically model the dynamics of polynya formation and brine rejection). Some more information on just how this is being managed would add to the value of the paper.
+
+The authors highlight the lack of deep convection in the glacial open ocean due to the very extensive winter-time ice cover. A little more discussion of how/why the model achieves this ice cover would be welcome, as previous paleo-model studies often don’t get that, and as a result may have too much deep convection in glacial simulations, which doesn’t match so well with paleo-proxies. (Another paper they don't cite is Lhardy, Climate of the Past, 17, 1139–1159, 2021, which discusses how most PMIP models fail in this regard.)
+
+In Results section 2.1 the acronyms (MH, LIG etc) are used without introduction. They are defined later, section 4, but as the paper is laid out this is not obvious to the reader coming to section 2.
+The discussion of the role of the effects of the SAM is interesting, but could I think be shortened, since it is somewhat secondary to the main messages of the paper. Figs 5 and 6 could be moved to the supplementary information.
+
+For figs 5 and 6, I think it would be helpful if the forcings were on the same equivalent scales of buoyancy anomaly -- currently they are in different units and it is impossible to see how they compare in absolute values.
+
+
+
+
+
+
+
+Reviewer #3 (Remarks to the Author):
+
+Shi et al apply a water mass transformation (WMT) framework to various glacial/interglacial paleoclimate sims using AWI-ESM2. This is an interesting framework for thinking about mechanisms of deepwater formation and how production regimes may shift between climate states, and a novel application. The results indicate the density transformation shifts from a thermal to salt regime between glacial and interglacial states. The observation that the reduction in buoyancy loss through atmospheric heat loss from enhanced sea ice cover is compensated by increased buoyancy loss via sea ice export, is an interesting result and points to an interesting stabilising mechanism for ventilation.
+
+While this is an interesting observation in model space, with potential interest for thinking about paleoclimates, the major issue I currently see for the current framing of the manuscript (and mentioned by the authors on lines 291-297) is that to the best of our knowledge today densewater formation in the Southern Ocean is not primarily a thermally driven regime. Like many models, AWI-ESM2 appears to form AABW via open ocean convection under PI conditions whereas in the real ocean AABW is largely a salt/freshwater controlled process occurring on the shelves (e.g. Orsi et al 1999).
+
+Today AABW forms on shelves via interaction with ice cavity melting and coastal polynyas. Upwelling warm CPDW melts basal ice, which cools the shelf water to insitu freezing point but substantially freshens it (e.g. Toggweiler 1995). This close to freezing shelf water then looses further buoyancy in coastal polynas via brine rejection, and flows downslope off the shelves via gravity currents. This must be the starting point for thinking about glacial changes, not thermally driven open ocean convection, unless the authors believe this is somehow an overlooked process in the real modern ocean*.
+
+*In the discussion (lines 302 - 305) you mention the difference between your results in the PI (thermally dominated) and the observations (salinity dominated) may come from assessing different regions. This could be tested by comparing your method only in the regions with observations. Alternatively you could apply the WMT framework to a reanalysis product e.g. Glorys, across the Southern Ocean to provide an ‘observational’ estimate similar to your PI analysis.
+https://data.marine.copernicus.eu/product/GLOBAL_MULTIYEAR_PHY_001_030/description
+
+While the glacial-interglacial shift in regime displayed by the model is interesting, how applicable is this result to thinking about the real ocean and glacial interglacial change when the interglacial regime is not representative of the real preindustrial/interglacial ocean? This is not a critique of this model in particular – most models do this. But given these biases, the authors need to do more to convince the reader that there results are generalizable and applicable to the real world and not model, or model-class dependent. Given coastal polynyas are a key process in how AABW forms today are we just looking at a shift from a more biased PI state to a more realistic glacial state? Even if the model cannot represent many of the relevant shelf processes, there may still be something interesting/generalisable to say, but I do not believe this is not the case in the current framing.
+
+I find the SAM wind results interesting and I think more generalisable. The results suggest changes in wind shift/strength impacts not just the ekman divergence i.e. upwelling of deepwaters, but also the salt pump via sea ice export, and thus the formation of deepwaters. This suggests changes in the wind patterns effect both the push and pull driving the overturning.
+
+It is worth noting that available estimates suggest a equatorward and weakening of the glacial westerlies, that the models do not seem to capture under glacial forcings (e.g. Gray et al 2023). Such a shift may be worth discussing in light of the ‘SAM’ wind mechanism, and given such a shift/weakening is absent in your glacial simulations.
+
+Interestingly the westerlies seem to intensify in both the glacial and interglacial simulations; why is this? Could this relate to the initializing simulation not being at equilibrium? Is the PI sim extended for the same additional time as the other simulations to adjust for model drift?
+
+The authors mention that they use ideal age as a proxy for overturning which seems odd given the overturning can be directly computed within the model. Ideal age is also strongly affected by mixing (equally interesting/important for thinking about ventilation), but if it is specifically the overturning response which is of interest this should be shown directly. Plots of both overturning streamfunction and ideal age throughout the global ocean would be required to assess the overall impact on deep ocean ventilation of the forcings. The introduction line also needs clarification in this regard (L111-112). Furthermore the methods mention that the simulations have been run for 1000yr which is enough to equilibrate physical properties but not ideal ages globally, which need at least twice the maximum ideal age to equilibrate (see Millet et al. 2025).
+
+Overall, I would encourage the authors to think about what is generalisable from there results given the substantial model bias in the PI in the specific process that is being examined, or demonstrate that the bias arise from differences in the regional comparison with observations and thus apply to the real ocean.
+
+
+Minor comments:
+MH, LIG are not abbreviation that commonly used so I would remove them from the text and spell out each time. Also I don’t think these were not defined at any point of the manuscript.
+
+L19:‘in the model’ needs to be clearly stated as this is not how AABW forms in the real modern ocean
+L25: change deep from “clear imprint on deep-ocean ventilation” to abyssal Southern Ocean. As it is only one depth plot at 4000m has been shown. The deep ocean is usually considered as all the water below 1000m. Plots of overturning/ideal age globally would be helpful to assess the overall impact on ventilation.
+L102-105: a slightly expanded intro on the SAM may be helpful
+L 125: typo, more.
+L129: it would be much more useful to show the salinity minus the whole ocean change applied, to see what arises from local dynamics
+L134: 400m is not very deep given you are comparing to what is happening to ideal age at 4000 m
+L144: the westerlies appear to increase under both glacial and last interglacial forcings, why?
+L152: it needs to be clearer that this is in the model
+L175: I wonder if this result isn’t more applicable to AAIW/SAMW formation?
+L195: it the real ocean freshwater input from icesheet melting is important today (i.e. Toggweiler 1995)
+L206-209: should be moved to the introduction maybe ?
+L291-297 : this point seems fundamental to the rest of the manuscript – the PI sim doesn’t seem to capture how AABW actually forms
+L302 - 305 : can’t you just compare you model results directly in the regions with observations to test the idea that the discrepancy comes from comparing different regions?
+L339: this would be great, but sed rates around the Antarctic margin are very low – its hard enough getting cores with a glacial interglacial cycle that survives bioturbation
+L347: not the water, the carbon in the water – given the substantial and variable preformed 14C aging (mentioned just after)
+
+General comment on the figures : would it be possible to show whats happening under the ice shelves? At the moment they are just whited out. Anyway to show this?
+
+Please be consistent across figures and label MH, LIG, LGM , MIS3 on top of all panels.
+
+
+
+Reviewer #4 (Remarks to the Author):
+
+I co-reviewed this manuscript with one of the reviewers who provided the listed reports. This is part of the Nature Communications initiative to facilitate training in peer review and to provide appropriate recognition for Early Career Researchers who co-review manuscripts.
+
+
+
+
+
+
+

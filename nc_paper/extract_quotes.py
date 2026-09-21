@@ -213,6 +213,10 @@ Q['meltwater'] = grab(
     'We note that this statement applies to the freshwater sources',
     'dominated by sea ice thermodynamics.')
 
+Q['deep_equil'] = grab(
+    'The deep ocean is the slower and more demanding test',
+    'than the absolute abyssal properties.')
+
 # ---- SAM push-pull (R3)
 Q['pushpull'] = grab(
     'An asymmetry between the two routes emerges',
