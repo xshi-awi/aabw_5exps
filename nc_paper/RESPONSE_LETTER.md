@@ -184,6 +184,10 @@ Southern Annular Mode through the mechanism that connects it to the mean state, 
 the balance between the thermal and haline pathways is set by how much of the surface is ice
 covered, it also governs the response to internal atmospheric variability.
 
+In the revised manuscript this now reads:
+
+> *"Because the balance between these two pathways is set by how much of the surface is ice covered, it also governs the response to internal atmospheric variability. The Southern Annular Mode modulates transformation by 3-8 Sv between its positive and negative phases in every climate state, working through heat loss when the ocean is open and through brine rejection when it is ice covered."*
+
 **3.** *Line 24: "same mechanisms" sounds vague ... The abstract should be understandable on its
 own.* — Replaced with the explicit statement that the mode works "through heat loss when the ocean
 is open and through brine rejection when it is ice covered".
@@ -194,11 +198,19 @@ circulation, stating that weaker glacial transformation coincides with a collaps
 abyssal cell from about 10 to 2 Sv, before the ages are given. This also incorporates the new
 overturning analysis requested by Reviewer 3.
 
+In the revised manuscript this now reads:
+
+> *"Weaker glacial transformation coincides with a collapse of the simulated abyssal overturning cell from about 10 to 2 Sv and with older abyssal water. Ideal ages at 4000 m remain below 500 years during interglacials but exceed 750 years basin-wide during glacials, reaching 1500 years in the Pacific."*
+
 **5.** *Lines 102-105: SAM is introduced only briefly here. Given its importance ... please consider
 providing a slightly more detailed introduction.* — The introduction now defines the mode as the
 leading mode of extratropical Southern Hemisphere variability, describes what its positive phase
 does to the westerlies and hence to Ekman divergence, air-sea heat exchange and sea ice export, and
 cites the observational literature linking it to bottom water changes.
+
+In the revised manuscript this now reads:
+
+> *"The Southern Annular Mode is the leading mode of extratropical Southern Hemisphere circulation variability, describing a meridional redistribution of atmospheric mass between mid-latitudes and Antarctica . Its positive phase strengthens the circumpolar westerlies and displaces them poleward, which changes Ekman divergence, air-sea heat exchange, and the northward export of sea ice. In the present-day ocean these adjustments modulate mixed-layer depth and surface buoyancy forcing , and they have been linked to observed changes in bottom water properties . Whether the mode remains an effective modulator of dense water formation once the mean state changes, in particular once an expanded ice cover separates the ocean from the atmosphere, is not known."*
 
 **6.** *Line 125: typo: 'more'.* — Corrected ("moer" → "more").
 
@@ -210,6 +222,10 @@ have been reordered so that they are cited in numerical order.
 **9.** *Line 140: As a result, the deep MLD signals ... Also, "vanish" is perhaps not the most
 scientific wording.* — Rephrased to "are strongly reduced and become confined to narrow coastal
 bands and polynyas", and we now quantify the reduction rather than describing it qualitatively.
+
+In the revised manuscript this now reads:
+
+> *"The reduction is substantial rather than complete. Summed south of 55°S, the area with a winter mixed layer deeper than 400 m falls from 7.510^11 m^2 in PI to 1.710^11 m^2 in LGM and 1.610^11 m^2 in MIS3, and the maximum mixed-layer depth decreases from 991 m to 819 m and 645 m. Mixed layers deeper than 600 m, which cover 2.410^11 m^2 in PI, essentially disappear in both glacial states. The residual glacial signals in coastal regions are therefore genuinely shallower than their interglacial counterparts, consistent with dense water production that is confined to narrow coastal bands rather than distributed across the open gyres."*
 
 **10.** *Line 141: These signals are not particularly visible even in the coastal regions (the
 darker blue shading in LGM is at ~200m, so considerably shallower than the interglacials).* — This
@@ -241,6 +257,10 @@ salinity field rather than the temperature field, because the thermal expansion 
 small at the near-freezing temperatures south of the ice edge, and points out the
 density-compensated LIG anomaly and the weak negative LGM anomalies in the Atlantic-Indian sector.
 
+
+In the revised manuscript this now reads:
+
+> *"The surface density anomalies (Fig. 1i-l) follow the salinity field rather than the temperature field in the glacial states. Cooling and salinification both act to densify the surface, but at the near-freezing temperatures that prevail south of the ice edge the thermal expansion coefficient is small, so the haline term sets both the pattern and the magnitude. In LIG the warm and salty Bellingshausen-Amundsen anomaly is close to density compensated (Fig. 1j), and the LGM retains weak negative density anomalies in parts of the Atlantic-Indian sector where surface freshening outweighs cooling."*
 **12.** *Line 144-146: The LIG also exhibits similar behaviour, although the changes are smaller in
 some basins. Likewise, the LGM shows some negative anomalies in the Atlantic–Indian sector.* — Both
 points are now stated in the text; see the response to comment 11.
@@ -280,6 +300,10 @@ quantification provided for the haline contribution in line 157.* — Added. The
 accounts for 70–85% of the total at the transformation maximum in the interglacials, against
 15–30% for the haline term, and falls to 12–17% in the glacial states.
 
+
+In the revised manuscript this now reads:
+
+> *"This transformation is dominated by surface heat loss (red line), which accounts for 70-85% of the total at the transformation maximum, with limited sea ice extent restricting the haline contribution from brine rejection to a secondary role (15-30%; green line). Other freshwater fluxes (blue lines) oppose densification through net precipitation and river runoff. We note that this thermally dominated maximum occurs at densities that correspond to intermediate and mode waters rather than to bottom water. In the densest classes that the simulated surface fluxes reach (_2 37.0 kg m^-3), the PI transformation is already haline dominated, with the sea ice term contributing 0.79 Sv against 0.06 Sv from heat in the annual mean. The thermal dominance reported here is therefore a property of the integral over all density classes, and we quantify its sensitivity to the choice of integration domain and density range in the Discussion."*
 **15.** *Fig. 2 Would it be possible to share a figure with the same y-axis limits for all panels?*
 — Yes. Supplementary Fig. S5 now shows the same transformation curves on common vertical and
 horizontal axes, so magnitudes and density positions can be compared directly across climate states
@@ -308,6 +332,10 @@ integral and pronounced locally in the Ross Sea sector. The text now says so exp
 **19.** *Could the authors briefly explain what is meant by thermal density tendency and
 sea-ice-driven density tendency in the methods.* — Definitions have been added to the Methods,
 including the sign convention and the physical meaning of brine rejection versus melt.
+
+In the revised manuscript this now reads:
+
+> *"We refer throughout to the thermal density tendency, meaning the surface density change produced by the net heat flux acting through the thermal expansion coefficient, that is the -(/C_p)Q_net term, and to the sea-ice-driven density tendency, meaning the part of the haline term S F_fw that is carried by the thermodynamic growth and melt of sea ice. A positive value denotes densification of the surface water in both cases. Brine released during ice growth increases surface salinity and therefore density, whereas melting releases freshwater and reduces it."*
 
 **20.** *Line 209: Please add the appropriate reference(s) here to support this statement.* — We now
 cite Cerovečki et al. (2013) and Abernathey et al. (2016) in support of the statement that turbulent
@@ -357,11 +385,19 @@ quantification is not provided for the glacial changes.* — Added. The glacial 
 maximum weakens to below 60 Sv and moves to σ₂ = 37.0–37.5 kg m⁻³, with the thermal share falling
 to 12–17%.
 
+
+In the revised manuscript this now reads:
+
+> *"The winter transformation maximum weakens to below 60 Sv and moves to _2 = 37.0-37.5 kg m^-3, and the thermal share of the transformation falls to 12-17% while the sea ice term becomes dominant. Extensive ice cover insulates the ocean from atmospheric heat exchange, and simultaneously intensifies haline forcing through enhanced brine rejection concentrated in coastal regions."*
 **28.** *Lines 326 appear to repeat the statement made in line 323. In addition, the general
 statement in lines 323–325 does not appear to hold equally across all climate states.* — The
 repetition has been removed by merging the two sentences. We have also added the qualification the
 reviewer asks for, noting that the Ross Sea departs from the circumpolar picture and that in the
 glacial states the signal is carried largely by the Weddell sector.
+
+In the revised manuscript this now reads:
+
+> *"This circumpolar picture does not hold uniformly in every sector. The Ross Sea in particular departs from it, showing weaker and at some densities opposing responses, and in the glacial states the circumpolar signal is carried largely by the Weddell sector while the Ross and Adelie sectors contribute little."*
 
 **29.** *Line 339: Please provide a reference for the sediment-record evidence discussed here.* —
 On reflection we think the passage was speculative rather than supported, and Reviewer 3 raised the
@@ -370,9 +406,17 @@ margin are very low. We have replaced the proposal with a statement of the diffi
 present the persistence of the coupling as a property of the simulated system rather than as a
 practical route to a marine reconstruction.
 
+In the revised manuscript this now reads:
+
+> *"Whether this persistent coupling could be exploited for proxy reconstruction is less clear than we previously suggested. Recovering an interannual-to-decadal signal from marine sediments would require accumulation rates and chronological precision that are rarely available around the Antarctic margin, where sedimentation is slow and bioturbation mixes the record over intervals far longer than the variability of interest. We therefore present the persistence of the coupling as a property of the simulated system rather than as a practical route to a marine Southern Annular Mode reconstruction."*
+
 **30.** *Section 4.1: Please define the full names of the abbreviated components.* — Done. The
 Methods now spell out that the radiative component is the sum of the shortwave and longwave fluxes
 and the turbulent component the sum of the latent and sensible heat fluxes.
+
+In the revised manuscript this now reads:
+
+> *"In the figures the radiative component denotes the sum of the shortwave and longwave fluxes, and the turbulent component denotes the sum of the latent and sensible heat fluxes."*
 
 **31.** *Line 388: Please check the citation formatting.* — Corrected.
 
@@ -892,6 +936,10 @@ revision.
 > *L195: in the real ocean freshwater input from icesheet melting is important today.* — Added, with
 the explicit acknowledgement that this configuration has no ice shelf cavities and applies no
 prescribed meltwater flux, so that pathway is absent from our simulations.
+
+In the revised manuscript this now reads:
+
+> *"We note that this statement applies to the freshwater sources represented in our configuration. In the present-day ocean, meltwater derived from the Antarctic ice sheet, both as basal melt beneath ice shelves and as iceberg discharge, is an important part of the coastal freshwater budget and acts to suppress dense water formation . Because the model has no ice shelf cavities and no prescribed meltwater flux, that term is absent here, and the freshwater budget we decompose is dominated by sea ice thermodynamics."*
 
 > *L206-209: should be moved to the introduction maybe?* — Moved.
 
