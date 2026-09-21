@@ -96,8 +96,22 @@ Shi 2025 GRL 的 Supporting Information Text S1 本来能一锤定音，但 Wile
 一致，而实际并不一致。现在 Methods 只保留投稿版原有的 1500/1000（那是用户自己写的数），
 引用只挂在它们确实支持的论断上（proxy validation）。
 
-**需要用户确认**：这五个实验真实的 spin-up 长度是多少？如果 1500/1000 是对的就保持现状；
-如果实际是别的数，现在改还来得及。审稿人 3 已经在问平衡态问题，这个数被查出来对不上会很被动。
+**已解决（2026-09-21，用户上传了完整的 GRL supplementary，含 Text S1）**：
+Text S1 原文确认我们的 1500/1000 **完全正确**：
+
+> "We run the PI simulation for 1,500 model years with dynamic vegetation. The MH and LIG
+>  simulations are initialized from the PI run. ... Both LGM and MIS3 experiments are
+>  initialized from a previous LGM model study (Werner et al., 2016). All of the 4 paleo
+>  simulations are integrated for 1,000 model years, with the simulated climate being in a
+>  quasi-equilibrium state for the final 100 model years."
+
+所以先前那三篇「互相矛盾」的印象是误判：Shi 2022 JCLI 的 1000 年只讲 PI/MH/LIG 那一组，
+Shi 2023 CP 的 1300 年只讲它自己那篇的 PI+LGM，都不是本文这五个实验。
+**本文的 1500/1000 有明确的已发表出处**，已在 Methods 里挂上 \citet{Shi2025GRL}。
+
+Text S1 还顺带验证了 Table 1：CO2 五个值（284.32 / 264.4 / 275 / 210.5 / 190 ppm）
+与我从 run config 独立读出来的完全一致，GLAC1D 21ka/38ka 的分配也一致。
+初始场来源也对上了：PI 大气来自 AMIP、海洋来自 WOA 1950-2000；LGM/MIS3 来自 Werner et al. 2016。
 
 ### 文献核实的技术记录（备查）
 
