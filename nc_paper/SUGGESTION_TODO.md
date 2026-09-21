@@ -98,3 +98,22 @@ Shi 2025 GRL 的 Supporting Information Text S1 本来能一锤定音，但 Wile
 
 **需要用户确认**：这五个实验真实的 spin-up 长度是多少？如果 1500/1000 是对的就保持现状；
 如果实际是别的数，现在改还来得及。审稿人 3 已经在问平衡态问题，这个数被查出来对不上会很被动。
+
+### 文献核实的技术记录（备查）
+
+**PDF 获取路径**（本轮实测，其他站点都被挡）：
+- AWI EPIC：需要带浏览器 user-agent 和 cookie jar
+- Copernicus（Clim. Past / GMD）：直连 PDF 可下
+- **Wiley、AMS、GEOMAR 一律封锁自动访问** —— GRL 和 J. Climate 的正文只能靠摘要 + 索引文本
+
+**Sidorenko 2019 的三条 "NOT DISCUSSED" 是全文 grep 出来的**，不是从摘要推断：
+没有 mixed layer depth 评估、没有 open-ocean convection / polynya 字样、
+没有跟任何卫星海冰产品比较。引用时不得越过这三条界线。
+
+**仍未拿到**：Shi et al. 2025 GRL 的 Supporting Information Text S1（付费墙），
+那是五个实验权威实验设计的所在，也是能一锤定音解决 spin-up 年数问题的文件。
+若用户记不清年数，可以从这里入手（作者本人有权限）。
+
+**已清理**：`awi_validation_refs.bib` 暂存文件已删除，6 个条目中 5 个已并入
+`build/ref.bib` 并被引用（`Shi2023GMD` 是同位素那篇，并入但未引用，留着备用），
+`Sidorenko2019` 是与 `sidorenko2019evaluation` 的重复，已弃用。
