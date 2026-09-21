@@ -96,16 +96,21 @@ while i < n:
         blk = s[i:j]
         m = re.search(r'\\includegraphics\[[^\]]*\]\{([^{}]*)\}', blk)
         cap = ''
-        k = blk.find(r'\caption{')
-        if k >= 0:
-            cap, _ = find_group(blk, k + len(r'\caption') )
+        # the letter uses \caption*{...} (unnumbered); match both forms
+        mc = re.search(r'\\caption\*?\{', blk)
+        if mc:
+            cap, _ = find_group(blk, mc.end() - 1)
+        # keep the "Figure Rx.y (...)" label bold, as it is in the PDF
+        cap = re.sub(r'\\textbf\{(Figure [^{}]*)\}', r'@@B@@\1@@/B@@', cap, count=1)
         cap = inline(strip_cmd(strip_cmd(cap, 'textbf'), 'textit'))
+        cap = cap.replace('@@B@@', '<strong>').replace('@@/B@@', '</strong>')
         cap = re.sub(r'^\s*', '', cap)
         if m:
             src = Path('SUBMISSION') / m.group(1)
             out.append(f'<p><img src="{src.resolve()}" style="width:100%" /></p>')
-        if cap:
-            out.append(f'<p><em>{cap}</em></p>')
+        if not cap:
+            raise SystemExit('figure block with no caption: ' + blk[:80])
+        out.append(f'<p><em>{cap}</em></p>')
         i = j
         continue
 

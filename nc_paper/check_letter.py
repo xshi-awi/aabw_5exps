@@ -51,6 +51,34 @@ print(f'  cross-references: {len(refs)} used, {len(dang)} dangling')
 print(f'  quotations: {len(quotes)}, {len(orphan)} untraceable')
 print(f'  elided comments: {ell}')
 
+# ---------------------------------------------------------------- deliverables
+# The markdown being right is not enough. A caption that never reaches the
+# LaTeX or the .docx is invisible to the reviewer, which is exactly how the
+# \caption* mismatch slipped through once already.
+n_md = len(re.findall(r'\*\*Figure R[0-9]\.[0-9]+', s))
+
+tex = Path('SUBMISSION/04_response_letter.tex')
+if tex.exists():
+    t = tex.read_text()
+    n_inc = t.count('\\includegraphics')
+    n_cap = len(re.findall(r'\\caption\*?\{\\textbf\{Figure R[0-9]\.[0-9]+', t))
+    print(f'  tex: {n_inc} images, {n_cap} captions')
+    if n_cap != n_md or n_inc != n_md:
+        fail.append(f'tex has {n_inc} images / {n_cap} captions, markdown has {n_md}')
+
+docx = Path('SUBMISSION/05_response_letter.docx')
+if docx.exists():
+    import zipfile
+    with zipfile.ZipFile(docx) as z:
+        x = z.read('word/document.xml').decode('utf-8')
+    n_draw = x.count('<w:drawing>')
+    n_dcap = len(set(re.findall(r'Figure (R[0-9]\.[0-9]+)', x)))
+    print(f'  docx: {n_draw} images, {n_dcap} distinct figure labels')
+    if n_draw != n_md:
+        fail.append(f'docx has {n_draw} images, markdown has {n_md}')
+    if n_dcap != n_md:
+        fail.append(f'docx names {n_dcap} distinct figures, markdown defines {n_md}')
+
 if fail:
     print('\nFAIL')
     for f in fail:
