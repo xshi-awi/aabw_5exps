@@ -222,6 +222,19 @@ counterparts. Panels (g) and (h) of Figure R1.2 above make the point quantitativ
 of deep convection and the depth of the deepest mixed layer fall in the glacial states, so the
 reviewer's reading of the shading is correct and is now reflected in the text.
 
+The reviewer's observation also pointed to a presentation problem, which we have fixed. On the
+shared 0–400 m scale of the original figure the glacial panels are almost featureless, because the
+99th percentile of the glacial winter mixed layer south of 55°S is only 280 m (LGM) and 296 m
+(MIS3). Replotting those two states on their own 0–300 m scale makes the coastal cells visible.
+
+![](letter_figs/figR7_mld_glacial_zoom.png)
+
+**Figure R1.3 (new supplementary panel).** LGM and MIS3 winter mixed layer depth on the original
+0–400 m scale (top) and on a tightened 0–300 m scale with the 200 m contour marked (bottom). The
+tightened scale resolves discrete deep cells along the coast, in the Weddell, Prydz Bay and Ross
+sectors, which is where the glacial dense water is produced. This is the figure we now use in the
+supplement.
+
 **11.** *Line 134-141: Fig.1 i-l subpanels are not discussed at all.* — A paragraph discussing the
 surface density panels has been added. It notes that the glacial density anomalies follow the
 salinity field rather than the temperature field, because the thermal expansion coefficient is
@@ -234,13 +247,33 @@ points are now stated in the text; see the response to comment 11.
 
 **13.** *Line 146-148: An explanation of why the wind stress changes do not lead to increased sea
 ice in the Ross Sea would be useful. Is this due to the presence of relatively warm water despite
-enhanced salinity, density, and Ekman transport in this region?* — The reviewer's interpretation is
-essentially the one our output supports. In the Ross sector the intensified wind stress does drive
-enhanced northward ice export, but the ocean surface there remains comparatively warm, so the
-exported ice is replaced by growth that is thermodynamically limited rather than
-dynamically limited. The result is stronger brine rejection without a proportional increase in ice
-area. We have added a sentence to this effect, and we note the same sector-dependence when
-discussing why the Ross Sea departs from the circumpolar Southern Annular Mode signal.
+enhanced salinity, density, and Ekman transport in this region?* — We checked this
+directly, and the answer turned out to be more interesting than the question assumed, so we set it
+out in full.
+
+The mechanism the reviewer proposes is real, but it operates in the last interglacial rather than in
+the glacial states the comment refers to. Averaged between 60 and 75°S in winter, the glacial sea
+ice response is in fact fairly uniform around the continent: concentration rises by 0.62 in the
+Ross sector, 0.70 in the Weddell sector and 0.53 in the Adélie sector at the Last Glacial Maximum,
+and all three sectors cool to within about 0.1 K of the surface freezing point, so ice growth is
+not limited by surface heat content anywhere.
+
+![](letter_figs/figR9_ross_sector.png)
+
+**Figure R1.4 (new analysis).** (a) Winter surface temperature above the local freezing point and
+(b) winter sea ice concentration, by sector and climate state. (c) The same quantities as anomalies
+relative to PI. The Ross sector separates from the others only in the last interglacial, where it
+warms to 2.7 K above freezing and loses 0.19 of ice concentration, an order of magnitude more than
+the Weddell or Adélie response. In the glacial states all three sectors collapse onto the freezing
+point and gain ice comparably.
+
+So in the last interglacial the Ross sector is 0.97 K warmer than in PI and sits 2.72 K above the
+freezing point, against changes below 0.3 K elsewhere, and its winter ice concentration falls by
+0.19. There the wind can export ice efficiently but the water is too far from freezing for the
+exported ice to be replaced, which is precisely the reviewer's proposed mechanism. We have
+rewritten the passage to say this, rather than attributing the behaviour to the glacial wind
+response as the submitted version implied. This asymmetry is also why the Ross sector departs from
+the circumpolar pattern in the variability analysis.
 
 **14.** *Line 167: It would be helpful to quantify the thermal contribution, similar to the
 quantification provided for the haline contribution in line 157.* — Added. The thermal term
@@ -256,7 +289,7 @@ version explicitly.
 
 ![](letter_figs/figS_common_axis-1.png)
 
-**Figure R1.3 (new Supplementary Fig. S5).** Winter transformation for the four sectors and five
+**Figure R1.5 (new Supplementary Fig. S5).** Winter transformation for the four sectors and five
 climate states on a common vertical and horizontal axis. Plotted this way the glacial weakening of
 the transformation maximum and its shift to denser classes are directly comparable between panels,
 which the independently scaled main-text version does not allow.
@@ -371,7 +404,18 @@ the answer matters for the paper's main claim. We therefore tested it directly r
 speculating. Three findings emerged, and we report all three, including the one that is
 unfavourable to us.
 
-**The domains are less similar than they appear.** Pellichero et al. define their sector as the
+**The domains are less similar than they appear.** This is worth showing directly,
+since the similarity of the two regions is the premise of the reviewer's argument.
+
+![](letter_figs/figR8_domain_map.png)
+
+**Figure R2.1 (new analysis).** (a) The domain used in the submitted manuscript, everything south
+of 60°S, covering 2.07×10¹³ m². (b) The seasonal sea ice zone of the model, inside the September
+15% contour, which is the definition Pellichero et al. use, covering 1.22×10¹³ m². (c) The two
+overlaid. The orange ring is inside our domain but outside the ice zone: it is 42.7% of the area we
+integrated over, it is open water all year, and it is water their analysis does not include.
+
+Pellichero et al. define their sector as the
 region enclosed by the September 15% sea ice contour, so its northern boundary is an ice contour
 that varies with longitude, not a latitude circle. Our published integral covers everything south
 of 60°S. In our pre-industrial simulation, 42.7% of that area lies outside the September ice
@@ -384,7 +428,7 @@ contribution at the transformation maximum roughly doubles from 0.86 to 1.84 Sv.
 
 ![](letter_figs/figR1_wmt_domain_sensitivity.png)
 
-**Figure R2.1 (manuscript Fig. 8).** Transformation integrated south of 60°S, the domain used in
+**Figure R2.2 (manuscript Fig. 8).** Transformation integrated south of 60°S, the domain used in
 the submitted version (top row), and over the seasonal sea ice zone alone, which reproduces the
 domain of Pellichero et al. to within 2.5% in area (bottom row). Restricting the integration to the
 ice-covered sector raises the haline share, as the reviewer would expect, but the contrast between
@@ -417,7 +461,7 @@ above.
 
 ![](letter_figs/figR6_convection_sites.png)
 
-**Figure R2.2 (new analysis).** Where the model actually convects. (a-e) Winter mixed layer depth,
+**Figure R2.3 (new analysis).** Where the model actually convects. (a-e) Winter mixed layer depth,
 400 m contour in orange. (f) In the pre-industrial state 70% of the area with a mixed layer deeper
 than 400 m, and 97% of the area deeper than 600 m, lies in the Weddell sector, centred near 68°S in
 the open gyre rather than over the shelf. (g, h) The deep-convection area and the maximum mixed
@@ -437,7 +481,7 @@ The consequences for the large-scale circulation are visible in the overturning 
 
 ![](letter_figs/figR2_moc_5exps.png)
 
-**Figure R2.3 (manuscript Fig. 6).** Global overturning streamfunction (top) and anomalies relative
+**Figure R2.4 (manuscript Fig. 6).** Global overturning streamfunction (top) and anomalies relative
 to PI (bottom). The abyssal cell that carries southern-sourced bottom water weakens from about
 10 Sv in the interglacials to 2.4 and 1.6 Sv in LGM and MIS3, while the upper cell is largely
 unchanged. The glacial reorganisation is concentrated in the cell our surface analysis addresses. What such a model would change

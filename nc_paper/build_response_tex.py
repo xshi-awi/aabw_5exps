@@ -304,7 +304,19 @@ Atlantic--Indian sector."""),
  (r"""12. Line 144-146: The LIG also exhibits similar behaviour, although the changes are smaller in some basins. Likewise, the LGM shows some negative anomalies in the Atlantic-Indian sector.""",
   r"""Both points are now stated in the text, as described in our reply to comment 11."""),
  (r"""13. Line 146-148: An explanation of why the wind stress changes do not lead to increased sea ice in the Ross Sea would be useful. Is this due to the presence of relatively warm water despite enhanced salinity, density, and Ekman transport in this region?""",
-  r"""The reviewer's interpretation is essentially the one our output supports, and we have added it:"""),
+  r"""We checked this directly, and the answer turned out to be more interesting than the question
+assumed. The mechanism the reviewer proposes is real, but it belongs to the last interglacial rather
+than to the glacial states the comment refers to. Averaged between 60 and 75$^\circ$S in winter, the
+glacial sea ice response is fairly uniform around the continent: concentration rises by 0.62 in the
+Ross sector, 0.70 in the Weddell sector and 0.53 in the Ad\'elie sector at the Last Glacial Maximum,
+and all three cool to within about 0.1~K of the surface freezing point, so ice growth is not limited
+by surface heat content anywhere. The Ross sector separates from the others only in the last
+interglacial, where it is 0.97~K warmer than in PI, sits 2.72~K above the freezing point against
+changes below 0.3~K elsewhere, and loses 0.19 of its winter ice concentration. There the wind
+exports ice efficiently but the water is too far from freezing for it to be replaced, which is
+precisely the reviewer's proposed mechanism (Fig.~\ref{fig:r1ross}). We have rewritten the passage
+accordingly, rather than attributing the behaviour to the glacial wind response as the submitted
+version implied."""),
  (r"""14. Line 167: It would be helpful to quantify the thermal contribution, similar to the quantification provided for the haline contribution in line 157.""",
   r"""Added. The thermal term accounts for 70--85\% of the total at the transformation maximum in the
 interglacials, against 15--30\% for the haline term, and falls to 12--17\% in the glacial states."""),
@@ -384,11 +396,23 @@ boundary conditions above."""),
 for i, (c, r) in enumerate(R1):
     add(comment(c), MED, reply(r), MED)
     if c.startswith('13.'):
-        add(quote(r"""The response is not uniform around the continent. In the Ross sector the
-stronger stress drives enhanced northward ice export, but the surface ocean there remains
-comparatively warm, so replacement ice growth is limited thermodynamically rather than dynamically.
-Brine rejection strengthens without a proportional increase in ice area, which is also why this
-sector departs from the circumpolar pattern in the variability analysis below."""), MED)
+        add(fig('letter_figs/figR9_ross_sector.png',
+                r"""\textbf{Figure R1.4} (new analysis). (a) Winter surface temperature above the
+local freezing point and (b) winter sea ice concentration, by sector and climate state. (c) The same
+quantities as anomalies relative to PI. The Ross sector separates from the others only in the last
+interglacial, where it warms to 2.7~K above freezing and loses 0.19 of ice concentration, an order
+of magnitude more than the Weddell or Ad\'elie response. In the glacial states all three sectors
+collapse onto the freezing point and gain ice comparably.""",
+                'fig:r1ross'))
+    if c.startswith('10.'):
+        add(fig('letter_figs/figR7_mld_glacial_zoom.png',
+                r"""\textbf{Figure R1.5} (new supplementary panel). LGM and MIS3 winter mixed
+layer depth on the original 0--400~m scale (top) and on a tightened 0--300~m scale with the 200~m
+contour marked (bottom). The 99th percentile of the glacial winter mixed layer south of
+55$^\circ$S is only 280~m (LGM) and 296~m (MIS3), so the shared interglacial scale leaves the
+glacial panels almost featureless. The tightened scale resolves discrete deep cells along the coast,
+which is where the glacial dense water is produced.""",
+                'fig:r1mldzoom'))
     if c.startswith('15.'):
         add(fig('letter_figs/figS_common_axis-1.png',
                 r"""\textbf{Figure R1.3} (new Supplementary Fig.~S5). Winter transformation for the
@@ -443,8 +467,17 @@ exactly as theirs, which reproduces their domain to within 2.5\% in area, moves 
 direction they report: the thermal share of the dense-class transformation falls from 69\% to 61\%,
 and the sea ice contribution at the transformation maximum roughly doubles from 0.86 to 1.84~Sv."""), MED)
 
+add(fig('letter_figs/figR8_domain_map.png',
+        r"""\textbf{Figure R2.1} (new analysis). (a) The domain used in the submitted manuscript,
+everything south of 60$^\circ$S, covering 2.07$\times10^{13}$~m$^2$. (b) The seasonal sea ice zone
+of the model, inside the September 15\% contour, which is the definition Pellichero et al. use,
+covering 1.22$\times10^{13}$~m$^2$. (c) The two overlaid. The orange ring lies inside our domain but
+outside the ice zone: it is 42.7\% of the area we integrated over, it is open water all year, and it
+is water their analysis does not include.""",
+        'fig:r2map'))
+
 add(fig('letter_figs/figR1_wmt_domain_sensitivity.png',
-        r"""\textbf{Figure R2.1} (manuscript Fig.~8). Transformation integrated south of
+        r"""\textbf{Figure R2.2} (manuscript Fig.~8). Transformation integrated south of
 60$^\circ$S, the domain used in the submitted version (top row), and over the seasonal sea ice zone
 alone, which reproduces the domain of Pellichero et al. (2018) to within 2.5\% in area (bottom row).
 Restricting the integration to the ice-covered sector raises the haline share, as the reviewer would
@@ -472,7 +505,7 @@ within 0.5~$^\circ$C of the local freezing point, and $\alpha = 3.5\times10^{-5}
 is not warm-biased there, so we cannot appeal to that. What differs is where dense water is made."""), MED)
 
 add(fig('letter_figs/figR6_convection_sites.png',
-        r"""\textbf{Figure R2.2} (new analysis). Where the model actually convects. (a--e) Winter
+        r"""\textbf{Figure R2.3} (new analysis). Where the model actually convects. (a--e) Winter
 mixed layer depth, 400~m contour in orange. (f) In the pre-industrial state 70\% of the area with a
 mixed layer deeper than 400~m, and 97\% of the area deeper than 600~m, lies in the Weddell sector,
 centred near 68$^\circ$S in the open gyre rather than over the shelf. (g, h) The deep-convection
@@ -498,7 +531,7 @@ the direction of the shift in the surface buoyancy budget. The consequences for 
 circulation are visible in the overturning itself."""), MED)
 
 add(fig('letter_figs/figR2_moc_5exps.png',
-        r"""\textbf{Figure R2.3} (manuscript Fig.~6). Global overturning streamfunction (top) and
+        r"""\textbf{Figure R2.4} (manuscript Fig.~6). Global overturning streamfunction (top) and
 anomalies relative to PI (bottom). The abyssal cell that carries southern-sourced bottom water
 weakens from about 10~Sv in the interglacials to 2.4 and 1.6~Sv in LGM and MIS3, while the upper
 cell is largely unchanged. The glacial reorganisation is concentrated in the cell our surface
