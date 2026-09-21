@@ -572,3 +572,54 @@ R1#23「模式在哪里形成深水」、R1#10「LGM 的 MLD 明显更浅」、R
 图片同理：7 个 media 文件对应 12 个 `r:embed` 引用是正常的（重复图共用文件），不是丢图。
 
 **Outstanding**: Zenodo DOI、致谢与基金信息仍待填。
+
+### 2026-09-21 (按用户黄色批注全面改写回复信)
+
+**Progress**: 用户在 `05_response_letter_suggestion.docx` 里留了 23 处黄色批注，已全部处理。
+回复信现在 16 张图、20 处斜体引文，三个格式同步。清单见 `nc_paper/SUGGESTION_TODO.md`。
+
+**最主要的一类批注：每条回复都要用斜体引出 revised version 的真实原文。**
+做法是 `nc_paper/extract_quotes.py` 从 `build/revised.tex` **程序化抽取** 31 段原文存成
+`quotes.json`，再由 `apply_quotes.py` 插进回复信。**绝不手打**，否则信和稿子会对不上。
+抽取时把 `\ref{sst}` 一类映射成审稿人看到的图号（Fig. 1i-l），不能留占位符。
+已核验：20 处引文全部可追溯回 quotes.json，R1 的 32 条 comment 全在。
+
+**三张新图**：
+- `figR7_mld_glacial_zoom`（`plot_mld_glacial_zoom.py`）LGM/MIS3 的 MLD 色标收紧到 0-300 m。
+  依据：冰期冬季 MLD 在 55S 以南的 p99 只有 280/296 m，用间冰期的 0-400 m 标度整片没细节。
+  按批注放在 model-limitation 那条（不是 G1），避免图都挤在前面。
+- `figR8_domain_map`（`plot_domain_map.py`）三panel：<60S 域 2.07e13 m²、9 月海冰区 1.22e13 m²、
+  两者之差（橙色 42.7% 是我们有他没有的常年开阔水）。直接反驳审稿人 2 的「区域看起来很像」。
+- `figR9_ross_sector`（`plot_ross_sector.py`）回答 R1#13。
+
+**R1#13 我原来写错了，已改正（重要）**：原先写「冰期 Ross 海水偏暖所以增冰受限」。实测
+（60-75S 面积加权，JJA）：冰期三扇区海冰增量 Ross +0.62 / Weddell +0.70 / Adélie +0.53，
+T-Tf 全在 0.04-0.16 K，**根本没有 Ross 偏暖这回事**。真实信号在 **LIG**：Ross 比 PI 暖 0.97 K、
+离冰点 2.72 K、海冰掉 0.19，比另两个扇区大一个量级。审稿人猜的机制对，但时期不对。
+稿子和回复信都已按数据改写。教训：顺着审稿人的猜测附和之前必须先算。
+
+**模式漂移：两个实验不满足你自己论文的判据（已如实披露）**。Shi et al. 2022 JCLI 原文判据是
+global mean surface temperature 最后 100 年趋势不超过 ±0.05 K/century。实测 var167：
+PI +0.019 / MH -0.033 / **LIG -0.063** / LGM +0.040 / **MIS3 +0.101**。LIG 和 MIS3 超标。
+Methods 里五个数全列、明确承认超标，再给限定论证（冰期间冰期信号几个 K，漂移小两个量级；
+MH 的西风急流与 PI 完全一致）。**不要写「全部满足判据」，那是假的。**
+注意别用 SST 趋势冒充 —— SST 只有海洋，判据是含陆地的地表温度。
+
+**spin-up 已由 GRL Text S1 一锤定音**：用户上传完整 supplementary（15 页版，含 Text S1）后确认
+PI 1,500 年、4 个古气候实验各 1,000 年、取最后 100 年 —— 与投稿版**完全一致**。
+先前以为「三篇文献互相矛盾」是我的误判：JCLI 的 1000 年只讲它自己那组，CP 的 1300 年只讲
+它自己的 PI+LGM。Text S1 还独立验证了 Table 1 的五个 CO2 值和 GLAC1D 21k/38k 分配。
+
+**GLORYS 做不了 WMT（已核实，非工作量问题）**：`GLOBAL_MULTIYEAR_PHY_001_030` 月均产品只有
+thetao/so/uo/vo/zos/mlotst/siconc/sithick/bottomT，**没有任何表面通量场**。
+WMT 需要净热通量、淡水通量、海冰热力学盐通量，三样全无。审稿人 3 的建议在物理上不可行。
+
+**LaTeX 回复信改为从 markdown 生成**（`nc_paper/md_to_tex.py` + `tex_header.tex`），
+避免三个格式各改各的导致漂移。docx 仍由 `tex_to_docx.py` 从 tex 转。
+当前：markdown 31 页 / LaTeX 38 页零错误 / docx 157 蓝 84 斜体 16 图。
+
+**Outstanding**: 深海 trend 图（`calc_deep_ocean_trend.py` 正在跑，读 2300+ 个逐年 3D 文件）；
+致谢与基金信息仍待填；Zenodo DOI 待回填。
+
+**坑**: 冰期网格的深度轴变量叫 `nz` 不叫 `zbar`（数值相同），第一版脚本因此在第一个实验就崩了
+还跑了很久才发现 —— 后台任务要早看 output，别等。
