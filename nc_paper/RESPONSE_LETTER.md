@@ -74,12 +74,24 @@ doubling the sea ice contribution at the transformation maximum from 0.86 to 1.8
 
 ![](letter_figs/figR1_wmt_domain_sensitivity.png)
 
-**Figure R1 (manuscript Fig. 8).** Transformation integrated south of 60°S, the domain used in the
-submitted version (top row), and over the seasonal sea ice zone alone, which reproduces the domain
-of Pellichero et al. to within 2.5% in area (bottom row). The thermal share at the transformation
-maximum and the area of each domain are given in each panel. The haline share increases in the
-restricted domain, as expected, but the contrast between thermally dominated interglacials and
-haline dominated glacials is unchanged.
+**Figure R1.1 (manuscript Fig. 8).** Transformation integrated south of 60°S, the domain used in
+the submitted version (top row), and over the seasonal sea ice zone alone, which reproduces the
+domain of Pellichero et al. to within 2.5% in area (bottom row). The thermal share at the
+transformation maximum and the area of each domain are given in each panel. The haline share
+increases in the restricted domain, as expected, but the contrast between thermally dominated
+interglacials and haline dominated glacials is unchanged.
+
+We also diagnosed directly where the model forms its dense water, which bears on how far the
+pre-industrial state can be trusted.
+
+![](letter_figs/figR6_convection_sites.png)
+
+**Figure R1.2 (new analysis).** (a-e) Winter mixed layer depth for the five states, with the 400 m
+contour in orange. (f) In the pre-industrial state the Weddell sector accounts for 70% of the area
+with a mixed layer deeper than 400 m and 97% of the area deeper than 600 m, and the convection sits
+in the interior of the gyre near 68°S rather than over the shelf. (g) The deep-convection area
+contracts to roughly one fifth of its pre-industrial value in the glacial states. (h) The deepest
+winter mixed layer shoals from 991 m in PI to 819 m and 645 m in the glacials.
 
 Second, and more importantly, we found that the density range matters more than the domain.
 Converting our simulated surface properties to the neutral density coordinate used in that study,
@@ -203,10 +215,12 @@ bands and polynyas", and we now quantify the reduction rather than describing it
 darker blue shading in LGM is at ~200m, so considerably shallower than the interglacials).* — This
 is a fair objection and we have addressed it with numbers. Summed south of 55°S, the area with a
 winter mixed layer deeper than 400 m falls from 7.5×10¹¹ m² in PI to 1.7×10¹¹ m² in LGM and
-1.6×10¹¹ m² in MIS3, the maximum mixed-layer depth decreases from 991 m to 819 m and 768 m, and
+1.6×10¹¹ m² in MIS3, the maximum mixed-layer depth decreases from 991 m to 819 m and 645 m, and
 mixed layers deeper than 600 m essentially disappear in both glacial states. The text now says
 explicitly that the residual glacial signals are genuinely shallower than their interglacial
-counterparts.
+counterparts. Panels (g) and (h) of Figure R1.2 above make the point quantitatively: both the area
+of deep convection and the depth of the deepest mixed layer fall in the glacial states, so the
+reviewer's reading of the shading is correct and is now reflected in the text.
 
 **11.** *Line 134-141: Fig.1 i-l subpanels are not discussed at all.* — A paragraph discussing the
 surface density panels has been added. It notes that the glacial density anomalies follow the
@@ -240,6 +254,13 @@ and regions. We have kept the independently scaled version in the main text beca
 the individual curves is otherwise hard to read, and the main text now points to the common-axis
 version explicitly.
 
+![](letter_figs/figS_common_axis-1.png)
+
+**Figure R1.3 (new Supplementary Fig. S5).** Winter transformation for the four sectors and five
+climate states on a common vertical and horizontal axis. Plotted this way the glacial weakening of
+the transformation maximum and its shift to denser classes are directly comparable between panels,
+which the independently scaled main-text version does not allow.
+
 **16.** *Line 174: "Section 4?" If this is intended to refer to the Methods section.* — Corrected to
 refer to the Methods section by name.
 
@@ -267,10 +288,11 @@ have been rewritten. They now read "over the ice-free parts of the Southern Ocea
 
 **23.** *Could the authors clarify where the primary deep water formation regions occur in this
 model? ... relatively little signal is apparent over the Weddell and Ross Seas.* — We have added
-this diagnosis to the Results: in the pre-industrial state the Weddell sector accounts for 70% of
-the area with winter mixed layers deeper than 400 m south of 55°S and 97% of the area deeper than
-600 m, centred near 68°S in the gyre interior. The formation region is therefore the open Weddell
-gyre rather than the shelf, which is directly relevant to the model limitation discussed under G1.
+this diagnosis to the Results, and it is shown in Figure R1.2 above. In the pre-industrial state the
+Weddell sector accounts for 70% of the area with winter mixed layers deeper than 400 m south of
+55°S and 97% of the area deeper than 600 m, centred near 68°S in the gyre interior. The formation
+region is therefore the open Weddell gyre rather than the shelf, which is directly relevant to the
+model limitation discussed under G1.
 This also explains the pattern the reviewer noticed: the Southern Annular Mode heat flux signal is
 strongest over open water, and in the glacial states the coastal regions where dense water is
 produced are precisely those insulated by ice, so the surface flux anomalies there are small even
@@ -287,8 +309,8 @@ compensating freshwater away to melt further north. References added.
 
 **26.** *Line 301: Figure A4 appears to show only model results. Please consider including the
 observational estimates in the figure (or referring to them directly).* — We have added the
-quantitative comparison to the text and to the new Fig. 8, which shows our transformation
-recomputed over the Pellichero domain alongside the standard domain. We report their published
+quantitative comparison to the text and to the new Fig. 8, reproduced as Figure R1.1 above, which
+shows our transformation recomputed over the Pellichero domain alongside the standard domain. We report their published
 values directly in the Discussion, including the 5 ± 5 Sv transformation into denser classes and
 the stated factor of 2–5 by which the freshwater term exceeds the heat term in their sector, and we
 compare our numbers against them. We chose to make the comparison quantitatively in the text and
@@ -358,8 +380,15 @@ that stays exposed to the atmosphere year round, and taken alone it is 89–91% 
 the dense classes. Recomputing our transformation over a sea ice sector defined exactly as theirs,
 which reproduces their domain to within 2.5% in area, moves the partition in the direction they
 report: the thermal share of the dense-class transformation falls from 69% to 61%, and the sea ice
-contribution at the transformation maximum roughly doubles from 0.86 to 1.84 Sv. This is shown in
-Fig. R1 above, reproduced as Fig. 8 of the manuscript.
+contribution at the transformation maximum roughly doubles from 0.86 to 1.84 Sv.
+
+![](letter_figs/figR1_wmt_domain_sensitivity.png)
+
+**Figure R2.1 (manuscript Fig. 8).** Transformation integrated south of 60°S, the domain used in
+the submitted version (top row), and over the seasonal sea ice zone alone, which reproduces the
+domain of Pellichero et al. to within 2.5% in area (bottom row). Restricting the integration to the
+ice-covered sector raises the haline share, as the reviewer would expect, but the contrast between
+thermally dominated interglacials and haline dominated glacials survives intact.
 
 **The density range matters more than the domain.** This was the more consequential finding.
 Converting our simulated surface properties inside the September ice zone to the neutral density
@@ -384,7 +413,15 @@ open-ocean convection in the interior of the Weddell gyre near 68°S rather than
 shelf water formation and downslope overflow that operates in the real ocean. Open-ocean convection
 exposes a large area to the atmosphere and so recruits an excessive thermal contribution while
 producing water that is not dense enough, which is precisely the offset in density class described
-above. We now say this plainly in the Discussion, note that it is a limitation shared across the
+above.
+
+![](letter_figs/figR6_convection_sites.png)
+
+**Figure R2.2 (new analysis).** Where the model actually convects. (a-e) Winter mixed layer depth,
+400 m contour in orange. (f) In the pre-industrial state 70% of the area with a mixed layer deeper
+than 400 m, and 97% of the area deeper than 600 m, lies in the Weddell sector, centred near 68°S in
+the open gyre rather than over the shelf. (g, h) The deep-convection area and the maximum mixed
+layer depth both contract sharply in the glacial states. We now say this plainly in the Discussion, note that it is a limitation shared across the
 current model generation rather than specific to AWI-ESM2 (Heuzé, 2021: 28 of 35 CMIP6 models), and
 state that this configuration has no ice shelf cavities.
 
@@ -394,7 +431,16 @@ glacial states remain 15% and 17% thermally driven while the interglacials remai
 driven, so the contrast is not manufactured by including open water in the interglacial integrals.
 Second, the mechanism is the ice cover itself rather than the convection style: insulation of the
 surface and concentration of brine rejection follow from the areal expansion of sea ice, and both
-would operate in a model that formed its dense water on the shelf. What such a model would change
+would operate in a model that formed its dense water on the shelf.
+
+The consequences for the large-scale circulation are visible in the overturning itself.
+
+![](letter_figs/figR2_moc_5exps.png)
+
+**Figure R2.3 (manuscript Fig. 6).** Global overturning streamfunction (top) and anomalies relative
+to PI (bottom). The abyssal cell that carries southern-sourced bottom water weakens from about
+10 Sv in the interglacials to 2.4 and 1.6 Sv in LGM and MIS3, while the upper cell is largely
+unchanged. The glacial reorganisation is concentrated in the cell our surface analysis addresses. What such a model would change
 is the density and the geographic origin of the resulting water, not the direction of the shift in
 the surface buoyancy budget. We have adjusted the framing of the paper accordingly, so that the
 claim is about the partitioning of surface buoyancy forcing and its state dependence rather than
@@ -538,7 +584,14 @@ outset rather than left implicit.
 We confirmed the reviewer's suspicion diagnostically. In the pre-industrial simulation the Weddell
 sector accounts for 70% of the area with a winter mixed layer deeper than 400 m south of 55°S and
 97% of the area deeper than 600 m, centred near 68°S in the interior of the gyre rather than over
-the continental shelf. The model therefore does form its dense water by open-ocean convection, as
+the continental shelf.
+
+![](letter_figs/figR6_convection_sites.png)
+
+**Figure R3.1 (new analysis).** (a-e) Winter mixed layer depth with the 400 m contour in orange.
+(f) The pre-industrial sector breakdown, showing that convection is concentrated in the Weddell
+gyre interior rather than on the shelf, which is the bias the reviewer identified. (g, h) The
+glacial contraction of both the deep-convection area and the maximum mixed-layer depth. The model therefore does form its dense water by open-ocean convection, as
 the reviewer supposed. We now state this explicitly, cite Orsi et al. (1999) and Toggweiler and
 Samuels (1995) for the shelf pathway that operates in the real ocean, note that this configuration
 has no ice shelf cavities and therefore cannot represent basal melt at all, and place the model in
@@ -554,13 +607,20 @@ than from inadequate boundary conditions is directly relevant to our case.
 > **On the footnote:** *This could be tested by comparing your method only in the regions with
 > observations. Alternatively you could apply the WMT framework to a reanalysis product e.g. Glorys.*
 
-We took the first of these suggestions and report the results in full under Reviewer 2's major
-issue 1 and in the new Fig. 8. In summary: 42.7% of our published domain lies outside the September
-sea ice edge; restricting to their domain moves the thermal share of dense-class transformation from
-69% to 61%; and, more importantly, our thermally dominated maximum sits at γ_n ≈ 27.3 kg m⁻³ while
-their haline-dominated cell occupies γ_n = 27.9–28.8 kg m⁻³, so the two analyses largely concern
-different water masses. In the densest classes we do populate, our result is haline dominated and
-therefore agrees with theirs.
+We took the first of these suggestions. In summary: 42.7% of our published domain lies outside the
+September sea ice edge; restricting to their domain moves the thermal share of dense-class
+transformation from 69% to 61%; and, more importantly, our thermally dominated maximum sits at
+γ_n ≈ 27.3 kg m⁻³ while their haline-dominated cell occupies γ_n = 27.9–28.8 kg m⁻³, so the two
+analyses largely concern different water masses. In the densest classes we do populate, our result
+is haline dominated and therefore agrees with theirs.
+
+![](letter_figs/figR1_wmt_domain_sensitivity.png)
+
+**Figure R3.2 (manuscript Fig. 8).** The like-for-like comparison the reviewer asked for.
+Transformation integrated over the published domain south of 60°S (top) and over the seasonal sea
+ice zone that reproduces the observational domain (bottom). The haline share rises in the
+restricted domain, but the glacial-interglacial contrast is unaffected, which is why we conclude
+the regime shift is not an artefact of the biased pre-industrial end member.
 
 We did not carry out the reanalysis calculation. Doing it properly would require surface flux
 fields consistent with the reanalysis ocean state, and a transformation budget assembled from
@@ -614,7 +674,7 @@ Both were computed for all five climate states.
 
 ![](letter_figs/figR4_sam_push_pull.png)
 
-**Figure R4 (new Supplementary Figure).** (a) The positive phase strengthens the Ekman transport at
+**Figure R3.3 (new Supplementary Figure).** (a) The positive phase strengthens the Ekman transport at
 60°S by 8.0--12.8 Sv in every climate state. (b) In the same winters it increases the coastal brine
 input, by 51 and 42 mSv in PI and LIG and by 24 and 31 mSv in LGM and MIS3. (c) The two responses
 scale together across the five states (r = 0.77). (d) The resulting anomaly in the peak
@@ -642,7 +702,7 @@ The spatial patterns show the mechanism directly.
 
 ![](letter_figs/figR5_sam_wind_ice.png)
 
-**Figure R5 (new Supplementary Figure).** Zonal wind stress anomaly (top) and sea ice concentration
+**Figure R3.4 (new Supplementary Figure).** Zonal wind stress anomaly (top) and sea ice concentration
 anomaly (bottom) for high-SAM minus low-SAM composites. The westerlies strengthen over the
 circumpolar belt in every state. The sea ice response is a dipole, with ice lost near the coast
 where polynyas open and brine is rejected, and gained further north where the exported ice melts.
@@ -707,7 +767,7 @@ simulations is therefore concentrated in the abyssal cell.
 
 ![](letter_figs/figR2_moc_5exps.png)
 
-**Figure R2 (manuscript Fig. 6).** Global overturning streamfunction for the five climate states
+**Figure R3.5 (manuscript Fig. 6).** Global overturning streamfunction for the five climate states
 (top) and anomalies relative to PI (bottom). The blue abyssal cell, representing northward
 spreading of southern-sourced bottom water, nearly disappears in the glacial states while the upper
 cell is largely maintained.
@@ -721,10 +781,10 @@ weakening while the upper cell is maintained.
 
 ![](letter_figs/figR3_age_global.png)
 
-**Figure R3 (manuscript Fig. 7).** Basin-mean ideal age profiles (a-d), mean age below 2000 m (e),
-and zonal-mean sections for the five states (f-j). The glacial ageing is concentrated below about
-2000 m and is largest in the deep Pacific and Southern Ocean, while the Atlantic, which remains
-ventilated from the north, changes comparatively little.
+**Figure R3.6 (manuscript Fig. 7).** Basin-mean ideal age profiles (a-d), mean age below 2000 m
+(e), and zonal-mean sections for the five states (f-j). The glacial ageing is concentrated below
+about 2000 m and is largest in the deep Pacific and Southern Ocean, while the Atlantic, which
+remains ventilated from the north, changes comparatively little.
 
 On equilibration, the reviewer is right and we now state the caveat explicitly: each experiment was
 integrated for 1000 years, which is shorter than the oldest simulated ages, so the glacial age

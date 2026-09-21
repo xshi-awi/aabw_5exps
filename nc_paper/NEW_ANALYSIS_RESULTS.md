@@ -79,7 +79,7 @@ PI, MLD > 400 m: total 7.51e11 m2, of which
 PI, MLD > 600 m: 2.42e11 m2, 97% of it in the Weddell sector at 68.7 S. Max MLD 991 m.
 
 LGM: MLD>400 m area 1.66e11 m2 (22% of PI), max MLD 819 m, MLD>600 m essentially gone (3 nodes).
-MIS3: MLD>400 m area 1.61e11 m2, max MLD 768 m, MLD>600 m 3 nodes.
+MIS3: MLD>400 m area 1.61e11 m2, max MLD 645 m (south of 55S; the 768 m value quoted earlier was a global maximum), MLD>600 m 3 nodes.
 
 Interpretation to give the reviewer: in PI the model forms its dense water by open-ocean
 convection in the Weddell gyre interior near 68 S, not on the shelf. That is the bias the

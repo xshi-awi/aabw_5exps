@@ -510,3 +510,25 @@ publication，R3 只说 "I would encourage the authors to think about what is ge
 **Outstanding**: Zenodo DOI、致谢与基金信息仍待填。
 
 **Next Steps**: 用户上传 Zenodo 后回填 DOI；补致谢。
+
+### 2026-09-21 (回复信按审稿人重编图号 + 补图)
+
+**Progress**: 回复信从 5 图扩到 12 个图位，按审稿人分别编号。
+
+**图号规则（用户要求）**: 给审稿人 1 的是 Fig R1.1/R1.2/R1.3，审稿人 2 是 R2.1-R2.3，审稿人 3 是
+R3.1-R3.6。同一张底图被多位审稿人问到时**重复出现、各自编号**（域敏感性图同时是 R1.1/R2.1/R3.2，
+对流位置图同时是 R1.2/R2.2/R3.1）。改语法、加文字的 comment 不配图。
+脚本 `nc_paper/renumber_letter_figs.py`，R3 段落用文档出现顺序重排过一次编号。
+
+**新图 figR6_convection_sites**（`plot_convection_sites.py`）一次回答三条 comment：
+R1#23「模式在哪里形成深水」、R1#10「LGM 的 MLD 明显更浅」、R3 主质疑「开阔洋对流 vs 陆架过程」。
+2 行布局：上排五个态 JJA MLD 极地图 + 400 m 橙色等值线；下排 (f) PI 分扇区柱状、(g) 五态对流面积、
+(h) 最大 MLD。
+
+**发现并修正一处数值错误**: MIS3 最大 MLD 之前写 768 m，那是**全球**最大值；正文上下文说的是
+55°S 以南，该范围内实际是 **645 m**。已在 `build/revised.tex`、`RESPONSE_LETTER.md`、
+`NEW_ANALYSIS_RESULTS.md` 三处改正。教训：算极值时的空间范围必须和文字描述的范围一致。
+
+**当前体量**: 正文 44 页，追踪版 44 页 / 140 处标记，回复信 23 页 / 12 个图位，编译零错误零未定义引用。
+
+**Outstanding**: Zenodo DOI、致谢与基金信息仍待填（唯二剩余项）。
