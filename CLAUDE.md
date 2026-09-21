@@ -555,3 +555,20 @@ R1#23「模式在哪里形成深水」、R1#10「LGM 的 MLD 明显更浅」、R
 **核对**: R1 的 32 条编号 comment 全部在内，4 位审稿人 + editorial 各一节，111 处蓝色回复，12 个图。
 
 **Outstanding**: Zenodo DOI、致谢与基金信息仍待填。
+
+### 2026-09-21 (docx 版回复信)
+
+**Progress**: `SUBMISSION/05_response_letter.docx`，由 `nc_paper/tex_to_docx.py` 从
+`04_response_letter.tex` 生成。111 处蓝色、201 处加粗、17 处斜体、12 个图位全部保留。
+
+**关键坑（两个，都验证过）**:
+1. `pandoc --from=latex --to=docx` 会**静默丢弃 \textcolor**，颜色全没、还漏图。必须走 HTML 中间格式。
+2. pandoc 2.18 **连 HTML 的 inline CSS color 也丢**。解决办法：在 HTML 里给蓝色文字插一个不可见
+   哨兵字符 U+2060，转完 docx 后解压 `word/document.xml`，给含哨兵的 run 注入
+   `<w:color w:val="0000CC"/>` 再打包回去，同时删掉哨兵。
+
+**核查 docx 的正确姿势**: pandoc 写的是 `<w:b />`（带空格），不是 `<w:b/>`。
+用 `grep -c '<w:b/>'` 会得到 0 从而误判"样式全丢"。我第一次就踩了，注意。
+图片同理：7 个 media 文件对应 12 个 `r:embed` 引用是正常的（重复图共用文件），不是丢图。
+
+**Outstanding**: Zenodo DOI、致谢与基金信息仍待填。
