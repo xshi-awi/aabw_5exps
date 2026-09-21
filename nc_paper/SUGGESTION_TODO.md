@@ -71,3 +71,30 @@ key 也改成 `Green2022`。该条目此前未被引用，所以稿子里没有�
 - **para 168 / R3**：GLORYS 再分析「这个数据可以下载试试，做一些 wmt 分析，说不定有惊喜」
   → 之前在回复信里婉拒了。若要做，需下载 Copernicus 数据，是独立的一大块工作，
     且表面通量与再分析海洋态不自洽的问题依然存在。**需要你拍板。**
+
+---
+
+## ⚠️ 未决问题：spin-up 年数在已发表文献之间互相矛盾（2026-09-21 查出）
+
+三篇文章对"同一个" PI 给了三个不同的积分长度：
+- Shi et al. 2022 JCLI：**1000 年**（PI/MH/LIG），判据 ±0.05 K/century
+- Shi et al. 2023 CP：**1300 年以上**（只有 PI 和 LGM；该文没有 MH/LIG/MIS3）
+- Shi et al. 2023 GMD（据 KB awiesm2.md）：PI **1500 年**，MH 再续 1500 —— 但那是 wiso 分支，不同血统
+- 本文投稿版写的：PI 1500 年，古气候实验各 1000 年
+
+这四个数没有一个能互相对上。其中有些可能确实是不同的模拟（CP 那篇的 LGM 是从
+ECHAM5-MPIOM 初始化的，不是从 PI 分叉；GMD 是同位素分支），但**读者不会知道，除非我们写明**。
+
+**我尝试从 run config 核实，失败了**：`production/{exp}_age/` 只是带 ideal age 的续算段
+（pi/mh/lig 从模式年 2000 起算，lgm 到 2499，mis 到 2616），parent 实验
+（pi_beta / mh_beta / lig_beta / glac1d_final / mis）的 outdata 已经是后处理产物，
+原始年份追不回来。pi_beta 的 restart 停在模式年 2899，说明血统很长但跨了重编号的段落。
+Shi 2025 GRL 的 Supporting Information Text S1 本来能一锤定音，但 Wiley 付费墙打不开。
+
+**已做的处理**：把我先前加的 "following the protocol used for the same model in earlier work
+\cite{Shi2022JCLI,Shi2023CP,Shi2025GRL}" 这句**删掉了** —— 那等于宣称我们的 1500/1000 跟那三篇
+一致，而实际并不一致。现在 Methods 只保留投稿版原有的 1500/1000（那是用户自己写的数），
+引用只挂在它们确实支持的论断上（proxy validation）。
+
+**需要用户确认**：这五个实验真实的 spin-up 长度是多少？如果 1500/1000 是对的就保持现状；
+如果实际是别的数，现在改还来得及。审稿人 3 已经在问平衡态问题，这个数被查出来对不上会很被动。
