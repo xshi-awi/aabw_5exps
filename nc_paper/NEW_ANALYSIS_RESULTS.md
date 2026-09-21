@@ -199,3 +199,40 @@ is defensible from our own output.
 Residual honest caveat: the reason our surface transformation does not reach the denser classes
 in PI is that the model convects in the open Weddell gyre instead of producing dense shelf
 water, which is the genuine bias. Both statements should appear together.
+
+---
+
+## 8. Model drift over the analysed 100 years (computed 2026-09-21)
+
+Reviewer 3 asked whether the westerly intensification could reflect a run that is not
+at equilibrium. To answer it properly we measured the drift using the SAME quantity and
+criterion that the group's own published work uses.
+
+Shi et al. (2022, J. Climate 35, 7811-7831) state verbatim:
+  "Each simulation is integrated for 1000 model years with the trend of simulated global
+   mean surface temperature in the final 100 model years not exceeding +/-0.05 K century-1."
+
+Measured here from var167 (2 m temperature), cos(lat)-weighted global mean, annual means
+over the final 100 years, linear trend:
+
+| exp  | mean t2m (K) | trend (K/century) | within +/-0.05 ? |
+|------|--------------|-------------------|------------------|
+| PI   | 286.45       | +0.019            | yes |
+| MH   | 286.07       | -0.033            | yes |
+| LIG  | 286.36       | -0.063            | **no** |
+| LGM  | 281.91       | +0.040            | yes |
+| MIS3 | 283.15       | +0.101            | **no** |
+
+**LIG and MIS3 exceed the criterion stated in the group's own earlier paper.** This is now
+disclosed explicitly in the Methods rather than glossed over, together with the argument
+that bounds it: the glacial-interglacial signal is of order 4 K, so a 0.1 K/century drift is
+two orders of magnitude smaller and cannot account for it, and MH is indistinguishable from
+PI in the westerly jet, which is the specific quantity Reviewer 3 questioned.
+
+Do NOT write "all experiments satisfy the +/-0.05 K/century criterion" anywhere. It is false
+for two of the five, and a reviewer who checks the earlier paper would catch it.
+
+Earlier in this session an SST-based trend (-0.03 to +0.06 K/century) was briefly written into
+the manuscript. That was the wrong quantity, since SST covers only the ocean while the
+published criterion is on global surface temperature including land. Superseded by the table
+above. Data extracted to drift_check/{exp}_t2m.nc via `ncks -v var167`.
