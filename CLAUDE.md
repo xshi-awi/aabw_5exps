@@ -532,3 +532,26 @@ R1#23「模式在哪里形成深水」、R1#10「LGM 的 MLD 明显更浅」、R
 **当前体量**: 正文 44 页，追踪版 44 页 / 140 处标记，回复信 23 页 / 12 个图位，编译零错误零未定义引用。
 
 **Outstanding**: Zenodo DOI、致谢与基金信息仍待填（唯二剩余项）。
+
+### 2026-09-21 (LaTeX 版回复信)
+
+**Progress**: 按 `SUBMISSION/example_response.tex` 的格式做了 LaTeX 版回复信
+`SUBMISSION/04_response_letter.tex` → PDF 32 页，编译零错误。
+
+**格式约定**（仿 example，三种样式）: 审稿人 comment 用普通黑色正文、**逐字全文不省略**；
+我们的回复用 `\textcolor{blue}{\textbf{...}}`；引用稿件新文字用
+`\textcolor{blue}{\textbf{\textit{``...''}}}`。
+
+**模板选择的偏离（已知且有理由）**: example 用 `copernicus.cls`，但本机 texlive 没有该 class，
+且用户要求用 NC 模板，所以改用 `sn-jnl.cls`（就是本文投稿用的 NC class）。视觉约定保持一致。
+坑：`sn-jnl.cls` 自带 hyperref，不能再 `\usepackage[...]{hyperref}`，否则 option clash；用 `url` 包即可。
+
+**生成方式**: `nc_paper/build_response_tex.py` 全量生成 .tex（424 个片段），改内容改脚本再跑，
+不要手改 .tex。审稿人原文用 `comments.txt` 经 LaTeX 转义后逐条嵌入。
+
+**自包含**: `SUBMISSION/` 下已放 `sn-jnl.cls` 和 `letter_figs/`（真实目录非软链），
+在该目录直接 `pdflatex 04_response_letter.tex` 两遍即可。
+
+**核对**: R1 的 32 条编号 comment 全部在内，4 位审稿人 + editorial 各一节，111 处蓝色回复，12 个图。
+
+**Outstanding**: Zenodo DOI、致谢与基金信息仍待填。
