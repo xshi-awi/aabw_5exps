@@ -42,7 +42,13 @@ marked in the accompanying tracked-changes file.
 # Reviewer #1
 
 > *The manuscript presents a comprehensive investigation of Southern Ocean dense water formation
-> across a range of glacial and interglacial climates using the AWI-ESM2 Earth system model. ...
+> across a range of glacial and interglacial climates using the AWI-ESM2 Earth system model. By
+> applying a water mass transformation (WMT) framework, the authors successfully separate the
+> relative roles of thermal and haline buoyancy forcing and demonstrate a compelling regime
+> shift between interglacial and glacial climates. The manuscript is well structured, the
+> analyses are technically rigorous, and the decomposition of the different buoyancy
+> contributions provides valuable physical insight. The use of WMT diagnostics allows the
+> underlying mechanisms to be quantified rather than inferred from changes in circulation alone.
 > Overall, I found the study scientifically interesting and suitable for publication after major
 > revisions. My comments below are primarily intended to strengthen the robustness of the
 > conclusions and improve the clarity of the presentation.*
@@ -54,11 +60,19 @@ which has improved the presentation considerably.
 
 ### G1. Model evaluation and confidence in simulated dense water formation
 
-> *The conclusions of this study rely entirely on a single Earth system model. ... the manuscript
-> would benefit from a more thorough discussion of how well AWI-ESM2 represents present-day Southern
-> Ocean dense water formation and Antarctic Bottom Water formation. The manuscript briefly states
-> that the PI simulation produces comparable WMT magnitudes to observational estimates, but Figure A4
-> only shows the model results, making it difficult for the reader to evaluate this statement.*
+> *The conclusions of this study rely entirely on a single Earth system model. While I do not
+> consider this to be a major limitation by itself, I think the manuscript would benefit from a
+> more thorough discussion of how well AWI-ESM2 represents present-day Southern Ocean dense
+> water formation and Antarctic Bottom Water formation. The manuscript briefly states that the
+> PI simulation produces comparable WMT magnitudes to observational estimates, but Figure A4
+> only shows the model results, making it difficult for the reader to evaluate this statement.
+> Given the importance of the model for all subsequent paleoclimate interpretations, I encourage
+> the authors to provide stronger evidence supporting its performance. This could include a
+> direct comparison with observational WMT estimates, or a more detailed discussion of known
+> model strengths and biases in Southern Ocean stratification, sea ice, mixed-layer depth, and
+> Antarctic Bottom Water formation. Even if such comparisons already exist in previous AWI-ESM2
+> publications, briefly summarising them here would substantially increase confidence in the
+> conclusions.*
 
 We agree, and this concern overlaps with the central criticism from Reviewers 2 and 3. Our response
 has three parts.
@@ -117,11 +131,30 @@ behaviour, because they do not; the diagnosis above is our own, from our own out
 
 ### G2. Boundary conditions
 
-> *The description of the prescribed boundary conditions for the paleoclimate simulations could be
-> expanded. In particular, the glacial simulations use the GLAC-1D ice-sheet reconstruction, but it
-> is not entirely clear how the ice-sheet changes are implemented in the model ... A summary table
-> listing the prescribed greenhouse gas concentrations, orbital parameters, and ice-sheet boundary
-> conditions for each experiment would also improve the readability of the Methods section.*
+> *The description of the prescribed boundary conditions for the paleoclimate simulations could
+> be expanded. In particular, the glacial simulations use the GLAC-1D ice-sheet reconstruction,
+> but it is not entirely clear how the ice-sheet changes are implemented in the model (e.g.,
+> topography, land-sea mask, ice-sheet extent, bathymetry, or other boundary conditions). As
+> Antarctic dense water formation is highly sensitive to such factors, providing additional
+> details on the experimental setup would help readers assess the robustness of the simulations.
+> This is not a request for additional simulations, but rather for a clearer discussion of the
+> robustness of the conclusions and the extent to which they may depend on the chosen model
+> configuration and forcing datasets. A summary table listing the prescribed greenhouse gas
+> concentrations, orbital parameters, and ice-sheet boundary conditions for each experiment
+> would also improve the readability of the Methods section. Clarifying several interpretations
+> Most interpretations are convincing, although a few statements could be presented more
+> carefully or supported more explicitly. For example, some descriptions of the role of the
+> Southern Annular Mode appear stronger than the presented evidence suggests, and several
+> discussions would benefit from more direct references to the relevant figure panels. Model
+> limitations: The manuscript convincingly demonstrates that sea ice drives the transition from
+> a thermally dominated to a haline-dominated dense water formation regime. However, the
+> discussion would benefit from a brief consideration of the known biases and limitations of
+> AWI-ESM2, particularly regarding Southern Ocean sea ice, mixed-layer depths, and Antarctic
+> Bottom Water formation. Discussing how these model characteristics may influence the proposed
+> mechanism would help readers assess the robustness and broader applicability of the
+> conclusions. Please consider adding latitude and longitude labels to all map figures where
+> appropriate. In addition, referring to specific figure subpanels throughout the text, rather
+> than only the full figure number, would make the discussion easier to follow.*
 
 Added. Table 1 in the Methods now lists the greenhouse gas concentrations, orbital parameters, and
 ice sheet configuration for all five experiments; the values are those actually used in the runs.
@@ -207,14 +240,22 @@ The corresponding passage added to the Discussion reads:
 ### G5. Latitude and longitude labels, and subpanel references
 
 > *Please consider adding latitude and longitude labels to all map figures where appropriate. In
-> addition, referring to specific figure subpanels throughout the text ... would make the discussion
-> easier to follow.*
+> addition, referring to specific figure subpanels throughout the text, rather than only the
+> full figure number, would make the discussion easier to follow.*
 
 Subpanel references have been added throughout the Results and Discussion. On the map labels: the
 polar stereographic panels now carry labelled latitude circles, and the ventilation age maps carry
 labelled meridians as well. On the fifteen-panel composite figures we label the latitude circles
 only, because a full graticule with meridian labels on panels of that size was illegible in
-trial versions and crowded the panel margins. We are happy to add complete labelling if the reviewer prefers, or to enlarge those figures to accommodate it. As a concrete example, the ventilation age maps now carry labelled meridians at 60°W, 0°, 60°E and 120°E as well as labelled latitude circles, and the mixed layer and composite figures carry labelled latitude circles; Figure R1.3 in this letter shows the result. The same treatment has been applied to every map figure in the revised manuscript and supplement.
+trial versions and crowded the panel margins. We are happy to add complete labelling if the reviewer prefers, or to enlarge those figures to accommodate it. As a concrete example, the ventilation age maps now carry labelled meridians at 60°W, 0°, 60°E and 120°E as well as labelled latitude circles, and the mixed layer and composite figures carry labelled latitude circles; Figure R1.4 in this letter shows the result. The same treatment has been applied to every map figure in the revised manuscript and supplement.
+
+![](letter_figs/fig_age_labels-1.png)
+
+**Figure R1.4 (revised manuscript figure).** The ventilation age figure as an example of the
+labelling now applied throughout. Every panel carries labelled latitude circles and labelled
+meridians, and the climate state is named above each panel. The mixed layer, wind stress and
+composite figures have been treated the same way; please refer to the revised manuscript and
+supplement for the complete set.
 
 ## Specific comments
 
@@ -286,7 +327,7 @@ shared 0–400 m scale of the original figure the glacial panels are almost feat
 
 ![](letter_figs/figR7_mld_glacial_zoom.png)
 
-**Figure R1.4 (new supplementary panel).** LGM and MIS3 winter mixed layer depth on the original
+**Figure R1.5 (new supplementary panel).** LGM and MIS3 winter mixed layer depth on the original
 0–400 m scale (top) and on a tightened 0–300 m scale with the 200 m contour marked (bottom). The
 tightened scale resolves discrete deep cells along the coast, in the Weddell, Prydz Bay and Ross
 sectors, which is where the glacial dense water is produced. This is the figure we now use in the
@@ -321,7 +362,7 @@ not limited by surface heat content anywhere.
 
 ![](letter_figs/figR9_ross_sector.png)
 
-**Figure R1.5 (new analysis).** (a) Winter surface temperature above the local freezing point and
+**Figure R1.6 (new analysis).** (a) Winter surface temperature above the local freezing point and
 (b) winter sea ice concentration, by sector and climate state. (c) The same quantities as anomalies
 relative to PI. The Ross sector separates from the others only in the last interglacial, where it
 warms to 2.7 K above freezing and loses 0.19 of ice concentration, an order of magnitude more than
@@ -354,7 +395,7 @@ version explicitly.
 
 ![](letter_figs/figS_common_axis-1.png)
 
-**Figure R1.6 (new Supplementary Fig. S5).** Winter transformation for the four sectors and five
+**Figure R1.7 (new Supplementary Fig. S5).** Winter transformation for the four sectors and five
 climate states on a common vertical and horizontal axis. Plotted this way the glacial weakening of
 the transformation maximum and its shift to denser classes are directly comparable between panels,
 which the independently scaled main-text version does not allow.
@@ -364,6 +405,12 @@ refer to the Methods section by name.
 
 **17.** *Fig.3 Please consider adding the climate-state labels at the top of each column, as in the
 other figures.* — Added, here and on the other multi-panel figures; Reviewer 3 made the same request.
+
+![](letter_figs/fig03_labels-1.png)
+
+**Figure R1.8 (revised manuscript Fig. 3).** The surface density tendency figure with the
+climate-state headings added, so that the columns are identified in the same way as in the other
+figures. The freshwater counterpart, Fig. 4, has been given the same headings.
 
 **18.** *Line 180/181: The LIG is first described as "showing modest changes", but later as
 "exhibiting a pronounced increase". These descriptions appear inconsistent.* — The two statements
@@ -476,13 +523,15 @@ We are grateful for both issues, which were well aimed. We address them in turn.
 
 ## Major issue 1: mismatch with observational studies of the modern ocean
 
-> *There is a mismatch with observational studies of the modern ocean. In their model the
-> pre-industrial situation is dominated by thermal buoyancy forcing whereas Pellichero et al, (2018)
-> find the opposite ... Shi et al dismiss this difference in a single sentence, saying it is due to
-> "model biases or regional differences in analysis domains". Comparing their Fig 3a, Fig 4a with
-> Pellichero Fig 2a and c, the regions look similar, suggesting it's mostly model bias. But the
-> switch from thermal to haline forcing is the present paper's main result, so if indeed it is due
-> to model bias, this seems like a major problem.*
+> *1) There is a mismatch with observational studies of the modern ocean. In their model the
+> pre-industrial situation is dominated by thermal buoyancy forcing whereas Pellichero et al,
+> (2018) find the opposite: The title of their observation-based paper makes this clear:
+> “Southern Ocean meridional overturning is driven by freshwater fluxes”. Shi et al dismiss this
+> difference in a single sentence, saying it is due to “model biases or regional differences in
+> analysis domains” (line 305). Comparing their Fig 3a, Fig 4a with Pellichero Fig 2a and c, the
+> regions look similar, suggesting it’s mostly model bias. But the switch from thermal to haline
+> forcing is the present paper's main result, so if indeed it is due to model bias, this seems
+> like a major problem.*
 
 The reviewer is right that the original single sentence was inadequate, and right to insist that
 the answer matters for the paper's main claim. We therefore tested it directly rather than
@@ -577,12 +626,14 @@ about bottom water formation rates.
 
 ## Major issue 2: relation to Chen et al. (2025)
 
-> *I'm puzzled that they don't acknowledge or discuss the relation of their work with recent studies
-> showing very similar results but analysed through different tools and language. Using the same
-> ocean model Chen et al, 2025 (GRL 52, e2025GL114809) describe formation of very dense AABW in
-> glacial time as due to the enhanced ice formation ... One of the authors (Lohmann) is on both
-> papers, yet this paper is not referenced, let alone discussed, by Shi et al. I ask myself what is
-> learned from the WMT analysis that is not already discussed in that paper?*
+> *2) I’m puzzled that they don’t acknowledge or discuss the relation of their work with recent
+> studies showing very similar results but analysed through different tools and language. Using
+> the same ocean model Chen et al, 2025 (GRL 52, e2025GL114809) describe formation of very dense
+> AABW in glacial time as due to the enhanced ice formation, where the resulting water mixes
+> more slowly with overlying waters due to the greater density difference. One of the authors
+> (Lohmann) is on both papers, yet this paper is not referenced, let alone discussed, by Shi et
+> al. I ask myself what is learned from the WMT analysis that is not already discussed in that
+> paper?*
 
 The omission was an oversight on our part and we apologise for it. The paper is now cited in both
 the Introduction and the Discussion, and we address the reviewer's question directly rather than
@@ -619,12 +670,13 @@ The passage added to the Discussion reads:
 
 ## More minor points
 
-> *The fundamental issue must be getting right the formation of sea ice and rejection of brine close
-> to the continent ... In this regard the model looks good, by comparison to most paleo studies. The
-> comparatively high resolution close to the continent must be helpful I'm sure, (though at 25 km it
-> may still not be enough to realistically model the dynamics of polynya formation and brine
-> rejection). Some more information on just how this is being managed would add to the value of the
-> paper.*
+> *The fundamental issue must be getting right the formation of sea ice and rejection of brine
+> close to the continent, followed by the mixing of that dense water with the surroundings, all
+> processes that intrinsically occur at fine spatial scales. In this regard the model looks
+> good, by comparison to most paleo studies. The comparatively high resolution close to the
+> continent must be helpful I’m sure, (though at 25 km it may still not be enough to
+> realistically model the dynamics of polynya formation and brine rejection). Some more
+> information on just how this is being managed would add to the value of the paper.*
 
 We agree with the reviewer's caveat and have expanded the Methods accordingly. The unstructured
 mesh refines to about 25 km around Antarctica, which resolves the larger coastal polynyas as
@@ -636,9 +688,11 @@ polynya circulation. We now state this, together with the more fundamental point
 configuration has no ice shelf cavities and therefore omits basal melt entirely.
 
 > *The authors highlight the lack of deep convection in the glacial open ocean due to the very
-> extensive winter-time ice cover. A little more discussion of how/why the model achieves this ice
-> cover would be welcome, as previous paleo-model studies often don't get that ... (Another paper
-> they don't cite is Lhardy, Climate of the Past, 17, 1139–1159, 2021 ...)*
+> extensive winter-time ice cover. A little more discussion of how/why the model achieves this
+> ice cover would be welcome, as previous paleo-model studies often don’t get that, and as a
+> result may have too much deep convection in glacial simulations, which doesn’t match so well
+> with paleo-proxies. (Another paper they don't cite is Lhardy, Climate of the Past, 17,
+> 1139–1159, 2021, which discusses how most PMIP models fail in this regard.)*
 
 Thank you for this reference, which we have added and discussed. We now note that maintaining an
 extensive glacial ice cover is not a general feature of paleoclimate simulations, that many PMIP
@@ -700,23 +754,32 @@ figures recast in buoyancy units, we will do so.
 # Reviewer #3
 
 > *Shi et al apply a water mass transformation (WMT) framework to various glacial/interglacial
-> paleoclimate sims using AWI-ESM2. This is an interesting framework for thinking about mechanisms
-> of deepwater formation and how production regimes may shift between climate states, and a novel
-> application. ... The observation that the reduction in buoyancy loss through atmospheric heat loss
-> from enhanced sea ice cover is compensated by increased buoyancy loss via sea ice export, is an
-> interesting result and points to an interesting stabilising mechanism for ventilation.*
+> paleoclimate sims using AWI-ESM2. This is an interesting framework for thinking about
+> mechanisms of deepwater formation and how production regimes may shift between climate states,
+> and a novel application. The results indicate the density transformation shifts from a thermal
+> to salt regime between glacial and interglacial states. The observation that the reduction in
+> buoyancy loss through atmospheric heat loss from enhanced sea ice cover is compensated by
+> increased buoyancy loss via sea ice export, is an interesting result and points to an
+> interesting stabilising mechanism for ventilation.*
 
 We thank the reviewer for this reading, and particularly for identifying the compensation mechanism
 as the interesting result, which has helped us frame the revision.
 
 ## Main issue: the PI state does not form AABW the way the real ocean does
 
-> *... to the best of our knowledge today densewater formation in the Southern Ocean is not
-> primarily a thermally driven regime. Like many models, AWI-ESM2 appears to form AABW via open
-> ocean convection under PI conditions whereas in the real ocean AABW is largely a salt/freshwater
-> controlled process occurring on the shelves (e.g. Orsi et al 1999). ... This must be the starting
-> point for thinking about glacial changes, not thermally driven open ocean convection, unless the
-> authors believe this is somehow an overlooked process in the real modern ocean.*
+> *While this is an interesting observation in model space, with potential interest for thinking
+> about paleoclimates, the major issue I currently see for the current framing of the manuscript
+> (and mentioned by the authors on lines 291-297) is that to the best of our knowledge today
+> densewater formation in the Southern Ocean is not primarily a thermally driven regime. Like
+> many models, AWI-ESM2 appears to form AABW via open ocean convection under PI conditions
+> whereas in the real ocean AABW is largely a salt/freshwater controlled process occurring on
+> the shelves (e.g. Orsi et al 1999). Today AABW forms on shelves via interaction with ice
+> cavity melting and coastal polynyas. Upwelling warm CPDW melts basal ice, which cools the
+> shelf water to insitu freezing point but substantially freshens it (e.g. Toggweiler 1995).
+> This close to freezing shelf water then looses further buoyancy in coastal polynas via brine
+> rejection, and flows downslope off the shelves via gravity currents. This must be the starting
+> point for thinking about glacial changes, not thermally driven open ocean convection, unless
+> the authors believe this is somehow an overlooked process in the real modern ocean*.*
 
 We accept this criticism. We do not believe shelf processes are overlooked in the real ocean, and
 we have restructured the Discussion so that the model's convection behaviour is stated at the
@@ -776,10 +839,16 @@ precisely, we judged the reanalysis calculation to be a substantial undertaking 
 additional diagnostic value here. We would be glad to attempt it if the reviewer considers it
 essential.
 
-> *how applicable is this result to thinking about the real ocean and glacial interglacial change
-> when the interglacial regime is not representative of the real preindustrial/interglacial ocean?
-> ... Given coastal polynyas are a key process in how AABW forms today are we just looking at a
-> shift from a more biased PI state to a more realistic glacial state?*
+> *While the glacial-interglacial shift in regime displayed by the model is interesting, how
+> applicable is this result to thinking about the real ocean and glacial interglacial change
+> when the interglacial regime is not representative of the real preindustrial/interglacial
+> ocean? This is not a critique of this model in particular – most models do this. But given
+> these biases, the authors need to do more to convince the reader that there results are
+> generalizable and applicable to the real world and not model, or model-class dependent. Given
+> coastal polynyas are a key process in how AABW forms today are we just looking at a shift from
+> a more biased PI state to a more realistic glacial state? Even if the model cannot represent
+> many of the relevant shelf processes, there may still be something interesting/generalisable
+> to say, but I do not believe this is not the case in the current framing.*
 
 This is the sharpest form of the objection and we have tried to answer it honestly rather than
 deflect it. Two arguments, both now in the Discussion.
@@ -904,11 +973,16 @@ The Methods now state:
 
 > *"Residual drift over the analysis period is small relative to the paleoclimate signals of interest. The trend in global mean 2 m temperature across the final century is +0.02 K century^-1 for PI, -0.03 for MH, -0.06 for LIG, +0.04 for LGM and +0.10 for MIS3. The last two values exceed the 0.05 K century^-1 criterion applied in earlier work with this model , and we note this explicitly rather than leaving it implicit. The glacial-interglacial differences examined here are large by comparison: the same five simulations give a JJAS global mean surface air temperature of 15.5, 15.6 and 16.9 °C for PI, MH and LIG against 11.1 and 13.0 °C for LGM and MIS3 , a contrast of several kelvin. A century-scale drift of 0.1 K is therefore two orders of magnitude smaller than the signal and cannot account for it. The mid-Holocene simulation is also indistinguishable from the pre-industrial control in both the latitude and the strength of the Southern Hemisphere westerly jet, which argues against residual drift as the origin of the wind changes reported in the other paleoclimate states."*
 
-> *The authors mention that they use ideal age as a proxy for overturning which seems odd given the
-> overturning can be directly computed within the model. ... Plots of both overturning streamfunction
-> and ideal age throughout the global ocean would be required ... Furthermore the methods mention
-> that the simulations have been run for 1000yr which is enough to equilibrate physical properties
-> but not ideal ages globally.*
+> *The authors mention that they use ideal age as a proxy for overturning which seems odd given
+> the overturning can be directly computed within the model. Ideal age is also strongly affected
+> by mixing (equally interesting/important for thinking about ventilation), but if it is
+> specifically the overturning response which is of interest this should be shown directly.
+> Plots of both overturning streamfunction and ideal age throughout the global ocean would be
+> required to assess the overall impact on deep ocean ventilation of the forcings. The
+> introduction line also needs clarification in this regard (L111-112). Furthermore the methods
+> mention that the simulations have been run for 1000yr which is enough to equilibrate physical
+> properties but not ideal ages globally, which need at least twice the maximum ideal age to
+> equilibrate (see Millet et al. 2025).*
 
 We agree on all three points and have added the analyses.
 
@@ -966,8 +1040,10 @@ If the reviewer feels strongly we will expand them throughout.
 > ocean.* — Added to the abstract, which now reads "In the model, interglacial dense water formation
 is driven mainly by turbulent heat loss...". The same qualification has been added in the Results.
 
-> *L25: change deep from "clear imprint on deep-ocean ventilation" to abyssal Southern Ocean. ... The
-> deep ocean is usually considered as all the water below 1000 m.* — The abstract now refers to the
+> *L25: change deep from “clear imprint on deep-ocean ventilation” to abyssal Southern Ocean. As
+> it is only one depth plot at 4000m has been shown. The deep ocean is usually considered as all
+> the water below 1000m. Plots of overturning/ideal age globally would be helpful to assess the
+> overall impact on ventilation.*
 abyssal overturning cell and abyssal water specifically, and the new global age figure covers the
 whole water column rather than a single level.
 
