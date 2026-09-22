@@ -555,10 +555,7 @@ that varies with longitude, not a latitude circle. Our published integral covers
 of 60°S. In our pre-industrial simulation, 42.7% of that area lies outside the September ice
 contour and is therefore water their analysis does not include. It is also the part of the domain
 that stays exposed to the atmosphere year round, and taken alone it is 89–91% thermally driven in
-the dense classes. Recomputing our transformation over a sea ice sector defined exactly as theirs,
-which reproduces their domain to within 2.5% in area, moves the partition in the direction they
-report: the thermal share of the dense-class transformation falls from 69% to 61%, and the sea ice
-contribution at the transformation maximum roughly doubles from 0.86 to 1.84 Sv.
+the dense classes. Recomputing our transformation over a sea ice sector defined exactly as theirs, which reproduces their domain to within 2.5% in area, sharpens the picture considerably. Resolved by density class, only one class in our pre-industrial state is thermally dominated, σ₂ = 36.75–37.00 kg m⁻³ at 70%, and every other class is haline dominated, falling to 6–7% thermal in the densest classes. Both glacial states are haline dominated in every class, between 4% and 28%. The regime shift the paper reports is therefore not only preserved inside the observational domain, it is clearer there than in the wider domain we originally used.
 
 ![](letter_figs/figR1_wmt_domain_sensitivity.png)
 
@@ -567,6 +564,18 @@ the submitted version (top row), and over the seasonal sea ice zone alone, which
 domain of Pellichero et al. to within 2.5% in area (bottom row). Restricting the integration to the
 ice-covered sector raises the haline share, as the reviewer would expect, but the contrast between
 thermally dominated interglacials and haline dominated glacials survives intact.
+
+![](letter_figs/figR14_siz_gamma_5exps.png)
+
+**Figure R2.3 (new analysis).** Transformation in the seasonal sea ice zone, the
+Pellichero-comparable domain, resolved by density class. The upper row separates the heat, sea ice
+and other freshwater contributions; the lower row gives the thermal share, with the haline
+dominated band shaded green and the thermally dominated band shaded red. In the pre-industrial
+state a single class, σ₂ = 36.75–37.00 kg m⁻³, reaches thermal dominance at 70%, while every
+other class is haline dominated. Both glacial states are haline dominated in every class, with
+thermal shares between 4% and 28%. Because glacial surface water is denser, the class boundaries
+for LGM and MIS3 are shifted by +0.80 and +0.50 kg m⁻³, the density anomaly produced at the
+freezing point by the +1.0 and +0.6 salinity increase prescribed in those experiments.
 
 **The density range matters more than the domain.** This was the more consequential finding.
 Converting our simulated surface properties inside the September ice zone to the neutral density
@@ -578,7 +587,7 @@ transformation is haline dominated, with 0.79 Sv from sea ice against 0.06 Sv fr
 analyses are therefore largely describing different water masses, ours weighted toward mode and
 intermediate densities and theirs toward bottom water densities, and where they overlap they agree
 in sign. We now state in the Results that the interglacial thermal pathway we identify is more
-relevant to intermediate and mode water formation than to bottom water proper.
+relevant to intermediate and mode water formation than to bottom water proper. We should be equally direct about what this comparison does not resolve. Our pre-industrial Southern Ocean carries real biases: the surface water around Antarctica is too warm and too fresh, the model convects in the open Weddell gyre rather than over the shelf, and it consequently ventilates the densest classes far too weakly. Those biases are why our absolute transformation rates in the bottom water classes are small. They do not, however, undermine the result the paper reports, because that result is a comparison between climate states computed with one model, one domain definition and one diagnostic. The bias is common to all five experiments and therefore largely divides out of the differences between them. The shift from thermally influenced interglacials to strongly haline glacials is visible in every density class and in both domains we have tested, which is the sense in which we consider it robust.
 
 **A residual discrepancy remains, and it is genuine model bias.** We can rule out one candidate
 explanation. Pellichero et al. attribute part of the haline dominance to the thermal expansion
@@ -595,7 +604,7 @@ above.
 
 ![](letter_figs/figR6_convection_sites.png)
 
-**Figure R2.3 (new analysis).** Where the model actually convects. (a-e) Winter mixed layer depth,
+**Figure R2.4 (new analysis).** Where the model actually convects. (a-e) Winter mixed layer depth,
 400 m contour in orange. (f) In the pre-industrial state 70% of the area with a mixed layer deeper
 than 400 m, and 97% of the area deeper than 600 m, lies in the Weddell sector, centred near 68°S in
 the open gyre rather than over the shelf. (g, h) The deep-convection area and the maximum mixed
@@ -615,7 +624,7 @@ The consequences for the large-scale circulation are visible in the overturning 
 
 ![](letter_figs/figR2_moc_5exps.png)
 
-**Figure R2.4 (manuscript Fig. 6).** Global overturning streamfunction (top) and anomalies relative
+**Figure R2.5 (manuscript Fig. 6).** Global overturning streamfunction (top) and anomalies relative
 to PI (bottom). The abyssal cell that carries southern-sourced bottom water weakens from about
 10 Sv in the interglacials to 2.4 and 1.6 Sv in LGM and MIS3, while the upper cell is largely
 unchanged. The glacial reorganisation is concentrated in the cell our surface analysis addresses. What such a model would change
