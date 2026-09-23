@@ -37,6 +37,17 @@ Reviewer 2 and R3.1 … R3.7 for Reviewer 3. The same underlying figure appears
 more than once where several reviewers raised the same point, each time with its
 own number.
 
+## Two copies, and which one wins
+
+This folder is a view of a local working copy that also holds the analysis
+scripts, the tracked-changes build and the checks that keep the letter and the
+manuscript consistent. Edits made here sync back to git automatically, and
+Xiaoxu folds them into the local copy before pushing again.
+
+That means edits made here are safe as long as he pulls before pushing, which
+the sync script now enforces. If you make a substantial change, say so, so it
+does not sit here unnoticed.
+
 ## Editing here
 
 Please edit the `.tex` files directly. Two things to keep in mind.

@@ -36,8 +36,17 @@ git config user.email "OhickselroyBcEW@tvstar.com"
 
 case "${1:-push}" in
 pull)
-    echo "remote revision/ now holds:"
-    ls -la revision/ | tail -n +2
+    # show the whole repo: Xiaoxu adds folders of his own (e.g. "original
+    # submission/"), and listing only revision/ hides them
+    echo "remote holds:"
+    for d in */; do
+        printf '  %-24s %s files, %s\n' "$d" \
+            "$(git ls-tree -r --name-only HEAD -- "$d" | wc -l)" \
+            "$(du -sh "$d" 2>/dev/null | cut -f1)"
+    done
+    echo
+    echo "edits made in the web editor since the last push from here:"
+    git log --format='  %h  %s  (%ar)' -5 --grep="Updates from TeXPage" || echo "  none"
     echo
     echo "differences against the local copies:"
     for f in revised.tex 04_response_letter.tex; do
@@ -54,6 +63,29 @@ pull)
     echo "working copy is at $WORK/repo"
     ;;
 push)
+    # Xiaoxu edits on the TexPage web editor, and those edits sync back into
+    # this git repo automatically. Rebuilding revision/ from the local copy
+    # would delete them outright, not merely overwrite the files it happens to
+    # regenerate, so refuse to push over anything that arrived since the last
+    # push from here.
+    LAST=$(git log -1 --format=%H --author="Xiaoxu Shi" --grep="" -- revision 2>/dev/null || true)
+    INCOMING=$(git log --format=%h --grep="Updates from TeXPage" -1 -- revision 2>/dev/null || true)
+    if [ -n "$INCOMING" ]; then
+        NEWER=$(git log --format=%h "${INCOMING}..HEAD" --author="Xiaoxu Shi" -- revision 2>/dev/null | wc -l)
+        if [ "$NEWER" -eq 0 ]; then
+            echo "The web editor has changed revision/ since this script last pushed:"
+            git log --format='  %h  %s  (%ar)' -3 --grep="Updates from TeXPage" -- revision
+            echo
+            echo "Pushing now would delete those edits. Look at them first:"
+            echo "  ./sync_texpage.sh pull"
+            echo
+            echo "Once they are folded into the local copy, push with:"
+            echo "  ./sync_texpage.sh push-force \"message\""
+            exit 1
+        fi
+    fi
+    ;&
+push-force)
     rm -rf revision
     mkdir -p revision/figures revision/letter_figs
     cp "$NC/build/revised.tex" "$NC/build/ref.bib" \
