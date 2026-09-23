@@ -59,9 +59,9 @@ MESH = {'pi': 'mesh_core2', 'mh': 'mesh_core2', 'lig': 'mesh_core2',
         'lgm': 'mesh_glac1d', 'mis': 'mesh_glac1d_38k'}
 
 C_HEAT = '#D55E00'
-C_ICE = '#009E73'
-C_OTH = '#0072B2'
-C_TOT = '#000000'
+C_HAL = '#0072B2'
+C_TOT = '#4D4D4D'
+C_BAND = '#009E73'   # green shading for the haline-dominated band
 
 mpl.rcParams.update({'font.family': 'sans-serif',
                      'font.sans-serif': ['DejaVu Sans'], 'pdf.fonttype': 42,
@@ -209,22 +209,25 @@ for j, (exp, lab) in enumerate(EXPS):
     rows, area, dS = by_class(exp)
 
     ax = axes[0, j]
-    w = 0.26
-    ax.bar(x - w, [r['heat'] for r in rows], w, color=C_HEAT, label='Heat')
-    ax.bar(x, [r['ice'] for r in rows], w, color=C_ICE, label='Sea ice FW')
-    ax.bar(x + w, [r['oth'] for r in rows], w, color=C_OTH, label='Other FW')
-    ax.plot(x, [r['total'] for r in rows], 'o-', color=C_TOT, lw=2.2, ms=7,
-            label='Total', zorder=6)
+    w = 0.27
+    ax.bar(x - w, [r['total'] for r in rows], w, color=C_TOT, label='Total')
+    ax.bar(x, [r['heat'] for r in rows], w, color=C_HEAT, label='Thermal')
+    ax.bar(x + w, [r['ice'] + r['oth'] for r in rows], w, color=C_HAL,
+           label='Haline (sea ice + other FW)')
     ax.axhline(0, color='#444444', lw=0.9)
     for k, r in enumerate(rows):
         lbl = ('%+.2f' if abs(r['total']) < 1 else '%+.1f') % r['total']
-        ax.annotate(lbl, xy=(k, r['total']),
-                    xytext=(0, 11 if r['total'] >= 0 else -18),
+        ax.annotate(lbl, xy=(k - w, r['total']),
+                    xytext=(0, 9 if r['total'] >= 0 else -17),
                     textcoords='offset points', ha='center',
-                    fontsize=9, fontweight='bold', zorder=7)
+                    fontsize=9, fontweight='bold', zorder=7,
+                    bbox=dict(boxstyle='square,pad=0.08', fc='white',
+                              ec='none', alpha=0.8))
     ax.set_xticks(x)
     ax.set_xticklabels(tick_labels(exp), fontsize=8.5, rotation=32, ha='right')
-    ax.set_title(lab, fontsize=14, fontweight='bold')
+    ax.set_title(lab, fontsize=14, fontweight='bold', pad=14)
+    lo_, hi_ = ax.get_ylim()
+    ax.set_ylim(lo_ - 0.08 * (hi_ - lo_), hi_ + 0.12 * (hi_ - lo_))
     if j == 0:
         ax.set_ylabel('Annual-mean transformation (Sv)', fontsize=12)
         ax.legend(frameon=False, fontsize=9.5, loc='lower right')
@@ -232,7 +235,7 @@ for j, (exp, lab) in enumerate(EXPS):
     ax.tick_params(labelsize=10)
 
     ax = axes[1, j]
-    ax.axhspan(0, 33, color=C_ICE, alpha=0.11, zorder=0)
+    ax.axhspan(0, 33, color=C_BAND, alpha=0.11, zorder=0)
     ax.axhspan(70, 100, color='#D55E00', alpha=0.11, zorder=0)
     ax.plot(x, [r['thermal'] for r in rows], '-o', color=C_TOT, lw=2.5, ms=8)
     ax.axhline(50, color='#999999', lw=1.0, ls=':')
