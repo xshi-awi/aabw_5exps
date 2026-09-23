@@ -1,37 +1,52 @@
 # Response to Reviewers
 
 **Manuscript:** Glacial–interglacial regime shift in Southern Ocean dense water formation
-**Authors:** Xiaoxu Shi, Jiping Liu, Hu Yang, Chaoyuan Yang, Gerrit Lohmann
+**Authors:** Xiaoxu Shi, Jiping Liu, Chaoyuan Yang, Gerrit Lohmann
 
 ---
 
 We thank the editor and the four reviewers for the care they have taken with this manuscript. The
 reports are detailed and constructive, and several of them identify a problem that we had handled
-too lightly in the submitted version: the disagreement between our pre-industrial result and
+too lightly in the submitted version, namely the disagreement between our pre-industrial result and
 observation-based transformation estimates for the modern Southern Ocean. We took that criticism
 seriously and spent most of the revision on it. Rather than defend the original one-sentence
 explanation, we ran the diagnostic tests that Reviewers 2 and 3 proposed. The outcome is more
 informative than we expected, and it has changed how we frame the paper.
 
-In brief, the disagreement has two separable causes. The first is the integration domain: 42.7% of
+In brief, the disagreement has two separable causes. The first is the integration domain, as 42.7% of
 the area we integrated over lies outside the winter sea ice edge and is therefore water that
-Pellichero et al. do not analyse. The second, and larger, is the density range: our simulated
-transformation peaks at densities corresponding to intermediate and mode water, whereas the
-haline-dominated cell those authors describe lies at bottom water densities that our simulated
-surface fluxes barely reach. Where the two analyses do overlap in density, they agree in sign.
-A residual discrepancy remains after both effects are accounted for, and it reflects a real
-limitation of the model, namely that it forms its pre-industrial dense water by open-ocean
-convection in the Weddell gyre rather than by dense shelf water overflow. We now state this
-plainly, quantify it, and bound what we claim on the basis of it.
+Pellichero et al. did not include. The second is the density range. Resolving the transformation by
+density class over the sea ice zone alone shows that our pre-industrial state is not uniformly
+thermally driven. Only one class is thermally dominated, the band around sigma_2 36.75 to 37.00
+where heat contributes 70% of the transformation. Every denser class is haline dominated, with the
+sea ice term supplying 93% of the transformation above sigma_2 37.00, and the lightest classes are
+dominated by the remaining freshwater terms. The thermal signature that drew the reviewers'
+attention is therefore confined to a narrow band at intermediate and mode water densities, and it
+sits lighter than the bottom water cell that Pellichero et al. describe.
+
+The glacial states leave no such ambiguity. Every density class in the Last Glacial Maximum and
+Marine Isotope Stage 3 is haline dominated, with thermal shares between 4% and 28% and sea ice
+alone accounting for most of the transformation in the dense classes. The shift from a partly
+thermal interglacial to an unambiguously haline glacial is visible class by class rather than only
+in the integrated totals, which is the result the paper rests on.
+
+A residual discrepancy remains after both effects are accounted for. Our pre-industrial Southern
+Ocean is too warm and too fresh near Antarctica, a bias shared by most coupled models, and our
+dense water forms by open-ocean convection in the Weddell gyre rather than by dense shelf water
+overflow. Both push the transformation toward lighter and more exposed water than the observations
+sample. We now state this plainly and quantify it. What the paper claims, however, is the relative
+change between climate states rather than the absolute densities, and a bias that is present in
+every simulation cannot generate the glacial to interglacial contrast between them. On that basis
+we consider the regime shift robust, and we have bounded the rest of our claims accordingly.
 
 We have also added the analyses that Reviewer 3 requested, showing the overturning streamfunction
 directly, ideal age throughout the global ocean, and a fuller treatment of the Southern Annular
-Mode; discussed the study by Chen et al. (2025) that Reviewer 2 correctly noted was missing; and
+Mode; discussed the study by Chen et al. (2025) that Reviewer 2 noted; and
 worked through every specific comment. Five new figures have been added, along with a boundary
 condition table and a Source Data file.
 
 For convenience the principal new figures are reproduced in this letter, so that the reviewers can
-assess them without consulting the manuscript.
+assess them conveniently.
 
 Reviewer comments are reproduced in full below in black, each followed by our response in blue; text quoted from the revised manuscript is given in blue italics. Line
 numbers in our responses refer to the revised manuscript unless stated otherwise. All changes are
