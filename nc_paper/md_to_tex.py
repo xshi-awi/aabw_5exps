@@ -38,7 +38,10 @@ def esc(t):
     t = re.sub(r'([0-9])\^([0-9]+)', r'\1$^{\2}$', t)
     t = t.replace('¹¹', r'$^{11}$').replace('¹³', r'$^{13}$').replace('²', r'$^2$')
     t = t.replace('⁻³', r'$^{-3}$').replace('⁻¹', r'$^{-1}$').replace('⁻²', r'$^{-2}$')
-    t = t.replace('₂', r'$_2$').replace('ₙ', r'$_n$')
+    for d, sub in zip('₀₁₂₃₄₅₆₇₈₉',
+                     '0123456789'):
+        t = t.replace(d, '$_%s$' % sub)
+    t = t.replace('ₙ', r'$_n$')
     t = t.replace('−', '-').replace('⁻', '-').replace('‰', r'\textperthousand{}')
     t = t.replace('⁰', r'$^0$').replace('¹', r'$^1$').replace('³', r'$^3$')
     t = t.replace('⁴', r'$^4$').replace('⁵', r'$^5$').replace('→', r'$\to$')
@@ -94,6 +97,33 @@ while i < n:
         out.append('\\subsubsection*{%s}' % inline(ln[4:]))
         i += 1; continue
 
+    # pipe table: reproduce a manuscript table inside the letter, so a reviewer
+    # who asked for one does not have to open the manuscript to see it
+    if ln.startswith('|') and i + 1 < n and set(lines[i + 1].strip()) <= set('|-: '):
+        rows = []
+        while i < n and lines[i].startswith('|'):
+            cells = [c.strip() for c in lines[i].strip().strip('|').split('|')]
+            if set(''.join(cells)) <= set('-: '):      # the alignment rule
+                rows.append(None)
+            else:
+                rows.append(cells)
+            i += 1
+        ncol = max(len(r) for r in rows if r)
+        # \footnotesize and a wrapping final column: a seven-column boundary
+        # condition table overruns the text block at \small with plain c
+        out.append('\\medskip\n\\noindent\\begin{center}\\footnotesize')
+        out.append('\\begin{tabular}{l%sp{2.0cm}}' % ('c' * (ncol - 2)))
+        out.append('\\hline')
+        for r in rows:
+            if r is None:
+                out.append('\\hline')
+                continue
+            r = r + [''] * (ncol - len(r))
+            out.append(' & '.join(inline(c) for c in r) + ' \\\\')
+        out.append('\\hline')
+        out.append('\\end{tabular}\\end{center}\n\\medskip')
+        continue
+
     # blockquote block
     if ln.startswith('>'):
         # A blank line ends the quotation. Continuing across one would merge a
@@ -128,7 +158,7 @@ while i < n:
 
     # ordinary paragraph = our reply, in blue bold
     para = []
-    while i < n and lines[i].strip() and not lines[i].startswith(('#', '>', '![')):
+    while i < n and lines[i].strip() and not lines[i].startswith(('#', '>', '![', '|')):
         para.append(lines[i].rstrip()); i += 1
     text = ' '.join(para)
     if text.startswith('---'):

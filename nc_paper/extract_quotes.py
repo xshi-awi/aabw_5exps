@@ -18,8 +18,18 @@ s = SRC.read_text()
 
 def clean(t):
     """LaTeX -> plain prose suitable for the markdown letter."""
+    # \citet puts the author's name in the sentence, so dropping it leaves a
+    # verbless clause ("find precipitation in reasonable agreement with..."),
+    # which reads as a mistake in the letter. Substitute the name instead.
+    CITET = {'Bartlein2011': 'Bartlein et al.',
+             'TurneyJones2010': 'Turney and Jones',
+             'Shi2022JCLI': 'Shi et al. (2022)',
+             'Shi2023CP': 'Shi et al. (2023)',
+             'Shi2025GRL': 'Shi et al. (2025)',
+             'sidorenko2019evaluation': 'Sidorenko et al. (2019)'}
+    t = re.sub(r'\\citet\{([^}]*)\}',
+               lambda m: CITET.get(m.group(1), m.group(1)), t)
     t = re.sub(r'\\cite[a-zA-Z]*\{[^}]*\}', '', t)
-    t = re.sub(r'\\citet\{[^}]*\}', '', t)
     # map labels to the figure numbers a reviewer will see, rather than dropping them
     REF = {'sst': '1', 'mld': 'A2', 'wind': 'A3', 'wmt_jja': '2',
            'density_heat': '3', 'density_fwf': '4', 'sam_wmt': 'S4',
@@ -152,8 +162,8 @@ Q['components'] = grab(
 
 # ---- boundary conditions / GLAC1D (R1 general, comment 32)
 Q['glac1d'] = grab(
-    'The GLAC-1D reconstruction enters the model',
-    'is not represented.')
+    'We perform five equilibrium simulations spanning distinct climate states',
+    'basal melt beneath floating ice shelves is not represented.')
 
 # ---- spin-up and drift (R3 equilibrium)
 Q['drift'] = grab(
@@ -222,24 +232,28 @@ Q['meltwater'] = grab(
     'We note that this statement applies to the freshwater sources',
     'dominated by sea ice thermodynamics.')
 
-Q['deep_equil'] = grab(
-    'The deep ocean is the slower and more demanding test',
-    'than the absolute abyssal properties.')
+# deep-ocean drift paragraph removed from the Methods at Xiaoxu's request,
+# so there is nothing left to quote for it
 
 # ---- SAM push-pull (R3)
 Q['pushpull'] = grab(
     'An asymmetry between the two routes emerges',
     'operating through a different pathway.')
 
-# ---- GLAC-1D boundary conditions (R1 G2)
-Q['glac1d'] = grab(
-    'The GLAC-1D reconstruction enters the model through several boundary fields',
-    'while PI, MH and LIG share the modern-geometry mesh.')
-
 # ---- moderated SAM proxy claim (R1 G3)
 Q['sam_proxy'] = grab(
     'Whether this persistent coupling could be exploited for proxy reconstruction',
     'marine Southern Annular Mode reconstruction.')
+
+# ---- SAM brine mechanism as a sequence (R1 comment 24)
+Q['brine_mech'] = grab(
+    'This pattern is controlled by sea ice processes, and the chain',
+    'more generally \\cite{Abernathey2016}.')
+
+# ---- panel-level references example (R1 comment 21)
+Q['panel_refs'] = grab(
+    'In PI, strong thermal densification (red shading)',
+    'buoyancy budgets for the Southern Ocean \\cite{Cerovecki2013,Abernathey2016}.')
 
 missing = [k for k, v in Q.items() if not v]
 for k in missing:

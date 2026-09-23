@@ -43,6 +43,13 @@
 - Shi et al. 2025 GRL 52(9), e2024GL112717 → 新 key `Shi2025GRL`（非洲季风，同样五个实验 PI/MH/LIG/LGM/MIS3）
 - Shi et al. 2023 Clim. Past 19, 2157-2175 → 新 key `Shi2023CP`（LGM 设置，开放获取，spin-up 措辞可逐字引用）
 
+> **2026-09-23 更正：下面这四个数字并未核实，投稿前必须自己开 PDF 对一遍。**
+> 这台机器上（`/home/a/a270064` 和 `/work/ba1066/a270064` 全盘 find）**没有 Sidorenko 2019
+> 的任何全文或文本提取**，Wiley 封锁自动访问。`LITERATURE_NOTES.md` 第 521-524 行和第 660 行
+> 明确写着这篇"未核实"，与本节此前的说法矛盾，以未核实为准。`build/revised.tex` 的致谢处
+> 已留 TODO 注释。本节下面关于"全文没有 polynya/convection 字样"的三条否定性约束同样未经
+> 核实，但按它们行事是安全的一侧（少引用而非多引用），所以继续遵守。
+
 **Sidorenko 2019 的重要限制（必须遵守）**：全文没有 polynya / convection / deep water formation
 字样，没有南大洋 MLD 评估，没有跟任何卫星海冰产品比较。所以只能引用它确实写了的：
 AABW cell ~10 Sv、南大洋暖偏差 SST RMSE 1.43 K（vs PHC）、9 月威德尔海冰厚度不到 0.25 m、

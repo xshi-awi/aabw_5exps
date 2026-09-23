@@ -91,7 +91,8 @@ i = 0
 n = len(s)
 while i < n:
     # ---------------------------------------------------------- figure
-    if s.startswith(r'\begin{center}', i) and 'includegraphics' in s[i:i + 400]:
+    if s.startswith(r'\begin{center}', i) and 'includegraphics' in s[i:i + 400] \
+            and 'tabular' not in s[i:i + 400]:
         # images are plain centred material followed by a \small caption
         # paragraph, because sn-jnl.cls prints a "Fig. N" label on \caption*
         j = s.index(r'\endgroup', i) + len(r'\endgroup')
@@ -141,6 +142,25 @@ while i < n:
         i = j
         continue
 
+    # ---------------------------------------------------------- table
+    if s.startswith(r'\begin{tabular}', i):
+        j = s.index(r'\end{tabular}', i) + len(r'\end{tabular}')
+        blk = s[i:j]
+        body = blk.split('}', 2)[2]          # drop \begin{tabular}{lccc}
+        out.append('<table border="1" cellspacing="0" cellpadding="4">')
+        for row in body.split(r'\\'):
+            row = row.replace(r'\hline', '').strip()
+            if not row or row == r'\end{tabular}':
+                continue
+            row = row.replace(r'\end{tabular}', '').strip()
+            if not row:
+                continue
+            cells = [inline(c) for c in row.split('&')]
+            out.append('<tr>' + ''.join('<td>%s</td>' % c for c in cells) + '</tr>')
+        out.append('</table>')
+        i = j
+        continue
+
     # ---------------------------------------------------------- enumerate
     if s.startswith(r'\begin{enumerate}', i):
         j = s.index(r'\end{enumerate}', i) + len(r'\end{enumerate}')
@@ -155,10 +175,14 @@ while i < n:
         continue
 
     # ---------------------------------------------------------- plain text
+    # search from i+1: a \begin{center} that wraps a table is not consumed by
+    # the figure branch above, so searching from i would find this very
+    # position, give j == i, and spin here forever
     nxt = [x for x in
-           [s.find(r'\textcolor{blue}{', i), s.find(r'\begin{center}', i),
-            s.find(r'\section', i), s.find(r'\subsection', i),
-            s.find(r'\begin{enumerate}', i)] if x != -1]
+           [s.find(r'\textcolor{blue}{', i + 1), s.find(r'\begin{center}', i + 1),
+            s.find(r'\begin{tabular}', i + 1),
+            s.find(r'\section', i + 1), s.find(r'\subsection', i + 1),
+            s.find(r'\begin{enumerate}', i + 1)] if x != -1]
     j = min(nxt) if nxt else n
     chunk = s[i:j]
     chunk = chunk.replace(r'\medskip', '').replace(r'\clearpage', '')
