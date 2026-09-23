@@ -568,7 +568,7 @@ thermally dominated interglacials and haline dominated glacials survives intact.
 ![](letter_figs/figR14_siz_gamma_5exps.png)
 
 **Figure R2.3 (new analysis).** Transformation in the seasonal sea ice zone, the
-Pellichero-comparable domain, resolved by density class. The upper row gives the total transformation in grey with its thermal contribution in red and its haline contribution, sea ice plus all other freshwater terms, in blue; the lower row gives the thermal share, with the haline dominated band shaded green and the thermally dominated band shaded red. In the pre-industrial
+Pellichero-comparable domain, resolved by density class. The upper row gives the total transformation in grey together with its thermal, sea ice and other freshwater contributions; the lower row gives the thermal share of the same three components, with the haline dominated band shaded green and the thermally dominated band shaded red. In the pre-industrial
 state a single class, σ₂ = 36.75–37.00 kg m⁻³, reaches thermal dominance at 70%, while every
 other class is haline dominated. Both glacial states are haline dominated in every class, with
 thermal shares between 4% and 28%. Because glacial surface water is denser, the class boundaries

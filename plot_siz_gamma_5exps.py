@@ -59,7 +59,8 @@ MESH = {'pi': 'mesh_core2', 'mh': 'mesh_core2', 'lig': 'mesh_core2',
         'lgm': 'mesh_glac1d', 'mis': 'mesh_glac1d_38k'}
 
 C_HEAT = '#D55E00'
-C_HAL = '#0072B2'
+C_ICE = '#009E73'
+C_OTH = '#0072B2'
 C_TOT = '#4D4D4D'
 C_BAND = '#009E73'   # green shading for the haline-dominated band
 
@@ -209,15 +210,15 @@ for j, (exp, lab) in enumerate(EXPS):
     rows, area, dS = by_class(exp)
 
     ax = axes[0, j]
-    w = 0.27
-    ax.bar(x - w, [r['total'] for r in rows], w, color=C_TOT, label='Total')
-    ax.bar(x, [r['heat'] for r in rows], w, color=C_HEAT, label='Thermal')
-    ax.bar(x + w, [r['ice'] + r['oth'] for r in rows], w, color=C_HAL,
-           label='Haline (sea ice + other FW)')
+    w = 0.21
+    ax.bar(x - 1.5 * w, [r['total'] for r in rows], w, color=C_TOT, label='Total')
+    ax.bar(x - 0.5 * w, [r['heat'] for r in rows], w, color=C_HEAT, label='Thermal')
+    ax.bar(x + 0.5 * w, [r['ice'] for r in rows], w, color=C_ICE, label='Sea ice FW')
+    ax.bar(x + 1.5 * w, [r['oth'] for r in rows], w, color=C_OTH, label='Other FW')
     ax.axhline(0, color='#444444', lw=0.9)
     for k, r in enumerate(rows):
         lbl = ('%+.2f' if abs(r['total']) < 1 else '%+.1f') % r['total']
-        ax.annotate(lbl, xy=(k - w, r['total']),
+        ax.annotate(lbl, xy=(k - 1.5 * w, r['total']),
                     xytext=(0, 9 if r['total'] >= 0 else -17),
                     textcoords='offset points', ha='center',
                     fontsize=9, fontweight='bold', zorder=7,
