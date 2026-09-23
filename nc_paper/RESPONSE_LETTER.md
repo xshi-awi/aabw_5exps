@@ -33,7 +33,7 @@ condition table and a Source Data file.
 For convenience the principal new figures are reproduced in this letter, so that the reviewers can
 assess them without consulting the manuscript.
 
-Reviewer comments are reproduced in full below in italics, each followed by our response. Line
+Reviewer comments are reproduced in full below in black, each followed by our response in blue; text quoted from the revised manuscript is given in blue italics. Line
 numbers in our responses refer to the revised manuscript unless stated otherwise. All changes are
 marked in the accompanying tracked-changes file.
 

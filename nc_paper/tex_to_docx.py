@@ -91,15 +91,16 @@ i = 0
 n = len(s)
 while i < n:
     # ---------------------------------------------------------- figure
-    if s.startswith(r'\begin{figure}', i):
-        j = s.index(r'\end{figure}', i) + len(r'\end{figure}')
+    if s.startswith(r'\begin{center}', i) and 'includegraphics' in s[i:i + 400]:
+        # images are plain centred material followed by a \small caption
+        # paragraph, because sn-jnl.cls prints a "Fig. N" label on \caption*
+        j = s.index(r'\endgroup', i) + len(r'\endgroup')
         blk = s[i:j]
         m = re.search(r'\\includegraphics\[[^\]]*\]\{([^{}]*)\}', blk)
         cap = ''
-        # the letter uses \caption*{...} (unnumbered); match both forms
-        mc = re.search(r'\\caption\*?\{', blk)
+        mc = re.search(r'\\begingroup\\small\\noindent ', blk)
         if mc:
-            cap, _ = find_group(blk, mc.end() - 1)
+            cap = blk[mc.end():].split('\\par')[0]
         # keep the "Figure Rx.y (...)" label bold, as it is in the PDF
         cap = re.sub(r'\\textbf\{(Figure [^{}]*)\}', r'@@B@@\1@@/B@@', cap, count=1)
         cap = inline(strip_cmd(strip_cmd(cap, 'textbf'), 'textit'))
@@ -155,7 +156,7 @@ while i < n:
 
     # ---------------------------------------------------------- plain text
     nxt = [x for x in
-           [s.find(r'\textcolor{blue}{', i), s.find(r'\begin{figure}', i),
+           [s.find(r'\textcolor{blue}{', i), s.find(r'\begin{center}', i),
             s.find(r'\section', i), s.find(r'\subsection', i),
             s.find(r'\begin{enumerate}', i)] if x != -1]
     j = min(nxt) if nxt else n

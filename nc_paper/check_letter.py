@@ -61,7 +61,7 @@ tex = Path('SUBMISSION/04_response_letter.tex')
 if tex.exists():
     t = tex.read_text()
     n_inc = t.count('\\includegraphics')
-    n_cap = len(re.findall(r'\\caption\*?\{\\textbf\{Figure R[0-9]\.[0-9]+', t))
+    n_cap = len(re.findall(r'\\textbf\{Figure R[0-9]\.[0-9]+', t))
     print(f'  tex: {n_inc} images, {n_cap} captions')
     if n_cap != n_md or n_inc != n_md:
         fail.append(f'tex has {n_inc} images / {n_cap} captions, markdown has {n_md}')

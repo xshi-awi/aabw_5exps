@@ -28,6 +28,9 @@ def esc(t):
     t = t.replace('–', '--').replace('—', '---').replace('…', r'\ldots{}')
     t = t.replace('°', r'$^\circ$').replace('±', r'$\pm$').replace('×', r'$\times$')
     t = t.replace('≈', r'$\approx$').replace('≥', r'$\ge$').replace('≤', r'$\le$')
+    # gamma_n is a single symbol: handle it before the bare gamma, or the
+    # trailing _n is escaped to \_n and renders as a literal underscore
+    t = t.replace('\u03b3\\_n', r'$\gamma_n$').replace('\u03b3\u2099', r'$\gamma_n$')
     t = t.replace('α', r'$\alpha$').replace('β', r'$\beta$').replace('γ', r'$\gamma$')
     t = t.replace('σ', r'$\sigma$').replace('Δ', r'$\Delta$')
     t = t.replace('é', r"\'e").replace('č', r'\v{c}')
@@ -61,8 +64,13 @@ while i < n:
     # image
     m = re.match(r'!\[\]\(([^)]+)\)', ln.strip())
     if m:
-        out.append('\n\\begin{figure}[htbp]\n\\centering')
+        # sn-jnl.cls redefines \caption* so that it still prints a "Fig. N"
+        # label, which we do not want next to our own "Figure R2.3" numbering.
+        # The image and its caption are therefore set as ordinary centred
+        # material rather than as a float with a caption.
+        out.append('\n\\begin{center}')
         out.append('\\includegraphics[width=\\textwidth]{%s}' % m.group(1))
+        out.append('\\end{center}')
         # caption is the next bold paragraph
         j = i + 1
         while j < n and not lines[j].strip():
@@ -70,8 +78,8 @@ while i < n:
         cap = []
         while j < n and lines[j].strip():
             cap.append(lines[j]); j += 1
-        out.append('\\caption*{%s}' % inline(' '.join(cap)))
-        out.append('\\end{figure}\n')
+        out.append('\\begingroup\\small\\noindent %s\\par\\endgroup\n'
+                   % inline(' '.join(cap)))
         i = j
         continue
 
@@ -101,7 +109,14 @@ while i < n:
             out.append('\\medskip\n\\noindent\\textcolor{blue}{\\textbf{\\textit{``%s\'\'}}}\n\\medskip'
                        % esc(inner))
         else:
-            out.append('\\medskip\n\\noindent %s\n\\medskip' % inline(text))
+            # A reviewer comment. The example letter sets these in plain black
+            # roman with no emphasis, so the surrounding markdown italics that
+            # mark the block as quoted material are dropped rather than carried
+            # through to \textit.
+            body = text.strip()
+            if body.startswith('*') and body.endswith('*'):
+                body = body[1:-1]
+            out.append('\\medskip\n\\noindent %s\n\\medskip' % inline(body))
         continue
 
     # blank
