@@ -17,9 +17,9 @@ In brief, the disagreement has two separable causes. The first is the integratio
 the area we integrated over lies outside the winter sea ice edge and is therefore water that
 Pellichero et al. did not include. The second is the density range. Resolving the transformation by
 density class over the sea ice zone alone shows that our pre-industrial state is not uniformly
-thermally driven. Only one class is thermally dominated, the band around sigma_2 36.75 to 37.00
+thermally driven. Only one class is thermally dominated, the band around σ₂ 36.75 to 37.00
 where heat contributes 70% of the transformation. Every denser class is haline dominated, with the
-sea ice term supplying 93% of the transformation above sigma_2 37.00, and the lightest classes are
+sea ice term supplying 93% of the transformation above σ₂ 37.00, and the lightest classes are
 dominated by the remaining freshwater terms. The thermal signature that drew the reviewers'
 attention is therefore confined to a narrow band at intermediate and mode water densities, and it
 sits lighter than the bottom water cell that Pellichero et al. describe.
@@ -110,25 +110,22 @@ transformation maximum and the area of each domain are given in each panel. The 
 increases in the restricted domain, as expected, but the contrast between thermally dominated
 interglacials and haline dominated glacials is unchanged.
 
-We also diagnosed directly where the model forms its dense water, which bears on how far the
-pre-industrial state can be trusted.
+Second, and more importantly, the density range matters more than the domain. Resolving the
+transformation by density class inside the sea ice zone shows that our pre-industrial state is not
+uniformly thermally driven, as the submitted version implied. Only one class is thermally
+dominated, σ₂ = 36.75–37.00 kg m⁻³, where heat supplies 70% of the transformation. Every denser
+class is haline dominated, with the sea ice term supplying 93% of the transformation above
+σ₂ = 37.00 kg m⁻³, and the classes lighter than 36.50 kg m⁻³ are dominated by the remaining
+freshwater terms at 14% thermal. The thermal signature that prompted this comment is therefore
+confined to one narrow band at mode and intermediate water densities, and it sits lighter than the
+bottom water cell that Pellichero et al. describe, which in neutral density terms occupies
+γ_n = 27.9–28.8 kg m⁻³ against our maximum near γ_n ≈ 27.3 kg m⁻³.
 
-![](letter_figs/figR6_convection_sites.png)
-
-**Figure R1.2 (new analysis).** (a-e) Winter mixed layer depth for the five states, with the 400 m
-contour in orange. (f) In the pre-industrial state the Weddell sector accounts for 70% of the area
-with a mixed layer deeper than 400 m and 97% of the area deeper than 600 m, and the convection sits
-in the interior of the gyre near 68°S rather than over the shelf. (g) The deep-convection area
-contracts to roughly one fifth of its pre-industrial value in the glacial states. (h) The deepest
-winter mixed layer shoals from 991 m in PI to 819 m and 645 m in the glacials.
-
-Second, and more importantly, we found that the density range matters more than the domain.
-Converting our simulated surface properties to the neutral density coordinate used in that study,
-our thermally dominated maximum sits near γ_n ≈ 27.3 kg m⁻³, whereas their haline-dominated lower
-cell occupies γ_n = 27.9–28.8 kg m⁻³. In the densest classes our surface fluxes do populate
-(σ₂ ≥ 37.0 kg m⁻³), our pre-industrial transformation is already haline dominated, 0.79 Sv from sea
-ice against 0.06 Sv from heat. The two analyses are therefore largely describing different water
-masses, and where they overlap they agree.
+The glacial states leave no such ambiguity. Every class in LGM and MIS3 is haline dominated, with
+thermal shares between 4% and 28%, and the sea ice term carries most of the transformation in the
+dense classes. The shift from a partly thermal interglacial to an unambiguously haline glacial is
+therefore visible class by class, not only in the integrated totals. Figure R2.3 in the response to
+Reviewer 2 shows the full decomposition for all five states.
 
 Third, we now state the residual model limitation explicitly rather than alluding to it. We
 diagnosed where the model actually forms its dense water: in the pre-industrial simulation, the
@@ -143,6 +140,30 @@ has no ice shelf cavities, so basal melt beneath floating ice is absent by const
 
 We have deliberately not asserted that published AWI-ESM evaluation papers document this convection
 behaviour, because they do not; the diagnosis above is our own, from our own output.
+
+Fourth, following this comment we have summarised the published model-data comparisons for these
+same simulations in the Methods, rather than leaving the reviewer to seek them in the earlier
+papers. We give both what matches and what does not. For the pre-industrial state, simulated
+precipitation agrees reasonably with GPCP, with local wet biases at the position of the
+Intertropical Convergence Zone. For the mid-Holocene the model reproduces the warming over western
+Europe, the north-south temperature dipole over eastern North America and the wetting over the
+southern Sahara and South Asia, but it simulates a cooler North Africa where the pollen
+reconstructions show warming, and it underestimates the wetting over the northern Sahara. For the
+last interglacial the Northern Hemisphere warming and the tropical and North African cooling both
+match the records, while the Antarctic warming that the proxies show is absent, which the earlier
+study attributes to the PMIP4 protocol holding the last interglacial ice sheet orography fixed at
+its pre-industrial configuration. For the Last Glacial Maximum model and proxies agree on the
+pronounced drying over most Northern Hemisphere continents, and for Marine Isotope Stage 3 no
+comprehensive compilation exists, so the comparison rests on individual sites.
+
+One point deserves emphasis because it bears directly on this comment. None of those evaluations
+examines Southern Ocean hydrography, sea ice or overturning against observations. They therefore
+constrain the large-scale climate response of the model rather than the specific fields our
+analysis depends on, and we say so in the text rather than letting the reader assume otherwise.
+
+In the revised manuscript the added passage reads:
+
+> *"Because the balance of agreement and disagreement in those evaluations bears on how far the present results can be trusted, we summarise it here rather than leaving it to be sought in the earlier papers. For the pre-industrial state, find precipitation in reasonable agreement with the GPCP observations, with local wet biases at the position of the Intertropical Convergence Zone in both solstitial seasons, a bias common to other coupled models. For the interglacials, compare both generations of AWI-ESM against the pollen compilation of and the multi-archive compilation of . The model reproduces the mid-Holocene warming over western Europe and the north-south dipole of the temperature anomaly over eastern North America, and it captures the sign and magnitude of the wetting over the southern Sahara and South Asia. It disagrees with the proxies over North Africa, where the simulated mid-Holocene is cooler than the pre-industrial while the reconstructions show warming, and it underestimates the mid-Holocene wetting over the northern Sahara. For the last interglacial the simulated Northern Hemisphere warming and the tropical and North African cooling both match the records, but the Antarctic warming that the proxies show is absent, which attribute to the PMIP4 protocol holding the last interglacial ice sheet orography fixed at its pre-industrial configuration. For the glacial states, document the Last Glacial Maximum configuration against the Bartlein pollen compilation and MARGO sea surface temperatures, and find that model and proxies agree on the pronounced drying over most Northern Hemisphere continents at the Last Glacial Maximum, while for Marine Isotope Stage 3 no comprehensive precipitation compilation exists and the comparison rests on individual sites. Across all four paleoclimate states the simulated anomalies are consistent with the PMIP4 ensemble. We note that none of these evaluations examines Southern Ocean hydrography, sea ice or overturning against observations, so they constrain the large-scale climate response of the model rather than the specific fields on which the present analysis depends."*
 
 ### G2. Boundary conditions
 
@@ -182,6 +203,10 @@ separate unstructured ocean mesh for each glacial period, and we use meshes buil
 ocean salinity is raised in the glacial runs to account for water stored in the ice sheets, and
 that no prescribed ice sheet meltwater flux is applied in any experiment.
 
+In the revised manuscript the added passage reads:
+
+> *"The GLAC-1D reconstruction enters the model through several boundary fields simultaneously. It sets the ice sheet extent and surface elevation and the associated land-sea mask and orography used by the atmosphere and land-surface components, the river routing, and the vegetation distribution. It also determines the ocean bathymetry and coastline, which requires a dedicated unstructured ocean mesh for each glacial period; we use meshes constructed for 21 ka and 38 ka respectively, while PI, MH and LIG share the modern-geometry mesh."*
+
 ### G3. Clarifying several interpretations
 
 > *Most interpretations are convincing, although a few statements could be presented more carefully
@@ -196,6 +221,10 @@ required are rarely available around the Antarctic margin, a point Reviewer 3 al
 also removed the claim that the circumpolar picture holds uniformly and now state explicitly where
 it does not, in particular the Ross Sea. Panel-level figure references have been added throughout,
 as requested in this comment and in comment 21.
+
+In the revised manuscript the moderated passage now reads:
+
+> *"Whether this persistent coupling could be exploited for proxy reconstruction is less clear than we previously suggested. Recovering an interannual-to-decadal signal from marine sediments would require accumulation rates and chronological precision that are rarely available around the Antarctic margin, where sedimentation is slow and bioturbation mixes the record over intervals far longer than the variability of interest. We therefore present the persistence of the coupling as a property of the simulated system rather than as a practical route to a marine Southern Annular Mode reconstruction."*
 
 ### G4. Model limitations
 
@@ -219,11 +248,12 @@ deep mixed layers contract to roughly one fifth of the pre-industrial area and s
 
 ![](letter_figs/figR7_mld_glacial_zoom.png)
 
-**Figure R1.3 (new supplementary panel).** LGM and MIS3 winter mixed layer depth on the original
-0-400 m scale (top) and on a tightened 0-300 m scale with the 200 m contour marked (bottom). The
-99th percentile of the glacial winter mixed layer south of 55 deg S is only 280 m (LGM) and 296 m
-(MIS3), which is why the shared interglacial scale leaves the glacial panels almost featureless.
-The tightened scale resolves the discrete coastal cells where the glacial dense water is produced.
+**Figure R1.2 (new supplementary panel).** (a) LGM and (b) MIS3 winter mixed layer depth south of
+60°S, on a 0-300 m scale with the 200 m contour in orange. The 99th percentile of the glacial
+winter mixed layer south of 55°S is only 280 m (LGM) and 296 m (MIS3), so the 0-400 m scale used
+for the interglacials leaves these panels almost featureless. On the tightened scale the discrete
+coastal cells where the glacial dense water is produced are resolved, in the Weddell, Prydz Bay and
+Ross sectors.
 
 **Sea ice.** The published evaluation reports that Antarctic sea ice in this configuration is too
 thin, hardly reaching 0.25 m in the central Weddell Sea in September, and that the Southern Ocean
@@ -262,11 +292,11 @@ Subpanel references have been added throughout the Results and Discussion. On th
 polar stereographic panels now carry labelled latitude circles, and the ventilation age maps carry
 labelled meridians as well. On the fifteen-panel composite figures we label the latitude circles
 only, because a full graticule with meridian labels on panels of that size was illegible in
-trial versions and crowded the panel margins. We are happy to add complete labelling if the reviewer prefers, or to enlarge those figures to accommodate it. As a concrete example, the ventilation age maps now carry labelled meridians at 60°W, 0°, 60°E and 120°E as well as labelled latitude circles, and the mixed layer and composite figures carry labelled latitude circles; Figure R1.4 in this letter shows the result. The same treatment has been applied to every map figure in the revised manuscript and supplement.
+trial versions and crowded the panel margins. We are happy to add complete labelling if the reviewer prefers, or to enlarge those figures to accommodate it. As a concrete example, the ventilation age maps now carry labelled meridians at 60°W, 0°, 60°E and 120°E as well as labelled latitude circles, and the mixed layer and composite figures carry labelled latitude circles; Figure R1.3 in this letter shows the result. The same treatment has been applied to every map figure in the revised manuscript and supplement.
 
 ![](letter_figs/fig_age_labels-1.png)
 
-**Figure R1.4 (revised manuscript figure).** The ventilation age figure as an example of the
+**Figure R1.3 (revised manuscript figure).** The ventilation age figure as an example of the
 labelling now applied throughout. Every panel carries labelled latitude circles and labelled
 meridians, and the climate state is named above each panel. The mixed layer, wind stress and
 composite figures have been treated the same way; please refer to the revised manuscript and
@@ -274,66 +304,61 @@ supplement for the complete set.
 
 ## Specific comments
 
-**1.** *LIG, LGM and MIS should be capitalised.* — Thank you for catching this. The three abbreviations are now capitalised consistently throughout the manuscript, the figure captions and the supplement, and MIS is written as MIS3 everywhere so that it matches the column headings of the figures.
+> **1.** LIG, LGM and MIS should be capitalised.
 
-**2.** *Line 21-22: The transition to SAM is quite abrupt.* — The abstract now introduces the
-Southern Annular Mode through the mechanism that connects it to the mean state, noting that because
-the balance between the thermal and haline pathways is set by how much of the surface is ice
-covered, it also governs the response to internal atmospheric variability.
+Thank you for catching this. The three abbreviations are now capitalised consistently throughout the manuscript, the figure captions and the supplement, and MIS is written as MIS3 everywhere so that it matches the column headings of the figures.
+
+> **2.** Line 21-22: The transition to SAM is quite abrupt.
+
+The abstract now introduces the Southern Annular Mode through the mechanism that connects it to the mean state, noting that because the balance between the thermal and haline pathways is set by how much of the surface is ice covered, it also governs the response to internal atmospheric variability.
 
 In the revised manuscript this now reads:
 
 > *"Because the balance between these two pathways is set by how much of the surface is ice covered, it also governs the response to internal atmospheric variability. The Southern Annular Mode modulates transformation by 3-8 Sv between its positive and negative phases in every climate state, working through heat loss when the ocean is open and through brine rejection when it is ice covered."*
 
-**3.** *Line 24: "same mechanisms" sounds vague ... The abstract should be understandable on its
-own.* — Replaced with the explicit statement that the mode works "through heat loss when the ocean
-is open and through brine rejection when it is ice covered".
+> **3.** Line 24: "same mechanisms" sounds vague her without additional context. The abstract should be understandable on its own without requiring the reader to refer to the main text.
 
-**4.** *Lines 25-27: ... additional context is needed before introducing the deep ocean ventilation
-results.* — The abstract now bridges from surface forcing to ventilation via the overturning
-circulation, stating that weaker glacial transformation coincides with a collapse of the simulated
-abyssal cell from about 10 to 2 Sv, before the ages are given. This also incorporates the new
-overturning analysis requested by Reviewer 3.
+Replaced with the explicit statement that the mode works "through heat loss when the ocean is open and through brine rejection when it is ice covered".
+
+> **4.** Lines 25-27: Similar to Comment 2 above, additional context is needed before introducing the deep ocean ventilation results. The motivation for analysing ventilation ages only becomes clear later in the manuscript, whereas the abstract should be self-contained.
+
+The abstract now bridges from surface forcing to ventilation via the overturning circulation, stating that weaker glacial transformation coincides with a collapse of the simulated abyssal cell from about 10 to 2 Sv, before the ages are given. This also incorporates the new overturning analysis requested by Reviewer 3.
 
 In the revised manuscript this now reads:
 
 > *"Weaker glacial transformation coincides with a collapse of the simulated abyssal overturning cell from about 10 to 2 Sv and with older abyssal water. Ideal ages at 4000 m remain below 500 years during interglacials but exceed 750 years basin-wide during glacials, reaching 1500 years in the Pacific."*
 
-**5.** *Lines 102-105: SAM is introduced only briefly here. Given its importance ... please consider
-providing a slightly more detailed introduction.* — The introduction now defines the mode as the
-leading mode of extratropical Southern Hemisphere variability, describes what its positive phase
-does to the westerlies and hence to Ekman divergence, air-sea heat exchange and sea ice export, and
-cites the observational literature linking it to bottom water changes.
+> **5.** Lines 102-105: SAM is introduced only briefly here. Given its importance throughout the Results and Discussion, please consider providing a slightly more detailed introduction.
+
+The introduction now defines the mode as the leading mode of extratropical Southern Hemisphere variability, describes what its positive phase does to the westerlies and hence to Ekman divergence, air-sea heat exchange and sea ice export, and cites the observational literature linking it to bottom water changes.
 
 In the revised manuscript this now reads:
 
 > *"The Southern Annular Mode is the leading mode of extratropical Southern Hemisphere circulation variability, describing a meridional redistribution of atmospheric mass between mid-latitudes and Antarctica . Its positive phase strengthens the circumpolar westerlies and displaces them poleward, which changes Ekman divergence, air-sea heat exchange, and the northward export of sea ice. In the present-day ocean these adjustments modulate mixed-layer depth and surface buoyancy forcing , and they have been linked to observed changes in bottom water properties . Whether the mode remains an effective modulator of dense water formation once the mean state changes, in particular once an expanded ice cover separates the ocean from the atmosphere, is not known."*
 
-**6.** *Line 125: typo: 'more'.* — Corrected ("moer" → "more").
+> **6.** Line 125: typo: 'more'.
 
-**7.** *Line 127: Figure numbering; A3 can't be called before A1 and A2.* — The appendix figures
-have been reordered so that they are cited in numerical order.
+Corrected ("moer" → "more").
 
-**8.** *Line 129: 'Here,'.* — Corrected.
+> **7.** Line 127: Figure numbering; A3 can't be called before A1 and A2.
 
-**9.** *Line 140: As a result, the deep MLD signals ... Also, "vanish" is perhaps not the most
-scientific wording.* — Rephrased to "are strongly reduced and become confined to narrow coastal
-bands and polynyas", and we now quantify the reduction rather than describing it qualitatively.
+The appendix figures have been reordered so that they are cited in numerical order.
+
+> **8.** Line 129: 'Here,'.
+
+Corrected.
+
+> **9.** Line 140: As a result, the deep MLD signals, characteristic of open-ocean convection, largely…. Also, "vanish" is perhaps not the most scientific wording.
+
+Rephrased to "are strongly reduced and become confined to narrow coastal bands and polynyas", and we now quantify the reduction rather than describing it qualitatively.
 
 In the revised manuscript this now reads:
 
 > *"The reduction is substantial rather than complete. Summed south of 55°S, the area with a winter mixed layer deeper than 400 m falls from 7.510^11 m^2 in PI to 1.710^11 m^2 in LGM and 1.610^11 m^2 in MIS3, and the maximum mixed-layer depth decreases from 991 m to 819 m and 645 m. Mixed layers deeper than 600 m, which cover 2.410^11 m^2 in PI, essentially disappear in both glacial states. The residual glacial signals in coastal regions are therefore genuinely shallower than their interglacial counterparts, consistent with dense water production that is confined to narrow coastal bands rather than distributed across the open gyres."*
 
-**10.** *Line 141: These signals are not particularly visible even in the coastal regions (the
-darker blue shading in LGM is at ~200m, so considerably shallower than the interglacials).* — This
-is a fair objection and we have addressed it with numbers. Summed south of 55°S, the area with a
-winter mixed layer deeper than 400 m falls from 7.5×10¹¹ m² in PI to 1.7×10¹¹ m² in LGM and
-1.6×10¹¹ m² in MIS3, the maximum mixed-layer depth decreases from 991 m to 819 m and 645 m, and
-mixed layers deeper than 600 m essentially disappear in both glacial states. The text now says
-explicitly that the residual glacial signals are genuinely shallower than their interglacial
-counterparts. Panels (g) and (h) of Figure R1.2 above make the point quantitatively: both the area
-of deep convection and the depth of the deepest mixed layer fall in the glacial states, so the
-reviewer's reading of the shading is correct and is now reflected in the text.
+> **10.** Line 141: These signals are not particularly visible even in the coastal regions (the darker blue shading in LGM is at ~200m, so considerably shallower than the interglacials).
+
+This is a fair objection and we have addressed it with numbers. Summed south of 55°S, the area with a winter mixed layer deeper than 400 m falls from 7.5×10¹¹ m² in PI to 1.7×10¹¹ m² in LGM and 1.6×10¹¹ m² in MIS3, the maximum mixed-layer depth decreases from 991 m to 819 m and 645 m, and mixed layers deeper than 600 m essentially disappear in both glacial states. The text now says explicitly that the residual glacial signals are genuinely shallower than their interglacial counterparts. Figure R1.2 below shows the glacial fields on a scale that resolves them, and the reviewer's reading of the shading is correct and is now reflected in the text.
 
 The reviewer's observation also pointed to a presentation problem, which we have fixed. On the
 shared 0–400 m scale of the original figure the glacial panels are almost featureless, because the
@@ -342,31 +367,27 @@ shared 0–400 m scale of the original figure the glacial panels are almost feat
 
 ![](letter_figs/figR7_mld_glacial_zoom.png)
 
-**Figure R1.5 (new supplementary panel).** LGM and MIS3 winter mixed layer depth on the original
-0–400 m scale (top) and on a tightened 0–300 m scale with the 200 m contour marked (bottom). The
-tightened scale resolves discrete deep cells along the coast, in the Weddell, Prydz Bay and Ross
-sectors, which is where the glacial dense water is produced. This is the figure we now use in the
-supplement.
+**Figure R1.4 (new supplementary panel).** (a) LGM and (b) MIS3 winter mixed layer depth south of
+60°S, on a 0–300 m scale with the 200 m contour in orange. The tightened scale resolves discrete
+deep cells along the coast, in the Weddell, Prydz Bay and Ross sectors, which is where the glacial
+dense water is produced. This is the figure we now use in the supplement.
 
-**11.** *Line 134-141: Fig.1 i-l subpanels are not discussed at all.* — A paragraph discussing the
-surface density panels has been added. It notes that the glacial density anomalies follow the
-salinity field rather than the temperature field, because the thermal expansion coefficient is
-small at the near-freezing temperatures south of the ice edge, and points out the
-density-compensated LIG anomaly and the weak negative LGM anomalies in the Atlantic-Indian sector.
+> **11.** Line 134-141: Fig.1 i-l subpanels are not discussed at all.
+
+A paragraph discussing the surface density panels has been added. It notes that the glacial density anomalies follow the salinity field rather than the temperature field, because the thermal expansion coefficient is small at the near-freezing temperatures south of the ice edge, and points out the density-compensated LIG anomaly and the weak negative LGM anomalies in the Atlantic-Indian sector.
 
 
 In the revised manuscript this now reads:
 
 > *"The surface density anomalies (Fig. 1i-l) follow the salinity field rather than the temperature field in the glacial states. Cooling and salinification both act to densify the surface, but at the near-freezing temperatures that prevail south of the ice edge the thermal expansion coefficient is small, so the haline term sets both the pattern and the magnitude. In LIG the warm and salty Bellingshausen-Amundsen anomaly is close to density compensated (Fig. 1j), and the LGM retains weak negative density anomalies in parts of the Atlantic-Indian sector where surface freshening outweighs cooling."*
-**12.** *Line 144-146: The LIG also exhibits similar behaviour, although the changes are smaller in
-some basins. Likewise, the LGM shows some negative anomalies in the Atlantic–Indian sector.* — Both
-points are now stated in the text; see the response to comment 11.
 
-**13.** *Line 146-148: An explanation of why the wind stress changes do not lead to increased sea
-ice in the Ross Sea would be useful. Is this due to the presence of relatively warm water despite
-enhanced salinity, density, and Ekman transport in this region?* — We checked this
-directly, and the answer turned out to be more interesting than the question assumed, so we set it
-out in full.
+> **12.** Line 144-146: The LIG also exhibits similar behaviour, although the changes are smaller in some basins. Likewise, the LGM shows some negative anomalies in the Atlantic–Indian sector.
+
+Both points are now stated in the text; see the response to comment 11.
+
+> **13.** Line 146-148: An explanation of why the wind stress changes do not lead to increased sea ice in the Ross Sea would be useful. Is this due to the presence of relatively warm water despite enhanced salinity, density, and Ekman transport in this region?
+
+We checked this directly, and the answer turned out to be more interesting than the question assumed, so we set it out in full.
 
 The mechanism the reviewer proposes is real, but it operates in the last interglacial rather than in
 the glacial states the comment refers to. Averaged between 60 and 75°S in winter, the glacial sea
@@ -377,7 +398,7 @@ not limited by surface heat content anywhere.
 
 ![](letter_figs/figR9_ross_sector.png)
 
-**Figure R1.6 (new analysis).** (a) Winter surface temperature above the local freezing point and
+**Figure R1.5 (new analysis).** (a) Winter surface temperature above the local freezing point and
 (b) winter sea ice concentration, by sector and climate state. (c) The same quantities as anomalies
 relative to PI. The Ross sector separates from the others only in the last interglacial, where it
 warms to 2.7 K above freezing and loses 0.19 of ice concentration, an order of magnitude more than
@@ -392,139 +413,120 @@ rewritten the passage to say this, rather than attributing the behaviour to the 
 response as the submitted version implied. This asymmetry is also why the Ross sector departs from
 the circumpolar pattern in the variability analysis.
 
-**14.** *Line 167: It would be helpful to quantify the thermal contribution, similar to the
-quantification provided for the haline contribution in line 157.* — Added. The thermal term
-accounts for 70–85% of the total at the transformation maximum in the interglacials, against
-15–30% for the haline term, and falls to 12–17% in the glacial states.
+> **14.** Line 167: It would be helpful to quantify the thermal contribution, similar to the quantification provided for the haline contribution in line 157.
+
+Added. The thermal term accounts for 70–85% of the total at the transformation maximum in the interglacials, against 15–30% for the haline term, and falls to 12–17% in the glacial states.
 
 
 In the revised manuscript this now reads:
 
-> *"This transformation is dominated by surface heat loss (red line), which accounts for 70-85% of the total at the transformation maximum, with limited sea ice extent restricting the haline contribution from brine rejection to a secondary role (15-30%; green line). Other freshwater fluxes (blue lines) oppose densification through net precipitation and river runoff. We note that this thermally dominated maximum occurs at densities that correspond to intermediate and mode waters rather than to bottom water. In the densest classes that the simulated surface fluxes reach (_2 37.0 kg m^-3), the PI transformation is already haline dominated, with the sea ice term contributing 0.79 Sv against 0.06 Sv from heat in the annual mean. The thermal dominance reported here is therefore a property of the integral over all density classes, and we quantify its sensitivity to the choice of integration domain and density range in the Discussion."*
-**15.** *Fig. 2 Would it be possible to share a figure with the same y-axis limits for all panels?*
-— Yes. Supplementary Fig. S5 now shows the same transformation curves on common vertical and
-horizontal axes, so magnitudes and density positions can be compared directly across climate states
-and regions. We have kept the independently scaled version in the main text because the shape of
-the individual curves is otherwise hard to read, and the main text now points to the common-axis
-version explicitly.
+> *"This transformation is dominated by surface heat loss (red line), which accounts for 70-85% of the total at the transformation maximum, with limited sea ice extent restricting the haline contribution from brine rejection to a secondary role (15-30%; green line). Other freshwater fluxes (blue lines) oppose densification through net precipitation and river runoff. We note that this thermally dominated maximum occurs at densities that correspond to intermediate and mode waters rather than to bottom water. In the densest classes that the simulated surface fluxes reach (σ₂ ≥ 37.0 kg m⁻³), the PI transformation is already haline dominated, with the sea ice term contributing 0.79 Sv against 0.06 Sv from heat in the annual mean. The thermal dominance reported here is therefore a property of the integral over all density classes, and we quantify its sensitivity to the choice of integration domain and density range in the Discussion."*
+
+> **15.** Fig. 2 Would it be possible to share a figure with the same y-axis limits for all panels? This may not be necessary for the final manuscript, but it would make it easier to compare the magnitude of the changes across the different climate states.
+
+Yes. Supplementary Fig. S5 now shows the same transformation curves on common vertical and horizontal axes, so magnitudes and density positions can be compared directly across climate states and regions. We have kept the independently scaled version in the main text because the shape of the individual curves is otherwise hard to read, and the main text now points to the common-axis version explicitly.
 
 ![](letter_figs/figS_common_axis-1.png)
 
-**Figure R1.7 (new Supplementary Fig. S5).** Winter transformation for the four sectors and five
+**Figure R1.6 (new Supplementary Fig. S5).** Winter transformation for the four sectors and five
 climate states on a common vertical and horizontal axis. Plotted this way the glacial weakening of
 the transformation maximum and its shift to denser classes are directly comparable between panels,
 which the independently scaled main-text version does not allow.
 
-**16.** *Line 174: "Section 4?" If this is intended to refer to the Methods section.* — Corrected to
-refer to the Methods section by name.
+> **16.** Line 174: "Section 4?"If this is intended to refer to the Methods section.
 
-**17.** *Fig.3 Please consider adding the climate-state labels at the top of each column, as in the
-other figures.* — Added, here and on the other multi-panel figures; Reviewer 3 made the same request.
+Corrected to refer to the Methods section by name.
+
+> **17.** Fig.3 Please consider adding the climate-state labels at the top of each column, as in the other figures.
+
+Added, here and on the other multi-panel figures; Reviewer 3 made the same request.
 
 ![](letter_figs/fig03_labels-1.png)
 
-**Figure R1.8 (revised manuscript Fig. 3).** The surface density tendency figure with the
+**Figure R1.7 (revised manuscript Fig. 3).** The surface density tendency figure with the
 climate-state headings added, so that the columns are identified in the same way as in the other
 figures. The freshwater counterpart, Fig. 4, has been given the same headings.
 
-**18.** *Line 180/181: The LIG is first described as "showing modest changes", but later as
-"exhibiting a pronounced increase". These descriptions appear inconsistent.* — The two statements
-referred to different quantities, which was not clear. The changes are modest in the circumpolar
-integral and pronounced locally in the Ross Sea sector. The text now says so explicitly.
+> **18.** Line 180/181: The LIG is first described as "showing modest changes", but later as "exhibiting a pronounced increase". These descriptions appear inconsistent.
 
-**19.** *Could the authors briefly explain what is meant by thermal density tendency and
-sea-ice-driven density tendency in the methods.* — Definitions have been added to the Methods,
-including the sign convention and the physical meaning of brine rejection versus melt.
+The two statements referred to different quantities, which was not clear. The changes are modest in the circumpolar integral and pronounced locally in the Ross Sea sector. The text now says so explicitly.
+
+> **19.** Could the authors briefly explain what is meant by thermal density tendency and sea-ice-driven density tendency in the methods.
+
+Definitions have been added to the Methods, including the sign convention and the physical meaning of brine rejection versus melt.
 
 In the revised manuscript this now reads:
 
-> *"We refer throughout to the thermal density tendency, meaning the surface density change produced by the net heat flux acting through the thermal expansion coefficient, that is the -(/C_p)Q_net term, and to the sea-ice-driven density tendency, meaning the part of the haline term S F_fw that is carried by the thermodynamic growth and melt of sea ice. A positive value denotes densification of the surface water in both cases. Brine released during ice growth increases surface salinity and therefore density, whereas melting releases freshwater and reduces it."*
+> *"We refer throughout to the thermal density tendency, meaning the surface density change produced by the net heat flux acting through the thermal expansion coefficient, that is the -≤ft(/C_p)Q_net term, and to the sea-ice-driven density tendency, meaning the part of the haline term S F_fw that is carried by the thermodynamic growth and melt of sea ice. A positive value denotes densification of the surface water in both cases. Brine released during ice growth increases surface salinity and therefore density, whereas melting releases freshwater and reduces it."*
 
-**20.** *Line 209: Please add the appropriate reference(s) here to support this statement.* — We now
-cite Cerovečki et al. (2013) and Abernathey et al. (2016) in support of the statement that turbulent
-rather than radiative fluxes control the surface buoyancy budget.
+> **20.** Line 209: Please add the appropriate reference(s) here to support this statement.
 
-**21.** *Line 216-246: Please refer to the relevant subpanels of Figure A5.* — Done.
+We now cite Cerovečki et al. (2013) and Abernathey et al. (2016) in support of the statement that turbulent rather than radiative fluxes control the surface buoyancy budget.
 
-**22.** *Line 249, 255: The phrase "across at high latitudes" is somewhat unclear.* — Both instances
-have been rewritten. They now read "over the ice-free parts of the Southern Ocean south of about
-50°S" and "south of the ice edge" respectively.
+> **21.** Line216-246: Please refer to the relevant subpanels of Figure A5.
 
-**23.** *Could the authors clarify where the primary deep water formation regions occur in this
-model? ... relatively little signal is apparent over the Weddell and Ross Seas.* — We have added
-this diagnosis to the Results, and it is shown in Figure R1.2 above. In the pre-industrial state the
-Weddell sector accounts for 70% of the area with winter mixed layers deeper than 400 m south of
-55°S and 97% of the area deeper than 600 m, centred near 68°S in the gyre interior. The formation
-region is therefore the open Weddell gyre rather than the shelf, which is directly relevant to the
-model limitation discussed under G1.
-This also explains the pattern the reviewer noticed: the Southern Annular Mode heat flux signal is
-strongest over open water, and in the glacial states the coastal regions where dense water is
-produced are precisely those insulated by ice, so the surface flux anomalies there are small even
-though the transformation response is not.
+Done.
 
-**24.** *Lines 261-263: Please consider expanding on the physical mechanism linking positive SAM to
-freshwater loss and intensified brine rejection.* — Expanded, with the mechanism stated as a
-sequence: strengthened and poleward-shifted westerlies increase offshore Ekman transport of sea ice,
-which opens coastal polynyas, which exposes water at the freezing point to the atmosphere and
-sustains rapid new ice growth, which concentrates brine locally while the exported ice carries the
-compensating freshwater away to melt further north. References added.
+> **22.** Line 249, 255: The phrase "across at high latitudes" is somewhat unclear. Does this refer specifically to the Antarctic coastal region or the Southern Ocean south of a particular latitude? Please consider rephrasing for clarity.
 
-**25.** *Line 291, 294: Please check citation format.* — Corrected.
+Both instances have been rewritten. They now read "over the ice-free parts of the Southern Ocean south of about 50°S" and "south of the ice edge" respectively.
 
-**26.** *Line 301: Figure A4 appears to show only model results. Please consider including the
-observational estimates in the figure (or referring to them directly).* — We have added the
-quantitative comparison to the text and to the new Fig. 8, reproduced as Figure R1.1 above, which
-shows our transformation recomputed over the Pellichero domain alongside the standard domain. We report their published
-values directly in the Discussion, including the 5 ± 5 Sv transformation into denser classes and
-the stated factor of 2–5 by which the freshwater term exceeds the heat term in their sector, and we
-compare our numbers against them. We chose to make the comparison quantitatively in the text and
-in a dedicated figure rather than overplotting their curve, because their analysis is in neutral
-density over a different density range and an overlay would misleadingly imply a
-point-by-point correspondence that does not exist; the density-range mismatch is itself one of our
-findings. The appendix figures are now also cited in numerical order. We note that this comment and the general comment on model evaluation above concern the same comparison, and we have kept the two answers consistent: the quantitative comparison with the published observational values is given once in the Discussion, and both replies point to the same new figure.
+> **23.** Could the authors clarify where the primary deep water formation regions occur in this model? Identifying these regions would also help assess whether the SAM-related changes shown in Figure 5 are directly influencing the main regions of dense water formation, as relatively little signal is apparent over the Weddell and Ross Seas.
 
-**27.** *Lines 308-321: The discussion quantifies the interglacial changes ... but similar
-quantification is not provided for the glacial changes.* — Added. The glacial transformation
-maximum weakens to below 60 Sv and moves to σ₂ = 37.0–37.5 kg m⁻³, with the thermal share falling
-to 12–17%.
+We have added this diagnosis to the Results. In the pre-industrial state the Weddell sector accounts for 70% of the area with winter mixed layers deeper than 400 m south of 55°S and 97% of the area deeper than 600 m, centred near 68°S in the gyre interior. The formation region is therefore the open Weddell gyre rather than the shelf, which is directly relevant to the model limitation discussed under G1. This also explains the pattern the reviewer noticed: the Southern Annular Mode heat flux signal is strongest over open water, and in the glacial states the coastal regions where dense water is produced are precisely those insulated by ice, so the surface flux anomalies there are small even though the transformation response is not.
+
+> **24.** Lines 261-263: Please consider expanding on the physical mechanism linking positive SAM to freshwater loss and intensified brine rejection by additional explanation and supporting references.
+
+Expanded, with the mechanism stated as a sequence: strengthened and poleward-shifted westerlies increase offshore Ekman transport of sea ice, which opens coastal polynyas, which exposes water at the freezing point to the atmosphere and sustains rapid new ice growth, which concentrates brine locally while the exported ice carries the compensating freshwater away to melt further north. References added.
+
+> **25.** Line 291, 294: Please check citation format.
+
+Corrected.
+
+> **26.** Line 301:Figure A4 appears to show only model results. Please consider including the observational estimates in the figure (or referring to them directly) to support this statement. As noted above, it would also improve readability if the appendix figures were cited in numerical order.
+
+We have added the quantitative comparison to the text and to the new Fig. 8, reproduced as Figure R1.1 above, which shows our transformation recomputed over the Pellichero domain alongside the standard domain. We report their published values directly in the Discussion, including the 5 ± 5 Sv transformation into denser classes and the stated factor of 2–5 by which the freshwater term exceeds the heat term in their sector, and we compare our numbers against them. We chose to make the comparison quantitatively in the text and in a dedicated figure rather than overplotting their curve, because their analysis is in neutral density over a different density range and an overlay would misleadingly imply a point-by-point correspondence that does not exist; the density-range mismatch is itself one of our findings. The appendix figures are now also cited in numerical order. We note that this comment and the general comment on model evaluation above concern the same comparison, and we have kept the two answers consistent: the quantitative comparison with the published observational values is given once in the Discussion, and both replies point to the same new figure.
+
+> **27.** Lines 308-321: The discussion quantifies the interglacial changes (e.g., lines 315–316), but similar quantification is not provided for the glacial changes. For consistency, please consider including quantitative estimates for both.
+
+Added. The glacial transformation maximum weakens to below 60 Sv and moves to σ₂ = 37.0–37.5 kg m⁻³, with the thermal share falling to 12–17%.
 
 
 In the revised manuscript this now reads:
 
-> *"The winter transformation maximum weakens to below 60 Sv and moves to _2 = 37.0-37.5 kg m^-3, and the thermal share of the transformation falls to 12-17% while the sea ice term becomes dominant. Extensive ice cover insulates the ocean from atmospheric heat exchange, and simultaneously intensifies haline forcing through enhanced brine rejection concentrated in coastal regions."*
-**28.** *Lines 326 appear to repeat the statement made in line 323. In addition, the general
-statement in lines 323–325 does not appear to hold equally across all climate states.* — The
-repetition has been removed by merging the two sentences. We have also added the qualification the
-reviewer asks for, noting that the Ross Sea departs from the circumpolar picture and that in the
-glacial states the signal is carried largely by the Weddell sector.
+> *"The winter transformation maximum weakens to below 60 Sv and moves to σ₂ = 37.0-37.5 kg m⁻³, and the thermal share of the transformation falls to 12-17% while the sea ice term becomes dominant. Extensive ice cover insulates the ocean from atmospheric heat exchange, and simultaneously intensifies haline forcing through enhanced brine rejection concentrated in coastal regions."*
+
+> **28.** Lines 326 appear to repeat the statement made in line 323. In addition, the general statement in lines 323–325 does not appear to hold equally across all climate states. For example, the Ross Sea and Weddell Sea exhibit different behaviour for the peak-density classes.
+
+The repetition has been removed by merging the two sentences. We have also added the qualification the reviewer asks for, noting that the Ross Sea departs from the circumpolar picture and that in the glacial states the signal is carried largely by the Weddell sector.
 
 In the revised manuscript this now reads:
 
 > *"This circumpolar picture does not hold uniformly in every sector. The Ross Sea in particular departs from it, showing weaker and at some densities opposing responses, and in the glacial states the circumpolar signal is carried largely by the Weddell sector while the Ross and Adelie sectors contribute little."*
 
-**29.** *Line 339: Please provide a reference for the sediment-record evidence discussed here.* —
-On reflection we think the passage was speculative rather than supported, and Reviewer 3 raised the
-same objection from the opposite direction, noting that accumulation rates around the Antarctic
-margin are very low. We have replaced the proposal with a statement of the difficulty, and now
-present the persistence of the coupling as a property of the simulated system rather than as a
-practical route to a marine reconstruction.
+> **29.** Line 339: Please provide a reference for the sediment-record evidence discussed here.
+
+On reflection we think the passage was speculative rather than supported, and Reviewer 3 raised the same objection from the opposite direction, noting that accumulation rates around the Antarctic margin are very low. We have replaced the proposal with a statement of the difficulty, and now present the persistence of the coupling as a property of the simulated system rather than as a practical route to a marine reconstruction.
 
 In the revised manuscript this now reads:
 
 > *"Whether this persistent coupling could be exploited for proxy reconstruction is less clear than we previously suggested. Recovering an interannual-to-decadal signal from marine sediments would require accumulation rates and chronological precision that are rarely available around the Antarctic margin, where sedimentation is slow and bioturbation mixes the record over intervals far longer than the variability of interest. We therefore present the persistence of the coupling as a property of the simulated system rather than as a practical route to a marine Southern Annular Mode reconstruction."*
 
-**30.** *Section 4.1: Please define the full names of the abbreviated components.* — Done. The
-Methods now spell out that the radiative component is the sum of the shortwave and longwave fluxes
-and the turbulent component the sum of the latent and sensible heat fluxes.
+> **30.** Section 4.1: Please define the full names of the abbreviated components.
+
+Done. The Methods now spell out that the radiative component is the sum of the shortwave and longwave fluxes and the turbulent component the sum of the latent and sensible heat fluxes.
 
 In the revised manuscript this now reads:
 
 > *"In the figures the radiative component denotes the sum of the shortwave and longwave fluxes, and the turbulent component denotes the sum of the latent and sensible heat fluxes."*
 
-**31.** *Line 388: Please check the citation formatting.* — Corrected.
+> **31.** Line 388: Please check the citation formatting.
 
-**32.** *Lines 394-403: Please consider including a summary table listing the prescribed boundary
-conditions for each experiment.* — Added as Table 1; see G2.
+Corrected.
+
+> **32.** Lines 394-403: Please consider including a summary table listing the prescribed boundary conditions for each experiment (e.g., greenhouse gas concentrations, orbital parameters, ice-sheet reconstruction, and any other relevant forcings). This would make the experimental setup considerably easier to follow.
+
+Added as Table 1; see G2.
 
 ---
 
@@ -895,7 +897,7 @@ past bottom water formation rates.
 
 The relevant new passage reads:
 
-> *"The second factor is the density range, and it accounts for most of the remaining difference. Converting our simulated surface properties inside the September ice zone to the neutral density coordinate used by Pellichero et al., our thermally dominated transformation maximum sits near _n 27.3 kg m^-3, whereas the haline-dominated lower cell they describe occupies _n = 27.9-28.8 kg m^-3. Our surface transformation barely reaches the lighter edge of that range. In the densest classes our fluxes do populate (_2 37.0 kg m^-3), the PI transformation is haline dominated, with 0.79 Sv from sea ice against 0.06 Sv from heat. The two analyses are therefore largely describing different water masses, ours weighted toward mode and intermediate densities and theirs toward bottom water densities, and where they overlap they agree in sign. This also indicates that the interglacial thermal pathway identified here is more relevant to the formation of intermediate and mode waters than to bottom water proper."*
+> *"The second factor is the density range, and it accounts for most of the remaining difference. Converting our simulated surface properties inside the September ice zone to the neutral density coordinate used by Pellichero et al., our thermally dominated transformation maximum sits near γₙ ≈ 27.3 kg m⁻³, whereas the haline-dominated lower cell they describe occupies γₙ = 27.9-28.8 kg m⁻³. Our surface transformation barely reaches the lighter edge of that range. In the densest classes our fluxes do populate (σ₂ ≥ 37.0 kg m⁻³), the PI transformation is haline dominated, with 0.79 Sv from sea ice against 0.06 Sv from heat. The two analyses are therefore largely describing different water masses, ours weighted toward mode and intermediate densities and theirs toward bottom water densities, and where they overlap they agree in sign. This also indicates that the interglacial thermal pathway identified here is more relevant to the formation of intermediate and mode waters than to bottom water proper."*
 
 > *I find the SAM wind results interesting and I think more generalisable. The results suggest
 > changes in wind shift/strength impacts not just the ekman divergence i.e. upwelling of deepwaters,
@@ -1015,11 +1017,11 @@ rates derived from them are not affected by a slow deep-ocean adjustment of this
 
 The corresponding passage added to the Methods reads:
 
-> *"The deep ocean is the slower and more demanding test, and we report it explicitly because this study concerns abyssal ventilation. Volume-weighted below 2000 m, the mean potential temperature over the analysed century drifts by 0.009, 0.016 and 0.007 K century^-1 in PI, MH and LIG, and the interglacial drift is decelerating, with the trend over the second half of each record between 0.13 and 0.41 times that over the first half. The two glacial experiments are further from equilibrium. Their deep ocean drifts by 0.113 and 0.160 K century^-1, it warms by 0.58 and 0.89 K over the available record, and the trend is not decelerating. This reflects their initialisation from an earlier glacial state rather than from the pre-industrial control, and it means the glacial abyssal properties reported here should be read as a state that is still adjusting. It bears directly on the ideal ages, which we already describe as lower bounds, and it is a further reason to treat the surface transformation diagnostics, which respond to the surface forcing within years, as the more reliable part of this analysis than the absolute abyssal properties."*
+> *"The deep ocean is the slower and more demanding test, and we report it explicitly because this study concerns abyssal ventilation. Volume-weighted below 2000 m, the mean potential temperature over the analysed century drifts by 0.009, 0.016 and 0.007 K century⁻¹ in PI, MH and LIG, and the interglacial drift is decelerating, with the trend over the second half of each record between 0.13 and 0.41 times that over the first half. The two glacial experiments are further from equilibrium. Their deep ocean drifts by 0.113 and 0.160 K century⁻¹, it warms by 0.58 and 0.89 K over the available record, and the trend is not decelerating. This reflects their initialisation from an earlier glacial state rather than from the pre-industrial control, and it means the glacial abyssal properties reported here should be read as a state that is still adjusting. It bears directly on the ideal ages, which we already describe as lower bounds, and it is a further reason to treat the surface transformation diagnostics, which respond to the surface forcing within years, as the more reliable part of this analysis than the absolute abyssal properties."*
 
 The Methods now state:
 
-> *"Residual drift over the analysis period is small relative to the paleoclimate signals of interest. The trend in global mean 2 m temperature across the final century is +0.02 K century^-1 for PI, -0.03 for MH, -0.06 for LIG, +0.04 for LGM and +0.10 for MIS3. The last two values exceed the 0.05 K century^-1 criterion applied in earlier work with this model , and we note this explicitly rather than leaving it implicit. The deep ocean is the slower and more demanding test, and we report it explicitly because this study concerns abyssal ventilation. Volume-weighted below 2000 m, the mean potential temperature over the analysed century drifts by 0.009, 0.016 and 0.007 K century^-1 in PI, MH and LIG, and the interglacial drift is decelerating, with the trend over the second half of each record between 0.13 and 0.41 times that over the first half. The two glacial experiments are further from equilibrium. Their deep ocean drifts by 0.113 and 0.160 K century^-1, it warms by 0.58 and 0.89 K over the available record, and the trend is not decelerating. This reflects their initialisation from an earlier glacial state rather than from the pre-industrial control, and it means the glacial abyssal properties reported here should be read as a state that is still adjusting. It bears directly on the ideal ages, which we already describe as lower bounds, and it is a further reason to treat the surface transformation diagnostics, which respond to the surface forcing within years, as the more reliable part of this analysis than the absolute abyssal properties. The glacial-interglacial differences examined here are large by comparison: the same five simulations give a JJAS global mean surface air temperature of 15.5, 15.6 and 16.9 °C for PI, MH and LIG against 11.1 and 13.0 °C for LGM and MIS3 , a contrast of several kelvin. A century-scale drift of 0.1 K is therefore two orders of magnitude smaller than the signal and cannot account for it. The mid-Holocene simulation is also indistinguishable from the pre-industrial control in both the latitude and the strength of the Southern Hemisphere westerly jet, which argues against residual drift as the origin of the wind changes reported in the other paleoclimate states."*
+> *"Residual drift over the analysis period is small relative to the paleoclimate signals of interest. The trend in global mean 2 m temperature across the final century is +0.02 K century⁻¹ for PI, -0.03 for MH, -0.06 for LIG, +0.04 for LGM and +0.10 for MIS3. The last two values exceed the 0.05 K century⁻¹ criterion applied in earlier work with this model , and we note this explicitly rather than leaving it implicit. The deep ocean is the slower and more demanding test, and we report it explicitly because this study concerns abyssal ventilation. Volume-weighted below 2000 m, the mean potential temperature over the analysed century drifts by 0.009, 0.016 and 0.007 K century⁻¹ in PI, MH and LIG, and the interglacial drift is decelerating, with the trend over the second half of each record between 0.13 and 0.41 times that over the first half. The two glacial experiments are further from equilibrium. Their deep ocean drifts by 0.113 and 0.160 K century⁻¹, it warms by 0.58 and 0.89 K over the available record, and the trend is not decelerating. This reflects their initialisation from an earlier glacial state rather than from the pre-industrial control, and it means the glacial abyssal properties reported here should be read as a state that is still adjusting. It bears directly on the ideal ages, which we already describe as lower bounds, and it is a further reason to treat the surface transformation diagnostics, which respond to the surface forcing within years, as the more reliable part of this analysis than the absolute abyssal properties. The glacial-interglacial differences examined here are large by comparison: the same five simulations give a JJAS global mean surface air temperature of 15.5, 15.6 and 16.9 °C for PI, MH and LIG against 11.1 and 13.0 °C for LGM and MIS3 , a contrast of several kelvin. A century-scale drift of 0.1 K is therefore two orders of magnitude smaller than the signal and cannot account for it. The mid-Holocene simulation is also indistinguishable from the pre-industrial control in both the latitude and the strength of the Southern Hemisphere westerly jet, which argues against residual drift as the origin of the wind changes reported in the other paleoclimate states."*
 
 > *The authors mention that they use ideal age as a proxy for overturning which seems odd given
 > the overturning can be directly computed within the model. Ideal age is also strongly affected

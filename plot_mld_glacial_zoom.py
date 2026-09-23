@@ -9,8 +9,10 @@ background. Plotting LGM and MIS3 on their own 0-300 m scale (the 99th percentil
 of the winter field south of 55 S is 280 and 296 m) makes the coastal polynya
 cells stand out, which is where the glacial dense water is formed.
 
-Top row    LGM and MIS3 on the interglacial scale (0-400 m), as in the submitted figure
-Bottom row the same fields on a 0-300 m scale, with the 200 m contour marked
+The figure shows LGM and MIS3 on a 0-300 m scale with the 200 m contour marked,
+over the region south of 60 S where the glacial dense water is formed. The
+original 0-400 m version was dropped at Xiaoxu's request, since the point of the
+figure is what the tightened scale reveals rather than the comparison of scales.
 """
 import numpy as np
 import xarray as xr
@@ -44,8 +46,8 @@ def load(exp):
     v = [x for x in d.data_vars][0]
     mld = np.abs(d[v].values)[[5, 6, 7]].mean(axis=0)
     m.close(); d.close()
-    sel = lat < -48
-    gy = np.arange(-78, -47, 0.4)
+    sel = lat < -58
+    gy = np.arange(-78, -57, 0.4)
     gx = np.arange(-180, 180.5, 0.8)
     GX, GY = np.meshgrid(gx, gy)
     grid = griddata(np.column_stack([lon[sel], lat[sel]]), mld[sel], (GX, GY),
@@ -55,22 +57,21 @@ def load(exp):
 
 data = {e: load(e) for e in EXPS}
 
-fig = plt.figure(figsize=(11.5, 11.0))
-gs = fig.add_gridspec(2, 2, hspace=0.34, wspace=0.08,
-                      left=0.06, right=0.96, top=0.93, bottom=0.10)
+fig = plt.figure(figsize=(11.5, 6.0))
+gs = fig.add_gridspec(1, 2, wspace=0.08,
+                      left=0.06, right=0.96, top=0.90, bottom=0.17)
 proj = ccrs.SouthPolarStereo()
-letters = 'abcd'
+letters = 'ab'
 p = 0
 
-ROWS = [(400, np.arange(0, 401, 25), 'Original scale (0--400 m)', None),
-        (300, np.arange(0, 301, 20), 'Tightened scale (0--300 m)', 200)]
+ROWS = [(300, np.arange(0, 301, 20), 'Tightened scale (0--300 m)', 200)]
 
 cfs = []
 for r, (vmax, levels, rowlab, contour) in enumerate(ROWS):
     for c, (e, lab) in enumerate(zip(EXPS, LABELS)):
         gx, gy, grid = data[e]
         ax = fig.add_subplot(gs[r, c], projection=proj)
-        ax.set_extent([-180, 180, -90, -50], crs=ccrs.PlateCarree())
+        ax.set_extent([-180, 180, -90, -60], crs=ccrs.PlateCarree())
         circular(ax)
         cf = ax.contourf(gx, gy, grid, levels=levels, cmap='YlGnBu',
                          extend='max', transform=ccrs.PlateCarree())
@@ -88,22 +89,13 @@ for r, (vmax, levels, rowlab, contour) in enumerate(ROWS):
                 fontweight='bold', va='top',
                 bbox=dict(facecolor='white', edgecolor='none', alpha=0.75, pad=1))
         p += 1
-        if c == 0:
-            ax.text(-0.12, 0.5, rowlab, transform=ax.transAxes, rotation=90,
-                    va='center', ha='center', fontsize=14, fontweight='bold')
     cfs.append(cf)
 
-cax1 = fig.add_axes([0.28, 0.505, 0.44, 0.013])
-cb1 = fig.colorbar(cfs[0], cax=cax1, orientation='horizontal',
-                   ticks=np.arange(0, 401, 100))
-cb1.set_label('JJA mixed layer depth (m)', fontsize=13)
-cb1.ax.tick_params(labelsize=11)
-
-cax2 = fig.add_axes([0.28, 0.055, 0.44, 0.013])
-cb2 = fig.colorbar(cfs[1], cax=cax2, orientation='horizontal',
-                   ticks=np.arange(0, 301, 75))
-cb2.set_label('JJA mixed layer depth (m); orange contour = 200 m', fontsize=13)
-cb2.ax.tick_params(labelsize=11)
+cax = fig.add_axes([0.28, 0.085, 0.44, 0.022])
+cb = fig.colorbar(cfs[0], cax=cax, orientation='horizontal',
+                  ticks=np.arange(0, 301, 75))
+cb.set_label('JJA mixed layer depth (m); orange contour = 200 m', fontsize=13)
+cb.ax.tick_params(labelsize=11)
 
 fig.savefig('figures/figR7_mld_glacial_zoom.pdf', dpi=400)
 fig.savefig('figures/figR7_mld_glacial_zoom.png', dpi=200)

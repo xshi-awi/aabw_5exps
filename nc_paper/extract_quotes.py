@@ -31,15 +31,24 @@ def clean(t):
     t = re.sub(r'\\label\{[^}]*\}', '', t)
     t = t.replace('\\%', '%').replace('\\&', '&').replace('~', ' ')
     t = t.replace('$^{\\circ}$', '°').replace('$^\\circ$', '°')
-    t = t.replace('$\\sigma_2$', 'sigma_2').replace('$\\gamma_n$', 'gamma_n')
+    # Emit the Unicode symbols the letter already uses, rather than an ASCII
+    # transliteration. \sigma_2 occurs inside larger maths such as
+    # $\sigma_2 = 37.0$, so substitute the command itself; the generic
+    # \\[a-zA-Z]+ strip below would otherwise leave a bare "_2", and the
+    # surrounding $ would survive as a literal dollar sign.
+    t = t.replace('\\sigma_2', '\u03c3\u2082').replace('\\gamma_n', '\u03b3\u2099')
+    t = t.replace('\\sigma', '\u03c3').replace('\\gamma', '\u03b3')
+    t = t.replace('\\ge', '\u2265').replace('\\le', '\u2264')
+    t = t.replace('\\approx', '\u2248').replace('\\sim', '~')
     t = t.replace('$\\alpha$', 'alpha').replace('$\\beta$', 'beta')
-    t = t.replace('$\\pm$', '+/-').replace('$\\times$', 'x')
+    t = t.replace('$\\pm$', '\u00b1').replace('$\\times$', '\u00d7')
     t = t.replace('\\,', ' ').replace('--', '-')
     t = re.sub(r'\$([^$]*)\$', r'\1', t)
     t = t.replace('\\ldots', '...').replace("\\'e", 'e').replace('\\v{c}', 'c')
     t = re.sub(r'\\[a-zA-Z]+', '', t)
     t = t.replace('{', '').replace('}', '')
-    t = t.replace('^{-3}', '^-3').replace('^{-1}', '^-1').replace('^{-2}', '^-2')
+    t = t.replace('^{-3}', '⁻³').replace('^{-1}', '⁻¹').replace('^{-2}', '⁻²')
+    t = t.replace('^-3', '⁻³').replace('^-1', '⁻¹').replace('^-2', '⁻²')
     t = re.sub(r'\s+', ' ', t)
     return t.strip()
 
@@ -153,8 +162,8 @@ Q['drift'] = grab(
 
 # ---- previous validation (R1 general)
 Q['prev_validation'] = grab(
-    'These simulations have been documented',
-    'MARGO sea surface temperatures.')
+    'Because the balance of agreement and disagreement in those evaluations',
+    'on which the present analysis depends.')
 
 # ---- Sidorenko evaluation (R1 general, R3)
 Q['sidorenko'] = grab(
@@ -221,6 +230,16 @@ Q['deep_equil'] = grab(
 Q['pushpull'] = grab(
     'An asymmetry between the two routes emerges',
     'operating through a different pathway.')
+
+# ---- GLAC-1D boundary conditions (R1 G2)
+Q['glac1d'] = grab(
+    'The GLAC-1D reconstruction enters the model through several boundary fields',
+    'while PI, MH and LIG share the modern-geometry mesh.')
+
+# ---- moderated SAM proxy claim (R1 G3)
+Q['sam_proxy'] = grab(
+    'Whether this persistent coupling could be exploited for proxy reconstruction',
+    'marine Southern Annular Mode reconstruction.')
 
 missing = [k for k, v in Q.items() if not v]
 for k in missing:

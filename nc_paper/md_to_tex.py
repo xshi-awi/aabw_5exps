@@ -96,11 +96,13 @@ while i < n:
 
     # blockquote block
     if ln.startswith('>'):
+        # A blank line ends the quotation. Continuing across one would merge a
+        # manuscript quotation with the reviewer comment that follows it, which
+        # both fuses two different styles into one paragraph and loses the break
+        # the reader needs between them.
         blk = []
-        while i < n and (lines[i].startswith('>') or
-                         (lines[i].strip() == '' and i + 1 < n and lines[i + 1].startswith('>'))):
-            if lines[i].startswith('>'):
-                blk.append(lines[i].lstrip('> ').rstrip())
+        while i < n and lines[i].startswith('>'):
+            blk.append(lines[i].lstrip('> ').rstrip())
             i += 1
         text = ' '.join(x for x in blk if x)
         # a quotation of manuscript text looks like  *"..."*
