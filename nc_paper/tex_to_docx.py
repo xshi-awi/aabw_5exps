@@ -198,8 +198,15 @@ html = ('<!DOCTYPE html><html><head><meta charset="utf-8"><title>'
         + '\n'.join(out) + '\n</body></html>')
 HTML.write_text(html)
 
-subprocess.run(['pandoc', str(HTML), '-o', str(OUT),
-                '--from=html', '--to=docx'], check=True)
+# letter_reference.docx carries A4 page size, the margins measured from the
+# compiled PDF (left 100pt, right 124pt, top 77pt, bottom 187pt) and a serif
+# body font, so the .docx lays out like the .pdf rather than as default
+# Calibri on Letter.
+REF = Path('letter_reference.docx')
+cmd = ['pandoc', str(HTML), '-o', str(OUT), '--from=html', '--to=docx']
+if REF.exists():
+    cmd.append('--reference-doc=%s' % REF)
+subprocess.run(cmd, check=True)
 
 # ------------------------------------------------------------------ colour
 # pandoc 2.18 drops inline CSS colour, so inject it into the run properties.
@@ -230,6 +237,23 @@ with zipfile.ZipFile(OUT) as zin, zipfile.ZipFile(tmp, 'w', zipfile.ZIP_DEFLATED
                 return run.replace('<w:r>',
                                    '<w:r><w:rPr><w:color w:val="0000CC" /></w:rPr>', 1)
             xml = _re.sub(r'<w:r>.*?</w:r>', fix, xml, flags=_re.S)
+
+            # pandoc rebuilds sectPr from its own defaults and ignores the one
+            # in the reference doc, so set the page up here: A4 with the text
+            # block measured off the compiled PDF, in twentieths of a point.
+            SECT = ('<w:pgSz w:w="11906" w:h="16838"/>'
+                    '<w:pgMar w:top="1540" w:right="2480" w:bottom="3740"'
+                    ' w:left="2000" w:header="708" w:footer="708" w:gutter="0"/>')
+            # pandoc emits a self-closing <w:sectPr />, so match both forms
+            if _re.search(r'<w:sectPr\s*/>', xml):
+                xml = _re.sub(r'<w:sectPr\s*/>',
+                              '<w:sectPr>%s</w:sectPr>' % SECT, xml)
+            elif '<w:sectPr' in xml:
+                xml = _re.sub(r'<w:sectPr[^>]*>.*?</w:sectPr>',
+                              '<w:sectPr>%s</w:sectPr>' % SECT, xml, flags=_re.S)
+            else:
+                xml = xml.replace('</w:body>',
+                                  '<w:sectPr>%s</w:sectPr></w:body>' % SECT)
             data = xml.encode('utf-8')
         zout.writestr(item, data)
 shutil.move(tmp, OUT)

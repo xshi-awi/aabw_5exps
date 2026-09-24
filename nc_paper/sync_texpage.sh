@@ -146,6 +146,29 @@ do_push)
     git commit -q -m "${2:-Update revision from local working copy}"
     git push -q "$URL" main 2>&1 | hide
     echo "pushed $(du -sh revision | cut -f1) to TexPage"
+
+    # If a browser tab had the file open, TexPage may write that stale buffer
+    # back a little later and undo this push. Re-fetch and compare, so the
+    # answer is observed rather than assumed.
+    echo "verifying (the web editor can write a stale buffer back)..."
+    PUSHED_LETTER=$(md5sum revision/04_response_letter.tex | cut -d' ' -f1)
+    PUSHED_MS=$(md5sum revision/revised.tex | cut -d' ' -f1)
+    for _ in 1 2 3; do
+        sleep 20
+        git fetch -q "$URL" main 2>&1 | hide
+        git reset -q --hard FETCH_HEAD
+        NOW_LETTER=$(md5sum revision/04_response_letter.tex 2>/dev/null | cut -d' ' -f1)
+        NOW_MS=$(md5sum revision/revised.tex 2>/dev/null | cut -d' ' -f1)
+        if [ "$NOW_LETTER" != "$PUSHED_LETTER" ] || [ "$NOW_MS" != "$PUSHED_MS" ]; then
+            echo
+            echo "WARNING: the remote changed after the push."
+            git log --format='  %h  %s  (%ar)' -2 -- revision
+            echo "  Most likely an open browser tab wrote its buffer back."
+            echo "  Close the TexPage tab, then run: ./sync_texpage.sh pull"
+            exit 1
+        fi
+    done
+    echo "verified: the remote still matches what was pushed"
     ;;
 *)
     echo "usage: $0 [push|pull]"; exit 1 ;;
