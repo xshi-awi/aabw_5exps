@@ -79,6 +79,26 @@ if docx.exists():
     if n_dcap != n_md:
         fail.append(f'docx names {n_dcap} distinct figures, markdown defines {n_md}')
 
+    # A reply paragraph must be blue all the way through. Subscripts split a
+    # paragraph into several runs, and colouring only the run that carried the
+    # marker used to leave everything after the first sigma_2 black.
+    split = 0
+    for para in re.findall(r'<w:p>.*?</w:p>', x, re.S):
+        runs = [r for r in re.findall(r'<w:r>.*?</w:r>', para, re.S)
+                if re.search(r'<w:t[^>]*>.*?</w:t>', r, re.S)]
+        if runs and '0000CC' in runs[0] and not all('0000CC' in r for r in runs):
+            split += 1
+    # Symbols must survive as characters, not as stripped LaTeX leftovers.
+    import html as _html
+    body = _html.unescape(''.join(re.findall(r'<w:t[^>]*>(.*?)</w:t>', x, re.S)))
+    debris = re.findall(r'\\[a-zA-Z]+|&[a-z]+;|\$', body)
+    print(f'  docx: {split} paragraphs lose colour, {len(debris)} symbol artefacts')
+    if split:
+        fail.append(f'{split} docx reply paragraphs turn black part-way through')
+    if debris:
+        fail.append(f'{len(debris)} LaTeX/entity artefacts in docx text: '
+                    f'{sorted(set(debris))[:5]}')
+
 if fail:
     print('\nFAIL')
     for f in fail:

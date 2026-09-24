@@ -67,10 +67,19 @@ def inline(t):
     t = t.replace('$^\\circ$', '&deg;').replace('$\\circ$', '&deg;')
     t = t.replace('$\\pm$', '&plusmn;').replace('\\pm', '&plusmn;')
     t = t.replace('$\\alpha$', '&alpha;').replace('\\alpha', '&alpha;')
-    t = t.replace('$\\gamma_n$', '&gamma;<sub>n</sub>')
-    t = t.replace('\\gamma_n', '&gamma;<sub>n</sub>')
-    t = t.replace('$\\sigma_2$', '&sigma;<sub>2</sub>')
-    t = t.replace('\\sigma_2', '&sigma;<sub>2</sub>')
+    # md_to_tex writes the Greek letter and its subscript as two separate
+    # maths groups, e.g. $\sigma$$_2$, so matching only \sigma_2 missed every
+    # occurrence: the generic \\[a-zA-Z]+ strip below then deleted \sigma and
+    # left a bare "2". Normalise the split form first.
+    t = re.sub(r'\$\\(sigma|gamma|alpha|beta|delta|Delta)\$\$_\{?(\w+)\}?\$',
+               lambda m: '&%s;<sub>%s</sub>' % (m.group(1), m.group(2)), t)
+    t = re.sub(r'\$\\(sigma|gamma|alpha|beta|delta|Delta)_\{?(\w+)\}?\$',
+               lambda m: '&%s;<sub>%s</sub>' % (m.group(1), m.group(2)), t)
+    t = re.sub(r'\\(sigma|gamma|alpha|beta|delta|Delta)_\{?(\w+)\}?',
+               lambda m: '&%s;<sub>%s</sub>' % (m.group(1), m.group(2)), t)
+    # bare Greek letters with no subscript
+    t = re.sub(r'\$\\(sigma|gamma|beta|delta|Delta)\$',
+               lambda m: '&%s;' % m.group(1), t)
     t = t.replace('\\approx', '&asymp;').replace('\\ge', '&ge;').replace('\\le', '&le;')
     t = t.replace('\\times', '&times;')
     t = t.replace("\\'e", 'é').replace('\\v{c}', 'č').replace("\\'", '')
@@ -223,11 +232,12 @@ with zipfile.ZipFile(OUT) as zin, zipfile.ZipFile(tmp, 'w', zipfile.ZIP_DEFLATED
         data = zin.read(item.filename)
         if item.filename == 'word/document.xml':
             xml = data.decode('utf-8')
-            # a run looks like <w:r><w:rPr>...</w:rPr><w:t...>text</w:t></w:r>
-            def fix(m):
-                run = m.group(0)
-                if SENT not in run:
-                    return run
+            # Colour the WHOLE paragraph, not just the run holding the
+            # sentinel. A subscript or superscript makes pandoc split the text
+            # into several runs, and the sentinel sits only in the first one,
+            # so colouring per run left everything after the first sigma_2 or
+            # 10^11 black for the rest of the paragraph.
+            def colour_run(run):
                 run = run.replace(SENT, '')
                 if '<w:color' in run:
                     return run
@@ -236,7 +246,16 @@ with zipfile.ZipFile(OUT) as zin, zipfile.ZipFile(tmp, 'w', zipfile.ZIP_DEFLATED
                                        '<w:rPr><w:color w:val="0000CC" />', 1)
                 return run.replace('<w:r>',
                                    '<w:r><w:rPr><w:color w:val="0000CC" /></w:rPr>', 1)
-            xml = _re.sub(r'<w:r>.*?</w:r>', fix, xml, flags=_re.S)
+
+            def fix_para(m):
+                para = m.group(0)
+                if SENT not in para:
+                    return para
+                return _re.sub(r'<w:r>.*?</w:r>',
+                               lambda r: colour_run(r.group(0)), para, flags=_re.S)
+            xml = _re.sub(r'<w:p>.*?</w:p>', fix_para, xml, flags=_re.S)
+            # any sentinel outside a <w:p> (should not happen) must still go
+            xml = xml.replace(SENT, '')
 
             # pandoc rebuilds sectPr from its own defaults and ignores the one
             # in the reference doc, so set the page up here: A4 with the text
