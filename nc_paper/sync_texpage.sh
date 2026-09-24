@@ -34,6 +34,23 @@ cd "$WORK/repo"
 git config user.name "Xiaoxu Shi"
 git config user.email "OhickselroyBcEW@tvstar.com"
 
+# Assemble the folder that TexPage should hold, into $1. Used twice: once by
+# the push guard to see what the remote *would* become, and once for real.
+build_revision() {
+    local dst=$1
+    mkdir -p "$dst/figures" "$dst/letter_figs"
+    cp "$NC/build/revised.tex" "$NC/build/ref.bib" \
+       "$NC/build/sn-jnl.cls" "$NC/build/sn-nature.bst" "$dst/"
+    cp "$NC/SUBMISSION/04_response_letter.tex" "$dst/"
+    [ -f "$NC/texpage_README.md" ] && cp "$NC/texpage_README.md" "$dst/README.md"
+    # only the figures the manuscript actually cites, not all 52 in build/
+    grep -o 'includegraphics\[[^]]*\]{[^}]*}' "$NC/build/revised.tex" \
+        | sed 's/.*{\(.*\)}/\1/' | sort -u | while read -r f; do
+        cp "$NC/build/$f" "$dst/figures/" 2>/dev/null || true
+    done
+    cp "$NC/SUBMISSION/letter_figs/"*.png "$dst/letter_figs/"
+}
+
 case "${1:-push}" in
 pull)
     # show the whole repo: Xiaoxu adds folders of his own (e.g. "original
@@ -63,43 +80,64 @@ pull)
     echo "working copy is at $WORK/repo"
     ;;
 push)
-    # Xiaoxu edits on the TexPage web editor, and those edits sync back into
-    # this git repo automatically. Rebuilding revision/ from the local copy
-    # would delete them outright, not merely overwrite the files it happens to
-    # regenerate, so refuse to push over anything that arrived since the last
-    # push from here.
-    LAST=$(git log -1 --format=%H --author="Xiaoxu Shi" --grep="" -- revision 2>/dev/null || true)
-    INCOMING=$(git log --format=%h --grep="Updates from TeXPage" -1 -- revision 2>/dev/null || true)
-    if [ -n "$INCOMING" ]; then
-        NEWER=$(git log --format=%h "${INCOMING}..HEAD" --author="Xiaoxu Shi" -- revision 2>/dev/null | wc -l)
-        if [ "$NEWER" -eq 0 ]; then
-            echo "The web editor has changed revision/ since this script last pushed:"
-            git log --format='  %h  %s  (%ar)' -3 --grep="Updates from TeXPage" -- revision
-            echo
-            echo "Pushing now would delete those edits. Look at them first:"
-            echo "  ./sync_texpage.sh pull"
-            echo
-            echo "Once they are folded into the local copy, push with:"
-            echo "  ./sync_texpage.sh push-force \"message\""
-            exit 1
+    # Xiaoxu edits the .tex directly in the TexPage web editor. Rebuilding
+    # revision/ from the local copy does `rm -rf revision` first, so a push
+    # does not merge his edits, it deletes them.
+    #
+    # The earlier version of this guard compared commit TIMESTAMPS, which was
+    # useless: after any push from here, the local commit is the newest one, so
+    # the check passed even though the web copy still held edits that had never
+    # been folded into RESPONSE_LETTER.md. It also offered `push-force` as an
+    # escape hatch, and the escape hatch got used.
+    #
+    # Compare CONTENT instead. If the remote .tex differs from what this script
+    # would write, an edit exists on the web that is not in the local source,
+    # whatever the commit dates say.
+    STAGE=$(mktemp -d)
+    build_revision "$STAGE/revision"
+    DIRTY=""
+    for f in revised.tex 04_response_letter.tex; do
+        if [ -f "revision/$f" ] && \
+           ! diff -q -b -B <(sed 's/[[:space:]]*$//' "revision/$f") \
+                           <(sed 's/[[:space:]]*$//' "$STAGE/revision/$f") >/dev/null 2>&1; then
+            DIRTY="$DIRTY $f"
         fi
-    fi
-    ;&
-push-force)
-    rm -rf revision
-    mkdir -p revision/figures revision/letter_figs
-    cp "$NC/build/revised.tex" "$NC/build/ref.bib" \
-       "$NC/build/sn-jnl.cls" "$NC/build/sn-nature.bst" revision/
-    cp "$NC/SUBMISSION/04_response_letter.tex" revision/
-    [ -f "$NC/texpage_README.md" ] && cp "$NC/texpage_README.md" revision/README.md
-
-    # only the figures the manuscript actually cites, not all 52 in build/
-    grep -o 'includegraphics\[[^]]*\]{[^}]*}' "$NC/build/revised.tex" \
-        | sed 's/.*{\(.*\)}/\1/' | sort -u | while read -r f; do
-        cp "$NC/build/$f" revision/figures/ 2>/dev/null || true
     done
-    cp "$NC/SUBMISSION/letter_figs/"*.png revision/letter_figs/
+    # files Xiaoxu added on the web that the rebuild would not recreate
+    EXTRA=$(cd revision 2>/dev/null && find . -type f | sed 's|^\./||' | sort > "$STAGE/remote.txt"
+            cd "$STAGE/revision" && find . -type f | sed 's|^\./||' | sort > "$STAGE/local.txt"
+            comm -23 "$STAGE/remote.txt" "$STAGE/local.txt")
+    if [ -n "$DIRTY" ] || [ -n "$EXTRA" ]; then
+        echo "The web copy differs from what this script would write."
+        echo
+        for f in $DIRTY; do
+            echo "  $f has edits that are NOT in the local source:"
+            diff -u -b -B <(sed 's/[[:space:]]*$//' "$STAGE/revision/$f") \
+                          <(sed 's/[[:space:]]*$//' "revision/$f") \
+                | grep -E '^[-+][^-+]' | head -20 | sed 's/^/    /'
+            echo
+        done
+        [ -n "$EXTRA" ] && { echo "  files only on the web:"; echo "$EXTRA" | sed 's/^/    /'; echo; }
+        cat <<'MSG'
+Pushing would delete these. They must go into the generator source first,
+because the .tex is regenerated from nc_paper/RESPONSE_LETTER.md on every
+build: editing the .tex alone is undone by the next run of md_to_tex.py.
 
+  1. read the diff above
+  2. make the same change in nc_paper/RESPONSE_LETTER.md (or build/revised.tex)
+  3. rebuild, then push again
+
+There is deliberately no --force. If a web edit really is to be discarded,
+delete it in the web editor first, then push.
+MSG
+        rm -rf "$STAGE"
+        exit 1
+    fi
+    rm -rf "$STAGE"
+    ;&
+do_push)
+    rm -rf revision
+    build_revision revision
     git add -A revision
     if git diff --cached --quiet; then
         echo "nothing changed"

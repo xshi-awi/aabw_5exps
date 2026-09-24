@@ -177,20 +177,7 @@ In the revised manuscript the added passage reads:
 > robustness of the conclusions and the extent to which they may depend on the chosen model
 > configuration and forcing datasets. A summary table listing the prescribed greenhouse gas
 > concentrations, orbital parameters, and ice-sheet boundary conditions for each experiment
-> would also improve the readability of the Methods section. Clarifying several interpretations
-> Most interpretations are convincing, although a few statements could be presented more
-> carefully or supported more explicitly. For example, some descriptions of the role of the
-> Southern Annular Mode appear stronger than the presented evidence suggests, and several
-> discussions would benefit from more direct references to the relevant figure panels. Model
-> limitations: The manuscript convincingly demonstrates that sea ice drives the transition from
-> a thermally dominated to a haline-dominated dense water formation regime. However, the
-> discussion would benefit from a brief consideration of the known biases and limitations of
-> AWI-ESM2, particularly regarding Southern Ocean sea ice, mixed-layer depths, and Antarctic
-> Bottom Water formation. Discussing how these model characteristics may influence the proposed
-> mechanism would help readers assess the robustness and broader applicability of the
-> conclusions. Please consider adding latitude and longitude labels to all map figures where
-> appropriate. In addition, referring to specific figure subpanels throughout the text, rather
-> than only the full figure number, would make the discussion easier to follow.*
+> would also improve the readability of the Methods section.*
 
 Added, and we reproduce both the table and the expanded text here so the reviewer does not have to
 open the manuscript to check them. Table 1 lists the greenhouse gas concentrations, orbital
