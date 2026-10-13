@@ -267,17 +267,30 @@ shelf cavities, so basal melt beneath floating ice is absent by construction.
 model produces its pre-industrial deep mixed layers in the interior of the Weddell gyre near 68 deg S
 rather than over the continental shelf, so the convection is of the open-ocean type. The published
 evaluation of this model configuration does not itself examine Southern Ocean mixed layer depth, so
-this is our own diagnosis from our own output, and we state it as such. 
+this is our own diagnosis from our own output, and we state it as such. We therefore compare the
+simulated field directly against the ORAS5 ocean reanalysis, which does carry a mixed layer
+diagnostic for this region.
 
-![](letter_figs/figR15_mld_maps_5exps.png)
+The broad pattern is reproduced. Both the model and the reanalysis keep shallow mixed layers over
+most of the open Southern Ocean, deepen towards the Antarctic margin, and place the deepest water
+of the sector in the Atlantic sector. Where they part company is the Weddell gyre interior: the
+model opens a patch deeper than 400 m that the reanalysis does not have at all, and its Weddell
+sector mean is 128 m against 71 m. This is the open-ocean convection described above, and the
+comparison localises it rather than leaving it as an assertion.
 
-**Figure R1.2 (new analysis).** Winter mixed layer depth south of 60°S for the five states. The
-interglacial panels (a-c) use a 0-800 m scale with the 400 m contour in orange; the glacial panels
-(d-e) use a 0-300 m scale with the 200 m contour, because the glacial mixed layer never approaches
-400 m and the shared scale would leave those panels featureless. The pre-industrial deep mixed
-layers sit in the interior of the Weddell gyre rather than over the shelf, which is the bias this
-comment asks about, and the same pattern holds in MH and LIG. In the glacial states only narrow
-coastal cells remain, in the Weddell, Prydz Bay and Ross sectors.
+![](letter_figs/figR17_mld_pi_vs_obs.png)
+
+**Figure R1.2 (new analysis).** Winter mixed layer depth south of 60°S. (a) The pre-industrial
+simulation. (b) The ORAS5 ocean reanalysis, JJA climatology over 1990-2009. The large-scale
+pattern agrees: both are shallow over most of the open Southern Ocean, both deepen towards the
+Antarctic margin, and both show the deepest water of the sector in the Atlantic sector. The
+difference is where it matters for this study. The model places a large patch deeper than 400 m in
+the interior of the Weddell gyre, covering 1.9 per cent of the area south of 60°S against 0.0 per
+cent in the reanalysis, and its Weddell sector mean is 128 m against 71 m. Area-weighted over the
+whole sector the model gives 100 m against 78 m, so the bias is concentrated in the convecting
+patch rather than spread evenly. We note that the two use different mixed layer definitions, a
+0.01 kg m⁻³ density threshold in ORAS5 and a bulk Richardson number criterion in the model, so the
+point-by-point difference is not purely model error.
 
 **Sea ice.** The published evaluation reports that Antarctic sea ice in this configuration is too
 thin, hardly reaching 0.25 m in the central Weddell Sea in September, and that the Southern Ocean
@@ -320,10 +333,12 @@ trial versions and crowded the panel margins. We are happy to add complete label
 ![](letter_figs/fig_age_labels-1.png)
 
 **Figure R1.3 (revised manuscript figure).** The ventilation age figure as an example of the
-labelling now applied throughout. Every panel carries labelled latitude circles and labelled
-meridians, and the climate state is named above each panel. The mixed layer, wind stress and
-composite figures have been treated the same way; please refer to the revised manuscript and
-supplement for the complete set.
+labelling now applied throughout. Meridians are labelled upright inside the map boundary and
+latitude circles are labelled along the 180° meridian, at 60°S, 70°S and 80°S. Placing both inside
+avoids the labels of neighbouring panels running into one another, which happened when they were
+set outside the circular boundary, and it leaves more room for the maps themselves. The mixed
+layer, wind stress and composite figures have been treated the same way; please refer to the
+revised manuscript and supplement for the complete set.
 
 ## Specific comments
 

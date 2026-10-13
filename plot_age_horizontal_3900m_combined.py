@@ -112,15 +112,27 @@ def plot_polar(ax, data, lat, lon, norm, cmap, label, title):
                        transform=ccrs.PlateCarree(),
                        shading='auto', zorder=2)
 
-    gl = ax.gridlines(draw_labels=True, linewidth=0.6, alpha=0.8, linestyle='--',
-                      color='gray', zorder=5,
-                      x_inline=False, y_inline=True)
+    # Labels outside the circular boundary, rotated to follow it, ran into each
+    # other between neighbouring panels and ate the space between them. Both
+    # sets go inside instead: longitudes upright at the rim, latitudes along the
+    # 180 deg meridian, which is where Xiaoxu asked for them.
+    gl = ax.gridlines(draw_labels=False, linewidth=0.6, alpha=0.8,
+                      linestyle='--', color='gray', zorder=5)
     gl.xlocator = mticker.FixedLocator(np.arange(-180, 181, 60))
     gl.ylocator = mticker.FixedLocator(np.arange(-80, -49, 10))
-    gl.xlabel_style = {'size': 11, 'color': '#333333'}
-    gl.ylabel_style = {'size': 10, 'color': '#333333'}
-    gl.top_labels = False
-    gl.right_labels = False
+
+    for lon in (-120, -60, 0, 60, 120, 180):
+        lab = '0°' if lon == 0 else ('180°' if abs(lon) == 180
+                                     else '%d°%s' % (abs(lon), 'W' if lon < 0 else 'E'))
+        ax.text(lon, -52.0, lab, transform=ccrs.PlateCarree(),
+                ha='center', va='center', fontsize=9, color='#333333',
+                zorder=6,
+                bbox=dict(facecolor='white', edgecolor='none', alpha=0.7, pad=0.6))
+    for la in (-60, -70, -80):
+        ax.text(180, la, '%d°S' % abs(la), transform=ccrs.PlateCarree(),
+                ha='center', va='center', fontsize=8.5, color='#333333',
+                zorder=6,
+                bbox=dict(facecolor='white', edgecolor='none', alpha=0.7, pad=0.6))
 
     # panel label
     ax.text(0.03, 0.97, f'({label})', transform=ax.transAxes,

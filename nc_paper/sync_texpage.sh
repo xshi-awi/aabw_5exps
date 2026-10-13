@@ -167,8 +167,20 @@ MSG
     rm -rf "$STAGE"
     ;&
 do_push)
+    STAGE_KEEP=$(mktemp -d)
+    KEPT=$(cd revision 2>/dev/null && find . -maxdepth 1 -type f \
+           \( -name '*.docx' -o -name '*.txt' \) \
+           ! -name '05_response_letter*.docx' -printf '%f\n' 2>/dev/null || true)
+    for f in $KEPT; do cp "revision/$f" "$STAGE_KEEP/" 2>/dev/null || true; done
+    [ -n "$KEPT" ] && echo "keeping web uploads: $(echo $KEPT | tr '\n' ' ')"
     rm -rf revision
     build_revision revision
+    # preserve anything uploaded through the web editor that the rebuild does
+    # not recreate, such as an annotated docx
+    if [ -d "$STAGE_KEEP" ]; then
+        cp -n "$STAGE_KEEP"/* revision/ 2>/dev/null || true
+    fi
+
     git add -A revision
     if git diff --cached --quiet; then
         echo "nothing changed"
