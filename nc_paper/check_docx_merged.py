@@ -76,6 +76,39 @@ def is_our_own_output(path):
     return ours and not edited
 
 
+def formatting_report(path):
+    """Report emphasis choices the text comparison cannot see.
+
+    norm() strips markdown emphasis so that cosmetic differences do not raise
+    false alarms, which means a change like removing the italics from a
+    reviewer comment passes silently. Compare the styling of the docx against
+    the convention the build applies: reviewer comments plain black, replies
+    blue, quoted manuscript text blue italic.
+    """
+    x = zipfile.ZipFile(path).read('word/document.xml').decode('utf-8')
+    x = re.sub(r'<w:del [^>]*>.*?</w:del>', '', x, flags=re.S)
+    out = []
+    for p in re.findall(r'<w:p [^>]*>.*?</w:p>|<w:p>.*?</w:p>', x, re.S):
+        t = html.unescape(''.join(re.findall(r'<w:t[^>]*>(.*?)</w:t>', p, re.S))).strip()
+        if len(t) < MIN_LEN or t.lstrip().startswith(('Figure R', 'Table R')):
+            continue
+        runs = [r for r in re.findall(r'<w:r[ >].*?</w:r>', p, re.S)
+                if re.search(r'<w:t[^>]*>', r)]
+        if not runs:
+            continue
+        ital = all(('<w:i/>' in r or '<w:i ' in r or '<w:i />' in r) for r in runs)
+        blue = '0000CC' in p or '0000cc' in p
+        quoted = t.lstrip().startswith(('"', '\u201c'))
+        has_quote = ('\u201c' in t) or ('"' in t)
+        if ital and not quoted and not has_quote:
+            out.append('  italic but not a quotation: %s' % t[:90])
+        if quoted and not ital:
+            out.append('  manuscript quotation not italic: %s' % t[:90])
+    if out:
+        return ['formatting differs from the convention in %d place(s):' % len(out)] + out[:12]
+    return []
+
+
 def main():
     docx = Path(sys.argv[1]) if len(sys.argv) > 1 else DOCX
     if not docx.exists():
@@ -102,8 +135,14 @@ def main():
         if probe not in md_norm:
             missing.append(t)
 
+    fmt = formatting_report(docx)
+
     if not missing:
         print('all %s paragraphs are in %s' % (docx.name, MD.name))
+        if fmt:
+            print()
+            for line in fmt:
+                print(line)
         return 0
 
     print('%d paragraph(s) in %s are NOT in %s.' % (len(missing), docx.name, MD.name))
