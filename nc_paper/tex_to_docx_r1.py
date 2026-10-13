@@ -16,7 +16,7 @@ from pathlib import Path
 SRC = Path('SUBMISSION/04_response_letter_R1.tex')
 HTML = Path('/tmp/claude-22370/-work-ba1066-a270064-cc-projects-aabw-5exps/'
             'a0433b42-6a8d-4bfc-8edf-280a200280f5/scratchpad/letter.html')
-OUT = Path('SUBMISSION/05_response_letter_R1.docx')
+OUT = Path('SUBMISSION/response_letter_R1_1013.docx')
 
 s = SRC.read_text()
 

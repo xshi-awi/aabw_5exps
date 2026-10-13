@@ -44,7 +44,7 @@ build_revision() {
     cp "$NC/SUBMISSION/04_response_letter.tex" "$dst/"
     # the Reviewer 1 draft is the document under active revision
     for f in 04_response_letter_R1.tex 04_response_letter_R1.pdf \
-             05_response_letter_R1.docx; do
+             response_letter_R1_1013.docx; do
         [ -f "$NC/SUBMISSION/$f" ] && cp "$NC/SUBMISSION/$f" "$dst/"
     done
     [ -f "$NC/texpage_README.md" ] && cp "$NC/texpage_README.md" "$dst/README.md"
@@ -170,7 +170,8 @@ do_push)
     STAGE_KEEP=$(mktemp -d)
     KEPT=$(cd revision 2>/dev/null && find . -maxdepth 1 -type f \
            \( -name '*.docx' -o -name '*.txt' \) \
-           ! -name '05_response_letter*.docx' -printf '%f\n' 2>/dev/null || true)
+           ! -name '05_response_letter*.docx' \
+           ! -name 'response_letter_R1_1013.docx' -printf '%f\n' 2>/dev/null || true)
     for f in $KEPT; do cp "revision/$f" "$STAGE_KEEP/" 2>/dev/null || true; done
     [ -n "$KEPT" ] && echo "keeping web uploads: $(echo $KEPT | tr '\n' ' ')"
     rm -rf revision

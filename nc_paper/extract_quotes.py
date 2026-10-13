@@ -178,7 +178,7 @@ Q['prev_validation'] = grab(
 # ---- Sidorenko evaluation (R1 general, R3)
 Q['sidorenko'] = grab(
     'Independent evaluations of this model provide context',
-    'reported here is our own.')
+    'convection behaviour we diagnose above.')
 
 # ---- domain and density-class resolution (R2 major 1, R3)
 Q['domain_test'] = grab(
