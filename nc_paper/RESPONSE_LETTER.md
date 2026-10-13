@@ -321,7 +321,7 @@ revised manuscript and supplement.
 
 **Figure R1.3 (revised manuscript figure).** The ventilation age figure as an example of the
 labelling now applied throughout. Meridians are labelled upright inside the map boundary and
-latitude circles are labelled along the 180° meridian, at 60°S, 70°S and 80°S. Placing both inside
+latitude circles are labelled along the 150°E meridian, at 60°S, 70°S and 80°S. Placing both inside
 avoids the labels of neighbouring panels running into one another, which happened when they were
 set outside the circular boundary, and it leaves more room for the maps themselves. The mixed
 layer, wind stress and composite figures have been treated the same way; please refer to the

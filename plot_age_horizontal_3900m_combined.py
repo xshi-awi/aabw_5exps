@@ -129,10 +129,9 @@ def plot_polar(ax, data, lat, lon, norm, cmap, label, title):
                 zorder=6,
                 bbox=dict(facecolor='white', edgecolor='none', alpha=0.7, pad=0.6))
     for la in (-60, -70, -80):
-        ax.text(180, la, '%d°S' % abs(la), transform=ccrs.PlateCarree(),
+        ax.text(150, la, '%d°S' % abs(la), transform=ccrs.PlateCarree(),
                 ha='center', va='center', fontsize=8.5, color='#333333',
-                zorder=6,
-                bbox=dict(facecolor='white', edgecolor='none', alpha=0.7, pad=0.6))
+                zorder=6)
 
     # panel label
     ax.text(0.03, 0.97, f'({label})', transform=ax.transAxes,
