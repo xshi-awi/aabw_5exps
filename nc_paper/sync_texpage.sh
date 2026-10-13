@@ -42,6 +42,11 @@ build_revision() {
     cp "$NC/build/revised.tex" "$NC/build/ref.bib" \
        "$NC/build/sn-jnl.cls" "$NC/build/sn-nature.bst" "$dst/"
     cp "$NC/SUBMISSION/04_response_letter.tex" "$dst/"
+    # the Reviewer 1 draft is the document under active revision
+    for f in 04_response_letter_R1.tex 04_response_letter_R1.pdf \
+             05_response_letter_R1.docx; do
+        [ -f "$NC/SUBMISSION/$f" ] && cp "$NC/SUBMISSION/$f" "$dst/"
+    done
     [ -f "$NC/texpage_README.md" ] && cp "$NC/texpage_README.md" "$dst/README.md"
     # only the figures the manuscript actually cites, not all 52 in build/
     grep -o 'includegraphics\[[^]]*\]{[^}]*}' "$NC/build/revised.tex" \
@@ -66,7 +71,7 @@ pull)
     git log --format='  %h  %s  (%ar)' -5 --grep="Updates from TeXPage" || echo "  none"
     echo
     echo "differences against the local copies:"
-    for f in revised.tex 04_response_letter.tex; do
+    for f in revised.tex 04_response_letter.tex 04_response_letter_R1.tex; do
         local_f="$NC/build/$f"
         [ -f "$local_f" ] || local_f="$NC/SUBMISSION/$f"
         if [ -f "$local_f" ] && ! diff -q "revision/$f" "$local_f" >/dev/null 2>&1; then
@@ -96,7 +101,7 @@ push)
     STAGE=$(mktemp -d)
     build_revision "$STAGE/revision"
     DIRTY=""
-    for f in revised.tex 04_response_letter.tex; do
+    for f in revised.tex 04_response_letter.tex 04_response_letter_R1.tex; do
         if [ -f "revision/$f" ] && \
            ! diff -q -b -B <(sed 's/[[:space:]]*$//' "revision/$f") \
                            <(sed 's/[[:space:]]*$//' "$STAGE/revision/$f") >/dev/null 2>&1; then
@@ -107,17 +112,35 @@ push)
     EXTRA=$(cd revision 2>/dev/null && find . -type f | sed 's|^\./||' | sort > "$STAGE/remote.txt"
             cd "$STAGE/revision" && find . -type f | sed 's|^\./||' | sort > "$STAGE/local.txt"
             comm -23 "$STAGE/remote.txt" "$STAGE/local.txt")
+    REMOTE_HASH=$(cat revision/revised.tex revision/04_response_letter.tex 2>/dev/null \
+                  | md5sum | cut -c1-12)
+    REVIEWED=""
+    PREV=""
+    for a in "$@"; do
+        [ "$PREV" = "--reviewed" ] && REVIEWED=$a
+        PREV=$a
+    done
+    if [ -n "$REVIEWED" ] && [ "$REVIEWED" = "$REMOTE_HASH" ]; then
+        echo "remote state $REMOTE_HASH acknowledged as reviewed; proceeding"
+        DIRTY=""
+        EXTRA=""
+    fi
     if [ -n "$DIRTY" ] || [ -n "$EXTRA" ]; then
         echo "The web copy differs from what this script would write."
         echo
         for f in $DIRTY; do
-            echo "  $f has edits that are NOT in the local source:"
+            echo "  $f differs.  -  what this push would write"
+            echo "                  +  what the remote holds now"
             diff -u -b -B <(sed 's/[[:space:]]*$//' "$STAGE/revision/$f") \
                           <(sed 's/[[:space:]]*$//' "revision/$f") \
-                | grep -E '^[-+][^-+]' | head -20 | sed 's/^/    /'
+                | grep -E '^[-+][^-+]' | head -20 | cut -c1-240 | sed 's/^/    /' || true
             echo
         done
-        [ -n "$EXTRA" ] && { echo "  files only on the web:"; echo "$EXTRA" | sed 's/^/    /'; echo; }
+        if [ -n "$EXTRA" ]; then
+            echo "  files only on the web:"
+            echo "$EXTRA" | sed 's/^/    /'
+            echo
+        fi
         cat <<'MSG'
 Pushing would delete these. They must go into the generator source first,
 because the .tex is regenerated from nc_paper/RESPONSE_LETTER.md on every
@@ -127,9 +150,17 @@ build: editing the .tex alone is undone by the next run of md_to_tex.py.
   2. make the same change in nc_paper/RESPONSE_LETTER.md (or build/revised.tex)
   3. rebuild, then push again
 
-There is deliberately no --force. If a web edit really is to be discarded,
-delete it in the web editor first, then push.
+There is deliberately no --force. If the difference is a local edit of your own
+that simply has not reached the remote yet, acknowledge THIS EXACT remote state
+and push again:
+
+  ./sync_texpage.sh push "message" --reviewed RHASH
+
+The hash names the remote content you just read above, so it stops working the
+moment anything changes on the remote. It is not a force flag: it cannot
+discard an edit you have not seen.
 MSG
+        echo "  RHASH for the state shown above: $(cat revision/revised.tex revision/04_response_letter.tex 2>/dev/null | md5sum | cut -c1-12)"
         rm -rf "$STAGE"
         exit 1
     fi
