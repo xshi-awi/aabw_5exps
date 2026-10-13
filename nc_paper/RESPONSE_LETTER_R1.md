@@ -56,7 +56,7 @@ marked in the accompanying tracked-changes file.
 *Draft covering Reviewer 1 only. The replies to Reviewers 2 and 3 are unchanged from the previous
 version and are not reproduced here, pending Jiping's review.*
 
-# Reviewer #1
+# Response to comments by Reviewer #1
 
 > *The manuscript presents a comprehensive investigation of Southern Ocean dense water formation
 > across a range of glacial and interglacial climates using the AWI-ESM2 Earth system model. By
@@ -70,8 +70,8 @@ version and are not reproduced here, pending Jiping's review.*
 > revisions. My comments below are primarily intended to strengthen the robustness of the
 > conclusions and improve the clarity of the presentation.*
 
-We thank the reviewer for this assessment and for the unusually thorough list of specific comments,
-which has improved the presentation considerably.
+We thank the reviewer for the constructive general comments and a thorough list of specific
+comments.
 
 ## General comments
 
@@ -194,10 +194,11 @@ attributing it to a published evaluation.
 > concentrations, orbital parameters, and ice-sheet boundary conditions for each experiment
 > would also improve the readability of the Methods section.*
 
-Added, and we reproduce both the table and the expanded text here so the reviewer does not have to
-open the manuscript to check them. Table 1 lists the greenhouse gas concentrations, orbital
-parameters and ice sheet configuration for all five experiments, and the values are those actually
-used in the runs rather than the protocol defaults.
+Following the reviewer's suggestion, we have provided a summary table (Table R1, manuscript
+Table 1), which lists the greenhouse gas concentrations, orbital parameters and ice sheet
+configuration for all five experiments. The values are those actually used in the runs rather than
+the protocol defaults, and we reproduce the table here so the reviewer does not have to open the
+manuscript to check them.
 
 | | CO₂ (ppm) | CH₄ (ppb) | N₂O (ppb) | Eccentricity | Obliquity (°) | Perihelion (°) | Ice sheet / bathymetry |
 |---|---|---|---|---|---|---|---|
@@ -207,18 +208,14 @@ used in the runs rather than the protocol defaults.
 | LGM | 190.0 | 375.0 | 200.0 | 0.018994 | 22.949 | 294.42 | GLAC-1D 21 ka |
 | MIS3 | 210.5 | 556.2 | 247.4 | 0.013676 | 23.2591 | 25.99 | GLAC-1D 38 ka |
 
-**Table R1.1 (manuscript Table 1).** Boundary conditions prescribed in the five equilibrium
+**Table R1.** Boundary conditions prescribed in the five equilibrium
 simulations. Orbital parameters for PI are those of 1850 CE. Greenhouse gas concentrations are
 volume mixing ratios.
 
-We have also expanded the surrounding text, since the reviewer is right that the implementation of
-GLAC-1D was underspecified. The point we had left implicit is that the reconstruction does not
-enter through one field but through several at once, including the ocean bathymetry, which is why
-each glacial period needs its own unstructured mesh.
+We have also expanded the text describing the boundary conditions used in the experimental design,
+especially the implementation of the GLAC-1D ice-sheet reconstruction. Now reads:
 
-In the revised manuscript the experimental design now reads:
-
-> *"We perform five equilibrium simulations spanning distinct climate states including three interglacial periods, i.e., pre-industrial (PI), mid-Holocene (MH), and last interglacial (LIG), and two glacial periods, i.e., the Last Glacial Maximum (LGM) and Marine Isotope Stage 3 (MIS3). The boundary conditions are configured following the criteria of PMIP4 and are summarised in Table 1. Orbital parameters are calculated following , and the greenhouse gas concentrations are taken from multi-archive reconstructions from ice core records and recent measurements of firn air and atmospheric samples . For LGM and MIS3, we fix the boundary conditions at 21 ka and 38 ka respectively, with the topography and ice-sheet properties deriving from the GLAC1D reconstruction . The GLAC-1D reconstruction enters the model through several boundary fields at once, and it is clearest to list them by the component that uses them. The atmosphere receives the ice sheet extent and surface elevation as orography, together with the land-sea mask implied by the lowered sea level, so that the glacial topography and coastline are felt by the circulation. The land surface receives the same mask and elevation, and from them the river routing and the vegetation distribution, both of which are recomputed for the glacial geometry rather than held at their modern values. The ocean receives the bathymetry and the coastline. Because the ocean component uses an unstructured mesh, a changed coastline cannot be imposed on the existing grid and a dedicated mesh must be generated for each glacial period; we use meshes constructed for 21 ka and 38 ka respectively, while PI, MH and LIG share the modern-geometry mesh. Global mean ocean salinity is raised in the glacial experiments to account for the water stored in the ice sheets. No prescribed ice sheet meltwater flux is applied in any of the equilibrium simulations, and the model configuration does not include ice shelf cavities, so basal melt beneath floating ice shelves is not represented."*
+> *"We perform five equilibrium simulations spanning distinct climate states including three interglacial periods, i.e., pre-industrial (PI), mid-Holocene (MH), and last interglacial (LIG), and two glacial periods, i.e., the Last Glacial Maximum (LGM) and Marine Isotope Stage 3 (MIS3). The boundary conditions are configured following the criteria of PMIP4 and are summarised in Table 1. Orbital parameters are calculated following , and the greenhouse gas concentrations are taken from multi-archive reconstructions from ice core records and recent measurements of firn air and atmospheric samples . For LGM and MIS3, we fix the boundary conditions at 21 ka and 38 ka respectively, with the topography and ice-sheet properties deriving from the GLAC1D reconstruction . The GLAC-1D reconstruction enters the model through several boundary fields at once, and it is clearest to list them by the component that uses them. Specifically, the atmosphere receives the ice sheet extent and surface elevation as orography, together with the land-sea mask implied by the lowered sea level, so that the glacial topography and coastline are felt by the circulation. The land surface receives the same mask and elevation, and from them the river routing and the vegetation distribution, both of which are recomputed for the glacial geometry rather than held at their modern values. The ocean receives the bathymetry and the coastline. Because the ocean component uses an unstructured mesh, a changed coastline cannot be imposed on the existing grid and a dedicated mesh must be generated for each glacial period; we use meshes constructed for 21 ka and 38 ka respectively, while PI, MH and LIG share the modern-geometry mesh. Global mean ocean salinity is raised in the glacial experiments to account for the water stored in the ice sheets. No prescribed ice sheet meltwater flux is applied in any of the equilibrium simulations, and the model configuration does not include ice shelf cavities, so basal melt beneath floating ice shelves is not represented."*
 
 ### Clarifying several interpretations
 
@@ -340,7 +337,7 @@ The abstract now introduces the Southern Annular Mode through the mechanism that
 
 In the revised manuscript this now reads:
 
-> *"Because the balance between these two pathways is set by how much of the surface is ice covered, it also governs the response to internal atmospheric variability. The Southern Annular Mode modulates transformation by 3-8 Sv between its positive and negative phases in every climate state, working through heat loss when the ocean is open and through brine rejection when it is ice covered."*
+> *"The balance between these two pathways is set by sea ice extent, which is modulated by internal atmospheric variability. Further analysis suggests that the Southern Annular Mode modulates transformation by 3-8 Sv between its positive and negative phases in every climate state, working through heat loss when the ocean is open and through brine rejection when it is ice covered."*
 
 > **3.** Line 24: "same mechanisms" sounds vague her without additional context. The abstract should be understandable on its own without requiring the reader to refer to the main text.
 
@@ -349,7 +346,7 @@ reader having seen the main text.
 
 In the revised manuscript this now reads:
 
-> *"Because the balance between these two pathways is set by how much of the surface is ice covered, it also governs the response to internal atmospheric variability. The Southern Annular Mode modulates transformation by 3-8 Sv between its positive and negative phases in every climate state, working through heat loss when the ocean is open and through brine rejection when it is ice covered."*
+> *"The balance between these two pathways is set by sea ice extent, which is modulated by internal atmospheric variability. Further analysis suggests that the Southern Annular Mode modulates transformation by 3-8 Sv between its positive and negative phases in every climate state, working through heat loss when the ocean is open and through brine rejection when it is ice covered."*
 
 > **4.** Lines 25-27: Similar to Comment 2 above, additional context is needed before introducing the deep ocean ventilation results. The motivation for analysing ventilation ages only becomes clear later in the manuscript, whereas the abstract should be self-contained.
 

@@ -88,7 +88,7 @@ Q = {}
 
 # ---- abstract, the SAM bridge sentence (R1 comments 2, 3, 4)
 Q['abstract_sam'] = grab(
-    'Because the balance between these two pathways',
+    'The balance between these two pathways is set by sea ice extent',
     'when it is ice covered.')
 
 Q['abstract_vent'] = grab(
