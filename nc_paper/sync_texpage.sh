@@ -98,6 +98,18 @@ push)
     # Compare CONTENT instead. If the remote .tex differs from what this script
     # would write, an edit exists on the web that is not in the local source,
     # whatever the commit dates say.
+    # Xiaoxu edits response_letter_R1_1013.docx directly. Anything he wrote that
+    # is not in RESPONSE_LETTER.md is destroyed by the rebuild, so check the
+    # REMOTE copy before building anything.
+    if [ -f revision/response_letter_R1_1013.docx ]; then
+        if ! (cd "$NC" && python check_docx_merged.py \
+              "$WORK/repo/revision/response_letter_R1_1013.docx"); then
+            echo
+            echo "Merge those into nc_paper/RESPONSE_LETTER.md, rebuild, then push."
+            exit 1
+        fi
+    fi
+
     STAGE=$(mktemp -d)
     build_revision "$STAGE/revision"
     DIRTY=""
