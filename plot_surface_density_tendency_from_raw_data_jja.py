@@ -20,6 +20,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.colors as mcolors
+import matplotlib.ticker as mticker
 import cartopy.crs as ccrs
 import cartopy.feature as cfeature
 import xarray as xr
@@ -545,7 +546,7 @@ def pick_tick_format(vmax_nice):
         return '%.3f'
 
 def plot_field(ax, lon_2d, lat_2d, data, vmin, vmax, cmap, panel_label,
-               label_axes=False):
+               label_axes=False, col=0, ncol=5):
     """绘制场"""
     levels = np.linspace(vmin, vmax, 40)
 
@@ -564,27 +565,59 @@ def plot_field(ax, lon_2d, lat_2d, data, vmin, vmax, cmap, panel_label,
             bbox=dict(boxstyle='round,pad=0.3', facecolor='white', alpha=0.85),
             zorder=4)
 
-    ax.gridlines(draw_labels=False, linewidth=0.5, alpha=0.3, linestyle='--')
+    gl = ax.gridlines(draw_labels=False, linewidth=0.5, alpha=0.3, linestyle='--')
+    gl.xlocator = mticker.FixedLocator(np.arange(-180, 180, 60))
+    gl.ylocator = mticker.FixedLocator(np.arange(-80, -49, 10))
 
-    # Fifteen panels sit close together here, so a graticule labelled on every
-    # one would be noise. Label the first column only and let the reader carry
-    # the geometry across the row: all panels share the same projection and
-    # extent. Latitudes go along 150 deg E, where the Indian sector leaves a
-    # quiet strip; longitudes sit just outside the square, which this figure
-    # has room for because its panels are square rather than circular.
+    # Every panel is labelled. These panels are square, so the corners are free
+    # and the meridian labels can sit in them without touching the next column.
+    # Latitudes go along 150 deg E, where the Indian sector leaves a quiet strip.
     if label_axes:
-        for la in (-60, -70):
+        for la in (-50, -60, -70, -80):
             ax.text(150, la, '%d°S' % abs(la), transform=ccrs.PlateCarree(),
-                    ha='center', va='center', fontsize=7, color='#333333',
+                    ha='center', va='center', fontsize=7.5, color='#111111',
                     zorder=5,
-                    bbox=dict(facecolor='white', edgecolor='none', alpha=0.55,
+                    bbox=dict(facecolor='white', edgecolor='none', alpha=0.65,
                               pad=0.4))
-        for lon, dx, dy, ha, va in ((-60, -0.02, 0.76, 'right', 'center'),
-                                    (-120, -0.02, 0.24, 'right', 'center'),
-                                    (180, 0.5, -0.025, 'center', 'top')):
-            lab = '180°' if abs(lon) == 180 else '%d°W' % abs(lon)
-            ax.text(dx, dy, lab, transform=ax.transAxes, ha=ha, va=va,
-                    fontsize=7, color='#444444', zorder=5, clip_on=False)
+        # One label per meridian, outside the frame at the point where that
+        # meridian meets it. Western meridians on the leftmost column only and
+        # eastern ones on the rightmost, so no label sits between two panels;
+        # 180 deg on every panel, below the frame. 0 deg is omitted because it
+        # falls under the panel title.
+        HALF = 4651194.0
+        lons = [-180]
+        if col == 0:
+            lons += [-120, -60]
+        if col == ncol - 1:
+            lons += [60, 120]
+        for lon in lons:
+            px, py = ccrs.SouthPolarStereo().transform_point(
+                lon, -50.0, ccrs.PlateCarree())
+            ax_x = 0.5 + 0.5 * px / HALF
+            ax_y = 0.5 + 0.5 * py / HALF
+            # The frame now coincides with the axes edge, so each label goes on
+            # the side its meridian crosses, a hair beyond 0 or 1 in axes
+            # coordinates. clip_on is already False, so text outside the axes
+            # still draws; wspace provides the room between columns.
+            dx, dy = ax_x - 0.5, ax_y - 0.5
+            PAD = 0.015
+            if abs(lon) == 180:                 # bottom edge
+                ax_x, ax_y = 0.5, -PAD
+            else:                               # left or right edge
+                ax_x = (1.0 + PAD) if dx > 0 else -PAD
+                ax_y = 0.5 + dy / abs(dx) * 0.5
+            lab = ('0°' if lon == 0 else '180°' if abs(lon) == 180
+                   else '%d°%s' % (abs(lon), 'W' if lon < 0 else 'E'))
+            # Anchor by the edge facing the map, so the text grows away from
+            # the frame and never straddles it. The 60 and 120 deg labels meet
+            # the left or right side, where the horizontal anchor is what
+            # matters; 180 deg meets the bottom, where the vertical one does.
+            if abs(lon) == 180:
+                ha, va = 'center', 'top'
+            else:
+                ha, va = ('left' if dx > 0 else 'right'), 'center'
+            ax.text(ax_x, ax_y, lab, transform=ax.transAxes, ha=ha, va=va,
+                    fontsize=7, color='#111111', zorder=5, clip_on=False)
 
     return cf
 
@@ -594,8 +627,8 @@ def plot_field(ax, lon_2d, lat_2d, data, vmin, vmax, cmap, panel_label,
 print('步骤 6: 绘制图1 - 热通量引起的密度趋势...')
 print('-'*80)
 
-fig = plt.figure(figsize=(18, 15))
-gs = GridSpec(3, 5, figure=fig, hspace=0.55, wspace=0.08,
+fig = plt.figure(figsize=(15, 15))
+gs = GridSpec(3, 5, figure=fig, hspace=0.55, wspace=0.12,
               left=0.05, right=0.95, top=0.96, bottom=0.05)
 
 var_keys = ['heat_total', 'heat_radiation', 'heat_turbulent']
@@ -621,7 +654,10 @@ for row, (var_key, var_title, var_title_pi) in enumerate(zip(var_keys, var_title
 
     # 第1列: PI (使用统一的PI范围)
     ax = fig.add_subplot(gs[row, 0], projection=ccrs.SouthPolarStereo())
-    ax.set_extent([-180, 180, -90, -50], ccrs.PlateCarree())
+    # extent in projected metres, matching the data exactly, so the frame
+    # coincides with the axes edge and labels can be placed against it
+    _H = 4651194.0
+    ax.set_extent([-_H, _H, -_H, _H], ccrs.SouthPolarStereo())
     all_axes.append(ax)
 
     panel_label = f'({chr(97+panel_idx)})'
@@ -629,7 +665,7 @@ for row, (var_key, var_title, var_title_pi) in enumerate(zip(var_keys, var_title
 
     cf_pi = plot_field(ax, lon_2d_cyclic, lat_2d_cyclic, jja_cyclic['pi'][var_key],
                        -vmax_pi_nice, vmax_pi_nice, 'RdBu_r', panel_label,
-                       label_axes=True)
+                       label_axes=True, col=0)
     all_cfs.append(cf_pi)
     # climate-state column headings on the top row (Reviewer 1, comment 17)
     if row == 0:
@@ -638,14 +674,18 @@ for row, (var_key, var_title, var_title_pi) in enumerate(zip(var_keys, var_title
     # 第2-5列: 异常 (使用统一的异常范围)
     for col, exp in enumerate(exp_list, start=1):
         ax = fig.add_subplot(gs[row, col], projection=ccrs.SouthPolarStereo())
-        ax.set_extent([-180, 180, -90, -50], ccrs.PlateCarree())
+        # extent in projected metres, matching the data exactly, so the frame
+        # coincides with the axes edge and labels can be placed against it
+        _H = 4651194.0
+        ax.set_extent([-_H, _H, -_H, _H], ccrs.SouthPolarStereo())
         all_axes.append(ax)
 
         panel_label = f'({chr(97+panel_idx)})'
         panel_idx += 1
 
         cf_anom = plot_field(ax, lon_2d_cyclic, lat_2d_cyclic, anomalies[exp][var_key],
-                            -vmax_anom_nice, vmax_anom_nice, 'RdBu_r', panel_label)
+                            -vmax_anom_nice, vmax_anom_nice, 'RdBu_r', panel_label,
+                            label_axes=True, col=col)
         all_cfs.append(cf_anom)
         if row == 0:
             EXPNAME = {'mh': 'MH', 'lig': 'LIG', 'lgm': 'LGM', 'mis': 'MIS3'}
@@ -679,8 +719,8 @@ plt.close()
 print('\n步骤 7: 绘制图2 - 淡水通量引起的密度趋势...')
 print('-'*80)
 
-fig = plt.figure(figsize=(18, 15))
-gs = GridSpec(3, 5, figure=fig, hspace=0.55, wspace=0.08,
+fig = plt.figure(figsize=(15, 15))
+gs = GridSpec(3, 5, figure=fig, hspace=0.55, wspace=0.12,
               left=0.05, right=0.95, top=0.96, bottom=0.05)
 
 var_keys = ['mass_total', 'mass_seaice', 'mass_other']
@@ -704,7 +744,10 @@ for row, (var_key, var_title, var_title_pi) in enumerate(zip(var_keys, var_title
 
     # 第1列: PI (使用统一的PI范围)
     ax = fig.add_subplot(gs[row, 0], projection=ccrs.SouthPolarStereo())
-    ax.set_extent([-180, 180, -90, -50], ccrs.PlateCarree())
+    # extent in projected metres, matching the data exactly, so the frame
+    # coincides with the axes edge and labels can be placed against it
+    _H = 4651194.0
+    ax.set_extent([-_H, _H, -_H, _H], ccrs.SouthPolarStereo())
     all_axes.append(ax)
 
     panel_label = f'({chr(97+panel_idx)})'
@@ -712,7 +755,7 @@ for row, (var_key, var_title, var_title_pi) in enumerate(zip(var_keys, var_title
 
     cf_pi = plot_field(ax, lon_2d_cyclic, lat_2d_cyclic, jja_cyclic['pi'][var_key],
                        -vmax_pi_nice, vmax_pi_nice, 'RdBu_r', panel_label,
-                       label_axes=True)
+                       label_axes=True, col=0)
     all_cfs.append(cf_pi)
     # climate-state column headings on the top row (Reviewer 1, comment 17)
     if row == 0:
@@ -721,14 +764,18 @@ for row, (var_key, var_title, var_title_pi) in enumerate(zip(var_keys, var_title
     # 第2-5列: 异常 (使用统一的异常范围)
     for col, exp in enumerate(exp_list, start=1):
         ax = fig.add_subplot(gs[row, col], projection=ccrs.SouthPolarStereo())
-        ax.set_extent([-180, 180, -90, -50], ccrs.PlateCarree())
+        # extent in projected metres, matching the data exactly, so the frame
+        # coincides with the axes edge and labels can be placed against it
+        _H = 4651194.0
+        ax.set_extent([-_H, _H, -_H, _H], ccrs.SouthPolarStereo())
         all_axes.append(ax)
 
         panel_label = f'({chr(97+panel_idx)})'
         panel_idx += 1
 
         cf_anom = plot_field(ax, lon_2d_cyclic, lat_2d_cyclic, anomalies[exp][var_key],
-                            -vmax_anom_nice, vmax_anom_nice, 'RdBu_r', panel_label)
+                            -vmax_anom_nice, vmax_anom_nice, 'RdBu_r', panel_label,
+                            label_axes=True, col=col)
         all_cfs.append(cf_anom)
         if row == 0:
             EXPNAME = {'mh': 'MH', 'lig': 'LIG', 'lgm': 'LGM', 'mis': 'MIS3'}

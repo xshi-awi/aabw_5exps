@@ -122,10 +122,9 @@ of magnitude of the densification branch therefore agree, though our light-end b
 weaker than theirs, and our whole curve sits at lighter densities because the simulated Southern
 Ocean surface is fresher than observed.
 
-Two differences are real and we state them rather than smoothing them over. Our light-end buoyancy
-gain is weaker than theirs, and our whole curve sits at lighter densities, because the simulated
-Southern Ocean surface is fresher than observed. Both follow from the same bias, which we
-quantify under model limitations below.
+Two differences should be noted. Our light-end buoyancy gain is weaker than theirs, and our whole
+curve sits at lighter densities, because the simulated Southern Ocean surface is fresher than
+observed. Both follow from the same bias, which we quantify under model limitations below.
 
 The reviewer, and Reviewer 3, also asked whether we could compute an observational transformation
 ourselves from a reanalysis rather than citing a published one. We examined this and it is not
@@ -289,14 +288,12 @@ That cell is produced by the wrong pathway, as described above, so we present ou
 statement about how the partitioning of surface buoyancy forcing responds to changing ice cover,
 and explicitly not as a quantitative reconstruction of bottom water formation rates.
 
-Taken together these are systematic biases: the mixed layers are too deep in the open ocean and
-too shallow on the shelf, the sea ice is too thin, and the surface is too warm and too fresh, in
-every one of our simulations alike. That matters for how the results should be read. Because the
-same bias is present in all five experiments, it largely cancels in the differences between them,
-which is what the paper actually reports. We make no claim about the absolute transformation rate
-or the absolute density at which it occurs; we claim that the balance between the thermal and
-haline pathways shifts between climate states, and a bias common to every state cannot generate
-that shift.
+Taken together these are systematic biases. That matters for how the results should be read.
+Because the same bias is present in all five experiments, it largely cancels in the differences
+between them, which is what the paper actually reports. We make no claim about the absolute
+transformation rate or the absolute density at which it occurs; we claim that the balance between
+the thermal and haline pathways shifts between climate states, and a bias common to every state
+cannot generate that shift.
 
 The corresponding passage added to the Discussion reads:
 
@@ -479,11 +476,11 @@ Added, here and on the other multi-panel figures; Reviewer 3 made the same reque
 
 **Figure R1.7 (revised manuscript Fig. 3).** The surface density tendency figure with the
 climate-state headings added, so that the columns are identified in the same way as in the other
-figures, and with latitude and longitude now labelled. With fifteen panels at this size a labelled
-graticule on every one would obscure the fields, so the labels are given on the first column only;
-all panels share the same projection and extent. Latitude circles are labelled at 60°S and 70°S
-along 150°E, and meridians outside the frame. The freshwater counterpart, Fig. 4, has been treated
-the same way.
+figures, and with latitude and longitude now labelled. Every panel carries the latitude circles, at
+50°S, 60°S, 70°S and 80°S along 150°E, and the 180° meridian. The remaining meridians are given on
+the outer columns only, 60°W and 120°W on the left and 60°E and 120°E on the right, so that no
+label falls between two panels; all panels share the same projection and extent. All labels sit
+outside the frame. The freshwater counterpart, Fig. 4, has been treated the same way.
 
 > **18.** Line 180/181: The LIG is first described as "showing modest changes", but later as "exhibiting a pronounced increase". These descriptions appear inconsistent.
 

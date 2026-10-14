@@ -19,7 +19,7 @@ warnings.filterwarnings('ignore')
 def set_circular_boundary(ax):
     """给极地投影子图设置圆形边界(避免方形角落空白)"""
     theta = np.linspace(0, 2 * np.pi, 200)
-    center, radius = [0.5, 0.5], 0.5
+    center, radius = [0.5, 0.5], 0.46
     verts = np.vstack([np.sin(theta), np.cos(theta)]).T
     circle = mpath.Path(verts * radius + center)
     ax.set_boundary(circle, transform=ax.transAxes)
@@ -88,7 +88,7 @@ import matplotlib.gridspec as gridspec
 # 3 rows: row0=panels, row1=abs colorbar, row2=anomaly panels, row3=anm colorbar
 gs = gridspec.GridSpec(4, 10, figure=fig,
                        height_ratios=[4, 0.22, 4, 0.22],
-                       hspace=0.55, wspace=0.05,
+                       hspace=0.55, wspace=0.16,
                        left=0.02, right=0.98, top=0.95, bottom=0.07)
 
 axes_row1 = [fig.add_subplot(gs[0, i*2:(i*2+2)], projection=proj) for i in range(5)]
@@ -116,10 +116,10 @@ def plot_polar(ax, data, lat, lon, norm, cmap, label, title, first_col=True):
     # other between neighbouring panels and ate the space between them. Both
     # sets go inside instead: longitudes upright at the rim, latitudes along the
     # 180 deg meridian, which is where Xiaoxu asked for them.
-    # Outside labels only where there is white space: the top (0 deg), the
-    # bottom (180 deg), and the west side of the leftmost panel. Anything on the
-    # east side lands on the next panel, since the columns sit close together.
-    LON_LABELS = ((-120, -60, 180) if first_col else (180,))
+    # Every panel is labelled. With the columns spaced apart there is room for
+    # the full set outside the circle; 0 deg is omitted because it falls under
+    # the panel title.
+    LON_LABELS = (-120, -60, 60, 120, 180)
 
     gl = ax.gridlines(draw_labels=False, linewidth=0.6, alpha=0.8,
                       linestyle='--', color='gray', zorder=5)
@@ -132,7 +132,7 @@ def plot_polar(ax, data, lat, lon, norm, cmap, label, title, first_col=True):
     # clockwise. The radius is a touch beyond 0.5 so the labels clear the rim
     # without reaching the neighbouring panel.
     import numpy as _np
-    R = 0.545
+    R = 0.475
     for lon in LON_LABELS:
         lab = '0°' if lon == 0 else ('180°' if abs(lon) == 180
                                      else '%d°%s' % (abs(lon), 'W' if lon < 0 else 'E'))
@@ -143,10 +143,10 @@ def plot_polar(ax, data, lat, lon, norm, cmap, label, title, first_col=True):
         ha = 'center' if abs(_np.sin(th)) < 0.3 else ('left' if _np.sin(th) > 0 else 'right')
         va = 'center' if abs(_np.cos(th)) < 0.3 else ('bottom' if _np.cos(th) > 0 else 'top')
         ax.text(x, y, lab, transform=ax.transAxes, ha=ha, va=va,
-                fontsize=8.5, color='#333333', zorder=6, clip_on=False)
+                fontsize=8, color='#111111', zorder=6, clip_on=False)
     for la in (-60, -70, -80):
         ax.text(150, la, '%d°S' % abs(la), transform=ccrs.PlateCarree(),
-                ha='center', va='center', fontsize=8.5, color='#333333',
+                ha='center', va='center', fontsize=8, color='#111111',
                 zorder=6)
 
     # panel label
