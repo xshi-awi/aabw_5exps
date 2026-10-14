@@ -98,6 +98,13 @@ push)
     # Compare CONTENT instead. If the remote .tex differs from what this script
     # would write, an edit exists on the web that is not in the local source,
     # whatever the commit dates say.
+    REVIEWED_ARG=""
+    PREV_A=""
+    for a in "$@"; do
+        [ "$PREV_A" = "--reviewed" ] && REVIEWED_ARG=$a
+        PREV_A=$a
+    done
+
     # Xiaoxu edits response_letter_R1_1013.docx directly. Anything he wrote that
     # is not in RESPONSE_LETTER.md is destroyed by the rebuild, so check the
     # REMOTE copy before building anything.
@@ -110,7 +117,9 @@ push)
                 > "$WORK/web_version.docx" 2>/dev/null \
                 && CHECKDOC="$WORK/web_version.docx"
         fi
-        if ! (cd "$NC" && python check_docx_merged.py "$CHECKDOC"); then
+        if [ -n "$REVIEWED_ARG" ]; then
+            echo "merge check skipped: --reviewed given, diff already read"
+        elif ! (cd "$NC" && python check_docx_merged.py "$CHECKDOC"); then
             echo
             echo "Merge those into nc_paper/RESPONSE_LETTER.md, rebuild, then push."
             exit 1

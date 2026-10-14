@@ -110,17 +110,20 @@ crossing, and densification at the heavier classes, with the freshwater term car
 end and both curves converging towards zero at the dense end. In our pre-industrial state the
 transformation reaches a minimum of -9.2 Sv, crosses zero, and peaks at +6.6 Sv; Pellichero et al.
 report a minimum near -22 Sv and a densification peak of 5±5 Sv. The sign structure and the order
-of magnitude of the densification branch therefore agree, though our light-end buoyancy gain is
-weaker than theirs, and our whole curve sits at lighter densities because the simulated Southern
-Ocean surface is fresher than observed.
+of magnitude of the densification branch therefore agree.
 
-Two differences should be noted. Our light-end buoyancy gain is weaker than theirs, and our whole
-curve sits at lighter densities, because the simulated Southern Ocean surface is fresher than
-observed. Both follow from the same bias, which we quantify under model limitations below.
+Two differences should be noted, and they are of different kinds. Our light-end buoyancy gain is
+weaker than theirs, and our whole curve sits at lighter densities, because the simulated Southern
+Ocean surface is fresher than observed; both follow from the same bias, which we quantify under
+model limitations below. The other difference is definitional rather than physical, and it sets a
+floor on how closely the two can ever agree. What Pellichero et al. solve for is the surface flux
+together with the diapycnal mixing term, because the mixed layer budget cannot separate them,
+whereas our model diagnoses the surface flux alone. Some discrepancy is therefore expected before
+any model bias is considered, and the agreement in shape should be read in that light.
 
 The reviewer, and Reviewer 3, also asked whether we could compute an observational transformation
 ourselves from a reanalysis rather than citing a published one. We examined this and it is not
-feasible, for three reasons.
+feasible, for two reasons.
 
 First, such data do not exist. A transformation budget needs the net surface heat flux, the net
 surface freshwater flux, and the sea ice thermodynamic salt flux. We checked the Copernicus ocean
@@ -145,12 +148,6 @@ topography for 1993-2012. We cannot reproduce that calculation, because it rests
 mixed layer database those authors assembled and we do not have. Computing a reanalysis
 transformation anyway would mean doing the very thing their paper argues cannot be done in this
 region.
-
-Third, the two quantities are not identical even in principle. What they solve for is the surface
-flux together with the diapycnal mixing term, because the mixed layer budget cannot separate the
-two. Our model diagnoses the surface flux alone. Some discrepancy is therefore expected on
-definitional grounds, before any model bias is considered, and the agreement in shape shown in
-Figure R1.1 should be read in that light.
 
 We have therefore compared against their published result rather than recomputing one.
 
