@@ -322,10 +322,10 @@ revised manuscript and supplement.
 ![](letter_figs/fig_age_labels-1.png)
 
 **Figure R1.3 (revised manuscript figure).** The ventilation age figure as an example of the
-labelling now applied throughout. Meridians are labelled upright inside the map boundary and
-latitude circles are labelled along the 150°E meridian, at 60°S, 70°S and 80°S. Placing both inside
-avoids the labels of neighbouring panels running into one another, which happened when they were
-set outside the circular boundary, and it leaves more room for the maps themselves. The mixed
+labelling now applied throughout. Meridians are labelled just outside the map boundary and
+latitude circles along the 150°E meridian, at 60°S, 70°S and 80°S. Labels are placed only where
+there is white space, so that those of neighbouring panels do not run into one another and nothing
+is written over the data. The mixed
 layer, wind stress and composite figures have been treated the same way; please refer to the
 revised manuscript and supplement for the complete set.
 
@@ -402,7 +402,7 @@ shared 0–400 m scale of the original figure the glacial panels are almost feat
 ![](letter_figs/figR7_mld_glacial_zoom.png)
 
 **Figure R1.4 (new supplementary panel).** (a) LGM and (b) MIS3 winter mixed layer depth south of
-60°S, on a 0–300 m scale with the 200 m contour in orange. The tightened scale resolves discrete
+60°S, on a 0–300 m scale. The tightened scale resolves discrete
 deep cells along the coast, in the Weddell, Prydz Bay and Ross sectors, which is where the glacial
 dense water is produced. This is the figure we now use in the supplement.
 
@@ -479,7 +479,11 @@ Added, here and on the other multi-panel figures; Reviewer 3 made the same reque
 
 **Figure R1.7 (revised manuscript Fig. 3).** The surface density tendency figure with the
 climate-state headings added, so that the columns are identified in the same way as in the other
-figures. The freshwater counterpart, Fig. 4, has been given the same headings.
+figures, and with latitude and longitude now labelled. With fifteen panels at this size a labelled
+graticule on every one would obscure the fields, so the labels are given on the first column only;
+all panels share the same projection and extent. Latitude circles are labelled at 60°S and 70°S
+along 150°E, and meridians outside the frame. The freshwater counterpart, Fig. 4, has been treated
+the same way.
 
 > **18.** Line 180/181: The LIG is first described as "showing modest changes", but later as "exhibiting a pronounced increase". These descriptions appear inconsistent.
 

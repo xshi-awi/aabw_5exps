@@ -544,7 +544,8 @@ def pick_tick_format(vmax_nice):
     else:
         return '%.3f'
 
-def plot_field(ax, lon_2d, lat_2d, data, vmin, vmax, cmap, panel_label):
+def plot_field(ax, lon_2d, lat_2d, data, vmin, vmax, cmap, panel_label,
+               label_axes=False):
     """绘制场"""
     levels = np.linspace(vmin, vmax, 40)
 
@@ -564,6 +565,26 @@ def plot_field(ax, lon_2d, lat_2d, data, vmin, vmax, cmap, panel_label):
             zorder=4)
 
     ax.gridlines(draw_labels=False, linewidth=0.5, alpha=0.3, linestyle='--')
+
+    # Fifteen panels sit close together here, so a graticule labelled on every
+    # one would be noise. Label the first column only and let the reader carry
+    # the geometry across the row: all panels share the same projection and
+    # extent. Latitudes go along 150 deg E, where the Indian sector leaves a
+    # quiet strip; longitudes sit just outside the square, which this figure
+    # has room for because its panels are square rather than circular.
+    if label_axes:
+        for la in (-60, -70):
+            ax.text(150, la, '%d°S' % abs(la), transform=ccrs.PlateCarree(),
+                    ha='center', va='center', fontsize=7, color='#333333',
+                    zorder=5,
+                    bbox=dict(facecolor='white', edgecolor='none', alpha=0.55,
+                              pad=0.4))
+        for lon, dx, dy, ha, va in ((-60, -0.02, 0.76, 'right', 'center'),
+                                    (-120, -0.02, 0.24, 'right', 'center'),
+                                    (180, 0.5, -0.025, 'center', 'top')):
+            lab = '180°' if abs(lon) == 180 else '%d°W' % abs(lon)
+            ax.text(dx, dy, lab, transform=ax.transAxes, ha=ha, va=va,
+                    fontsize=7, color='#444444', zorder=5, clip_on=False)
 
     return cf
 
@@ -607,7 +628,8 @@ for row, (var_key, var_title, var_title_pi) in enumerate(zip(var_keys, var_title
     panel_idx += 1
 
     cf_pi = plot_field(ax, lon_2d_cyclic, lat_2d_cyclic, jja_cyclic['pi'][var_key],
-                       -vmax_pi_nice, vmax_pi_nice, 'RdBu_r', panel_label)
+                       -vmax_pi_nice, vmax_pi_nice, 'RdBu_r', panel_label,
+                       label_axes=True)
     all_cfs.append(cf_pi)
     # climate-state column headings on the top row (Reviewer 1, comment 17)
     if row == 0:
@@ -689,7 +711,8 @@ for row, (var_key, var_title, var_title_pi) in enumerate(zip(var_keys, var_title
     panel_idx += 1
 
     cf_pi = plot_field(ax, lon_2d_cyclic, lat_2d_cyclic, jja_cyclic['pi'][var_key],
-                       -vmax_pi_nice, vmax_pi_nice, 'RdBu_r', panel_label)
+                       -vmax_pi_nice, vmax_pi_nice, 'RdBu_r', panel_label,
+                       label_axes=True)
     all_cfs.append(cf_pi)
     # climate-state column headings on the top row (Reviewer 1, comment 17)
     if row == 0:

@@ -9,8 +9,9 @@ background. Plotting LGM and MIS3 on their own 0-300 m scale (the 99th percentil
 of the winter field south of 55 S is 280 and 296 m) makes the coastal polynya
 cells stand out, which is where the glacial dense water is formed.
 
-The figure shows LGM and MIS3 on a 0-300 m scale with the 200 m contour marked,
-over the region south of 60 S where the glacial dense water is formed. The
+The figure shows LGM and MIS3 on a 0-300 m scale over the region south of 60 S
+where the glacial dense water is formed. The 200 m contour and the long colour
+bar label were dropped at Xiaoxu's request, matching the other letter figures. The
 original 0-400 m version was dropped at Xiaoxu's request, since the point of the
 figure is what the tightened scale reveals rather than the comparison of scales.
 """
@@ -64,7 +65,7 @@ proj = ccrs.SouthPolarStereo()
 letters = 'ab'
 p = 0
 
-ROWS = [(300, np.arange(0, 301, 20), 'Tightened scale (0--300 m)', 200)]
+ROWS = [(300, np.arange(0, 301, 20), 'Tightened scale (0--300 m)', None)]
 
 cfs = []
 for r, (vmax, levels, rowlab, contour) in enumerate(ROWS):
@@ -94,7 +95,7 @@ for r, (vmax, levels, rowlab, contour) in enumerate(ROWS):
 cax = fig.add_axes([0.28, 0.085, 0.44, 0.022])
 cb = fig.colorbar(cfs[0], cax=cax, orientation='horizontal',
                   ticks=np.arange(0, 301, 75))
-cb.set_label('JJA mixed layer depth (m); orange contour = 200 m', fontsize=13)
+cb.set_label('JJA mixed layer depth (m)', fontsize=13)
 cb.ax.tick_params(labelsize=11)
 
 fig.savefig('figures/figR7_mld_glacial_zoom.pdf', dpi=400)

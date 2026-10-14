@@ -96,7 +96,7 @@ axes_row2 = [fig.add_subplot(gs[2, 1+i*2:(1+i*2+2)], projection=proj) for i in r
 
 panel_labels = list('abcdefghi')
 
-def plot_polar(ax, data, lat, lon, norm, cmap, label, title):
+def plot_polar(ax, data, lat, lon, norm, cmap, label, title, first_col=True):
     ax.set_extent([-180, 180, -90, LAT_CUTOFF], crs=ccrs.PlateCarree())
     set_circular_boundary(ax)
     ax.add_feature(cfeature.LAND, color='lightgray', zorder=3)
@@ -116,18 +116,34 @@ def plot_polar(ax, data, lat, lon, norm, cmap, label, title):
     # other between neighbouring panels and ate the space between them. Both
     # sets go inside instead: longitudes upright at the rim, latitudes along the
     # 180 deg meridian, which is where Xiaoxu asked for them.
+    # Outside labels only where there is white space: the top (0 deg), the
+    # bottom (180 deg), and the west side of the leftmost panel. Anything on the
+    # east side lands on the next panel, since the columns sit close together.
+    LON_LABELS = ((-120, -60, 180) if first_col else (180,))
+
     gl = ax.gridlines(draw_labels=False, linewidth=0.6, alpha=0.8,
                       linestyle='--', color='gray', zorder=5)
     gl.xlocator = mticker.FixedLocator(np.arange(-180, 181, 60))
     gl.ylocator = mticker.FixedLocator(np.arange(-80, -49, 10))
 
-    for lon in (-120, -60, 0, 60, 120, 180):
+    # Longitudes sit just outside the circular boundary, in axes coordinates so
+    # they cannot drift onto the data and need no background box. Placed by
+    # angle around the circle: the projection puts 0 deg at the top and runs
+    # clockwise. The radius is a touch beyond 0.5 so the labels clear the rim
+    # without reaching the neighbouring panel.
+    import numpy as _np
+    R = 0.545
+    for lon in LON_LABELS:
         lab = '0°' if lon == 0 else ('180°' if abs(lon) == 180
                                      else '%d°%s' % (abs(lon), 'W' if lon < 0 else 'E'))
-        ax.text(lon, -52.0, lab, transform=ccrs.PlateCarree(),
-                ha='center', va='center', fontsize=9, color='#333333',
-                zorder=6,
-                bbox=dict(facecolor='white', edgecolor='none', alpha=0.7, pad=0.6))
+        th = _np.radians(lon)
+        x = 0.5 + R * _np.sin(th)
+        y = 0.5 + R * _np.cos(th)
+        # anchor away from the circle so the text grows outwards, not inwards
+        ha = 'center' if abs(_np.sin(th)) < 0.3 else ('left' if _np.sin(th) > 0 else 'right')
+        va = 'center' if abs(_np.cos(th)) < 0.3 else ('bottom' if _np.cos(th) > 0 else 'top')
+        ax.text(x, y, lab, transform=ax.transAxes, ha=ha, va=va,
+                fontsize=8.5, color='#333333', zorder=6, clip_on=False)
     for la in (-60, -70, -80):
         ax.text(150, la, '%d°S' % abs(la), transform=ccrs.PlateCarree(),
                 ha='center', va='center', fontsize=8.5, color='#333333',
@@ -144,7 +160,7 @@ def plot_polar(ax, data, lat, lon, norm, cmap, label, title):
 # Row 1: absolute values
 for i, (exp, name) in enumerate(zip(exps, exp_names)):
     im1 = plot_polar(axes_row1[i], ages[exp], lat, lon,
-                     norm_abs, cmap_abs, panel_labels[i], name)
+                     norm_abs, cmap_abs, panel_labels[i], name, first_col=(i == 0))
 
 # Row 2: anomalies
 for i, (exp, name) in enumerate(zip(paleo, paleo_names)):
@@ -152,7 +168,7 @@ for i, (exp, name) in enumerate(zip(paleo, paleo_names)):
     # set |anm| < 5 to masked (white gap between -5 and 5)
     anm = np.ma.masked_where(np.abs(anm) < 5, anm)
     im2 = plot_polar(axes_row2[i], anm, lat, lon,
-                     norm_anm, cmap_anm, panel_labels[5+i], name)
+                     norm_anm, cmap_anm, panel_labels[5+i], name, first_col=(i == 0))
 
 # ---- Colorbars ----
 # Absolute colorbar in gs row 1
