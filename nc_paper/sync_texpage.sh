@@ -102,8 +102,15 @@ push)
     # is not in RESPONSE_LETTER.md is destroyed by the rebuild, so check the
     # REMOTE copy before building anything.
     if [ -f revision/response_letter_R1_1013.docx ]; then
-        if ! (cd "$NC" && python check_docx_merged.py \
-              "$WORK/repo/revision/response_letter_R1_1013.docx"); then
+        WEBREV=$(git log --format=%H --grep="Updates from TeXPage" -1 \
+                 -- revision/response_letter_R1_1013.docx 2>/dev/null || true)
+        CHECKDOC="$WORK/repo/revision/response_letter_R1_1013.docx"
+        if [ -n "$WEBREV" ]; then
+            git show "$WEBREV:revision/response_letter_R1_1013.docx" \
+                > "$WORK/web_version.docx" 2>/dev/null \
+                && CHECKDOC="$WORK/web_version.docx"
+        fi
+        if ! (cd "$NC" && python check_docx_merged.py "$CHECKDOC"); then
             echo
             echo "Merge those into nc_paper/RESPONSE_LETTER.md, rebuild, then push."
             exit 1

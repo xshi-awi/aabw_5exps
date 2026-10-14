@@ -126,11 +126,13 @@ while i < n:
         continue
 
     # ---------------------------------------------------------- section
-    m = re.match(r'\\(sub)?section\*?\{', s[i:])
+    m = re.match(r'\\((?:sub)*)section\*?\{', s[i:])
     if m:
         st = i + m.end() - 1
         title, j = find_group(s, st)
-        tag = 'h2' if m.group(1) else 'h1'
+        # \subsubsection* was never matched, so its heading fell through to
+        # the plain-text branch and printed the star as a literal asterisk
+        tag = {'': 'h1', 'sub': 'h2'}.get(m.group(1), 'h3')
         out.append(f'<{tag}>{inline(title)}</{tag}>')
         i = j
         continue
@@ -191,6 +193,7 @@ while i < n:
            [s.find(r'\textcolor{blue}{', i + 1), s.find(r'\begin{center}', i + 1),
             s.find(r'\begin{tabular}', i + 1),
             s.find(r'\section', i + 1), s.find(r'\subsection', i + 1),
+            s.find(r'\subsubsection', i + 1),
             s.find(r'\begin{enumerate}', i + 1)] if x != -1]
     j = min(nxt) if nxt else n
     chunk = s[i:j]

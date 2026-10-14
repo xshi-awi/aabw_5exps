@@ -36,11 +36,6 @@ sample. We now state this plainly. What the paper claims, however, is the relati
 climate states rather than the absolute values. On that basis we consider the regime shift robust,
 and we have bounded the rest of our claims accordingly.
 
-directly, ideal age throughout the global ocean, and a fuller treatment of the Southern Annular
-Mode; discussed the study by Chen et al. (2025) that Reviewer 2 noted; and
-worked through every specific comment. Five new figures have been added, along with a boundary
-condition table and a Source Data file.
-
 For convenience the principal new figures are reproduced in this letter, so that the reviewers can
 assess them conveniently.
 
@@ -49,9 +44,6 @@ numbers in our responses refer to the revised manuscript unless stated otherwise
 marked in the accompanying tracked-changes file.
 
 ---
-
-*Draft covering Reviewer 1 only. The replies to Reviewers 2 and 3 are unchanged from the previous
-version and are not reproduced here, pending Jiping's review.*
 
 # Response to comments by Reviewer #1
 

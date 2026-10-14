@@ -109,15 +109,50 @@ def formatting_report(path):
     return []
 
 
+def strict_diff(path):
+    """Paragraphs whose exact text differs from our freshly built docx.
+
+    Compares against SUBMISSION/response_letter_R1_1013.docx, the file the
+    build produces, so any difference is something present in Xiaoxu's copy
+    that the generator does not reproduce.
+    """
+    built = Path('SUBMISSION/response_letter_R1_1013.docx')
+    if not built.exists() or built.resolve() == Path(path).resolve():
+        return []
+    import difflib
+
+    def text(f):
+        x = zipfile.ZipFile(f).read('word/document.xml').decode('utf-8')
+        x = re.sub(r'<w:del [^>]*>.*?</w:del>', '', x, flags=re.S)
+        out = []
+        for p in re.findall(r'<w:p [^>]*>.*?</w:p>|<w:p>.*?</w:p>', x, re.S):
+            t = ' '.join(html.unescape(
+                ''.join(re.findall(r'<w:t[^>]*>(.*?)</w:t>', p, re.S))).split())
+            if t:
+                out.append(t)
+        return out
+
+    a, b = text(path), text(built)
+    pairs = []
+    for tag, i1, i2, j1, j2 in difflib.SequenceMatcher(
+            None, a, b, autojunk=False).get_opcodes():
+        if tag == 'equal':
+            continue
+        for k in range(max(i2 - i1, j2 - j1)):
+            pairs.append((a[i1 + k] if i1 + k < i2 else '(absent)',
+                          b[j1 + k] if j1 + k < j2 else '(absent)'))
+    return pairs
+
+
 def main():
     docx = Path(sys.argv[1]) if len(sys.argv) > 1 else DOCX
     if not docx.exists():
         print('no docx at %s, nothing to check' % docx)
         return 0
-    if is_our_own_output(docx):
-        print('%s carries no edits of its own (no revisions, no highlighting);'
-              ' nothing to merge' % docx.name)
-        return 0
+    # NOTE: is_our_own_output() is deliberately NOT used as a skip. Xiaoxu edits
+    # in Word and saves without tracked changes or highlighting, so a file full
+    # of his edits looks exactly like our own output. Treating that as "nothing
+    # to merge" let five heading edits be overwritten repeatedly. Always diff.
     md_norm = norm(MD.read_text())
     missing = []
     for t in docx_paragraphs(docx):
@@ -135,7 +170,22 @@ def main():
         if probe not in md_norm:
             missing.append(t)
 
+    # A strict pass alongside the normalised one. norm() deliberately erases
+    # punctuation and emphasis so that cosmetic differences do not cry wolf, but
+    # that also hides real edits: removing the leading asterisk from five
+    # headings was invisible to it and got overwritten repeatedly. Compare the
+    # rendered text of the two documents directly, aligned, and report any
+    # paragraph that differs.
+    strict = strict_diff(docx)
+
     fmt = formatting_report(docx)
+
+    if strict:
+        print('%d paragraph(s) differ from the built docx:' % len(strict))
+        for a, b in strict[:12]:
+            print('  docx : %s' % a[:150])
+            print('  built: %s' % b[:150])
+        print()
 
     if not missing:
         print('all %s paragraphs are in %s' % (docx.name, MD.name))
