@@ -105,15 +105,26 @@ push)
         PREV_A=$a
     done
 
-    # Xiaoxu edits response_letter_R1_1013.docx directly. Anything he wrote that
-    # is not in RESPONSE_LETTER.md is destroyed by the rebuild, so check the
-    # REMOTE copy before building anything.
-    if [ -f revision/response_letter_R1_1013.docx ]; then
+    # Xiaoxu edits the response-letter docx directly. Anything he wrote that is
+    # not in RESPONSE_LETTER.md is destroyed by the rebuild, so check the REMOTE
+    # copy before building anything.
+    #
+    # Which file he edits changes as the revision moves on: it was
+    # response_letter_R1_1013.docx, then response_letter_R12_1015.docx. Pinning
+    # the name here once meant the gate kept checking a superseded file and
+    # reported paragraphs he had himself deleted, so pick the docx the web
+    # editor touched most recently instead.
+    WEBDOC=$(git log --format=%H --grep="Updates from TeXPage" -20 --name-only \
+             -- 'revision/*.docx' 2>/dev/null \
+             | grep '^revision/.*\.docx$' | head -1 || true)
+    [ -z "$WEBDOC" ] && WEBDOC=revision/response_letter_R1_1013.docx
+    if [ -f "$WEBDOC" ]; then
+        echo "merge gate checking against $(basename "$WEBDOC")"
         WEBREV=$(git log --format=%H --grep="Updates from TeXPage" -1 \
-                 -- revision/response_letter_R1_1013.docx 2>/dev/null || true)
-        CHECKDOC="$WORK/repo/revision/response_letter_R1_1013.docx"
+                 -- "$WEBDOC" 2>/dev/null || true)
+        CHECKDOC="$WORK/repo/$WEBDOC"
         if [ -n "$WEBREV" ]; then
-            git show "$WEBREV:revision/response_letter_R1_1013.docx" \
+            git show "$WEBREV:$WEBDOC" \
                 > "$WORK/web_version.docx" 2>/dev/null \
                 && CHECKDOC="$WORK/web_version.docx"
         fi
