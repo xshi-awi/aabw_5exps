@@ -994,8 +994,9 @@ than from inadequate boundary conditions is directly relevant to our case.
 > **On the footnote:** *This could be tested by comparing your method only in the regions with
 > observations. Alternatively you could apply the WMT framework to a reanalysis product e.g. Glorys.*
 
-We took the first of these suggestions, and it produced a more specific answer than we expected.
-Three things separate our result from the observations, and they are not equally important.
+We took both suggestions. The first produced a more specific answer than we expected, and we give
+it first; the reanalysis calculation follows below. Three things separate our result from the
+observations, and they are not equally important.
 
 The smallest is the integration domain. 42.7% of our published domain lies outside the September
 sea ice edge and is water the observational study does not analyse. Restricting to their domain
@@ -1034,14 +1035,51 @@ ice zone that reproduces the observational domain (bottom). The haline share ris
 restricted domain, but the glacial-interglacial contrast is unaffected, which is why we conclude
 the regime shift is not an artefact of the biased pre-industrial end member.
 
-We did not carry out the reanalysis calculation. Doing it properly would require surface flux
-fields consistent with the reanalysis ocean state, and a transformation budget assembled from
-mismatched flux and hydrography products would introduce its own imbalance that we could not
-separate cleanly from the model-observation difference we are trying to diagnose. Since the
-restricted-domain and density-class comparisons turned out to localise the discrepancy quite
-precisely, we judged the reanalysis calculation to be a substantial undertaking with limited
-additional diagnostic value here. We would be glad to attempt it if the reviewer considers it
-essential.
+We also took the second suggestion, with one substitution that we should explain. GLORYS cannot be
+used for this calculation, and the obstacle is the data rather than the effort: GLORYS12, the GREP
+ensemble and the Copernicus analysis-forecast product all carry temperature, salinity, velocity and
+sea ice state, but no surface flux fields whatsoever, and a transformation budget cannot be
+assembled without them. ORAS5 does carry a net surface heat flux and a net surface water flux, so
+we computed the transformation from ORAS5 instead, over 1999-2018, the Argo-rich part of the record
+where the assimilation constrains the Southern Ocean most strongly.
+
+One term is missing from the reanalysis and it is the term that matters most here. We tested the
+ORAS5 water flux inside the September ice zone and found no freezing signal, -1.2e-5 kg m-2 s-1 at
+peak freezing against -1.6e-5 at peak melt, so the field is evaporation minus precipitation minus
+runoff and carries no sea ice thermodynamic contribution. We therefore removed the sea ice term
+from our own flux as well, so that both sides carry the same two terms.
+
+![](letter_figs/figR20_wmt_merged.png)
+
+**Figure R3.4 (new analysis).** The reanalysis comparison the reviewer suggested. Transformation
+rate against neutral density γ. Top row, the seasonal sea ice zone in the annual mean with all
+terms present: (a) our pre-industrial state and (b) the observational estimate of Pellichero et al.
+(2018), their Fig. 3a. Pink shading in (a) marks where the heat term carries the total and blue
+where the freshwater term does, classified point by point along the drawn curve, which places the
+thermally driven band at γ = 27.10-27.68 kg m⁻³. Middle row, the same domain and season against
+ORAS5 for 1999-2018: (c) ours with the sea ice contribution removed and (d) ORAS5. Bottom row, the
+domain and season this paper uses, south of 60°S in JJA: (e) ours with the sea ice contribution
+removed and (f) ORAS5. Rows two and three are unshaded, because with the sea ice term absent from
+both sides a heat-against-freshwater classification would describe an incomplete freshwater flux.
+
+Over the sea ice zone in the annual mean, panels (c) and (d), the two agree closely. Our
+densification branch peaks at +5.0 Sv against +4.4 Sv in ORAS5, one density class apart, and both
+show the light-end buoyancy gain, ours reaching -8.0 Sv against -12.9 Sv. Over the domain and
+season this paper uses, panels (e) and (f), both curves are positive almost everywhere and peak in
+the same density class, but ours is the stronger, +62.9 Sv against +36.8 Sv. We do not read that
+gap as the reanalysis being right and the model wrong. Our winter mixed layers south of 60°S are
+deeper and more extensive than in ORAS5, which exposes more water to the atmosphere and supports
+more transformation, and that bias is the same one diagnosed above in Fig. R3.1.
+
+Two caveats bound what the exercise can establish, and they are the reason we present it as a
+consistency check rather than as the validation the reviewer may have had in mind. ORAS5 is a model
+constrained by observations, not a measurement, and the two fields this calculation needs are the
+two least constrained by any observing system, since none measures an air-sea flux directly. And
+Pellichero et al. decline reanalysis fluxes for this region outright, writing that in the Southern
+Ocean such products are poorly constrained and essentially unusable in the seasonally ice-covered
+region. The comparison tells us the diagnostic behaves sensibly against an independently
+constructed ocean state; it does not settle the dense-class question, because that is precisely
+where the missing sea ice term does the work.
 
 > *While the glacial-interglacial shift in regime displayed by the model is interesting, how
 > applicable is this result to thinking about the real ocean and glacial interglacial change
@@ -1096,7 +1134,7 @@ Both were computed for all five climate states.
 
 ![](letter_figs/figR4_sam_push_pull.png)
 
-**Figure R3.4 (new Supplementary Figure).** (a) The positive phase strengthens the Ekman transport at
+**Figure R3.5 (new Supplementary Figure).** (a) The positive phase strengthens the Ekman transport at
 60°S by 8.0--12.8 Sv in every climate state. (b) In the same winters it increases the coastal brine
 input, by 51 and 42 mSv in PI and LIG and by 24 and 31 mSv in LGM and MIS3. (c) The two responses
 scale together across the five states (r = 0.77). (d) The resulting anomaly in the peak
@@ -1124,7 +1162,7 @@ The spatial patterns show the mechanism directly.
 
 ![](letter_figs/figR5_sam_wind_ice.png)
 
-**Figure R3.5 (new Supplementary Figure).** Zonal wind stress anomaly (top) and sea ice concentration
+**Figure R3.6 (new Supplementary Figure).** Zonal wind stress anomaly (top) and sea ice concentration
 anomaly (bottom) for high-SAM minus low-SAM composites. The westerlies strengthen over the
 circumpolar belt in every state. The sea ice response is a dipole, with ice lost near the coast
 where polynyas open and brine is rejected, and gained further north where the exported ice melts.
@@ -1198,7 +1236,7 @@ simulations is therefore concentrated in the abyssal cell.
 
 ![](letter_figs/figR2_moc_5exps.png)
 
-**Figure R3.6 (manuscript Fig. 6).** Global overturning streamfunction for the five climate states
+**Figure R3.7 (manuscript Fig. 6).** Global overturning streamfunction for the five climate states
 (top) and anomalies relative to PI (bottom). The blue abyssal cell, representing northward
 spreading of southern-sourced bottom water, nearly disappears in the glacial states while the upper
 cell is largely maintained.
@@ -1212,7 +1250,7 @@ weakening while the upper cell is maintained.
 
 ![](letter_figs/figR3_age_global.png)
 
-**Figure R3.7 (manuscript Fig. 7).** Basin-mean ideal age profiles (a-d), mean age below 2000 m
+**Figure R3.8 (manuscript Fig. 7).** Basin-mean ideal age profiles (a-d), mean age below 2000 m
 (e), and zonal-mean sections for the five states (f-j). The glacial ageing is concentrated below
 about 2000 m and is largest in the deep Pacific and Southern Ocean, while the Atlantic, which
 remains ventilated from the north, changes comparatively little.
