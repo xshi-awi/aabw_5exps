@@ -42,8 +42,13 @@ build_revision() {
     cp "$NC/build/revised.tex" "$NC/build/ref.bib" \
        "$NC/build/sn-jnl.cls" "$NC/build/sn-nature.bst" "$dst/"
     cp "$NC/SUBMISSION/04_response_letter.tex" "$dst/"
-    # the Reviewer 1 draft is the document under active revision
+    # Ship a compiled PDF and a docx for BOTH letters. Only the R1 draft used to
+    # get a PDF, so opening TexPage showed a document with no Reviewer 2 section
+    # in it and the full letter looked as though it had lost that material. The
+    # full letter is the one that is submitted, so it needs to be readable there.
     for f in 04_response_letter_R1.tex 04_response_letter_R1.pdf \
+             04_response_letter.pdf \
+             05_response_letter.docx \
              response_letter_R1_1013.docx; do
         [ -f "$NC/SUBMISSION/$f" ] && cp "$NC/SUBMISSION/$f" "$dst/"
     done
