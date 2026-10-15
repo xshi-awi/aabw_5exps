@@ -126,8 +126,9 @@ for months, label in ([6, 7, 8], 'jja'), (list(range(1, 13)), 'annual'):
     out['fresh_' + label] = ('sigma2', f)
     out['total_' + label] = ('sigma2', h + f)
 
-out.attrs['note'] = ('ORAS5 1999-2018, member opa0, September 15% ice zone. '
-                     'sowaflup carries no sea ice thermodynamic term, so the '
-                     'freshwater component is E-P-R only.')
+out.attrs['note'] = ('ORAS5 1999-2018, member opa0, south of 60S, the '
+                     "paper's own domain. sowaflup carries no sea ice "
+                     'thermodynamic term, so the freshwater component is '
+                     'E-P-R only.')
 out.to_netcdf(OUT)
 print('wrote', OUT)

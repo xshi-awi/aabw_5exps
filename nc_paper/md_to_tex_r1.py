@@ -28,6 +28,9 @@ def esc(t):
     t = t.replace('–', '--').replace('—', '---').replace('…', r'\ldots{}')
     t = t.replace('°', r'$^\circ$').replace('±', r'$\pm$').replace('×', r'$\times$')
     t = t.replace('≈', r'$\approx$').replace('≥', r'$\ge$').replace('≤', r'$\le$')
+    # bare < and > are active in OT1 text mode and print as inverted
+    # punctuation: "< 27.1" came out as "¡ 27.1" until this was added
+    t = t.replace('<', r'$<$').replace('>', r'$>$')
     # gamma_n is a single symbol: handle it before the bare gamma, or the
     # trailing _n is escaped to \_n and renders as a literal underscore
     t = t.replace('\u03b3\\_n', r'$\gamma_n$').replace('\u03b3\u2099', r'$\gamma_n$')

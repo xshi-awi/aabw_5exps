@@ -6,35 +6,59 @@
 ---
 
 We thank the editor and the four reviewers for their detailed and constructive comments, which
-helped a lot improve the manuscript. A problem is pointed out, namely the disagreement between our
+helped a lot improve the manuscript. A question is pointed out, namely the comparison between our
 pre-industrial result and observation-based transformation estimates for the modern Southern
-Ocean. We took that criticism seriously and ran the diagnostic tests that Reviewers 2 and 3
-proposed. The outcome is more informative than we expected, and it has changed how we frame the
-paper.
+Ocean. We took that seriously and ran the diagnostic tests that Reviewers 2 and 3 proposed. The
+result is more informative than we expected.
 
-In brief, the disagreement has two separable causes. The first is the integration domain, as 42.7%
-of the area we integrated over lies outside the winter sea ice edge and is therefore water that
-Pellichero et al. did not include. The second is the density range. Resolving the transformation
-by density class over the sea ice zone alone shows that our pre-industrial state is not uniformly
-thermally driven. Only one class is thermally dominated, the band around σ2 36.75 to 37.00 where
-heat contributes 70% of the transformation. Denser class is haline dominated, with the sea ice
-term supplying 93% of the transformation above σ2 37.00, and the lighter classes are dominated by
-the freshwater terms. The thermal signature is therefore confined to a narrow band at intermediate
-and mode water densities, and it sits lighter than the bottom water cell that Pellichero et al.
-describe.
-
-For glacial states, every density class in the Last Glacial Maximum and Marine Isotope Stage 3 is
-haline dominated, with thermal shares between 4% and 28% and sea ice alone accounting for most of
-the transformation in the dense classes. The shift from a partly thermal interglacial to an
-unambiguously haline glacial is visible, which is the result the paper rests on.
-
-A residual discrepancy remains after both effects are accounted for. Our pre-industrial Southern
-Ocean is too warm and too fresh near Antarctica, a bias shared by most coupled models, and our
-dense water forms by open-ocean convection in the Weddell gyre rather than by dense shelf water
-overflow. Both push the transformation toward lighter and more exposed water than the observations
-sample. We now state this plainly. What the paper claims, however, is the relative change between
+We firstly compare our result with the classic WMT observation from Pellichero et al. (2018). In
+our manuscript, 42.7% of the studied area we integrated over lies outside the sea ice edge and is
+therefore water region that Pellichero et al. did not include. After we apply WMT analysis over
+the same domain and the same season as Pellichero et al. did, we got a WMT curve similar as
+theirs, and freshwater component dominate the light water class (< 27.1 kg/m3) and the dense water
+class (> 27.67 kg/m3), while the thermal signature is confined to a band at intermediate water
+densities. Thus the driving component for WMT is actually mixed. The second reason is that
+Pellichero et al. worked from a different kind of quantity than ours. Their estimate rests on Argo
+floats, ship-based profiles and instrumented marine mammals, the last being the only platform that
+samples under winter sea ice, with the ice edge taken from SMMR and SSM/I passive microwave data
+for 2000 to 2015 and the geostrophic term from AVISO mean dynamic topography for 1993 to 2012.
+They do not measure the surface fluxes at all. They solve the mixed layer heat and salt budgets
+with the flux as the unknown, so what they recover is the surface flux together with the diapycnal
+mixing term, which that budget cannot separate, whereas our model diagnoses the surface flux
+alone. The uncertainties they state are the mixed layer detection method, the instrumental errors
+in pressure, temperature and conductivity, and the spatial sampling, which is sparsest in
+precisely the ice-covered region that matters most here. Some difference is therefore unavoidable
+before any model bias is considered. Their freshwater term, on the other hand, is the same
+quantity as ours. They define it as the flux from evaporation, precipitation and ice formation or
+melt, so it carries the sea ice contribution exactly as our total freshwater term does. Note that
+Southern Ocean is more warm and too fresh near Antarctica compared to observation, a bias shared
+by most coupled models, and this pushes our WMT curve toward lighter density than the Pellichero
+et al. describe, which is to say our whole curve is displaced toward the light end relative to
+theirs. We now state this plainly. What the paper claims, however, is the relative change between
 climate states rather than the absolute values. On that basis we consider the regime shift robust,
 and we have bounded the rest of our claims accordingly.
+
+We then compare our result with the ORAS5 reanalysis for 1999 to 2018, the Argo-rich part of the
+record where the assimilation constrains the Southern Ocean most strongly. ORAS5 carries no sea
+ice thermodynamic term in its freshwater flux, so we removed the sea ice contribution from our own
+flux as well and compared the same two terms on each side, heat and evaporation minus
+precipitation minus runoff. Over the sea ice zone in the annual mean, the same domain as
+Pellichero et al., the two agree closely: our densification branch peaks at +5.0 Sv against +4.4
+Sv in ORAS5, one density class apart, and both show the light-end buoyancy gain, ours reaching
+-8.0 Sv against -12.9 Sv. Over the domain and season our paper uses, south of 60°S in JJA, both
+curves are positive almost everywhere and peak in the same density class, but ours is the stronger
+of the two, +62.9 against +36.8 Sv. We read the agreement in sign, shape and peak location as
+support for the diagnostic, and the winter amplitude difference as a consequence of our deeper and
+more extensive winter mixed layers, which expose more water to the atmosphere than the reanalysis
+does. In the densest classes neither curve sustains transformation, which is expected once the
+brine input is removed from both sides.
+
+The ORAS5 comparison is informative but it is not independent validation, and the revised text
+says so. ORAS5 is a model constrained by observations rather than a measurement, and the two
+fields this calculation needs are the two that are least constrained, since no observing system
+measures an air-sea flux directly. That is the same objection Pellichero et al. raise when they
+decline to use reanalysis fluxes, writing that in the Southern Ocean such products are poorly
+constrained and essentially unusable in the seasonally ice-covered region.
 
 For convenience the principal new figures are reproduced in this letter, so that the reviewers can
 assess them conveniently.
@@ -86,28 +110,41 @@ We agree with the reviewer. This concern also overlaps with those from Reviewers
 response has three parts.
 
 The reviewer is right that Figure A4 showed only model curves. We now place our pre-industrial
-transformation beside the observation-based estimate of Pellichero et al. (2018), computed over
-the same domain and the same season as theirs.
+transformation beside the observation-based estimate of Pellichero et al. (2018). The result of
+Pellichero et al. comes from Argo floats, ship-based observations and instrumented marine mammals,
+the only platform that samples under winter sea ice; the ice edge comes from SMMR and SSM/I
+passive microwave data for 2000-2015, and the geostrophic term from AVISO mean dynamic topography
+for 1993-2012. We cannot reproduce that calculation, because it rests on a seal-tag mixed layer
+database those authors assembled and we do not have. We have therefore compared our figure
+against their published figure.
 
-Pellichero et al. (2018) derived an observation-based estimate of the overturning sustained by
-surface buoyancy fluxes in the Southern Ocean sea ice sector. We compare against them because
-their sector, the region enclosed by the September 15% sea ice concentration, is the part of our
-domain where the comparison is meaningful, and because theirs is the estimate most often set
-against model results of this kind. To match them we recomputed our transformation over that
-sector, and took the annual mean rather than the austral winter mean used elsewhere in the paper.
+To match Pellichero et al. (2018), we recomputed our transformation over the same sector enclosed
+by the September 15% sea ice concentration, and took the annual mean instead of the austral winter
+mean used elsewhere in our manuscript.
 
-![](letter_figs/figR16_pi_vs_pellichero.png)
+![](letter_figs/figR20_wmt_merged.png)
 
-**Figure R1.1 (new analysis).** (a) Simulated pre-industrial transformation in the seasonal sea
-ice zone, annual mean, decomposed into the heat and freshwater contributions. (b) The
-observational estimate of Pellichero et al. (2018), their Fig. 3a, reproduced for comparison. The
-density axes differ deliberately: ours is potential density σ₂, theirs neutral density γ. Our
-simulated surface water is lighter than observed, so plotting both on one axis would imply a
-point-by-point correspondence that does not exist.
+**Figure R1.1 (new analysis).** Transformation rate against neutral density γ, in three
+comparisons. Top row, the seasonal sea ice zone in the annual mean, with all terms present: (a)
+our pre-industrial state, decomposed into the heat, freshwater and sea ice contributions, and (b)
+the observational estimate of Pellichero et al. (2018), their Fig. 3a, reproduced for comparison.
+Pink shading in (a) marks where the heat term carries the total and blue shading where the
+freshwater term does, classified point by point along the drawn curve rather than by density bin,
+which places the thermally driven band at γ = 27.10–27.68 kg m⁻³. Middle row, the same domain and season
+against the ORAS5 reanalysis for 1999-2018: (c) our state with the sea ice contribution removed
+and (d) ORAS5, which carries heat and evaporation minus precipitation minus runoff only. Bottom
+row, the domain and season the paper itself uses, south of 60°S in JJA: (e) ours with the sea ice
+contribution removed and (f) ORAS5. Rows two and three are unshaded, because with the sea ice term
+absent from both sides a heat-against-freshwater classification would describe an incomplete
+freshwater flux and read as a physical result rather than a missing field. Our simulated surface
+water is lighter than observed, so equal γ does not identify the same water mass across panels.
 
-The two curves share their structure. Both show buoyancy gain at the lighter classes, a zero
-crossing, and densification at the heavier classes, with the freshwater term carrying the light
-end and both curves converging towards zero at the dense end. In our pre-industrial state the
+As seen in Fig. R1.1a-b, the two curves share their structure. Both show buoyancy gain at the
+lighter classes, a zero crossing, and densification at the heavier classes, with the freshwater
+term carrying the light end and both curves converging towards zero at the dense end. Freshwater
+component dominate the light water class (< 27.1 kg/m3) and the dense end (> 27.67 kg/m3), shown
+by the blue shading in Fig. R1.1a, while the thermal signature is confined to a band at
+intermediate water densities, the pink shading in Fig. R1.1a. In our pre-industrial state the
 transformation reaches a minimum of -9.2 Sv, crosses zero, and peaks at +6.6 Sv; Pellichero et al.
 report a minimum near -22 Sv and a densification peak of 5±5 Sv. The sign structure and the order
 of magnitude of the densification branch therefore agree.
@@ -115,41 +152,65 @@ of magnitude of the densification branch therefore agree.
 Two differences should be noted, and they are of different kinds. Our light-end buoyancy gain is
 weaker than theirs, and our whole curve sits at lighter densities, because the simulated Southern
 Ocean surface is fresher than observed; both follow from the same bias, which we quantify under
-model limitations below. The other difference is definitional rather than physical, and it sets a
-floor on how closely the two can ever agree. What Pellichero et al. solve for is the surface flux
-together with the diapycnal mixing term, because the mixed layer budget cannot separate them,
-whereas our model diagnoses the surface flux alone. Some discrepancy is therefore expected before
-any model bias is considered, and the agreement in shape should be read in that light.
+model limitations below.
+
+It should be noted that the difference could be definitional, and it sets a floor on how closely
+the two can ever agree. Pellichero et al. solve the mixed layer heat and salt budgets for the
+surface fluxes as the unknown, using the observed seasonal cycle of mixed layer temperature,
+salinity and depth together with Ekman and geostrophic advection and entrainment. Thus, what
+Pellichero et al. solve for is the surface flux together with the diapycnal mixing term, because
+the mixed layer budget cannot separate them, whereas our model diagnoses the surface flux alone.
+Some discrepancy is therefore expected before any model bias is considered, and the agreement in
+shape should be read in that light. Their freshwater term, by contrast, is the same quantity as
+ours, since they define it as the flux from evaporation, precipitation and ice formation or melt,
+so the sea ice contribution is included on both sides of that particular comparison.
 
 The reviewer, and Reviewer 3, also asked whether we could compute an observational transformation
-ourselves from a reanalysis rather than citing a published one. We examined this and it is not
-feasible, for two reasons.
+ourselves from a reanalysis rather than citing a published one. A transformation budget needs the
+net surface heat flux, the net surface freshwater flux, and the sea ice thermodynamic salt flux.
+We checked the Copernicus ocean reanalyses, namely GLORYS12, the GREP ensemble and the
+analysis-forecast product, which carry temperature, salinity, velocity and sea ice state but no
+surface flux fields at all. ORAS5 does carry a net heat flux and a net water flux, but excluding
+the sea ice term: we tested its water flux inside the September ice zone and found no freezing
+signal, -1.2e-5 kg m-2 s-1 at peak freezing against -1.6e-5 at peak melt, so the field is
+evaporation minus precipitation minus runoff. Therefore, we calculate transformation based on
+ORAS5, and for consistency, we also remove the sea ice term from our model, then compare our model
+results with ORAS5.
 
-First, such data do not exist. A transformation budget needs the net surface heat flux, the net
-surface freshwater flux, and the sea ice thermodynamic salt flux. We checked the Copernicus ocean
-reanalyses, namely GLORYS12, the GREP ensemble and the analysis-forecast product, which carry
-temperature, salinity, velocity and sea ice state but no surface flux fields at all. ORAS5 does
-carry a net downward heat flux and a net upward water flux, but we tested its water flux inside
-the September ice zone and found no freezing signal: at peak freezing it is -1.2e-5 kg m-2 s-1
-against -1.6e-5 at peak melt, so the field is evaporation minus precipitation minus runoff and
-excludes the sea ice term. The sea ice contribution is precisely the term that decides the
-question at issue, and no reanalysis we could find supplies it.
+The results are shown in Fig. R1.1c-f. Over the sea ice zone in the annual mean, panels (c) and
+(d), the agreement is close. Our densification branch peaks at +5.0 Sv and the ORAS5 branch at
++4.4 Sv, one density class apart at γ 27.49 against 27.28, and both show the light-end buoyancy
+gain, ours reaching a minimum of -8.0 Sv against -12.9 Sv in the reanalysis. The sign structure,
+the position of the zero crossing and the magnitude of the densification peak therefore agree on
+a domain neither calculation was tuned to.
 
-Second, Pellichero et al. themselves reject that approach for this region. They write that ocean
-buoyancy fluxes are commonly obtained from atmospheric reanalysis datasets, but that
-*"in the Southern Ocean such reanalysis products are poorly constrained, and essentially unusable
-in the seasonally sea-ice covered region."* Rather than use one, they solve the mixed layer heat
-and salt budgets for the surface fluxes as the unknown, using the observed seasonal cycle of mixed
-layer temperature, salinity and depth together with Ekman and geostrophic advection and
-entrainment. The hydrography comes from Argo floats, ship-based observations and instrumented
-marine mammals, the only platform that samples under winter sea ice; the ice edge comes from SMMR
-and SSM/I passive microwave data for 2000-2015, and the geostrophic term from AVISO mean dynamic
-topography for 1993-2012. We cannot reproduce that calculation, because it rests on a seal-tag
-mixed layer database those authors assembled and we do not have. Computing a reanalysis
-transformation anyway would mean doing the very thing their paper argues cannot be done in this
-region.
+Over the domain and season the paper itself uses, south of 60°S in JJA, panels (e) and (f), the
+two agree in shape but not in amplitude. Both are positive almost everywhere, since in winter the
+whole sector is losing buoyancy, and both peak in the same density class at γ 27.28 and 27.08
+respectively. Ours is the stronger, +62.9 Sv against +36.8 Sv. We do not attribute that gap to the
+reanalysis being correct. Our winter mixed layers south of 60°S are deeper and more extensive than
+in ORAS5, which exposes more water to the atmosphere and so supports more transformation, and the
+same bias is visible directly in the mixed layer depth comparison shown later in this response. We
+therefore read the winter comparison as agreement in sign, shape and density class, with an
+amplitude difference that follows from a mixed layer bias we document rather than from the
+diagnostic itself.
 
-We have therefore compared against their published result rather than recomputing one.
+In the densest classes, above γ 27.7, neither curve sustains much transformation once the sea ice
+term is removed from both sides, which is the expected outcome: that is the class where brine
+rejection does the work, and it is exactly the term ORAS5 cannot supply. With the term restored,
+our own dense-class transformation is positive, which is the result the paper rests on and the one
+no available reanalysis can be used to check.
+
+Two caveats bound what this comparison can support. ORAS5 is a model constrained by observations
+rather than a measurement, and the two fields the calculation needs are the two that are least
+constrained, since no observing system measures an air-sea flux directly; its heat flux is
+computed from ERA-Interim forcing and then adjusted by sea surface temperature restoring, not
+fitted to any flux observation. And Pellichero et al. themselves reject this approach for this
+region, writing that ocean buoyancy fluxes are commonly obtained from atmospheric reanalysis
+datasets but that *"in the Southern Ocean such reanalysis products are poorly constrained, and
+essentially unusable in the seasonally sea-ice covered region."* We therefore present the ORAS5
+comparison as a consistency check on the diagnostic rather than as independent validation, and we
+continue to treat their published result as the observational reference.
 
 Another point from the reviewer is about the discussion of known model strengths and biases in
 Southern Ocean stratification, sea ice, mixed-layer depth, and Antarctic Bottom Water formation.
@@ -565,6 +626,6 @@ Corrected.
 
 > **32.** Lines 394-403: Please consider including a summary table listing the prescribed boundary conditions for each experiment (e.g., greenhouse gas concentrations, orbital parameters, ice-sheet reconstruction, and any other relevant forcings). This would make the experimental setup considerably easier to follow.
 
-Added as Table 1; see G2.
+Added as Table 1; please see our response to the second general comment.
 
 ---
