@@ -963,19 +963,10 @@ outset rather than left implicit.
 We confirmed the reviewer's suspicion diagnostically. In the pre-industrial simulation the Weddell
 sector accounts for 70% of the area with a winter mixed layer deeper than 400 m south of 55°S and
 97% of the area deeper than 600 m, centred near 68°S in the interior of the gyre rather than over
-the continental shelf.
+the continental shelf. The same holds in MH and LIG, while in the glacial states the deep
+convection contracts to narrow coastal cells.
 
-![](letter_figs/figR15_mld_maps_5exps.png)
-
-**Figure R3.1 (new analysis).** Winter mixed layer depth south of 60°S for the five states. (a-c) use a 0-800 m scale with the 400 m contour in orange, (d-e) a 0-300 m scale with the 200 m
-contour, because the glacial mixed layer never approaches 400 m and would be featureless on the
-shared scale.
-The pre-industrial deep mixed layers lie in the interior of the Weddell gyre rather than on the
-shelf, which is the bias the reviewer identified, and the same holds in MH and LIG. In the glacial
-states the deep convection contracts to narrow coastal cells.
-
-The model therefore does form its dense water by open-ocean convection, as
-the reviewer supposed. We now state this explicitly, cite Orsi et al. (1999) and Toggweiler and
+The model therefore does form its dense water by open-ocean convection, as the reviewer supposed. We now state this explicitly, cite Orsi et al. (1999) and Toggweiler and
 Samuels (1995) for the shelf pathway that operates in the real ocean, note that this configuration
 has no ice shelf cavities and therefore cannot represent basal melt at all, and place the model in
 context by citing Heuzé (2021), who finds 28 of 35 CMIP6 models forming deep and bottom water by
@@ -1015,25 +1006,9 @@ describe. Where the two analyses overlap in density, they agree.
 The third is what remains after the first two are accounted for, and it is a real bias rather than
 a bookkeeping difference. We return to it below.
 
-![](letter_figs/figR14_siz_gamma_5exps.png)
-
-**Figure R3.2 (new analysis).** Transformation in the seasonal sea ice zone, resolved by density
-class, for all five climate states. The upper row gives the total transformation in grey with its
-thermal, sea ice and other freshwater contributions; the lower row gives the thermal share, with
-the haline dominated band shaded green and the thermally dominated band shaded pink. Only one
-pre-industrial class reaches thermal dominance. Both glacial states are haline dominated in every
-class, at 4-28% thermal, which is the regime shift the paper reports. Because glacial surface water
-is denser, the class boundaries for LGM and MIS3 are shifted by +0.80 and +0.50 kg m⁻³, the density
-anomaly produced at the freezing point by the +1.0 and +0.6 salinity increase prescribed in those
-experiments.
-
-![](letter_figs/figR1_wmt_domain_sensitivity.png)
-
-**Figure R3.3 (manuscript Fig. 8).** The like-for-like comparison the reviewer asked for.
-Transformation integrated over the published domain south of 60°S (top) and over the seasonal sea
-ice zone that reproduces the observational domain (bottom). The haline share rises in the
-restricted domain, but the glacial-interglacial contrast is unaffected, which is why we conclude
-the regime shift is not an artefact of the biased pre-industrial end member.
+Both comparisons are shown in the manuscript as Fig. 8, where the transformation is integrated
+over the published domain south of 60°S and over the seasonal sea ice zone that reproduces the
+observational domain.
 
 We also took the second suggestion, with one substitution that we should explain. GLORYS cannot be
 used for this calculation, and the obstacle is the data rather than the effort: GLORYS12, the GREP
@@ -1051,7 +1026,7 @@ from our own flux as well, so that both sides carry the same two terms.
 
 ![](letter_figs/figR20_wmt_merged.png)
 
-**Figure R3.4 (new analysis).** The reanalysis comparison the reviewer suggested. Transformation
+**Figure R3.1 (new analysis).** The reanalysis comparison the reviewer suggested. Transformation
 rate against neutral density γ. Top row, the seasonal sea ice zone in the annual mean with all
 terms present: (a) our pre-industrial state and (b) the observational estimate of Pellichero et al.
 (2018), their Fig. 3a. Pink shading in (a) marks where the heat term carries the total and blue
@@ -1069,7 +1044,7 @@ season this paper uses, panels (e) and (f), both curves are positive almost ever
 the same density class, but ours is the stronger, +62.9 Sv against +36.8 Sv. We do not read that
 gap as the reanalysis being right and the model wrong. Our winter mixed layers south of 60°S are
 deeper and more extensive than in ORAS5, which exposes more water to the atmosphere and supports
-more transformation, and that bias is the same one diagnosed above in Fig. R3.1.
+more transformation, and that bias is the same open-ocean convection diagnosed above.
 
 Two caveats bound what the exercise can establish, and they are the reason we present it as a
 consistency check rather than as the validation the reviewer may have had in mind. ORAS5 is a model
@@ -1134,7 +1109,7 @@ Both were computed for all five climate states.
 
 ![](letter_figs/figR4_sam_push_pull.png)
 
-**Figure R3.5 (new Supplementary Figure).** (a) The positive phase strengthens the Ekman transport at
+**Figure R3.2 (new Supplementary Figure).** (a) The positive phase strengthens the Ekman transport at
 60°S by 8.0--12.8 Sv in every climate state. (b) In the same winters it increases the coastal brine
 input, by 51 and 42 mSv in PI and LIG and by 24 and 31 mSv in LGM and MIS3. (c) The two responses
 scale together across the five states (r = 0.77). (d) The resulting anomaly in the peak
@@ -1162,7 +1137,7 @@ The spatial patterns show the mechanism directly.
 
 ![](letter_figs/figR5_sam_wind_ice.png)
 
-**Figure R3.6 (new Supplementary Figure).** Zonal wind stress anomaly (top) and sea ice concentration
+**Figure R3.3 (new Supplementary Figure).** Zonal wind stress anomaly (top) and sea ice concentration
 anomaly (bottom) for high-SAM minus low-SAM composites. The westerlies strengthen over the
 circumpolar belt in every state. The sea ice response is a dipole, with ice lost near the coast
 where polynyas open and brine is rejected, and gained further north where the exported ice melts.
@@ -1236,7 +1211,7 @@ simulations is therefore concentrated in the abyssal cell.
 
 ![](letter_figs/figR2_moc_5exps.png)
 
-**Figure R3.7 (manuscript Fig. 6).** Global overturning streamfunction for the five climate states
+**Figure R3.4 (manuscript Fig. 6).** Global overturning streamfunction for the five climate states
 (top) and anomalies relative to PI (bottom). The blue abyssal cell, representing northward
 spreading of southern-sourced bottom water, nearly disappears in the glacial states while the upper
 cell is largely maintained.
@@ -1250,7 +1225,7 @@ weakening while the upper cell is maintained.
 
 ![](letter_figs/figR3_age_global.png)
 
-**Figure R3.8 (manuscript Fig. 7).** Basin-mean ideal age profiles (a-d), mean age below 2000 m
+**Figure R3.5 (manuscript Fig. 7).** Basin-mean ideal age profiles (a-d), mean age below 2000 m
 (e), and zonal-mean sections for the five states (f-j). The glacial ageing is concentrated below
 about 2000 m and is largest in the deep Pacific and Southern Ocean, while the Atlantic, which
 remains ventilated from the north, changes comparatively little.
