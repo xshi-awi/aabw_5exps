@@ -123,7 +123,7 @@ fig.savefig('figures/figR2_moc_5exps.png', dpi=200)
 print('saved figures/figR2_moc_5exps.{pdf,png}')
 
 print()
-print('%-6s %10s %10s' % ('EXP', 'AABW(Sv)', 'NADW(Sv)'))
+print('%-6s %10s %10s' % ('EXP', 'AABW(Sv)', 'upper(Sv)'))
 for e, lab in zip(EXPS, LABELS):
     m, lats, deps = data[e]
     kz = deps <= -2000
@@ -131,5 +131,5 @@ for e, lab in zip(EXPS, LABELS):
     aabw = np.nanmin(m[np.ix_(kz, js)])
     kn = (deps <= -500) & (deps >= -4000)
     jn = (lats > 20) & (lats < 70)   # 20-70N (was 0-70N until 2026-11-08, D8)
-    nadw = np.nanmax(m[np.ix_(kn, jn)])
-    print('%-6s %10.1f %10.1f' % (lab, aabw, nadw))
+    upper_cell = np.nanmax(m[np.ix_(kn, jn)])
+    print('%-6s %10.1f %10.1f' % (lab, aabw, upper_cell))

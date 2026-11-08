@@ -792,8 +792,8 @@ The consequences for the large-scale circulation are visible in the overturning 
 
 **Figure R2.5 (manuscript Fig. 6).** Global overturning streamfunction (top) and anomalies relative
 to PI (bottom). The abyssal cell that carries southern-sourced bottom water weakens from about
-11 Sv in the interglacials to 2.3 and 1.7 Sv in LGM and MIS3, while the upper cell is largely
-unchanged. The glacial reorganisation is concentrated in the cell our surface analysis addresses. What such a model would change
+11 Sv in the interglacials to 2.3 and 1.7 Sv in LGM and MIS3, while the upper cell is
+maintained. The glacial reorganisation is concentrated in the cell our surface analysis addresses. What such a model would change
 is the density and the geographic origin of the resulting water, not the direction of the shift in
 the surface buoyancy budget. We have adjusted the framing of the paper accordingly, so that the
 claim is about the partitioning of surface buoyancy forcing and its state dependence rather than
@@ -1205,8 +1205,8 @@ We agree on all three points and have added the analyses.
 
 The overturning streamfunction, computed from the simulated vertical velocity, is now shown in the new Fig. 6. The
 abyssal cell weakens from −11.7 Sv in PI, −11.3 Sv in MH and −11.4 Sv in LIG to −2.3 Sv in LGM and
-−1.7 Sv in MIS3, a reduction of roughly 80–86%, while the upper cell changes comparatively little
-(18.5 Sv in PI against 20.1 and 21.5 Sv in the glacials). The glacial reorganisation in these
+−1.7 Sv in MIS3, a reduction of roughly 80–86%, while the upper cell does not weaken and strengthens
+moderately (18.5 Sv in PI against 20.1 and 21.5 Sv in the glacials). The glacial reorganisation in these
 simulations is therefore concentrated in the abyssal cell.
 
 ![](letter_figs/figR2_moc_5exps.png)
@@ -1214,7 +1214,7 @@ simulations is therefore concentrated in the abyssal cell.
 **Figure R3.4 (manuscript Fig. 6).** Global overturning streamfunction for the five climate states
 (top) and anomalies relative to PI (bottom). The blue abyssal cell, representing northward
 spreading of southern-sourced bottom water, nearly disappears in the glacial states while the upper
-cell is largely maintained.
+cell is maintained.
 
 Global ideal age is now shown in the new Fig. 7, as basin-mean vertical profiles and zonal-mean
 sections. Below 2000 m the ageing is strongly basin dependent: the Atlantic increases only modestly

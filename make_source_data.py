@@ -163,7 +163,9 @@ if frames:
 moc_ix = pd.read_csv('data_moc/moc_indices.csv')
 sheets['Fig6_MOC_cell_strength'] = pd.DataFrame({
     'experiment': moc_ix['exp'], 'years': moc_ix['years'],
-    'AABW_cell_Sv': moc_ix['AABW'].round(2), 'NADW_cell_Sv': moc_ix['NADW'].round(2)})
+    'AABW_cell_Sv': moc_ix['AABW'].round(2),
+    # upper cell: max 500-4000 m, 20-70N of the GLOBAL streamfunction (not an AMOC/NADW index)
+    'upper_cell_Sv': moc_ix['NADW'].round(2)})
 
 # ------------------------------------------------------- write
 OUT.parent.mkdir(parents=True, exist_ok=True)
