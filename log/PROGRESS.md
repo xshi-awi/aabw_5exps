@@ -7,6 +7,7 @@
 - 查证：`plot_moc_5exps.py` 从 758dfa6（09-08）起就是 0–70°N，投稿稿 `nc-main.tex` 没有 MOC 分析，修订稿正文、图注、Methods、两封信都没写过上层窗口，唯一的「0–70N」是 D6 时照抄代码写进 `NEW_ANALYSIS_RESULTS.md` 的。无文字依据，按用户说的 20–70°N 改。
 - NADW（500–4000 m、20–70°N）PI/MH/LIG/LGM/MIS3 = 18.5/19.8/21.6/20.1/21.5 Sv（0–70°N 时 19.5/20.4/22.1/20.9/21.5）。PI、MH、LIG 仍卡在 580 m 顶边和 21°N 南边；1000 m 以下参照值 16.3/16.6/17.4/19.9/21.5，全在 1040 m 顶边。
 - 改了 `plot_moc_5exps.py`（及副本）、`data_moc/calc_moc_5exps.py`（重跑 job 28821814）、Source Data、`revised.tex` 2.4 节数字，新增 Methods 4.4 Overturning streamfunction 写明两个窗口；`RESPONSE_LETTER.md` R3 那段的数字。图只标 AABW，PNG 字节不变，没换。「upper cell … changes comparatively little」相对 −80–86% 仍成立（+8%、+16%），未改写。
+- 10:21 用户选「改措辞并推 TexPage」：2.4 节改为「The upper cell does not weaken and strengthens moderately, from 18.5 Sv in PI to 20.1 Sv in LGM and 21.5 Sv in MIS3」，删掉 associated with northern-sourced deep water；信里 Fig R2.5、R3.4 图注统一为 is maintained，R3 回复跟正文措辞一致；Source Data 列名 NADW_cell_Sv 改为 upper_cell_Sv（文字从不说 NADW/AMOC）。GitHub 35e4950，TexPage c24777a，回读一致。
 
 ### 2026-11-08 09:45 D6 MOC 分带更正，D2 形成率表同源（总管任务，数字待总管核对）
 

@@ -14,7 +14,7 @@
 - 计算：climdiag 0.5.0（commit 46e6514）`moc_depth`，global、无掩膜、从北积分，单元纬度取三个节点地理纬度的平均。
 - 网格：每个 run 实际用的网格（namelist 的 meshpath）。PI/MH/LIG 是 `awicm2_final384`，LGM `mesh_glac1d`，MIS3 `mesh_glac1d_38k`。
 - 窗口规则（五个态统一）：WMT 主图 100 年分析期的最后 20 年，PI/MH/LIG 2380–2399，LGM 2480–2499，MIS3 2580–2599。
-- 指数（用户 D1 确认要全球 MOC）：AABW = 2000 m 以下、30°S 以南的最小值；NADW = 500–4000 m、20–70°N 的最大值（D8，2026-11-08 起；之前代码里是 0–70°N，任何稿件文字都没写过窗口，用户说「好像是 20–70°N」）。Methods 4.4 写明了这两个窗口。参照值 `NADW_below1000` = 1000–4000 m、20–70°N 的最大值。
+- 指数（用户 D1 确认要全球 MOC）：AABW = 2000 m 以下、30°S 以南的最小值；NADW = 500–4000 m、20–70°N 的最大值（D8，2026-11-08 起；之前代码里是 0–70°N，任何稿件文字都没写过窗口，用户说「好像是 20–70°N」）。Methods 4.4 写明了这两个窗口。参照值 `NADW_below1000` = 1000–4000 m、20–70°N 的最大值。列名里的 NADW 只是内部变量名，稿件文字和 Source Data（列 `upper_cell_Sv`）都只说 upper cell，不说 NADW 或 AMOC，这是全球流函数。
 
 ## 为什么不用 diag_gmoc.nc（发现 D6，2026-11-08 核实）
 

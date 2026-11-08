@@ -7,7 +7,7 @@
 - **旧 AGU 稿里从图上读出的 SAM 数字**（15–20% 调制等）没经过计算，投稿版 `nc-main.tex` 仍含「15-20%」。见 `composite_sam/CLAUDE.md`「待核」。
 - **西风急流计算脚本**没找到，季节和高度未记录（`docs/westerly_jet.md`）「待核」。
 - **D6/D2 数字待总管核对**（2026-11-08）：D6 已于 10:05 按用户批准推到 TexPage（commit 3d2ad39），D2 的两张表不在稿件里，没有可推的。
-- **MOC 两个指数的定义**：间冰期深层环流最强在 19°S，「30°S 以南」的 AABW 指数落在窗口边（31°S）。上层指数 D8 改为 20–70°N 后，PI/MH/LIG 仍落在 580 m 顶边和 21°N 南边，量到的是与副热带浅层环流连在一起的上层；1000 m 以下参照值 PI 16.3 → LGM 19.9、MIS3 21.5 Sv（+22%、+32%），按这个口径「changes comparatively little」就偏弱（`data_moc/CLAUDE.md`）。是否再改由用户定。
+- **MOC 两个指数的定义**：间冰期深层环流最强在 19°S，「30°S 以南」的 AABW 指数落在窗口边（31°S）。上层指数 20–70°N 在 PI/MH/LIG 仍落在 580 m 顶边和 21°N 南边。正文措辞已按用户 11-08 10:21 的选择改为「does not weaken and strengthens moderately」，窗口本身是否再改由用户定（`data_moc/CLAUDE.md`）。
 - **Methods「We analyze the final 100 years of each run」**：MIS3 的输出到 2616 年，WMT 用的是 2500–2599，不是最后 100 年。待用户确认措辞。
 - **`nc_paper/SUBMISSION/letter_figs/figR20_wmt_merged.png` 没进 git**：回复信引用它，TexPage 上也有，但本地是 untracked。要不要提交「待核」。
 - **`nc_paper/SUBMISSION/01_revised_manuscript.tex`、`03_response_to_reviewers.md`** 是 09-21 的旧快照，仍含旧 MOC 数字，现在的来源是 `build/revised.tex` 与 `RESPONSE_LETTER.md`。交稿前是否重建或删掉「待核」。
