@@ -1206,7 +1206,7 @@ We agree on all three points and have added the analyses.
 The overturning streamfunction, computed from the simulated vertical velocity, is now shown in the new Fig. 6. The
 abyssal cell weakens from −11.7 Sv in PI, −11.3 Sv in MH and −11.4 Sv in LIG to −2.3 Sv in LGM and
 −1.7 Sv in MIS3, a reduction of roughly 80–86%, while the upper cell changes comparatively little
-(19.5 Sv in PI against 20.9 and 21.5 Sv in the glacials). The glacial reorganisation in these
+(18.5 Sv in PI against 20.1 and 21.5 Sv in the glacials). The glacial reorganisation in these
 simulations is therefore concentrated in the abyssal cell.
 
 ![](letter_figs/figR2_moc_5exps.png)

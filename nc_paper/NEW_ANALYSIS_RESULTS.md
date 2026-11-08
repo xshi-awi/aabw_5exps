@@ -45,14 +45,14 @@ the geographic mesh with climdiag 0.5.0 `moc_depth`, mean of the last 20 years o
 `data_moc/calc_moc_5exps.py` -> `data_moc/moc_indices.csv`; figure `plot_moc_5exps.py` ->
 `figures/figR2_moc_5exps.{pdf,png}`. The model's own `diag_gmoc.nc` is NOT used any more:
 for PI/MH/LIG it was binned by rotated latitude (see `data_moc/CLAUDE.md`).
-AABW = min below 2000 m south of 30S; NADW = max 500-4000 m, 0-70N.
+AABW = min below 2000 m south of 30S; NADW = max 500-4000 m, 20-70N (0-70N until 2026-11-08, D8).
 
 | exp | AABW cell (Sv) | NADW max (Sv) | old diag_gmoc.nc values |
 |-----|------|------|------|
-| PI   | -11.7 | 19.5 | -10.0 / 19.1 |
-| MH   | -11.3 | 20.4 | -10.1 / 19.1 |
-| LIG  | -11.4 | 22.1 |  -9.2 / 21.3 |
-| LGM  |  -2.3 | 20.9 |  -2.4 / 20.0 |
+| PI   | -11.7 | 18.5 | -10.0 / 19.1 |
+| MH   | -11.3 | 19.8 | -10.1 / 19.1 |
+| LIG  | -11.4 | 21.6 |  -9.2 / 21.3 |
+| LGM  |  -2.3 | 20.1 |  -2.4 / 20.0 |
 | MIS3 |  -1.7 | 21.5 |  -1.6 / 21.7 |
 
 The abyssal cell collapses by roughly 80-86% in the glacials. Caveats on both indices

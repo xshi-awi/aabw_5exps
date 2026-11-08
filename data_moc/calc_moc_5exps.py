@@ -40,15 +40,20 @@ LATS = np.arange(-81.0, 90.0, 2.0)
 
 def indices(psi, lat, depth):
     """The two indices of plot_moc_5exps.py: AABW = min over depth >= 2000 m and lat < -30;
-    NADW = max over 500-4000 m and 0 < lat < 70. Returns values and where they sit."""
+    NADW = max over 500-4000 m and 20 < lat < 70 (0-70N until 2026-11-08, D8). Also the
+    reference NADW_below1000 = max over 1000-4000 m, 20-70N. Returns values and where they sit."""
     ka, ja = depth >= 2000, lat < -30
     sub = psi[np.ix_(ka, ja)]
     i, j = np.unravel_index(np.nanargmin(sub), sub.shape)
-    kn, jn = (depth >= 500) & (depth <= 4000), (lat > 0) & (lat < 70)
-    subn = psi[np.ix_(kn, jn)]
-    p, q = np.unravel_index(np.nanargmax(subn), subn.shape)
-    return dict(AABW=float(sub[i, j]), AABW_lat=float(lat[ja][j]), AABW_depth=float(depth[ka][i]),
-                NADW=float(subn[p, q]), NADW_lat=float(lat[jn][q]), NADW_depth=float(depth[kn][p]))
+    out = dict(AABW=float(sub[i, j]), AABW_lat=float(lat[ja][j]), AABW_depth=float(depth[ka][i]))
+    jn = (lat > 20) & (lat < 70)
+    for name, kn in (("NADW", (depth >= 500) & (depth <= 4000)),
+                     ("NADW_below1000", (depth >= 1000) & (depth <= 4000))):
+        subn = psi[np.ix_(kn, jn)]
+        p, q = np.unravel_index(np.nanargmax(subn), subn.shape)
+        out.update({name: float(subn[p, q]), f"{name}_lat": float(lat[jn][q]),
+                    f"{name}_depth": float(depth[kn][p])})
+    return out
 
 
 def main():

@@ -6,7 +6,7 @@ AWI-ESM 五个气候态（PI / MH / LIG / LGM / MIS3）南大洋表面水团转�
 
 - **在做什么**：NC 大修。修订稿 `nc_paper/build/revised.tex`，回复信单一来源 `nc_paper/RESPONSE_LETTER.md`，生成 tex 与 docx，合作者在 TexPage 上看和改。
 - **上一步做完了什么**：总管任务 D6、D2（任务书 `~/.claude/manager/tasks/D_round_20261108.md`）。D6：PI/MH/LIG 的 `diag_gmoc.nc` 按旋转纬度分带，已独立核实；MOC 改为从原始 w 在地理网格上重算（`data_moc/`），Fig. 6、Fig R2.5/R3.4、修订稿与回复信里的 MOC 数字全部更新。D2：形成率表改与主图同源（100 年逐月、0.2 bin），climdiag 交叉核对通过（`data/CLAUDE.md`）。这些数字在总管核对前都算初步。
-- **下一步**：D6 已推 TexPage（10:05，commit 3d2ad39，回读一致）。之后填致谢与基金（`revised.tex` 约 360 行仍是 TODO），用户上传 Zenodo 后回填 DOI。其余见 `log/OPEN.md`。
+- **下一步**：D6 已推 TexPage（10:05，commit 3d2ad39，回读一致）。D8（上层指数改 20–70°N、Methods 加 4.4 节）只在本地和 GitHub，等总管说推再推。之后填致谢与基金（`revised.tex` 约 360 行仍是 TODO），用户上传 Zenodo 后回填 DOI。其余见 `log/OPEN.md`。
 - **动手前必须知道的**：
   - 投稿稿是 `nc_paper/nc-main.tex`（sn-jnl.cls，5 位作者）；修订在 `nc_paper/build/revised.tex`。`nc_paper/main.tex` 是旧 AGU 版，不是投稿稿；根目录 `paper/` 已删。
   - 回复信只改 markdown 源再生成，改前先合并用户在 docx 和 TexPage 上的改动。流程、闸门、写作红线全在 `nc_paper/CLAUDE.md`。docx 闸门的「N paragraph(s) differ from the built docx」是拿 R1 单独草稿比的，数量大不代表有未合并的改动，看阻断判定那一段（见 `log/SOLVED.md`）。

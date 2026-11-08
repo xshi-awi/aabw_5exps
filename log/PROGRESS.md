@@ -2,6 +2,12 @@
 
 按时间倒序。2026-11-08 从根 CLAUDE.md 压缩迁来，同主题已合并，只留结论；逐次细节在 git 历史里。具体数字多在 `nc_paper/NEW_ANALYSIS_RESULTS.md` 和 `docs/`。
 
+### 2026-11-08 10:40 D8 上层环流指数改为 20–70°N（数字待总管核对）
+
+- 查证：`plot_moc_5exps.py` 从 758dfa6（09-08）起就是 0–70°N，投稿稿 `nc-main.tex` 没有 MOC 分析，修订稿正文、图注、Methods、两封信都没写过上层窗口，唯一的「0–70N」是 D6 时照抄代码写进 `NEW_ANALYSIS_RESULTS.md` 的。无文字依据，按用户说的 20–70°N 改。
+- NADW（500–4000 m、20–70°N）PI/MH/LIG/LGM/MIS3 = 18.5/19.8/21.6/20.1/21.5 Sv（0–70°N 时 19.5/20.4/22.1/20.9/21.5）。PI、MH、LIG 仍卡在 580 m 顶边和 21°N 南边；1000 m 以下参照值 16.3/16.6/17.4/19.9/21.5，全在 1040 m 顶边。
+- 改了 `plot_moc_5exps.py`（及副本）、`data_moc/calc_moc_5exps.py`（重跑 job 28821814）、Source Data、`revised.tex` 2.4 节数字，新增 Methods 4.4 Overturning streamfunction 写明两个窗口；`RESPONSE_LETTER.md` R3 那段的数字。图只标 AABW，PNG 字节不变，没换。「upper cell … changes comparatively little」相对 −80–86% 仍成立（+8%、+16%），未改写。
+
 ### 2026-11-08 09:45 D6 MOC 分带更正，D2 形成率表同源（总管任务，数字待总管核对）
 
 - D6：`production/{pi,mh,lig}_age/diag_gmoc.nc` 按旋转纬度分带，独立核实。`data_moc/verify_moc_binning.py` 不用 climdiag，从 ASCII 网格反旋转（Euler 50/15/−90）、自算面积（与 diag 文件差 2.6e-13），旋转纬度装箱把三个文件复现到 0.0000 Sv，地理纬度装箱差 30–33 Sv；跨 79°S 输运文件里有 2.3–2.5 Sv，地理上应为零。run 的网格是 `awicm2_final384`（与 `mesh_core2` 水平相同、垂向层数不同）。

@@ -130,6 +130,6 @@ for e, lab in zip(EXPS, LABELS):
     js = lats < -30
     aabw = np.nanmin(m[np.ix_(kz, js)])
     kn = (deps <= -500) & (deps >= -4000)
-    jn = (lats > 0) & (lats < 70)
+    jn = (lats > 20) & (lats < 70)   # 20-70N (was 0-70N until 2026-11-08, D8)
     nadw = np.nanmax(m[np.ix_(kn, jn)])
     print('%-6s %10.1f %10.1f' % (lab, aabw, nadw))
