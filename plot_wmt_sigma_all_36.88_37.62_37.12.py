@@ -9,6 +9,14 @@
 3. AABW生成率 = WMT在阈值密度处的值
 
 输出PDF图表
+
+2026-11-08 (D2): reads the same files, bins and window as the main WMT figure
+(plot_wmt_4regions_5exps_from_100years.py): {exp}/wmt_results/wmt_{region}_100years_{exp}.nc,
+1200 monthly records, sigma2 bins 0.2 (PI/MH/LIG 2300-2399, LIG without 2318 and 2372, LGM 2400-2499, MIS3 2500-2599),
+annual = equal-weight mean of all months, winter = JJA. The CSVs written before
+(2026-01-08) came from the 0.25-bin 12-month climatology files and matched neither.
+The thresholds are unchanged; with 0.2 bins they fall between bin centres and are
+interpolated linearly. Cross-check: data/crosscheck_formation_climdiag.py.
 """
 
 import numpy as np
@@ -69,11 +77,17 @@ print()
 # ============================================================================
 
 def load_wmt_data(exp, region):
-    filename = f'wmt_echam_heat_fesom_freshwater_{region}_{exp}.nc'
-    filepath = Path(f'{exp}') / filename
+    filepath = Path(f'{exp}') / 'wmt_results' / f'wmt_{region}_100years_{exp}.nc'
     if not filepath.exists():
         return None
-    return xr.open_dataset(filepath)
+    ds = xr.open_dataset(filepath)
+    # same input as the main figure: complete years of monthly values, 0.2 bins
+    # (LIG holds 98 years: 2318 and 2372 are missing from the model output)
+    ny = {'lig': 98}.get(exp, 100)
+    assert ds.sizes['time'] == 12 * ny, (filepath, ds.sizes)
+    assert (ds['time.month'].values.reshape(ny, 12) == np.arange(1, 13)).all(), filepath
+    assert np.allclose(np.diff(ds['sigma2_l_target'].values), 0.2), filepath
+    return ds
 
 def get_wmt_at_density(sigma2, wmt_values, target_sigma):
     f = interpolate.interp1d(sigma2, wmt_values, kind='linear',

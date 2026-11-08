@@ -12,7 +12,7 @@
 ## 修订新增图（文件名 figR*，与回复信里的 Fig R1.x 编号无关）
 
 - `figR1_wmt_domain_sensitivity.pdf` ← `plot_wmt_domain_sensitivity.py`（数据 `wmt_siz_{exp}.nc`，由 `calc_wmt_siz_pellichero.py` 算）
-- `figR2_moc_5exps.pdf` ← `plot_moc_5exps.py`（模式自带 `diag_gmoc.nc`）
+- `figR2_moc_5exps.pdf`（正文 Fig. 6）← `plot_moc_5exps.py`，数据 `data_moc/moc_5exps_geo.nc`。2026-11-08 起不再读模式自带 `diag_gmoc.nc`，PI/MH/LIG 那份按旋转纬度分带（D6，见 `data_moc/CLAUDE.md`）。副本在 `nc_paper/build/figures/`、`nc_paper/SUBMISSION/new_figures/`、`nc_paper/SUBMISSION/letter_figs/`（png），改图后都要更新。
 - `figR3_age_global.pdf` ← `plot_age_global_basins.py`
 - `figS_wmt_common_axis_winter.pdf` ← `plot_wmt_common_axis_supp.py`（审稿人 1 第 15 条要的共用坐标轴版）
 - `figR4_sam_push_pull.pdf`、`figR5_sam_wind_ice.pdf` → 见 `docs/sam_push_pull.md`

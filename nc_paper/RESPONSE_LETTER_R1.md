@@ -403,11 +403,11 @@ In the revised manuscript this now reads:
 
 > **4.** Lines 25-27: Similar to Comment 2 above, additional context is needed before introducing the deep ocean ventilation results. The motivation for analysing ventilation ages only becomes clear later in the manuscript, whereas the abstract should be self-contained.
 
-The abstract now bridges from surface forcing to ventilation via the overturning circulation, stating that weaker glacial transformation coincides with a collapse of the simulated abyssal cell from about 10 to 2 Sv, before the ages are given. This also incorporates the new overturning analysis requested by Reviewer 3.
+The abstract now bridges from surface forcing to ventilation via the overturning circulation, stating that weaker glacial transformation coincides with a collapse of the simulated abyssal cell from about 11 to 2 Sv, before the ages are given. This also incorporates the new overturning analysis requested by Reviewer 3.
 
 In the revised manuscript this now reads:
 
-> *"Weaker glacial transformation coincides with a collapse of the simulated abyssal overturning cell from about 10 to 2 Sv and with older abyssal water. Ideal ages at 4000 m remain below 500 years during interglacials but exceed 750 years basin-wide during glacials, reaching 1500 years in the Pacific."*
+> *"Weaker glacial transformation coincides with a collapse of the simulated abyssal overturning cell from about 11 to 2 Sv and with older abyssal water. Ideal ages at 4000 m remain below 500 years during interglacials but exceed 750 years basin-wide during glacials, reaching 1500 years in the Pacific."*
 
 > **5.** Lines 102-105: SAM is introduced only briefly here. Given its importance throughout the Results and Discussion, please consider providing a slightly more detailed introduction.
 

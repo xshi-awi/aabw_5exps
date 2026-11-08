@@ -11,11 +11,12 @@ intermediate, where colour survives as a real Word run property.
 """
 import re
 import subprocess
+import tempfile
 from pathlib import Path
 
 SRC = Path('SUBMISSION/04_response_letter.tex')
-HTML = Path('/tmp/claude-22370/-work-ba1066-a270064-cc-projects-aabw-5exps/'
-            'a0433b42-6a8d-4bfc-8edf-280a200280f5/scratchpad/letter.html')
+# intermediate file; it used to sit in one session's scratchpad, which no longer exists
+HTML = Path(tempfile.gettempdir()) / 'aabw_letter_tex_to_docx.html'
 OUT = Path('SUBMISSION/05_response_letter.docx')
 
 s = SRC.read_text()

@@ -1,0 +1,37 @@
+== mesh: awicm2_final384 nod2d.out un-rotated (50,15,-90) vs mesh_core2 nod2d.out:
+   max |dlat| 5.00e-05 deg, max |dlon cos| 5.00e-05 deg
+   rotated - geographic latitude: -15.0 .. 15.0 deg; southernmost node geo -78.52, rotated -84.37
+   elvls.out differs from mesh_core2 for 119976 of 244659 elements (max 21 levels)
+   numpy elem area vs fesom.mesh.diag.nc: max rel diff 2.6e-13
+
+== 1. diag_gmoc.nc reproduced by rotated vs geographic binning (row L = across L-2)
+   pi (mean of last 20 records vs w 2380-2399): max|file - rotated| 0.0000 Sv; max|file - geographic| 32.08 Sv
+   mh (mean of last 20 records vs w 2380-2399): max|file - rotated| 0.0000 Sv; max|file - geographic| 32.69 Sv
+   lig (last record vs w 2371): max|file - rotated| 0.0000 Sv; max|file - geographic| 30.39 Sv
+
+== 2. which years the last records of the glacial files are
+   mesh_glac1d: nod2d.out lat vs diag nodes lat max diff 1.4e-12 deg (geographic storage)
+   lgm year 2350: best record 30 of 50 (max diff 0.123 Sv, next best 6.58) -> file years 2320-2369
+   lgm year 2499: best record 3 of 50 (max diff 8.185 Sv, next best 8.76) -> file years 2496-2545
+   mesh_glac1d_38k: nod2d.out lat vs diag nodes lat max diff 1.6e-12 deg (geographic storage)
+   mis year 2599: best record 39 of 50 (max diff 0.121 Sv, next best 7.18) -> file years 2560-2609
+
+== 3. southern boundary: transport across 79S (file row labelled -77), max over depth
+   pi file: 2.43 Sv
+   mh file: 2.51 Sv
+   lig file: 2.33 Sv
+   lgm file: 0.06 Sv
+   mis file: 0.05 Sv
+   pi geographic numpy: 1.93e-06 Sv (crossing -79)
+   mh geographic numpy: 1.49e-06 Sv (crossing -79)
+
+== 4. where Weddell and Ross sinking sits: net downward flux across 1040 m per 1-deg band, PI 2380-2399
+   Weddell (60W-30E)  geographic: strongest sinking in -73 to -72 deg (-0.91 Sv); southernmost element -78.4
+   Weddell (60W-30E)  rotated   : strongest sinking in -58 to -57 deg (-0.51 Sv); southernmost element -63.4
+   Ross (160E-150W)   geographic: strongest sinking in -77 to -76 deg (-0.07 Sv); southernmost element -78.4
+   Ross (160E-150W)   rotated   : strongest sinking in -55 to -54 deg (-0.40 Sv); southernmost element -84.3
+   Weddell shelf nodes (70-80S, 60-20W): geographic -74.1, rotated -59.2 deg
+
+== 5. this numpy MOC vs climdiag (moc_5exps_geo.nc), geographic, PI and MH
+   pi: max|numpy - climdiag| 0.0000 Sv (numpy uses its own planar areas and ASCII levels)
+   mh: max|numpy - climdiag| 0.0000 Sv (numpy uses its own planar areas and ASCII levels)

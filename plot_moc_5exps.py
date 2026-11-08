@@ -1,8 +1,14 @@
 #!/usr/bin/env python
 """
 Global meridional overturning streamfunction for the five climate states,
-from the model's own online MOC diagnostic (diag_gmoc.nc), averaged over the
-final 20 diagnostic years.
+computed from the model's vertical velocity on the geographic mesh
+(data_moc/calc_moc_5exps.py, climdiag.moc_depth), mean over the last 20 years of
+each run's 100-year analysis period (PI/MH/LIG 2380-2399, LGM 2480-2499,
+MIS3 2580-2599).
+
+2026-11-08 (D6): no longer reads production/{exp}_age/diag_gmoc.nc. For PI, MH and
+LIG that file was binned by rotated latitude, its row labels sit one bin north, and
+the LIG file ends in 2371. See data_moc/CLAUDE.md.
 
 Requested by Reviewer #3, who noted that the overturning can be computed
 directly in the model and should be shown rather than inferred from ideal age.
@@ -11,7 +17,7 @@ Row 1: absolute streamfunction, all five states.
 Row 2: anomalies relative to PI for MH, LIG, LGM, MIS3.
 """
 import numpy as np
-import netCDF4 as nc
+import xarray as xr
 import matplotlib as mpl
 mpl.use('Agg')
 import matplotlib.pyplot as plt
@@ -19,8 +25,7 @@ from matplotlib.colors import TwoSlopeNorm
 
 EXPS = ['pi', 'mh', 'lig', 'lgm', 'mis']
 LABELS = ['PI', 'MH', 'LIG', 'LGM', 'MIS3']
-PROD = '/work/ba1066/a270064/production'
-NAVG = 20
+MOC_FILE = 'data_moc/moc_5exps_geo.nc'
 
 mpl.rcParams.update({
     'font.family': 'sans-serif',
@@ -29,15 +34,17 @@ mpl.rcParams.update({
 })
 
 
-def load(exp):
-    f = nc.Dataset(f'{PROD}/{exp}_age/diag_gmoc.nc')
-    moc = np.array(f.variables['MOC'][:])
-    lats = np.array(f.variables['lats'][:])
-    deps = np.array(f.variables['deps'][:])
-    return moc[-NAVG:].mean(axis=0), lats, deps
+_ds = xr.open_dataset(MOC_FILE)
 
 
-data = {e: load(e) for e in EXPS}
+def load(lab):
+    """mean psi (depth, lat), latitudes crossed, interface depths (m, negative down
+    as in the old diag_gmoc.nc convention so the index code below is unchanged)."""
+    m = _ds['moc'].sel(exp=lab)
+    return m.values, m['lat'].values, -m['depth'].values
+
+
+data = {e: load(lab) for e, lab in zip(EXPS, LABELS)}
 
 fig = plt.figure(figsize=(21, 9.4))
 gs = fig.add_gridspec(2, 5, hspace=0.72, wspace=0.16,

@@ -2,14 +2,14 @@
 
 AWI-ESM 五个气候态（PI / MH / LIG / LGM / MIS3）南大洋表面水团转换（WMT）的热、盐强迫分解与 SAM 调制。论文已投 Nature Communications，现处大修阶段。远程 origin = https://github.com/xshi-awi/aabw_5exps
 
-## 当前状态（2026-11-08 压缩时整理，旧文档最后一条为 2026-09-21）
+## 当前状态（2026-11-08 09:45）
 
 - **在做什么**：NC 大修。修订稿 `nc_paper/build/revised.tex`，回复信单一来源 `nc_paper/RESPONSE_LETTER.md`，生成 tex 与 docx，合作者在 TexPage 上看和改。
-- **上一步做完了什么**：旧文档止于 09-21（深海平衡诊断、回复信按用户复查改了三处）。git log 显示 09-22 到 10-15 还有 48 个提交没写进旧文档，摘要见 `log/PROGRESS.md` 首条：TexPage 同步与防覆盖闸门，按 Jiping Liu 意见重写 R1 回复，ORAS5 WMT 对比，R3 的再分析建议改为正面回答，回复信 17 张图。10-15 之后的进展「待核」，以 git log 为准。
-- **下一步**：填致谢与基金（`revised.tex` 约 360 行仍是 TODO），用户上传 Zenodo 后回填 DOI。其余见 `log/OPEN.md`。
+- **上一步做完了什么**：总管任务 D6、D2（任务书 `~/.claude/manager/tasks/D_round_20261108.md`）。D6：PI/MH/LIG 的 `diag_gmoc.nc` 按旋转纬度分带，已独立核实；MOC 改为从原始 w 在地理网格上重算（`data_moc/`），Fig. 6、Fig R2.5/R3.4、修订稿与回复信里的 MOC 数字全部更新。D2：形成率表改与主图同源（100 年逐月、0.2 bin），climdiag 交叉核对通过（`data/CLAUDE.md`）。这些数字在总管核对前都算初步。
+- **下一步**：等总管核对后才推 TexPage（本轮只改本地并推 GitHub）。之后填致谢与基金（`revised.tex` 约 360 行仍是 TODO），用户上传 Zenodo 后回填 DOI。其余见 `log/OPEN.md`。
 - **动手前必须知道的**：
   - 投稿稿是 `nc_paper/nc-main.tex`（sn-jnl.cls，5 位作者）；修订在 `nc_paper/build/revised.tex`。`nc_paper/main.tex` 是旧 AGU 版，不是投稿稿；根目录 `paper/` 已删。
-  - 回复信只改 markdown 源再生成，改前先合并用户在 docx 和 TexPage 上的改动。流程、闸门、写作红线全在 `nc_paper/CLAUDE.md`。
+  - 回复信只改 markdown 源再生成，改前先合并用户在 docx 和 TexPage 上的改动。流程、闸门、写作红线全在 `nc_paper/CLAUDE.md`。下次 push 时 docx 闸门会报 2 段 10-15 的中文批注（已处理过的指令，不是正文），见 `log/OPEN.md`。
   - `nc_paper/NEW_ANALYSIS_RESULTS.md` §1 的「69%→61%」已被推翻，别引（见 `log/PITFALLS.md`）。
 
 ## 数据路径
@@ -20,9 +20,9 @@ AWI-ESM 五个气候态（PI / MH / LIG / LGM / MIS3）南大洋表面水团转�
 - WMT：气候态 `./{exp}/wmt*nc`；100 年逐月 `./{exp}/wmt_results/wmt_*_100years_{exp}.nc`；9 月海冰区 WMT `./wmt_siz_{exp}.nc`
 - 理想年龄：`./{exp}/age_reg.nc`（全球 1°×47 层，单位已是年）
 - ECHAM 全量：`./{exp}/echam_mergetime.nc`（约 43 GB，1200 个月）；风应力抽取 `sam_wind/{exp}_taux.nc`；t2m 抽取 `drift_check/{exp}_t2m.nc`
-- 原始模式输出：`/work/ba1066/a270064/production/{exp}_age/`（`outdata/fesom/` 逐年 3D 温盐，`diag_gmoc.nc` 模式自带 MOC）；run 配置 `production/{exp}_age.yaml` 与 `config/*echam*`
+- 原始模式输出：`/work/ba1066/a270064/production/{exp}_age/`（`outdata/fesom/` 逐年 3D 温盐与 w；`diag_gmoc.nc` 模式自带 MOC，PI/MH/LIG 那份分带错了，别用，MOC 用 `data_moc/`）；run 配置 `production/{exp}_age.yaml` 与 `config/*echam*`
 - ORAS5 WMT 结果：`wmt_oras5_siz.nc`、`wmt_oras5_so60.nc`（数据说明 `docs/oras5_data_description.md`）
-- 网格（用其中的 `fesom.mesh.diag.nc`）：PI/MH/LIG `/home/a/a270064/bb1029/inputs/mesh_core2`；LGM `.../mesh_glac1d`；MIS3 `.../mesh_glac1d_38k`
+- 网格（用其中的 `fesom.mesh.diag.nc`）：PI/MH/LIG 的 run 用 `/home/a/a270064/bb1029/inputs/awicm2_final384`，它与 `mesh_core2` 水平网格相同但垂向层数不同，表层分析两者都行，三维积分必须用 `awicm2_final384`；LGM `.../mesh_glac1d`；MIS3 `.../mesh_glac1d_38k`
 
 ## 环境
 
@@ -35,6 +35,8 @@ AWI-ESM 五个气候态（PI / MH / LIG / LGM / MIS3）南大洋表面水团转�
 - `composite_sam/` SAM 指数与 JJA 合成（阈值 ±1.2σ），两个 fwflux 脚本只有一个是现役 → `composite_sam/CLAUDE.md`
 - `docs/` 长篇分析，一题一文件，含图与脚本对照表 `docs/figure_registry.md` → `docs/CLAUDE.md`
 - `log/` PROGRESS、OPEN、SOLVED、PITFALLS
+- `data_moc/` 五个态的全球 MOC（地理纬度分带，D6）→ `data_moc/CLAUDE.md`
+- `data/` AABW 形成率表（与 WMT 主图同源，D2）→ `data/CLAUDE.md`
 - `figures/` 论文引用的图（gitignored）；根目录 `plot_*.py` 写到这里
 - `zenodo_deposit/` Zenodo 数据包（约 1.3 GB，说明见其 `README.md`），别往里放别的文件，会被一起上传
 - `revision/` 从 TexPage 取回的合作者 docx 等原件（如 `response_letter_R12_1015.docx`）「待核」
@@ -49,7 +51,7 @@ AWI-ESM 五个气候态（PI / MH / LIG / LGM / MIS3）南大洋表面水团转�
 ## 全项目的坑（静默出错类，案例细节见 `log/PITFALLS.md`）
 
 - 数据已从 `/work/ba0989/a270064/bb1029/aabw_5exps` 搬到本目录，旧脚本里的硬编码路径读不到东西。新脚本别抄旧路径。
-- mesh 文件里 lat/lon 可能是弧度。冰期网格的深度轴叫 `nz` 不叫 `zbar`（数值相同）。
+- `awicm2_final384/nod2d.out` 存的是旋转坐标（与地理纬度差 ±15°），直接拿它的 lat 分带或画图就错，地理坐标取 `fesom.mesh.diag.nc`（弧度）。mesh 文件里 lat/lon 可能是弧度。冰期网格的深度轴叫 `nz` 不叫 `zbar`（数值相同）。
 - `diag_gmoc.nc` 与 `age_reg.nc` 的深度为负；`diag_gmoc.nc` 用 netCDF4 或 `decode_times=False` 打开。
 - `./{exp}/fw_clim.nc` 的 fw **正值 = 海洋失淡水 = brine 输入**（PI 沿岸 JJA +0.164 Sv，DJF −0.470 Sv），与 WMT 管线 `fw2 = -fw*rho` 的取负一致。
 - 43 GB 源文件的 ncks 抽取、matplotlib/cartopy 画图脚本都要前台跑。放后台会被中途杀掉或空跑，留下 .tmp 或旧时间戳文件，看起来像成功了。

@@ -39,20 +39,24 @@ Validation: this climatology-based pipeline reproduces the published 100-year re
 (annual peak 10.60 vs 11.39 Sv; JJA peak recovers the quoted 60-80 Sv, at 69.86 Sv).
 
 ## 2. Overturning streamfunction  (Reviewer 3 request)
-Source: model's own online diagnostic `/work/ba1066/a270064/production/{exp}_age/diag_gmoc.nc`,
-mean of the final 20 diagnostic years. Script `plot_moc_5exps.py` -> `figures/figR2_moc_5exps.{pdf,png}`.
+Source (since 2026-11-08, finding D6): global MOC computed from the raw vertical velocity on
+the geographic mesh with climdiag 0.5.0 `moc_depth`, mean of the last 20 years of each run's
+100-year analysis period (PI/MH/LIG 2380-2399, LGM 2480-2499, MIS3 2580-2599).
+`data_moc/calc_moc_5exps.py` -> `data_moc/moc_indices.csv`; figure `plot_moc_5exps.py` ->
+`figures/figR2_moc_5exps.{pdf,png}`. The model's own `diag_gmoc.nc` is NOT used any more:
+for PI/MH/LIG it was binned by rotated latitude (see `data_moc/CLAUDE.md`).
+AABW = min below 2000 m south of 30S; NADW = max 500-4000 m, 0-70N.
 
-| exp | AABW cell (Sv) | NADW max (Sv) |
-|-----|------|------|
-| PI   | -10.0 | 19.1 |
-| MH   | -10.1 | 19.1 |
-| LIG  |  -9.2 | 21.3 |
-| LGM  |  -2.4 | 20.0 |
-| MIS3 |  -1.6 | 21.7 |
+| exp | AABW cell (Sv) | NADW max (Sv) | old diag_gmoc.nc values |
+|-----|------|------|------|
+| PI   | -11.7 | 19.5 | -10.0 / 19.1 |
+| MH   | -11.3 | 20.4 | -10.1 / 19.1 |
+| LIG  | -11.4 | 22.1 |  -9.2 / 21.3 |
+| LGM  |  -2.3 | 20.9 |  -2.4 / 20.0 |
+| MIS3 |  -1.7 | 21.5 |  -1.6 / 21.7 |
 
-The abyssal cell collapses by roughly 75-85% in the glacials while the upper NADW cell
-is nearly unchanged. This is independent confirmation of the ventilation-age result and
-answers the reviewer's point that overturning should be shown directly.
+The abyssal cell collapses by roughly 80-86% in the glacials. Caveats on both indices
+(window-edge maxima) are in `data_moc/CLAUDE.md`.
 
 ## 3. Global ideal age  (Reviewer 3: show ventilation globally, not one 4000 m level)
 Script `plot_age_global_basins.py` -> `figures/figR3_age_global.{pdf,png}`.

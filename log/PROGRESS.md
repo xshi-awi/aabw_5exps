@@ -2,6 +2,13 @@
 
 按时间倒序。2026-11-08 从根 CLAUDE.md 压缩迁来，同主题已合并，只留结论；逐次细节在 git 历史里。具体数字多在 `nc_paper/NEW_ANALYSIS_RESULTS.md` 和 `docs/`。
 
+### 2026-11-08 09:45 D6 MOC 分带更正，D2 形成率表同源（总管任务，数字待总管核对）
+
+- D6：`production/{pi,mh,lig}_age/diag_gmoc.nc` 按旋转纬度分带，独立核实。`data_moc/verify_moc_binning.py` 不用 climdiag，从 ASCII 网格反旋转（Euler 50/15/−90）、自算面积（与 diag 文件差 2.6e-13），旋转纬度装箱把三个文件复现到 0.0000 Sv，地理纬度装箱差 30–33 Sv；跨 79°S 输运文件里有 2.3–2.5 Sv，地理上应为零。run 的网格是 `awicm2_final384`（与 `mesh_core2` 水平相同、垂向层数不同）。
+- MOC 改由 `data_moc/calc_moc_5exps.py` 用 climdiag 0.5.0（46e6514）`moc_depth` 从原始 w 重算，五个态统一取 100 年分析期的最后 20 年。AABW 指数 PI/MH/LIG/LGM/MIS3 由 −10.0/−10.1/−9.2/−2.4/−1.6 变为 −11.7/−11.3/−11.4/−2.3/−1.7 Sv，降幅「75–85%」变为「80–86%」，摘要「10 to 2 Sv」变为「11 to 2 Sv」；NADW 19.1/19.1/21.3/20.0/21.7 变为 19.5/20.4/22.1/20.9/21.5 Sv。旧文件的窗口原来五个态各不相同（LGM 是 2350–2369，MIS3 是 2590–2609）。
+- 更新了 `plot_moc_5exps.py`（及 SUBMISSION 副本）、Fig. 6 / Fig R2.5 / R3.4 的图、`revised.tex` 摘要与 2.4 节与图注、`RESPONSE_LETTER.md` 与 `RESPONSE_LETTER_R1.md`（引文经 `extract_quotes.py` 重抽）、`make_source_data.py` 与 `Source_Data.xlsx`、`NEW_ANALYSIS_RESULTS.md` §2。`tex_to_docx*.py` 的中间文件路径指向一个已不存在的会话目录，改为系统临时目录。
+- D2：`data/aabw_formation_*_final.csv` 原是 0.25 bin 气候态文件算的，改为读主图的 100 年逐月 0.2 bin 文件（`plot_wmt_sigma_all_36.88_37.62_37.12.py`），PI 南大洋 Total 8.109→8.049，LGM 11.341→9.345 Sv。climdiag `surface_wmt` 从输入重算全部 1200 个月，文件复现到相对 5e-8，表差 ≤0.0005 Sv。两张表的数字不在修订稿和回复信里。
+
 ### 2026-10-15 07:34（据 git log 补记，旧根 CLAUDE.md 没有记录）
 
 09-22 到 10-15 共 48 个提交，以下按提交信息整理，细节以 git log 为准。

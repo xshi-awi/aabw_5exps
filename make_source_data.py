@@ -158,18 +158,12 @@ if frames:
     sheets['Fig8_domain_sensitivity'] = pd.concat(frames, axis=1).reset_index()
 
 # ------------------------------------------------------- Fig 6: MOC cell strengths
-rows = []
-for e, lab in zip(EXPS, LABELS):
-    f = nc.Dataset(f'/work/ba1066/a270064/production/{e}_age/diag_gmoc.nc')
-    moc = np.array(f.variables['MOC'][:])
-    lats = np.array(f.variables['lats'][:])
-    deps = np.array(f.variables['deps'][:])
-    m = moc[-20:].mean(axis=0)
-    aabw = float(np.nanmin(m[np.ix_(deps <= -2000, lats < -30)]))
-    nadw = float(np.nanmax(m[np.ix_((deps <= -500) & (deps >= -4000), (lats > 0) & (lats < 70))]))
-    rows.append({'experiment': lab, 'AABW_cell_Sv': round(aabw, 2), 'NADW_cell_Sv': round(nadw, 2)})
-    f.close()
-sheets['Fig6_MOC_cell_strength'] = pd.DataFrame(rows)
+# geographic re-binning from the raw w (data_moc/, finding D6); diag_gmoc.nc of PI/MH/LIG
+# was binned by rotated latitude
+moc_ix = pd.read_csv('data_moc/moc_indices.csv')
+sheets['Fig6_MOC_cell_strength'] = pd.DataFrame({
+    'experiment': moc_ix['exp'], 'years': moc_ix['years'],
+    'AABW_cell_Sv': moc_ix['AABW'].round(2), 'NADW_cell_Sv': moc_ix['NADW'].round(2)})
 
 # ------------------------------------------------------- write
 OUT.parent.mkdir(parents=True, exist_ok=True)

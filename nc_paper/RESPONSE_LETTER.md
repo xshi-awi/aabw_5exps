@@ -405,11 +405,11 @@ In the revised manuscript this now reads:
 
 > **4.** Lines 25-27: Similar to Comment 2 above, additional context is needed before introducing the deep ocean ventilation results. The motivation for analysing ventilation ages only becomes clear later in the manuscript, whereas the abstract should be self-contained.
 
-The abstract now bridges from surface forcing to ventilation via the overturning circulation, stating that weaker glacial transformation coincides with a collapse of the simulated abyssal cell from about 10 to 2 Sv, before the ages are given. This also incorporates the new overturning analysis requested by Reviewer 3.
+The abstract now bridges from surface forcing to ventilation via the overturning circulation, stating that weaker glacial transformation coincides with a collapse of the simulated abyssal cell from about 11 to 2 Sv, before the ages are given. This also incorporates the new overturning analysis requested by Reviewer 3.
 
 In the revised manuscript this now reads:
 
-> *"Weaker glacial transformation coincides with a collapse of the simulated abyssal overturning cell from about 10 to 2 Sv and with older abyssal water. Ideal ages at 4000 m remain below 500 years during interglacials but exceed 750 years basin-wide during glacials, reaching 1500 years in the Pacific."*
+> *"Weaker glacial transformation coincides with a collapse of the simulated abyssal overturning cell from about 11 to 2 Sv and with older abyssal water. Ideal ages at 4000 m remain below 500 years during interglacials but exceed 750 years basin-wide during glacials, reaching 1500 years in the Pacific."*
 
 > **5.** Lines 102-105: SAM is introduced only briefly here. Given its importance throughout the Results and Discussion, please consider providing a slightly more detailed introduction.
 
@@ -792,7 +792,7 @@ The consequences for the large-scale circulation are visible in the overturning 
 
 **Figure R2.5 (manuscript Fig. 6).** Global overturning streamfunction (top) and anomalies relative
 to PI (bottom). The abyssal cell that carries southern-sourced bottom water weakens from about
-10 Sv in the interglacials to 2.4 and 1.6 Sv in LGM and MIS3, while the upper cell is largely
+11 Sv in the interglacials to 2.3 and 1.7 Sv in LGM and MIS3, while the upper cell is largely
 unchanged. The glacial reorganisation is concentrated in the cell our surface analysis addresses. What such a model would change
 is the density and the geographic origin of the resulting water, not the direction of the shift in
 the surface buoyancy budget. We have adjusted the framing of the paper accordingly, so that the
@@ -1203,10 +1203,10 @@ The Methods now state:
 
 We agree on all three points and have added the analyses.
 
-The overturning streamfunction, diagnosed online by the model, is now shown in the new Fig. 6. The
-abyssal cell weakens from −10.0 Sv in PI, −10.1 Sv in MH and −9.2 Sv in LIG to −2.4 Sv in LGM and
-−1.6 Sv in MIS3, a reduction of roughly 75–85%, while the upper cell changes comparatively little
-(19.1 Sv in PI against 20.0 and 21.7 Sv in the glacials). The glacial reorganisation in these
+The overturning streamfunction, computed from the simulated vertical velocity, is now shown in the new Fig. 6. The
+abyssal cell weakens from −11.7 Sv in PI, −11.3 Sv in MH and −11.4 Sv in LIG to −2.3 Sv in LGM and
+−1.7 Sv in MIS3, a reduction of roughly 80–86%, while the upper cell changes comparatively little
+(19.5 Sv in PI against 20.9 and 21.5 Sv in the glacials). The glacial reorganisation in these
 simulations is therefore concentrated in the abyssal cell.
 
 ![](letter_figs/figR2_moc_5exps.png)
