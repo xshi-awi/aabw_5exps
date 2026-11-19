@@ -25,6 +25,8 @@ R1 单独草稿（据 git 0e2557d）：`RESPONSE_LETTER_R1.md` → `md_to_tex_r1
 - 用户 11-19 要求：回复信改按 texpage-sync skill 的 STYLE 写，内容以合作者改过的 `paper/inbox_20261119/response-JL.docx` 为准，新开 `revision/response_new.tex`，旧的 04/05 文件不动。以后用户在 TexPage 上直接改它，**线上是主版本**：本地 `response_new.tex` 只是推送时的副本，动手前先 pull 并以线上为准。上面那条 markdown 流水线不管这个文件。
 - 由 `docx_to_tex/` 生成一次：`dump_docx.py` 拆 docx 的 run（删除线、高亮、批注、上下标），`build_response_new.py` 按 STYLE 写 tex（段落编号写死，只适用于这一份 docx），`check_paras2.py` 拿 PDF 文本逐段核对。删除线删掉；高亮用 ulem 版 `\hl`（soul 3.0 以前在 pdfLaTeX 下碰 UTF-8 会挂）；Word 批注印成红色 `\docxcomment`；图按出现顺序 R1–R15 连续编号，同一张图在不同审稿人处各放一次（题注不同）。
 - 这份 docx 是从 11-08 D6 之前的回复信转来的，MOC 数字（−10.0 等）和 MOC 图都是旧的；tex 照 docx 转写，在源文件里用 `% NOTE` 标了 D6/D8 之后的值，等用户定。
+- 11-19 用户定：revision/ 下旧回复信的 Word 和 PDF（04 两份 PDF、05 docx、R12_1015 与 R1_1013 两份 docx）已从 TexPage 删除（提交 baa76c5），本地副本保留。
+- **别再用 `sync_texpage.sh push`**：它先 `rm -rf revision` 再按旧清单重建，会把上面删掉的文件推回去，并把 `response_new.tex` 删掉（只保留 docx/txt 上传）。现在改线上文件一律用干净克隆：pull，只 `git add`/`git rm` 写明的文件，推完等 3 分钟核 md5。
 
 ## 格式约定（仿 `SUBMISSION/example_response.tex`）
 
