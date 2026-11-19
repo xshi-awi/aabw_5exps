@@ -1,0 +1,494 @@
+{
+ "struck_spans": [
+  {
+   "para": 106,
+   "text": "A paragraph discussing the surface density panels has been added. It notes that the glacial density anomalies follow the salinity field rather than the temperature field, because the thermal expansion coefficient is small at the near-freezing temperatures south of the ice edge, and points out the density-compensated LIG anomaly and the weak negative LGM anomalies in the Atlantic-Indian sector."
+  },
+  {
+   "para": 107,
+   "text": "In the revised manuscript this now reads:“The surface density anomalies (Fig. 1i-l) follow the salinity field rather than the temperature field in the glacial states. Cooling and salinification both act to densify the surface, but at the near-freezing temperatures that prevail south of the ice edge the thermal expansion coefficient is small, so the haline term sets both the pattern and the magnitude. In LIG the warm and salty Bellingshausen-Amundsen anomaly is close to density compensated (Fig. 1j), and the LGM retains weak negative density anomalies in parts of the Atlantic-Indian sector where surface freshening outweighs cooling.”"
+  },
+  {
+   "para": 110,
+   "text": "In the revised manuscript this now reads:“"
+  },
+  {
+   "para": 113,
+   "text": "not limited by surface heat content anywhere"
+  },
+  {
+   "para": 120,
+   "text": "We note that this thermally dominated maximum occurs at densities that correspond to intermediate and mode waters rather than to bottom water. In the densest classes that the simulated surface fluxes reach (σ2 ≥ 37.0 kg m-3), the PI transformation is already haline dominated, with the sea ice term contributing 0.79 Sv against 0.06 Sv from heat in the annual mean. The thermal dominance reported here is therefore a property of the integral over all density classes, and we quantify its sensitivity to the choice of integration domain and density range in the Discussion"
+  },
+  {
+   "para": 150,
+   "text": "Done, and the same treatment has been applied throughout the Results and Discussion rather than only in the passage the reviewer names. As an example of the form these references now take:“In PI, strong thermal densification (red shading) is concentrated in the open ocean (Fig. 3a), with maximal values reaching 5 10-6 kg m-3 s-1 in the circumpolar band between 50-65°S. This thermal densification is overwhelmingly controlled by turbulent fluxes (sensible and latent heat), with radiative fluxes playing a minor role in the buoyancy budget (Fig. 3f-j vs. Fig. 3k-o), consistent with observationally based surface buoyancy budgets for the Southern Ocean .”"
+  },
+  {
+   "para": 153,
+   "text": "Both instances have been rewritten. They now read \"over the ice-free parts of the Southern Ocean south of about 50°S\" and \"south of the ice edge\" respectively."
+  },
+  {
+   "para": 232,
+   "text": "If the reviewer would prefer the figures recast in buoyancy units, we will do so."
+  }
+ ],
+ "restored": [
+  {
+   "para": 37,
+   "old": "?",
+   "new": "\\textit{(Berger, 1977)}",
+   "why": "citation \\cite{berger1977long} lost (old letter printed \"following , and\"); written as tex2letter renders it"
+  },
+  {
+   "para": 141,
+   "old": "-≤ft(/Cp)Qnet",
+   "new": "$-\\left(\\alpha/C_p\\right)Q_{net}$",
+   "why": "formula mangled in the old letter (\"-\\le ft(/C_p)Q_net\"); from revised.tex"
+  },
+  {
+   "para": 141,
+   "old": "S Ffw",
+   "new": "$\\beta S F_{fw}$",
+   "why": "beta and subscript lost (old letter printed \"S F_fw\"); from revised.tex"
+  },
+  {
+   "para": 141,
+   "old": "highlight on \"the\" and \"in equation 1 in Method\"",
+   "new": "not highlighted",
+   "why": "part of the same highlight as the lost formula; words kept as in docx"
+  }
+ ],
+ "highlights_kept": [
+  {
+   "para": 13,
+   "text": "reproduced"
+  },
+  {
+   "para": 13,
+   "text": "Fig. R2.3"
+  },
+  {
+   "para": 22,
+   "text": "and the two fields the calculation needs are the two that are least constrained"
+  },
+  {
+   "para": 54,
+   "text": "Add a winter sea ice cover plot, model vs. satellite, and discuss the similarity and difference."
+  },
+  {
+   "para": 55,
+   "text": "compared to ?"
+  },
+  {
+   "para": 58,
+   "text": "compared to ?,"
+  },
+  {
+   "para": 80,
+   "text": "Weaker glacial transformation"
+  },
+  {
+   "para": 84,
+   "text": "(Add references)."
+  },
+  {
+   "para": 97,
+   "text": "residual"
+  },
+  {
+   "para": 106,
+   "text": "You need to discuss sea ice anomalies!"
+  },
+  {
+   "para": 113,
+   "text": "the ice expansion is  facilitated by intensified wind-induced Ekman transport"
+  },
+  {
+   "para": 116,
+   "text": "0.3 K"
+  },
+  {
+   "para": 116,
+   "text": "variability"
+  },
+  {
+   "para": 145,
+   "text": "List these references here"
+  },
+  {
+   "para": 160,
+   "text": "(Add the two references?)"
+  },
+  {
+   "para": 161,
+   "text": "List these references here"
+  },
+  {
+   "para": 168,
+   "text": "their sector"
+  },
+  {
+   "para": 202,
+   "text": "water"
+  },
+  {
+   "para": 203,
+   "text": "which that budget cannot separate"
+  },
+  {
+   "para": 217,
+   "text": "but its intensity depends on the simulated wind-driven divergence rather than on resolved polynya circulation"
+  },
+  {
+   "para": 220,
+   "text": "In our simulations the glacial ice expands"
+  },
+  {
+   "para": 221,
+   "text": "The haline-dominated glacial regime reported here means our glacial result depends on the simulated sea ice expansion being realistic."
+  },
+  {
+   "para": 231,
+   "text": "We have added a statement of the comparison in equivalent surface density tendency terms to the Results: expressed that way, the freshwater contribution is the larger of the two wherever sea ice is present, and the heat contribution is larger only in the ice-free sector, which is the same partition that governs the mean state."
+  },
+  {
+   "para": 232,
+   "text": "The corresponding statement in the Results reads:``figures themselves, which are now supplementary, because the heat and freshwater fields are what the model diagnoses and readers may wish to compare them against other studies in conventional units. The text now makes the relative magnitudes explicit."
+  },
+  {
+   "para": 248,
+   "text": "water"
+  },
+  {
+   "para": 249,
+   "text": "which that budget cannot separate"
+  },
+  {
+   "para": 252,
+   "text": "New analysis. Transformation rate against neutral density γ, in three comparisons. Top  row, the same domain and season against ORAS5 for 1999-2018: (c) ours with the sea ice contribution removed and (d) ORAS5, which carries heat and evaporation minus precipitation minus runoff only. Bottom row, the domain and season the paper uses, south of 60°S in JJA: (e) ours with the sea ice contribution removed and (f) ORAS5. Rows two and three are unshaded, because with the sea ice term absent from both sides a heat-against-freshwater classification would describe an incomplete freshwater flux."
+  },
+  {
+   "para": 257,
+   "text": "The passage added to the Discussion reads:"
+  },
+  {
+   "para": 257,
+   "text": "Independent evaluations of this model provide context for these limitations, and we summarise the relevant points here rather than leaving them to be sought in the model description literature. Sidorenko et al. (2019) evaluate the coupled configuration against observations and report that the abyssal overturning cell associated with Antarctic Bottom Water is reproduced with a maximum of about 10 Sv, comparable to the pre-industrial value obtained here. The same evaluation identifies the Southern Ocean as the region of the most pronounced warm bias, with a sea surface temperature root-mean-square error of 1.43 K against the PHC climatology at the resolution used here, and notes that Antarctic sea ice is too thin, hardly reaching 0.25 m in the central Weddell Sea in September. Their overall assessment is that although biases in the representation of water mass properties and ventilation mechanisms are present, the model still produces a reasonable density distribution that maintains realistic transports. A warm and thin-ice Southern Ocean is precisely the state in which open-ocean convection is favoured over shelf processes, so these documented biases are consistent with the convection behaviour we diagnose above, although we note that the published evaluation does not itself examine mixed-layer depth, polynyas or the convection pathway, and the diagnosis of open-ocean convection reported here is our own."
+  },
+  {
+   "para": 258,
+   "text": "We note in passing, and with no criticism intended, that Toggweiler and Samuels (1995) concerns sea ice brine rejection rather than ice shelf melt; there are two papers by those authors from that year and the more frequently cited one concerns Drake Passage. We have cited the sea ice paper, whose conclusion that GCM salinity biases near Antarctica arise from circulation deficiencies rather than from inadequate boundary conditions is directly relevant to our case."
+  },
+  {
+   "para": 263,
+   "text": "15% and 17%"
+  },
+  {
+   "para": 263,
+   "text": "53–88%"
+  },
+  {
+   "para": 263,
+   "text": "the biased end member could have manufactured it"
+  },
+  {
+   "para": 266,
+   "text": "they describe"
+  },
+  {
+   "para": 276,
+   "text": "Figure~\\ref{fR:windice}"
+  },
+  {
+   "para": 283,
+   "text": "zonal-mean maximum"
+  },
+  {
+   "para": 306,
+   "text": "(i.e., MH, LIG) out"
+  },
+  {
+   "para": 312,
+   "text": "Abyssal overturning cell and abyssal water specifically,"
+  },
+  {
+   "para": 349,
+   "text": "we concluded the proposal was not well founded and have withdrawn it."
+  }
+ ],
+ "notes": [
+  {
+   "id": "0",
+   "author": "Microsoft Office User",
+   "date": "2026-11-05",
+   "anchor": "alone.",
+   "text": "Also mention that although Pellichero et al. (2018) combined Argo floats, ship-based observations, and instrumented marine mammals to obtained WMT in the ice coved Southern Ocean, the data still have limited coverage and uncertainties."
+  },
+  {
+   "id": "1",
+   "author": "Microsoft Office User",
+   "date": "2026-11-05",
+   "anchor": "the published evaluation reports",
+   "text": "Provide reference!"
+  },
+  {
+   "id": "2",
+   "author": "Microsoft Office User",
+   "date": "2026-11-05",
+   "anchor": "literature.",
+   "text": "Also add a few more sentences from the above evaluation of mixed layer depth and sea ice cover here."
+  },
+  {
+   "id": "3",
+   "author": "Microsoft Office User",
+   "date": "2026-11-08",
+   "anchor": "Figure R5 (new analysis",
+   "text": "Only analyze Weddell and Ross two sectors "
+  },
+  {
+   "id": "4",
+   "author": "Microsoft Office User",
+   "date": "2026-11-08",
+   "anchor": "request",
+   "text": "You may just keep the bottom color bar"
+  },
+  {
+   "id": "5",
+   "author": "Microsoft Office User",
+   "date": "2026-11-08",
+   "anchor": "Done, and the same treatment has been applied throughout the Results and Discussion rather than only in the passage the reviewer names. As an example of the form these references now take:“In PI, strong thermal densification (red shading) is concentrated in the open ocean (Fig. 3a), with maximal values reaching 5 10-6 kg m-3 s-1 in the circumpolar band between 50-65°S. This thermal densification is overwhelmingly controlled by turbulent fluxes (sensible and latent heat), with radiative fluxes playing a minor role in the buoyancy budget (Fig. 3f-j vs. Fig. 3k-o), consistent with observationally based surface buoyancy budgets for the Southern Ocean .” [struck text]",
+   "text": "Rewrite! See revision on the printed manuscript"
+  },
+  {
+   "id": "6",
+   "author": "Microsoft Office User",
+   "date": "2026-11-08",
+   "anchor": "Both instances have been rewritten. They now read \"over the ice-free parts of the Southern Ocean south of about 50°S\" and \"south of the ice edge\" respectively. [struck text]",
+   "text": "Rewrite!"
+  },
+  {
+   "id": "7",
+   "author": "Microsoft Office User",
+   "date": "2026-11-11",
+   "anchor": "expands",
+   "text": "That might be due to brine rejection … "
+  },
+  {
+   "id": "8",
+   "author": "Microsoft Office User",
+   "date": "2026-11-11",
+   "anchor": "The passage added to the Discussion reads:“Independent evaluations of this model provide context for these limitations, and we summarise the relevant points here rather than leaving them to be sought in the model description literature. Sidorenko et al. (2019) evaluate the coupled configuration against observations and report that the abyssal overturning cell associated with Antarctic Bottom Water is reproduced with a maximum of about 10 Sv, comparable to the pre-industrial value obtained here. The same evaluation identifies the Southern Ocean as the region of the most pronounced warm bias, with a sea surface temperature root-mean-square error of 1.43 K against the PHC climatology at the resolution used here, and notes that Antarctic sea ice is too thin, hardly reaching 0.25 m in the central Weddell Sea in September. Their overall assessment is that although biases in the representation of water mass properties and ventilation mechanisms are present, the model still produces a reasonable density distribution that maintains realistic transports. A warm and thin-ice Southern Ocean is precisely the state in which open-ocean convection is favoured over shelf processes, so these documented biases are consistent with the convection behaviour we diagnose above, although we note that the published evaluation does not itself examine mixed-layer depth, polynyas or the convection pathway, and the diagnosis of open-ocean convection reported here is our own.”We note in passing, and with no criticism intended, that Toggweiler and Samuels (1995) concerns sea ice brine rejection rather than ice shelf melt; there are two papers by those authors from that year and the more frequently cited one concerns Drake Passage. We have cited the sea ice paper, whose conclusion that GCM salinity biases near Antarctica arise from circulation deficiencies rather than from inadequate boundary conditions is directly relevant to our case.",
+   "text": "Rewrite"
+  }
+ ],
+ "refs": [
+  {
+   "para": 15,
+   "docx": "Fig. R1",
+   "label": "fR:wmt"
+  },
+  {
+   "para": 15,
+   "docx": "Fig. R1",
+   "label": "fR:wmt"
+  },
+  {
+   "para": 15,
+   "docx": "Fig. R1",
+   "label": "fR:wmt"
+  },
+  {
+   "para": 19,
+   "docx": "Fig. R1",
+   "label": "fR:wmt"
+  },
+  {
+   "para": 50,
+   "docx": "Figure R2",
+   "label": "fR:mld"
+  },
+  {
+   "para": 50,
+   "docx": "Figure R2",
+   "label": "fR:mld"
+  },
+  {
+   "para": 63,
+   "docx": "Figure R3",
+   "label": "fR:agelab"
+  },
+  {
+   "para": 100,
+   "docx": "Figure R4",
+   "label": "fR:mldzoom"
+  },
+  {
+   "para": 113,
+   "docx": "Figure R5",
+   "label": "fR:ross"
+  },
+  {
+   "para": 123,
+   "docx": "Figure R6",
+   "label": "fR:commonaxis"
+  },
+  {
+   "para": 131,
+   "docx": "Figure R7",
+   "label": "fR:fig3lab"
+  },
+  {
+   "para": 156,
+   "docx": "Figure R2",
+   "label": "fR:mld"
+  },
+  {
+   "para": 168,
+   "docx": "Figure R1",
+   "label": "fR:wmt"
+  },
+  {
+   "para": 197,
+   "docx": "Fig. R1",
+   "label": "fR:wmtR2"
+  },
+  {
+   "para": 201,
+   "docx": "Fig. R1",
+   "label": "fR:wmtR2"
+  },
+  {
+   "para": 204,
+   "docx": "Fig. R1",
+   "label": "fR:wmtR2"
+  },
+  {
+   "para": 241,
+   "docx": "Figure R1",
+   "label": "fR:mldR3"
+  },
+  {
+   "para": 241,
+   "docx": "Figure R1",
+   "label": "fR:mldR3"
+  },
+  {
+   "para": 247,
+   "docx": "Fig. R2",
+   "label": "fR:wmtR3ab"
+  },
+  {
+   "para": 254,
+   "docx": "Fig. R1",
+   "label": "fR:wmtR3cf"
+  },
+  {
+   "para": 276,
+   "docx": "Figure R5",
+   "label": "fR:windice"
+  }
+ ],
+ "caption_prefix": [
+  {
+   "para": 13,
+   "old": "Figure R1 (new analysis). ",
+   "new": "New analysis. "
+  },
+  {
+   "para": 52,
+   "old": "Figure R2 (new analysis). ",
+   "new": "New analysis. "
+  },
+  {
+   "para": 65,
+   "old": "Figure R3 (revised manuscript figure). ",
+   "new": "Revised manuscript figure. "
+  },
+  {
+   "para": 103,
+   "old": "Figure R4 (new supplementary panel). ",
+   "new": "New supplementary panel. "
+  },
+  {
+   "para": 115,
+   "old": "Figure R5 (new analysis). ",
+   "new": "New analysis. "
+  },
+  {
+   "para": 125,
+   "old": "Figure R6 (new Supplementary Fig. S5). ",
+   "new": "New Supplementary Fig. S5. "
+  },
+  {
+   "para": 133,
+   "old": "Figure R7 (revised manuscript Fig. 3). ",
+   "new": "Revised manuscript Fig. 3. "
+  },
+  {
+   "para": 199,
+   "old": "Figure R1 (new analysis). ",
+   "new": "New analysis. "
+  },
+  {
+   "para": 243,
+   "old": "Figure R2 (new analysis). ",
+   "new": "New analysis. "
+  },
+  {
+   "para": 246,
+   "old": "Figure R2 (new analysis). ",
+   "new": "New analysis. "
+  },
+  {
+   "para": 252,
+   "old": "Figure R3 (new analysis). ",
+   "new": "New analysis. "
+  },
+  {
+   "para": 272,
+   "old": "Figure R4 (new Supplementary Figure). ",
+   "new": "New Supplementary Figure. "
+  },
+  {
+   "para": 279,
+   "old": "Figure R5 (new Supplementary Figure). ",
+   "new": "New Supplementary Figure. "
+  },
+  {
+   "para": 296,
+   "old": "Figure R6 (manuscript Fig. 6). ",
+   "new": "Manuscript Fig. 6. "
+  },
+  {
+   "para": 299,
+   "old": "Figure R7 (manuscript Fig. 7). ",
+   "new": "Manuscript Fig. 7. "
+  }
+ ],
+ "split_quotes": [
+  37,
+  44,
+  58,
+  73,
+  76,
+  80,
+  84,
+  97,
+  110,
+  120,
+  137,
+  141,
+  160,
+  172,
+  176,
+  180,
+  212,
+  221,
+  257,
+  266,
+  290,
+  301,
+  337
+ ]
+}
