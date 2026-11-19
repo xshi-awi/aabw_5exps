@@ -2,14 +2,14 @@
 
 AWI-ESM 五个气候态（PI / MH / LIG / LGM / MIS3）南大洋表面水团转换（WMT）的热、盐强迫分解与 SAM 调制。论文已投 Nature Communications，现处大修阶段。远程 origin = https://github.com/xshi-awi/aabw_5exps
 
-## 当前状态（2026-11-08 09:45）
+## 当前状态（2026-11-19 08:40）
 
-- **在做什么**：NC 大修。修订稿 `nc_paper/build/revised.tex`，回复信单一来源 `nc_paper/RESPONSE_LETTER.md`，生成 tex 与 docx，合作者在 TexPage 上看和改。
-- **上一步做完了什么**：总管任务 D6、D2（任务书 `~/.claude/manager/tasks/D_round_20261108.md`）。D6：PI/MH/LIG 的 `diag_gmoc.nc` 按旋转纬度分带，已独立核实；MOC 改为从原始 w 在地理网格上重算（`data_moc/`），Fig. 6、Fig R2.5/R3.4、修订稿与回复信里的 MOC 数字全部更新。D2：形成率表改与主图同源（100 年逐月、0.2 bin），climdiag 交叉核对通过（`data/CLAUDE.md`）。这些数字在总管核对前都算初步。
-- **下一步**：回复信改用 `revision/response_new.tex`（11-19，TexPage 5bf3ef0，由合作者 docx 转写，见 `nc_paper/CLAUDE.md`），线上是主版本，用户下一轮处理批注；待定事项见 `log/OPEN.md`。D6/D8（TexPage 3d2ad39、c24777a）已推。之后填致谢与基金（`revised.tex` 约 360 行仍是 TODO），用户上传 Zenodo 后回填 DOI。其余见 `log/OPEN.md`。
+- **在做什么**：NC 大修。修订稿 `nc_paper/build/revised.tex`；回复信从 11-19 起改用 TexPage 上的 `revision/response_new.tex`（按 texpage-sync STYLE，由合作者的 `paper/inbox_20261119/response-JL.docx` 转写，线上是主版本）。旧的 `RESPONSE_LETTER.md` 流水线和 04/05 文件留着不动。
+- **上一步做完了什么**：11-19 转写并推送 response_new.tex（TexPage 5bf3ef0，回读一致，做法见 `nc_paper/CLAUDE.md`）。11-08 做完 D6 MOC 地理分带、D2 形成率表同源、D8 上层指数 20–70°N（TexPage 3d2ad39、c24777a）。
+- **下一步**：用户下一轮处理 response_new.tex 里的 9 条批注；待定事项（D6/D8 数字是否重新套用、图号、信头几段、旧 Word/PDF 删不删）见 `log/OPEN.md`。之后填致谢与基金（`revised.tex` 约 360 行仍是 TODO），用户上传 Zenodo 后回填 DOI。
 - **动手前必须知道的**：
-  - 投稿稿是 `nc_paper/nc-main.tex`（sn-jnl.cls，5 位作者）；修订在 `nc_paper/build/revised.tex`。`nc_paper/main.tex` 是旧 AGU 版，不是投稿稿；根目录 `paper/` 已删。
-  - 回复信只改 markdown 源再生成，改前先合并用户在 docx 和 TexPage 上的改动。流程、闸门、写作红线全在 `nc_paper/CLAUDE.md`。docx 闸门的「N paragraph(s) differ from the built docx」是拿 R1 单独草稿比的，数量大不代表有未合并的改动，看阻断判定那一段（见 `log/SOLVED.md`）。
+  - 投稿稿是 `nc_paper/nc-main.tex`（sn-jnl.cls，5 位作者）；修订在 `nc_paper/build/revised.tex`。`nc_paper/main.tex` 是旧 AGU 版，不是投稿稿。
+  - 改 response_new.tex 前先 pull，以线上为准；只推自己改的文件，推完至少等 3 分钟核 md5。旧回复信的流程和闸门在 `nc_paper/CLAUDE.md`。
   - `nc_paper/NEW_ANALYSIS_RESULTS.md` §1 的「69%→61%」已被推翻，别引（见 `log/PITFALLS.md`）。
 
 ## 数据路径
