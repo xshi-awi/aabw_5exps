@@ -2,6 +2,12 @@
 
 按时间倒序。2026-11-08 从根 CLAUDE.md 压缩迁来，同主题已合并，只留结论；逐次细节在 git 历史里。具体数字多在 `nc_paper/NEW_ANALYSIS_RESULTS.md` 和 `docs/`。
 
+### 2026-11-19 08:35 回复信改写成 response_new.tex（总管 questions-14 派活）
+
+- 用户 11-19 邮件：合作者改过的 `paper/inbox_20261119/response-JL.docx` 为准，按 texpage-sync 的 STYLE 写成 `revision/response_new.tex`，旧 04/05 不动。`nc_paper/docx_to_tex/` 拆 run、生成 tex、PDF 逐段核对：325 段有字的 docx 段落全部在编译出的 PDF 里；8 处删除线删掉；39 段高亮保留为 ulem `\hl`；丢字只补了 2 段 3 处（Berger 1977 引用、`$-\left(\alpha/C_p\right)Q_{net}$`、`$\beta S F_{fw}$`，其实是旧信生成时就丢的）；9 条 Word 批注印成红色注。图 R1–R15 连续编号，重复图因题注不同各放一次。34 页，本地 pdflatex 两遍 0 error。
+- TexPage 5bf3ef0，只推了这一个文件，3.5 分钟后回读 md5 一致、无新的 TeXPage 提交、引用的 11 张图都在。
+- docx 来自 D6 之前的旧信：MOC 数字和措辞是旧的，照转并在源里 `% NOTE`；3 张图 docx 里是旧版，tex 用线上现版。
+
 ### 2026-11-08 10:40 D8 上层环流指数改为 20–70°N（数字待总管核对）
 
 - 查证：`plot_moc_5exps.py` 从 758dfa6（09-08）起就是 0–70°N，投稿稿 `nc-main.tex` 没有 MOC 分析，修订稿正文、图注、Methods、两封信都没写过上层窗口，唯一的「0–70N」是 D6 时照抄代码写进 `NEW_ANALYSIS_RESULTS.md` 的。无文字依据，按用户说的 20–70°N 改。

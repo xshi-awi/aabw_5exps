@@ -12,3 +12,4 @@
 - **`nc_paper/SUBMISSION/letter_figs/figR20_wmt_merged.png` 没进 git**：回复信引用它，TexPage 上也有，但本地是 untracked。要不要提交「待核」。
 - **`nc_paper/SUBMISSION/01_revised_manuscript.tex`、`03_response_to_reviewers.md`** 是 09-21 的旧快照，仍含旧 MOC 数字，现在的来源是 `build/revised.tex` 与 `RESPONSE_LETTER.md`。交稿前是否重建或删掉「待核」。
 - **climdiag oracle**：`test_d2_formation_csvs` 记了两张形成率表旧版的 md5，表重算后会失败，需 climdiag 那边更新。
+- **response_new.tex 待用户定**（2026-11-19）：docx 带回了 D6/D8 之前的 MOC 数字与措辞（要不要重新套用）；图号改成 R1–R15 连续、重复图各放一次是否接受；信头没有 Dear Editor、配色说明、总述、更正几段（docx 里没有）；revision/ 里旧的 Word 和 PDF（04 两份 PDF、05 docx、R12_1015 与 R1_1013 两份 docx）删不删；README.md 是否加 response_new.tex 一行。批注本身留到下一轮处理。
