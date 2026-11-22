@@ -2,9 +2,10 @@
 
 原先回复附和了审稿人，写「冰期 Ross 海水偏暖所以增冰受限」。2026-09-21 实算推翻，稿子和回复信都已按数据改写。
 
-做法：60–75°S 面积加权，JJA，按扇区比较。图 `figures/figR9_ross_sector.pdf`（`plot_ross_sector.py`）。
+做法：60–75°S 面积加权，JJA，按扇区比较。图 `figures/figR9_ross_sector.{pdf,png}`（`plot_ross_sector.py`）。2026-11-22 应用户批注只留 Ross（180°–60°W）和 Weddell（60°W–79°E）两个扇区，PI 海冰改读 `pi/a_ice_clim_beta.nc`（2300–2399）：`pi/a_ice_clim.nc` 在 2026-03-15 被换成来历不明的 2090–2099 十年平均，见 `log/OPEN.md`。
 
-- 冰期三个扇区相对 PI 的海冰增量：Ross +0.62，Weddell +0.70，Adélie +0.53（旧记录没写单位）。T − Tf 全在 0.04–0.16 K，冰期根本没有 Ross 偏暖。
-- 真实信号在 LIG：Ross 扇区比 PI 暖 0.97 K、离冰点 2.72 K、海冰减少 0.19，比另两个扇区大一个量级。
+- 冰期相对 PI 的海冰密集度增量（0–1）：LGM Ross +0.61、Weddell +0.80；MIS3 +0.58、+0.76。两扇区冰期都约 0.95。T − Tf 全在 0.04–0.06 K，冰期没有 Ross 偏暖。
+- 真实信号在 LIG：Ross 扇区离冰点 2.72 K，比 PI 远 0.98 K；海冰减 0.20。Weddell 同期只变 −0.12 K，海冰反增 0.08。
+- 换 PI 文件前的旧数（0.62/0.70、−0.19、Weddell −0.02）已作废。
 
 结论：审稿人猜的机制对，时期不对。

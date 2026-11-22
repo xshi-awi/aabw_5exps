@@ -517,10 +517,25 @@ The natural evaluation citation for our model configuration, and it includes **X
 and C. Stepanek** as co-authors — so citing it for known biases is self-consistent rather than
 defensive.
 
-**Not verified:** I did not retrieve specific Southern Ocean bias numbers (sea-ice extent, MLD,
-stratification) from this paper. If the response needs a concrete number from it, someone should
-open the PDF and pull the relevant figure/table. Cite it for general model provenance and
-evaluation unless specific numbers are confirmed.
+**Read in full on 2026-11-22** (CC-BY accepted manuscript, Zenodo record 3545969, PDF md5
+23109ffcc0d62baead92f58dfcff6f58). What it actually says:
+- PI run: FESOM2.0–ECHAM6.3, LR mesh of "about 127,000 grid points", the same horizontal mesh as
+  our PI/MH/LIG runs (126,858 nodes). 1000 years with 1850 forcing.
+- §4.2: "In the Southern Hemisphere the sea ice volume remains low and is similar to previous
+  versions of FESOM-ECHAM. Indeed, given the average SST warming of ~1°C over the Southern Ocean
+  (see Fig. 4), the sea ice hardly reaches 0.25m thickness in the central Weddell Sea in
+  September." The warming is the model DRIFT (years 901–1000 minus 51–150), and the thickness is
+  NOT compared with any observation. Also: "a strong reduction of the September sea ice area is
+  observed within the first 500 years which ... continues towards the end of the simulation."
+- §4.3: "The bottom cell ... is also well reproduced with a maximum of ~10Sv." and "although biases
+  in the representation of water mass properties and ventilation mechanisms are present, they still
+  result in a reasonable density distribution which maintains realistic transports."
+- §5 (HighResMIP historical, 1994–2013, against PHC): "the RMS error (RMSE) of the SST bias is larger
+  in HR (RMSE=1,59) than in LR (RMSE=1,43)". This is the GLOBAL SST RMSE, not a Southern Ocean
+  number. Separately: "the warm SST bias in the Southern Ocean associated with decreased sea ice
+  area in the Southern Hemisphere is largely absent in the HR setup", so LR has that warm bias.
+- No satellite sea-ice extent or concentration comparison, no MLD evaluation, no polynya/convection.
+So "Southern Ocean warm bias of 1.43 K" (revised.tex line 245 and the letter) is a misreading.
 
 ### Sidorenko et al. 2021 — methodological precedent worth citing
 

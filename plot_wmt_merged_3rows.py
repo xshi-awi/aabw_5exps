@@ -110,31 +110,48 @@ g_60, h_60, i_60, o_60 = model('so60', months=JJA)        # south of 60S, JJA
 go_siz, ho_siz, fo_siz = oras5('wmt_oras5_siz.nc', 'annual')
 go_60, ho_60, fo_60 = oras5('wmt_oras5_so60.nc', 'jja')
 
-fig = plt.figure(figsize=(14, 15.6))
-gs = fig.add_gridspec(3, 2, hspace=0.52, wspace=0.18,
-                      left=0.075, right=0.98, top=0.925, bottom=0.082)
+# MODE (first argument): 'all' draws the three rows on one page (figR20_wmt_merged);
+# 'obs' draws row 1 only and 'rean' rows 2-3 only, for the reply to Reviewer 3, who
+# asked for the observational and the reanalysis comparison separately (2026-11-22).
+# Panel letters stay (a)-(f) in every mode so the letter text can cite them unchanged.
+import sys
+MODE = sys.argv[1] if len(sys.argv) > 1 else 'all'
+ROWS = {'all': [0, 1, 2], 'obs': [0], 'rean': [1, 2]}[MODE]
+OUT = {'all': 'figR20_wmt_merged', 'obs': 'figR20a_wmt_obs', 'rean': 'figR20b_wmt_oras5'}[MODE]
+FIGH = {3: 15.6, 1: 6.4, 2: 10.8}[len(ROWS)]
+fig = plt.figure(figsize=(14, FIGH))
+pad = 1.3 / FIGH                     # head room for the row header and the legend
+gs = fig.add_gridspec(len(ROWS), 2, hspace=0.52, wspace=0.18,
+                      left=0.075, right=0.98, top=1 - 1.17 / FIGH, bottom=pad)
+HEAD = 0.6 / FIGH                    # row header sits this far above the axes
 
-# ---- row 1: ours against the published observational estimate
-fig.text(0.5, 0.963,
-         'Sea ice zone, annual mean  |  model against the published estimate',
-         ha='center', fontsize=15, fontweight='bold', color='#111111')
 
-ax = fig.add_subplot(gs[0, 0])
-shade(ax, g_siz, h_siz, o_siz + i_siz)
-curve(ax, g_siz, h_siz, o_siz + i_siz, ice=i_siz)
-ax.set_ylim(-10.5, 10.5)
-ax.set_ylabel('Transformation rate (Sv)', fontsize=11)
-ax.set_title('(a)  This study, PI, all terms including sea ice',
-             fontsize=12, fontweight='bold', loc='left', pad=8)
-row1_handles, row1_labels = ax.get_legend_handles_labels()
+def header(ax, text):
+    fig.text(0.5, ax.get_position().y1 + HEAD, text, ha='center',
+             fontsize=15, fontweight='bold', color='#111111')
 
-ax = fig.add_subplot(gs[0, 1])
-img = mpimg.imread(OBS)
-hh, ww = img.shape[:2]
-ax.imshow(img[0:int(hh * 0.355), 0:int(ww * 0.60)])
-ax.axis('off')
-ax.set_title('(b)  Pellichero et al. (2018), their Fig. 3a',
-             fontsize=12, fontweight='bold', loc='left', pad=8)
+
+handles = None
+if 0 in ROWS:
+    # ---- row 1: ours against the published observational estimate
+    ax = fig.add_subplot(gs[ROWS.index(0), 0])
+    shade(ax, g_siz, h_siz, o_siz + i_siz)
+    curve(ax, g_siz, h_siz, o_siz + i_siz, ice=i_siz)
+    ax.set_ylim(-10.5, 10.5)
+    ax.set_ylabel('Transformation rate (Sv)', fontsize=11)
+    ax.set_xlabel(r'Neutral density, $\gamma$ (kg m$^{-3}$)', fontsize=11)
+    ax.set_title('(a)  This study, PI, all terms including sea ice',
+                 fontsize=12, fontweight='bold', loc='left', pad=8)
+    header(ax, 'Sea ice zone, annual mean  |  model against the published estimate')
+    handles = ax.get_legend_handles_labels()
+
+    ax = fig.add_subplot(gs[ROWS.index(0), 1])
+    img = mpimg.imread(OBS)
+    hh, ww = img.shape[:2]
+    ax.imshow(img[0:int(hh * 0.355), 0:int(ww * 0.60)])
+    ax.axis('off')
+    ax.set_title('(b)  Pellichero et al. (2018), their Fig. 3a',
+                 fontsize=12, fontweight='bold', loc='left', pad=8)
 
 # ---- rows 2 and 3: like-for-like against ORAS5, no shading
 rows = [
@@ -147,38 +164,32 @@ rows = [
 ]
 
 for r, rowlab, left, right in rows:
+    if r not in ROWS:
+        continue
     # scale from every curve, not just the total: in (d) the heat line rises
     # well above the total and was being clipped
     lim = 1.1 * max(max(np.nanmax(np.abs(p[2])), np.nanmax(np.abs(p[3])),
                         np.nanmax(np.abs(p[2] + p[3]))) for p in (left, right))
     for c, (title, g, h, f) in enumerate((left, right)):
-        ax = fig.add_subplot(gs[r, c])
+        ax = fig.add_subplot(gs[ROWS.index(r), c])
         curve(ax, g, h, f)
         ax.set_ylim(-lim, lim)
         ax.set_xlabel(r'Neutral density, $\gamma$ (kg m$^{-3}$)', fontsize=11)
         if c == 0:
             ax.set_ylabel('Transformation rate (Sv)', fontsize=11)
+            header(ax, rowlab)
+            if handles is None:
+                handles = ax.get_legend_handles_labels()
         ax.set_title(title, fontsize=12, fontweight='bold', loc='left', pad=8)
-    fig.text(0.5, {1: 0.655, 2: 0.345}[r], rowlab, ha='center',
-             fontsize=15, fontweight='bold', color='#111111')
 
-fig.axes[0].set_xlabel(r'Neutral density, $\gamma$ (kg m$^{-3}$)', fontsize=11)
+hl, ll = handles
+if 0 in ROWS:
+    patches = [Patch(facecolor=SHADE[0], label='Heat driven (a only)'),
+               Patch(facecolor=SHADE[1], label='Freshwater driven (a only)')]
+    hl, ll = hl + patches, ll + [p.get_label() for p in patches]
+fig.legend(hl, ll, frameon=False, fontsize=10, ncol=6, loc='lower center',
+           bbox_to_anchor=(0.5, 0.18 / FIGH), columnspacing=1.5, handlelength=1.9)
 
-patches = [Patch(facecolor=SHADE[0], label='Heat driven (a only)'),
-           Patch(facecolor=SHADE[1], label='Freshwater driven (a only)')]
-fig.legend(row1_handles + patches,
-           row1_labels + [p.get_label() for p in patches],
-           frameon=False, fontsize=10, ncol=6, loc='lower center',
-           bbox_to_anchor=(0.5, 0.012), columnspacing=1.5, handlelength=1.9)
-
-fig.savefig('figures/figR20_wmt_merged.pdf', dpi=400)
-fig.savefig('figures/figR20_wmt_merged.png', dpi=200)
-print('saved figures/figR20_wmt_merged.{pdf,png}')
-
-for lab, g, h, f in (('(c) model no ice, siz annual', g_siz, h_siz, o_siz),
-                     ('(d) ORAS5 siz annual', go_siz, ho_siz, fo_siz),
-                     ('(e) model no ice, 60S JJA', g_60, h_60, o_60),
-                     ('(f) ORAS5 60S JJA', go_60, ho_60, fo_60)):
-    m = (g >= XLIM[0]) & (g <= XLIM[1])
-    t = (h + f)[m]
-    print('%-30s peak %+7.2f Sv at gamma %.2f' % (lab, np.nanmax(t), g[m][np.nanargmax(t)]))
+fig.savefig('figures/%s.pdf' % OUT, dpi=400)
+fig.savefig('figures/%s.png' % OUT, dpi=200)
+print('saved figures/%s.{pdf,png}' % OUT)

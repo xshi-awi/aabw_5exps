@@ -27,7 +27,9 @@ EXPS = ['pi', 'mh', 'lig', 'lgm', 'mis']
 LABELS = ['PI', 'MH', 'LIG', 'LGM', 'MIS3']
 MESH = {'pi': 'mesh_core2', 'mh': 'mesh_core2', 'lig': 'mesh_core2',
         'lgm': 'mesh_glac1d', 'mis': 'mesh_glac1d_38k'}
-SECTORS = [('Ross', -180, -60), ('Weddell', -60, 79), ('Adélie', 79, 180)]
+# Ross and Weddell only, at the user's request on the letter (2026-11-22); the Adelie
+# sector (79E-180) was the third bar until then.
+SECTORS = [('Ross', -180, -60), ('Weddell', -60, 79)]
 SCOL = {'Ross': '#D55E00', 'Weddell': '#0072B2', 'Adélie': '#009E73'}
 
 mpl.rcParams.update({'font.family': 'sans-serif',
@@ -44,7 +46,10 @@ def sector_means(exp):
             else m['nod_area'].isel(nl=0).values)
     sst = xr.open_dataset(f'{exp}/sst_clim.nc')['sst'].values[[5, 6, 7]].mean(axis=0)
     sss = xr.open_dataset(f'{exp}/sss_clim.nc')['sss'].values[[5, 6, 7]].mean(axis=0)
-    ai = xr.open_dataset(f'{exp}/a_ice_clim.nc')['a_ice'].values[[5, 6, 7]].mean(axis=0)
+    # pi/a_ice_clim.nc was overwritten on 2026-03-15 with a 10-year mean (years 2090-2099)
+    # of an unidentified run; the 2300-2399 PI climatology survives as a_ice_clim_beta.nc.
+    aifile = f'{exp}/a_ice_clim_beta.nc' if exp == 'pi' else f'{exp}/a_ice_clim.nc'
+    ai = xr.open_dataset(aifile)['a_ice'].values[[5, 6, 7]].mean(axis=0)
     m.close()
     out = {}
     for nm, lo, hi in SECTORS:
@@ -62,19 +67,19 @@ D = {e: sector_means(e) for e in EXPS}
 
 fig, axes = plt.subplots(1, 3, figsize=(18, 5.4))
 x = np.arange(len(EXPS))
-bw = 0.26
+bw = 0.34
 
 # ---------------------------------------------------------------- (a)
 ax = axes[0]
 for k, (nm, _, _) in enumerate(SECTORS):
     v = [D[e][nm]['dTf'] for e in EXPS]
-    ax.bar(x + (k - 1) * bw, v, width=bw, color=SCOL[nm], label=nm)
+    ax.bar(x + (k - 0.5 * (len(SECTORS) - 1)) * bw, v, width=bw, color=SCOL[nm], label=nm)
 ax.set_xticks(x); ax.set_xticklabels(LABELS, fontsize=13)
 ax.set_ylabel('Surface temperature above freezing (K)', fontsize=13)
 ax.set_title('(a)  How far from freezing', fontsize=15, fontweight='bold')
 ax.legend(frameon=False, fontsize=12)
 ax.grid(axis='y', alpha=0.25, lw=0.6)
-ax.annotate('LIG Ross is 2.7 K\nabove freezing', xy=(2 - bw, 2.72),
+ax.annotate('LIG Ross is 2.7 K\nabove freezing', xy=(2 - 0.5 * (len(SECTORS) - 1) * bw, 2.72),
             xytext=(1.15, 3.15), fontsize=11.5, color='#D55E00',
             arrowprops=dict(arrowstyle='->', color='#D55E00', lw=1.4))
 ax.set_ylim(0, 3.8)
@@ -83,7 +88,7 @@ ax.set_ylim(0, 3.8)
 ax = axes[1]
 for k, (nm, _, _) in enumerate(SECTORS):
     v = [D[e][nm]['ice'] for e in EXPS]
-    ax.bar(x + (k - 1) * bw, v, width=bw, color=SCOL[nm], label=nm)
+    ax.bar(x + (k - 0.5 * (len(SECTORS) - 1)) * bw, v, width=bw, color=SCOL[nm], label=nm)
 ax.set_xticks(x); ax.set_xticklabels(LABELS, fontsize=13)
 ax.set_ylabel('Winter sea ice concentration', fontsize=13)
 ax.set_title('(b)  Winter ice cover', fontsize=15, fontweight='bold')
@@ -102,7 +107,7 @@ for nm, _, _ in SECTORS:
         ax.scatter(dT, di, s=170, color=SCOL[nm], marker=mk,
                    edgecolor='white', linewidth=1.3, zorder=5)
         if nm == 'Ross' and e == 'lig':
-            ax.annotate('LIG Ross', xy=(dT, di), xytext=(dT - 1.35, di + 0.20),
+            ax.annotate('LIG Ross', xy=(dT, di), xytext=(dT - 0.75, di + 0.45),
                         fontsize=12, fontweight='bold', color='#D55E00',
                         arrowprops=dict(arrowstyle='->', color='#D55E00', lw=1.4))
 ax.set_xlabel('Change in distance from freezing (K)', fontsize=13)

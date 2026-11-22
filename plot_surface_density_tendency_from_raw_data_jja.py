@@ -627,8 +627,8 @@ def plot_field(ax, lon_2d, lat_2d, data, vmin, vmax, cmap, panel_label,
 print('步骤 6: 绘制图1 - 热通量引起的密度趋势...')
 print('-'*80)
 
-fig = plt.figure(figsize=(15, 15))
-gs = GridSpec(3, 5, figure=fig, hspace=0.55, wspace=0.12,
+fig = plt.figure(figsize=(15, 10.5))
+gs = GridSpec(3, 5, figure=fig, hspace=0.12, wspace=0.12,
               left=0.05, right=0.95, top=0.96, bottom=0.05)
 
 var_keys = ['heat_total', 'heat_radiation', 'heat_turbulent']
@@ -692,12 +692,18 @@ for row, (var_key, var_title, var_title_pi) in enumerate(zip(var_keys, var_title
             ax.set_title(EXPNAME.get(exp, exp.upper()) + ' $-$ PI',
                          fontsize=19, fontweight='bold', pad=10)
 
-    # Colorbars
+    # Row label on the left. All rows share one PI range and one anomaly range in the
+    # same unit, so the colour bars are drawn once, under the bottom row (2026-11-22,
+    # user comment on the letter figure: "you may just keep the bottom color bar").
     pos0 = all_axes[0].get_position()
+    fig.text(pos0.x0 - 0.05, 0.5 * (pos0.y0 + pos0.y1), var_title.replace(' (', '\n('),
+             rotation=90, ha='center', va='center', fontsize=16, fontweight='bold')
+    if row != len(var_keys) - 1:
+        continue
     cbar_ax_pi = fig.add_axes([pos0.x0, pos0.y0 - 0.055, pos0.width, 0.018])
     cbar_pi = plt.colorbar(all_cfs[0], cax=cbar_ax_pi, orientation='horizontal',
                            ticks=ticks_pi, format=fmt_pi)
-    cbar_pi.set_label(f'PI: {var_title_pi} ({UNIT_LABEL})', fontsize=13)
+    cbar_pi.set_label(f'PI ({UNIT_LABEL})', fontsize=14)
     cbar_pi.ax.tick_params(labelsize=14)
 
     pos1 = all_axes[1].get_position()
@@ -705,7 +711,7 @@ for row, (var_key, var_title, var_title_pi) in enumerate(zip(var_keys, var_title
     cbar_ax_anom = fig.add_axes([pos1.x0, pos1.y0 - 0.055, pos4.x1 - pos1.x0, 0.018])
     cbar_anom = plt.colorbar(all_cfs[1], cax=cbar_ax_anom, orientation='horizontal',
                              ticks=ticks_anom, format=fmt_anom)
-    cbar_anom.set_label(f'Anomaly: {var_title} ({UNIT_LABEL})', fontsize=16)
+    cbar_anom.set_label(f'Anomaly relative to PI ({UNIT_LABEL})', fontsize=16)
     cbar_anom.ax.tick_params(labelsize=14)
 
 output_file1 = 'figures/surface_heat_density_tendency_from_raw_jja.pdf'
@@ -719,8 +725,8 @@ plt.close()
 print('\n步骤 7: 绘制图2 - 淡水通量引起的密度趋势...')
 print('-'*80)
 
-fig = plt.figure(figsize=(15, 15))
-gs = GridSpec(3, 5, figure=fig, hspace=0.55, wspace=0.12,
+fig = plt.figure(figsize=(15, 10.5))
+gs = GridSpec(3, 5, figure=fig, hspace=0.12, wspace=0.12,
               left=0.05, right=0.95, top=0.96, bottom=0.05)
 
 var_keys = ['mass_total', 'mass_seaice', 'mass_other']
@@ -729,7 +735,7 @@ var_titles = ['Total Freshwater', 'Sea Ice Alone', 'Other FW (net precipitation 
 var_titles_pi = ['Total Freshwater', 'Sea Ice Alone', 'Other FW']
 
 # 使用统一的colorbar范围
-ticks_pi, vmax_pi_nice = get_nice_ticks(mass_pi_vmax_abs, n_ticks=5)
+ticks_pi, vmax_pi_nice = get_nice_ticks(mass_pi_vmax_abs, n_ticks=3)  # 5 ticks overlap on the narrow PI bar
 ticks_anom, vmax_anom_nice = get_nice_ticks(mass_anom_vmax_abs, n_ticks=5)
 fmt_pi = pick_tick_format(vmax_pi_nice)
 fmt_anom = pick_tick_format(vmax_anom_nice)
@@ -782,12 +788,18 @@ for row, (var_key, var_title, var_title_pi) in enumerate(zip(var_keys, var_title
             ax.set_title(EXPNAME.get(exp, exp.upper()) + ' $-$ PI',
                          fontsize=19, fontweight='bold', pad=10)
 
-    # Colorbars
+    # Row label on the left. All rows share one PI range and one anomaly range in the
+    # same unit, so the colour bars are drawn once, under the bottom row (2026-11-22,
+    # user comment on the letter figure: "you may just keep the bottom color bar").
     pos0 = all_axes[0].get_position()
+    fig.text(pos0.x0 - 0.05, 0.5 * (pos0.y0 + pos0.y1), var_title.replace(' (', '\n('),
+             rotation=90, ha='center', va='center', fontsize=16, fontweight='bold')
+    if row != len(var_keys) - 1:
+        continue
     cbar_ax_pi = fig.add_axes([pos0.x0, pos0.y0 - 0.055, pos0.width, 0.018])
     cbar_pi = plt.colorbar(all_cfs[0], cax=cbar_ax_pi, orientation='horizontal',
                            ticks=ticks_pi, format=fmt_pi)
-    cbar_pi.set_label(f'PI: {var_title_pi} ({UNIT_LABEL})', fontsize=13)
+    cbar_pi.set_label(f'PI ({UNIT_LABEL})', fontsize=14)
     cbar_pi.ax.tick_params(labelsize=14)
 
     pos1 = all_axes[1].get_position()
@@ -795,7 +807,7 @@ for row, (var_key, var_title, var_title_pi) in enumerate(zip(var_keys, var_title
     cbar_ax_anom = fig.add_axes([pos1.x0, pos1.y0 - 0.055, pos4.x1 - pos1.x0, 0.018])
     cbar_anom = plt.colorbar(all_cfs[1], cax=cbar_ax_anom, orientation='horizontal',
                              ticks=ticks_anom, format=fmt_anom)
-    cbar_anom.set_label(f'Anomaly: {var_title} ({UNIT_LABEL})', fontsize=16)
+    cbar_anom.set_label(f'Anomaly relative to PI ({UNIT_LABEL})', fontsize=16)
     cbar_anom.ax.tick_params(labelsize=14)
 
 output_file2 = 'figures/surface_freshwater_density_tendency_from_raw_jja.pdf'

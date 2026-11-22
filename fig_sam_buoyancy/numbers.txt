@@ -1,0 +1,99 @@
+Fig R2.2 numbers: JJA high-minus-low SAM surface density flux, heat term H vs
+freshwater term F (total FW, sea ice included). Written by plot_sam_density_tendency.py.
+
+H = -(alpha/cp) dQ,  dQ = SW+LW+SH+LH over water from ECHAM, W m-2, + into ocean
+F = -rho_fw beta S dFW,  dFW = -fw from FESOM, m s-1, + into ocean, rho_fw = 1000
+alpha, beta, cp from gsw at each state's JJA climatological SST/SSS; S = JJA SSS.
+Both in kg m-2 s-1 (shown x 30 days); positive = densification.
+Figure colour range: +/-3.0 kg m-2 month-1.
+
+--- threshold +/-1.0 sigma (composite_sam/*_sam_composite_<exp>.nc, as plotted in Figs 5 and 6) ---
+area-weighted over ocean south of 50S; means in kg m-2 month-1; integrals in 10^6 kg s-1
+region: ice = JJA ice conc > 0.15 (own state, climatology); free = <= 0.15
+state    yrs reg    area     |H|     |F| |F|/|H|       H       F fr|F|>|H|    intH    intF
+PI    18/17  ice    9.02   0.095   0.847    8.91  -0.008  +0.407      0.91   -0.03   +1.42
+PI    18/17  free  36.92   0.495   0.213    0.43  +0.028  -0.158      0.27   +0.40   -2.25
+PI    18/17  all   45.94   0.417   0.337    0.81  +0.021  -0.047      0.40   +0.37   -0.84
+MH    16/16  ice    9.59   0.095   0.878    9.29  +0.028  +0.199      0.93   +0.10   +0.74
+MH    16/16  free  36.35   0.528   0.191    0.36  -0.004  -0.115      0.23   -0.05   -1.62
+MH    16/16  all   45.94   0.437   0.335    0.77  +0.003  -0.050      0.38   +0.05   -0.88
+LIG   14/16  ice    7.16   0.097   0.948    9.76  +0.003  +0.402      0.94   +0.01   +1.11
+LIG   14/16  free  38.78   0.449   0.177    0.39  +0.065  -0.089      0.24   +0.97   -1.33
+LIG   14/16  all   45.94   0.394   0.297    0.75  +0.055  -0.013      0.35   +0.97   -0.22
+LGM   12/12  ice   29.86   0.097   0.590    6.11  -0.035  -0.031      0.90   -0.40   -0.35
+LGM   12/12  free  12.97   0.629   0.321    0.51  +0.121  -0.105      0.29   +0.61   -0.52
+LGM   12/12  all   42.82   0.258   0.509    1.97  +0.012  -0.053      0.71   +0.20   -0.88
+MIS3  17/11  ice   27.91   0.092   0.656    7.13  +0.001  -0.181      0.92   +0.01   -1.94
+MIS3  17/11  free  15.51   0.856   0.339    0.40  -0.052  -0.118      0.24   -0.31   -0.71
+MIS3  17/11  all   43.42   0.365   0.543    1.49  -0.018  -0.158      0.67   -0.30   -2.65
+heat-file nodes refilled from the T63 composite (ECHAM land under nearest cell), area fraction S of 50S: PI 0.008, MH 0.008, LIG 0.008, LGM 0.012, MIS3 0.011
+
+rules: part A "FW larger wherever sea ice is present" holds if fr|F|>|H| >= 0.90 in the
+ice region, holds for most of it if 0.50-0.90, fails below 0.50. Part B "heat larger only
+in the ice-free sector" holds if fr|F|>|H| < 0.50 and |H| > |F| (area mean) in the ice-free region.
+PI    A holds           (ice fr=0.91, |F|/|H|=8.9)   B holds  (free fr=0.27, |F|/|H|=0.43)
+MH    A holds           (ice fr=0.93, |F|/|H|=9.3)   B holds  (free fr=0.23, |F|/|H|=0.36)
+LIG   A holds           (ice fr=0.94, |F|/|H|=9.8)   B holds  (free fr=0.24, |F|/|H|=0.39)
+LGM   A holds           (ice fr=0.90, |F|/|H|=6.1)   B holds  (free fr=0.29, |F|/|H|=0.51)
+MIS3  A holds           (ice fr=0.92, |F|/|H|=7.1)   B holds  (free fr=0.24, |F|/|H|=0.40)
+
+--- threshold +/-1.2 sigma (recomputed from monthly 100years data, threshold stated in the captions) ---
+area-weighted over ocean south of 50S; means in kg m-2 month-1; integrals in 10^6 kg s-1
+region: ice = JJA ice conc > 0.15 (own state, climatology); free = <= 0.15
+state    yrs reg    area     |H|     |F| |F|/|H|       H       F fr|F|>|H|    intH    intF
+PI    10/13  ice    9.02   0.138   1.118    8.12  +0.003  +0.445      0.91   +0.01   +1.55
+PI    10/13  free  36.92   0.652   0.264    0.40  +0.049  -0.187      0.25   +0.70   -2.67
+PI    10/13  all   45.94   0.551   0.431    0.78  +0.040  -0.063      0.38   +0.71   -1.12
+MH     8/14  ice    9.59   0.121   1.005    8.31  +0.005  +0.066      0.92   +0.02   +0.24
+MH     8/14  free  36.35   0.669   0.213    0.32  -0.016  -0.117      0.21   -0.22   -1.65
+MH     8/14  all   45.94   0.554   0.378    0.68  -0.011  -0.079      0.36   -0.20   -1.40
+LIG    6/13  ice    7.16   0.141   1.205    8.56  +0.042  +0.385      0.93   +0.12   +1.06
+LIG    6/13  free  38.78   0.658   0.256    0.39  +0.147  -0.113      0.25   +2.20   -1.69
+LIG    6/13  all   45.94   0.578   0.404    0.70  +0.131  -0.035      0.35   +2.32   -0.62
+LGM   11/11  ice   29.86   0.098   0.610    6.19  -0.038  -0.056      0.90   -0.43   -0.65
+LGM   11/11  free  12.97   0.652   0.316    0.48  +0.145  -0.100      0.28   +0.73   -0.50
+LGM   11/11  all   42.82   0.266   0.521    1.96  +0.018  -0.069      0.71   +0.29   -1.15
+MIS3  11/10  ice   27.91   0.099   0.741    7.49  +0.004  -0.215      0.93   +0.04   -2.31
+MIS3  11/10  free  15.51   0.955   0.364    0.38  -0.039  -0.108      0.23   -0.24   -0.64
+MIS3  11/10  all   43.42   0.405   0.606    1.50  -0.012  -0.176      0.68   -0.20   -2.96
+
+rules: part A "FW larger wherever sea ice is present" holds if fr|F|>|H| >= 0.90 in the
+ice region, holds for most of it if 0.50-0.90, fails below 0.50. Part B "heat larger only
+in the ice-free sector" holds if fr|F|>|H| < 0.50 and |H| > |F| (area mean) in the ice-free region.
+PI    A holds           (ice fr=0.91, |F|/|H|=8.1)   B holds  (free fr=0.25, |F|/|H|=0.40)
+MH    A holds           (ice fr=0.92, |F|/|H|=8.3)   B holds  (free fr=0.21, |F|/|H|=0.32)
+LIG   A holds           (ice fr=0.93, |F|/|H|=8.6)   B holds  (free fr=0.25, |F|/|H|=0.39)
+LGM   A holds           (ice fr=0.90, |F|/|H|=6.2)   B holds  (free fr=0.28, |F|/|H|=0.48)
+MIS3  A holds           (ice fr=0.93, |F|/|H|=7.5)   B holds  (free fr=0.23, |F|/|H|=0.38)
+
+--- mean state for comparison: JJA climatology (not an anomaly), H from echam_clim.nc, F from fw_clim.nc; yrs column = SAM years, unused here ---
+area-weighted over ocean south of 50S; means in kg m-2 month-1; integrals in 10^6 kg s-1
+region: ice = JJA ice conc > 0.15 (own state, climatology); free = <= 0.15
+state    yrs reg    area     |H|     |F| |F|/|H|       H       F fr|F|>|H|    intH    intF
+PI    18/17  ice    9.02   1.206   4.116    3.41  +1.206  +1.071      0.69   +4.20   +3.73
+PI    18/17  free  36.92   5.807   0.861    0.15  +5.807  -0.857      0.01  +82.73  -12.20
+PI    18/17  all   45.94   4.904   1.500    0.31  +4.904  -0.478      0.14  +86.92   -8.48
+MH    16/16  ice    9.59   1.143   4.059    3.55  +1.143  +1.147      0.72   +4.23   +4.25
+MH    16/16  free  36.35   5.872   0.851    0.14  +5.872  -0.848      0.01  +82.34  -11.90
+MH    16/16  all   45.94   4.884   1.521    0.31  +4.884  -0.432      0.16  +86.57   -7.65
+LIG   14/16  ice    7.16   1.191   5.006    4.20  +1.191  +0.876      0.81   +3.29   +2.42
+LIG   14/16  free  38.78   5.359   1.005    0.19  +5.359  -1.003      0.01  +80.18  -15.00
+LIG   14/16  all   45.94   4.710   1.629    0.35  +4.710  -0.710      0.14  +83.47  -12.58
+LGM   12/12  ice   29.86   0.820   2.380    2.90  +0.820  +1.521      0.78   +9.44  +17.52
+LGM   12/12  free  12.97   5.622   1.031    0.18  +5.622  -1.002      0.03  +28.12   -5.01
+LGM   12/12  all   42.82   2.274   1.972    0.87  +2.274  +0.757      0.55  +37.57  +12.51
+MIS3  17/11  ice   27.91   0.807   2.073    2.57  +0.807  +1.256      0.73   +8.69  +13.52
+MIS3  17/11  free  15.51   5.186   1.112    0.21  +5.186  -1.096      0.04  +31.04   -6.56
+MIS3  17/11  all   43.42   2.372   1.730    0.73  +2.372  +0.416      0.48  +39.73   +6.96
+
+VERDICT on revised.tex line 180 ("freshwater larger wherever sea ice is present, heat larger
+only in the ice-free sector, the same partition that governs the mean state"):
+Point by point it HOLDS in all five states. Ice-covered area: |F| > |H| over 90-94% of
+the area (1.2 sigma: 90-93%), area-mean |F| is 6.1-9.8 x |H|. Ice-free area:
+|H| > |F| over 71-77% (1.2 sigma: 72-79%), area-mean |H| is 2.0-2.8 x |F|.
+"Wherever" is slightly too strong: heat is the larger term over 6-10% of the ice area.
+It does NOT carry over to area-integrated net anomalies, because F is a coast/offshore dipole
+and H changes sign between sectors. |integral F| > |integral H| over the ice area in: PI, MH, LIG, MIS3; over the ice-free area in: PI, MH, LIG, MIS3.
+Mean-state clause: the JJA climatology shows the same partition but weaker, |F| > |H| over
+69-81% of the ice area and |H| > |F| over 96-99% of the ice-free area;
+net over the ice area |integral F| > |integral H| only in: MH, LGM, MIS3.

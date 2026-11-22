@@ -35,3 +35,16 @@
 - 43 GB `echam_mergetime.nc` 用 `run_in_background` 跑 ncks 会被中途杀掉，留下 .tmp 残文件。前台每个实验约 52 秒。
 - matplotlib/cartopy 画图脚本放后台跑过一次，输出为空、文件还是旧时间戳，看起来像跑完了。前台正常。
 - 读 2300 多个逐年 3D 文件的 `calc_deep_ocean_trend.py`，第一版因深度轴名 `nz`/`zbar` 在第一个实验就崩了，跑了很久才发现。后台任务要早看输出。
+
+### PI 海冰气候态文件被别的 run 覆盖
+错在哪：`pi/a_ice_clim.nc` 与 `pi/a_ice_reg.nc` 在 2026-03-15 被换成一份来历不明的 2090–2099 十年平均（对不上 pi_age 及任何已知 PI run），论文 PI 时段 2300–2399 的原件留在 `a_ice_clim_beta.nc`、`a_ice_reg_beta.nc`。其他四个态和 PI 的 sst/sss 等文件都没动。之后读这两个文件的都受影响：修订稿 Fig. 1（4 月）、Fig. 2（3 月）的 PI 海冰，Fig. 4 的 PI 海冰掩膜，`calc_wmt_siz_pellichero.py` 的 PI 海冰区（9 月冰区比正确的大 13%），`plot_ross_sector.py`（已改读 _beta）。
+怎么发现：2026-11-22 做卫星海冰对比时，PI 9 月冰范围 12.2 与 100 年逐月算的 9.9 对不上，查时间轴才发现。
+怎么处理：未统一重算，列在 `log/OPEN.md` 等用户定。用 PI 海冰前先看 `time:units`，应是 seconds since 2300。
+
+### 本机 python 读时间报错
+错在哪：`~/.local` 装了 pandas 2.3，盖住模块自带的 1.4，xarray 2022.3 解 `days since 1900-01-01` 时报 "unable to decode time units"。
+怎么处理：`python3 -s` 屏蔽 ~/.local，再把只含 gsw 软链的目录放进 PYTHONPATH（gsw 只装在 ~/.local）。
+
+### 把别人论文的全球数当成南大洋数
+错在哪：稿子和信里写 Sidorenko et al. 2019「南大洋暖偏差 1.43 K」。原文 1.43 K 是 LR 历史模拟全球 SST 的 RMSE（对 PHC）；0.25 m 冰厚也没和观测比，只说冰量偏低并归因于积分中南大洋增暖约 1 °C。
+怎么发现：2026-11-22 从 Zenodo 的 CC-BY 稿全文核对（`nc_paper/LITERATURE_NOTES.md`）。

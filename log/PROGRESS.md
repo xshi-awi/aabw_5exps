@@ -2,6 +2,13 @@
 
 按时间倒序。2026-11-08 从根 CLAUDE.md 压缩迁来，同主题已合并，只留结论；逐次细节在 git 历史里。具体数字多在 `nc_paper/NEW_ANALYSIS_RESULTS.md` 和 `docs/`。
 
+### 2026-11-22 07:25 response_new.tex 黄色高亮逐条处理（总管 questions-14 派活，TexPage b90b273 起 9 个提交）
+
+- 用户 06:41 停笔后，在干净克隆上用 `nc_paper/docx_to_tex/pass_20261122/edits_1122.py`（每个锚点断言恰好一处）改完全部 40 来处高亮，看不懂的词改成通俗说法，答非所问的段落按审稿人原问题重写；仍需用户定的 4 处保留高亮，并加品红色 `\claudenote`。
+- 新分析：海冰与卫星对比 `fig_seaice_obs/`（OSI SAF CDR v3.0，1979–2008；PI 9 月冰范围 9.9 对 19.1 百万 km²，缺口几乎全在 Weddell 扇区）；SAM 合成换成同一密度通量单位 `fig_sam_buoyancy/`（冰区淡水项在 90–93% 面积上更大）；审稿人 3 的 WMT 图拆成观测（a,b）和再分析（c–f）两张；Ross 图只留两扇区；Fig. 3/4 色标合并到最下一行。
+- 核实：Sidorenko et al. 2019 全文（1.43 K 是全球 SST RMSE，不是南大洋偏差），西风急流数（JJA var165 纬圈平均最大值，完全复现），Ross 扇区、域敏感性、ORAS5 峰值各数。改正：间冰期海冰区热占比 53–70%（不是 53–88%），冬季两条曲线峰值差一个密度类。
+- 新发现的三处稿件问题见 `log/OPEN.md`：PI 海冰气候态文件被覆盖、Fig. 4 淡水项少乘水密度、Figs A3/A4 实为 1.0σ。
+
 ### 2026-11-19 08:35 回复信改写成 response_new.tex（总管 questions-14 派活）
 
 - 用户 11-19 邮件：合作者改过的 `paper/inbox_20261119/response-JL.docx` 为准，按 texpage-sync 的 STYLE 写成 `revision/response_new.tex`，旧 04/05 不动。`nc_paper/docx_to_tex/` 拆 run、生成 tex、PDF 逐段核对：325 段有字的 docx 段落全部在编译出的 PDF 里；8 处删除线删掉；39 段高亮保留为 ulem `\hl`；丢字只补了 2 段 3 处（Berger 1977 引用、`$-\left(\alpha/C_p\right)Q_{net}$`、`$\beta S F_{fw}$`，其实是旧信生成时就丢的）；9 条 Word 批注印成红色注。图 R1–R15 连续编号，重复图因题注不同各放一次。34 页，本地 pdflatex 两遍 0 error。

@@ -1,0 +1,152 @@
+Southern Hemisphere sea ice: AWI-ESM2 vs OSI SAF CDR v3.0
+Written by fig_seaice_obs/plot_seaice_obs.py. Extent = area of cells/nodes with
+concentration >= 15%; area = sum of concentration x cell area. Units 1e6 km2.
+Model: native FESOM2 mesh, nod_area level 0 (m2; mesh_core2 ocean total 364.4 e6 km2).
+Obs: Sea Ice Concentration Climate Data Record Version 3 (SMMR, SSM/I, and SSMIS) from the EUMETSAT OSI SAF, osi-450-a v3.0, doi:10.15770/EUM_SAF_OSI_0013.
+Obs grid: EASE2 25 km LAEA 432x432, cell area 625.0 km2 (from xc/yc spacing).
+Model PI: pi_age model years 2300-2399 (100 yr, pi/100years/a_ice_mergetime.nc).
+Monthly values are computed from monthly-mean concentration fields for both model
+and obs. "mean" = mean over years of each year's monthly extent; "clim field" =
+extent of the multi-year mean concentration field.
+Obs days per month: before Aug 1987 every other day; Apr-May 1986 have no data;
+Jun 1986 has 4 days, Dec 1987 2 days, Jan 1988 19 days. All available days are used.
+
+1. MONTHLY SH EXTENT AND AREA (1e6 km2)
+     | OSI SAF 1979-2008 extent        | OSI SAF area              | PI 2300-2399 extent             | PI area
+mon  |   mean    min    max  daily   fld |   mean    min    max   fld |   mean    min    max    fld ratio |   mean    fld
+Jan  |   5.41   4.13   7.34   5.28  6.36 |   3.43   2.81   4.39  3.43 |   1.89   0.88   2.68   2.14  0.35 |   1.02   1.02
+Feb  |   3.32   2.66   4.25   3.33  3.96 |   2.14   1.65   2.86  2.14 |   0.74   0.17   1.62   0.91  0.22 |   0.40   0.40
+Mar  |   4.67   3.73   6.00   4.31  5.40 |   2.98   2.30   4.16  2.98 |   1.05   0.26   1.89   1.27  0.22 |   0.54   0.54
+Apr  |   7.66   6.46   9.00   7.12  8.46 |   5.61   4.11   7.05  5.61 |   2.48   1.76   3.31   2.68  0.32 |   1.58   1.58
+May  |  11.07   9.85  12.00  10.46 11.79 |   8.72   7.13   9.68  8.72 |   4.31   3.24   5.26   4.65  0.39 |   3.00   3.00
+Jun  |  14.25  13.32  15.12  13.71 15.12 |  11.64  10.53  12.56 11.64 |   6.23   4.67   7.51   6.81  0.44 |   4.55   4.55
+Jul  |  16.75  16.08  17.21  16.30 17.57 |  14.02  13.15  14.56 14.02 |   8.02   6.43   9.36   8.76  0.48 |   6.09   6.09
+Aug  |  18.43  17.84  19.03  18.06 19.23 |  15.51  14.65  16.26 15.51 |   9.36   7.72  10.40  10.03  0.51 |   7.34   7.34
+Sep  |  19.11  18.22  19.74  18.83 20.04 |  16.06  15.01  16.80 16.06 |   9.89   8.41  10.81  10.60  0.52 |   7.84   7.84
+Oct  |  18.66  17.85  19.34  18.42 19.55 |  15.49  14.35  16.26 15.49 |   9.51   8.16  10.62  10.35  0.51 |   7.39   7.39
+Nov  |  16.65  15.81  17.15  16.29 17.35 |  12.84  11.77  13.57 12.84 |   8.02   6.46   9.34   8.87  0.48 |   5.74   5.74
+Dec  |  11.80  10.24  13.80  10.98 12.95 |   7.54   6.48  10.03  7.54 |   5.11   3.89   6.81   5.57  0.43 |   3.01   3.01
+  daily = OSI SAF monthly mean of daily extents (as in the OSI SAF index); fld = clim field.
+  ratio = PI mean extent / OSI SAF mean extent.
+  Dec 1987 (2 days) extent 13.80 is the Dec maximum; without it Dec max = 13.04.
+  Annual mean extent: OSI SAF 12.33, PI 5.55. Seasonal range (max-min of mean cycle): OSI SAF 15.79, PI 9.15.
+  Month of max / min: OSI SAF Sep / Feb; PI Sep / Feb.
+
+  For comparison, pi/a_ice_clim.nc (10-yr mean of model years 2090-2099, run not
+  identified; NOT the paper's PI period), clim-field extent / area:
+  Jan 1.67/0.75 Feb 0.50/0.22 Mar 0.85/0.32 Apr 2.35/1.34 May 4.65/2.93 Jun 7.17/4.79 Jul 9.61/6.68 Aug 11.56/8.25 Sep 12.18/8.80 Oct 11.69/8.06 Nov 9.37/5.93 Dec 5.23/2.75
+
+2. SECTOR EXTENT/AREA AND 15% ICE EDGE LATITUDE (Sep, Feb)
+Sectors: Weddell 60W-79E, Ross 180-60W, Adelie 79E-180. Edge = northernmost 15%
+crossing along each meridian (0.5 deg spacing, 0.05 deg sampling, 80S-45S),
+averaged over meridians with ice; clim fields. Model sampled by linear interpolation
+on the mesh triangles, obs bilinearly on the EASE2 grid.
+  Sep:
+    Weddell     extent PI  2.67 obs 10.36 (PI-obs -7.69)   area PI  1.84 obs  8.69 (PI-obs -6.85)
+    Ross        extent PI  5.54 obs  5.77 (PI-obs -0.23)   area PI  4.13 obs  4.48 (PI-obs -0.35)
+    Adelie      extent PI  2.38 obs  3.91 (PI-obs -1.53)   area PI  1.87 obs  2.89 (PI-obs -1.02)
+    Circumpolar extent PI 10.60 obs 20.04 (PI-obs -9.44)   area PI  7.84 obs 16.06 (PI-obs -8.22)
+    edge lat OSI SAF        : Weddell -57.27  Ross -63.26  Adelie -60.89  Circumpolar -60.28
+    edge lat PI 2300-2399   : Weddell -66.99  Ross -63.63  Adelie -63.76  Circumpolar -64.97
+    edge lat PI 2090-2099   : Weddell -63.80  Ross -63.67  Adelie -64.17  Circumpolar -63.86
+    PI-obs edge (meridians with ice in both): Weddell -9.72  Ross -0.38  Adelie -2.87  Circumpolar -4.68 deg
+    largest edge deficit (PI south of obs): 16.65 deg at -28.2E; smallest: -1.01 deg at -106.2E
+      Weddell  PI edge north of obs on 15 of 278 meridians; max deficit 16.6 deg at -28.2E
+      Ross     PI edge north of obs on 85 of 240 meridians; max deficit 3.2 deg at -144.2E
+      Adelie   PI edge north of obs on 0 of 202 meridians; max deficit 8.9 deg at 79.2E
+      30-degree bands (lon range: PI edge, obs edge, PI-obs):
+        -180..-150E  -62.57  -62.28   -0.28
+        -150..-120E  -63.34  -62.08   -1.26
+        -120.. -90E  -64.75  -65.30   +0.55
+         -90.. -60E  -63.88  -63.37   -0.51
+         -60.. -30E  -65.48  -58.74   -6.74
+         -30..   0E  -70.32  -55.99  -14.32
+           0..  30E  -67.75  -55.05  -12.71
+          30..  60E  -65.41  -58.71   -6.71
+          60..  90E  -65.34  -58.10   -7.23
+          90.. 120E  -64.04  -59.68   -4.36
+         120.. 150E  -63.92  -62.00   -1.93
+         150.. 180E  -62.80  -62.10   -0.69
+  Feb:
+    Weddell     extent PI  0.08 obs  1.75 (PI-obs -1.67)   area PI  0.04 obs  1.07 (PI-obs -1.03)
+    Ross        extent PI  0.29 obs  1.51 (PI-obs -1.23)   area PI  0.12 obs  0.72 (PI-obs -0.60)
+    Adelie      extent PI  0.54 obs  0.70 (PI-obs -0.16)   area PI  0.24 obs  0.35 (PI-obs -0.11)
+    Circumpolar extent PI  0.91 obs  3.96 (PI-obs -3.06)   area PI  0.40 obs  2.14 (PI-obs -1.74)
+    edge lat OSI SAF        : Weddell -68.13 (224/278 meridians)  Ross -70.56 (230/240 meridians)  Adelie -65.91 (162/202 meridians)  Circumpolar -68.46 (616/720 meridians)
+    edge lat PI 2300-2399   : Weddell -66.90 (7/278 meridians)  Ross -73.85 (73/240 meridians)  Adelie -66.62 (131/202 meridians)  Circumpolar -69.13 (211/720 meridians)
+    edge lat PI 2090-2099   : Weddell -65.17 (10/278 meridians)  Ross -75.01 (69/240 meridians)  Adelie -67.87 (51/202 meridians)  Circumpolar -71.45 (130/720 meridians)
+    PI-obs edge (meridians with ice in both): Weddell -2.30  Ross -2.10  Adelie -0.15  Circumpolar -1.04 deg
+
+3. INSIDE THE OBSERVED SEPTEMBER 15% CONTOUR
+  Native mesh (obs interpolated to model nodes):
+    observed ice zone area on model nodes 20.30 e6 km2
+    fraction where PI < 15%: 49.2% (PI 2090-2099 file: 42.0%)
+    mean concentration there: PI 37.7%, obs 79.0% (PI 2090-2099 file: 42.1%)
+    Weddell  obs zone 10.45 e6 km2, PI<15% on 75.6%, mean conc PI 16.8% obs 82.8%
+    Ross     obs zone 5.81 e6 km2, PI<15% on 7.1%, mean conc PI 69.6% obs 76.5%
+    Adelie   obs zone 4.04 e6 km2, PI<15% on 41.9%, mean conc PI 45.6% obs 72.7%
+    PI ice (>=15%) outside the observed zone: 0.136 e6 km2
+  Cross-check on the EASE2 grid (model interpolated to the obs grid):
+    fraction where PI < 15%: 50.1%; mean conc PI 36.8% obs 79.1%; 67 of 32062 obs-ice cells fall on model land and are skipped
+
+  Sep mean conc in the Weddell gyre box 30W-30E, 70S-60S: PI 7.5%, obs 95.7%
+    along 64S, 30W-30E: PI mean 1.3% (min 0.0%, max 3.2%), obs mean 96.6%
+    along 66S, 30W-30E: PI mean 3.8% (min 0.0%, max 8.9%), obs mean 97.9%
+    along 68S, 30W-30E: PI mean 14.8% (min 0.0%, max 57.4%), obs mean 98.3%
+    along 70S, 30W-30E: PI mean 60.4% (min 0.3%, max 95.7%), obs mean 93.7%
+  Enclosed open-water patches (polynyas), Weddell sector 60W-79E, e6 km2:
+    (open water = conc < 15%; a patch is enclosed if it does not connect to 50S)
+    Jun clim: PI open-ocean 0.000, coastal 0.014 | OSI SAF open-ocean 0.000, coastal 0.000
+    Jul clim: PI open-ocean 0.000, coastal 0.002 | OSI SAF open-ocean 0.000, coastal 0.000
+    Aug clim: PI open-ocean 0.000, coastal 0.000 | OSI SAF open-ocean 0.000, coastal 0.000
+    Sep clim: PI open-ocean 0.000, coastal 0.000 | OSI SAF open-ocean 0.000, coastal 0.000
+    Oct clim: PI open-ocean 0.000, coastal 0.001 | OSI SAF open-ocean 0.000, coastal 0.000
+  Individual PI years 2300-2399, Weddell sector, enclosed open-ocean polynyas:
+    Jun: years with > 0.01 e6 km2: 0 of 100; > 0.1: 0; max 0.000 e6 km2 (coastal: median 0.003, max 0.020)
+    Jul: years with > 0.01 e6 km2: 0 of 100; > 0.1: 0; max 0.000 e6 km2 (coastal: median 0.003, max 0.015)
+    Aug: years with > 0.01 e6 km2: 0 of 100; > 0.1: 0; max 0.001 e6 km2 (coastal: median 0.000, max 0.010)
+    Sep: years with > 0.01 e6 km2: 1 of 100; > 0.1: 0; max 0.012 e6 km2 (coastal: median 0.000, max 0.043)
+    Oct: years with > 0.01 e6 km2: 0 of 100; > 0.1: 0; max 0.000 e6 km2 (coastal: median 0.009, max 0.216)
+
+4. FIVE STATES (native meshes; years: PI 2300-2399, MH 2300-2399, LIG 2300-2399 (98 yr, no 2318, 2372), LGM 2400-2499, MIS3 2500-2599)
+  Monthly extent (mean over years), 1e6 km2:
+             Jan    Feb    Mar    Apr    May    Jun    Jul    Aug    Sep    Oct    Nov    Dec
+    PI      1.89   0.74   1.05   2.48   4.31   6.23   8.02   9.36   9.89   9.51   8.02   5.11
+    MH      1.79   0.83   1.29   2.81   4.76   6.83   8.70   9.99  10.44   9.85   8.11   4.92
+    LIG     1.11   0.33   0.81   2.30   3.83   5.30   6.62   7.47   7.63   7.08   5.68   3.51
+    LGM    15.38   8.90   9.01  13.17  19.44  25.08  28.61  30.24  30.42  29.44  26.88  22.72
+    MIS3   12.58   7.22   7.53  11.26  17.07  22.72  26.50  28.13  28.16  27.03  24.49  20.35
+    OSI     5.41   3.32   4.67   7.66  11.07  14.25  16.75  18.43  19.11  18.66  16.65  11.80
+  Monthly area (mean over years), 1e6 km2:
+    PI      1.02   0.40   0.54   1.58   3.00   4.55   6.09   7.34   7.84   7.39   5.74   3.01
+    MH      0.98   0.46   0.71   1.84   3.36   5.05   6.69   7.94   8.31   7.69   5.73   2.81
+    LIG     0.57   0.19   0.39   1.34   2.64   3.89   5.02   5.78   5.87   5.26   3.89   1.96
+    LGM     8.96   5.45   6.24  10.10  15.61  21.20  24.96  26.63  26.66  25.24  21.74  15.85
+    MIS3    7.33   4.39   5.04   8.43  13.49  18.81  22.73  24.50  24.43  22.92  19.46  13.79
+    OSI     3.43   2.14   2.98   5.61   8.72  11.64  14.02  15.51  16.06  15.49  12.84   7.54
+  JJA (mean of Jun-Aug monthly values over all years; in brackets the extent/area of the
+  JJA-mean concentration field, which is what Fig. 1i-l maps); anomaly vs PI:
+    PI    extent  7.87 [ 9.02] (+0.00,   +0%)   area  6.00 [ 6.00] (+0.00,   +0%)
+    MH    extent  8.50 [ 9.59] (+0.63,   +8%)   area  6.56 [ 6.56] (+0.56,   +9%)
+    LIG   extent  6.46 [ 7.16] (-1.41,  -18%)   area  4.89 [ 4.89] (-1.10,  -18%)
+    LGM   extent 27.98 [29.94] (+20.11, +255%)   area 24.26 [24.26] (+18.27, +305%)
+    MIS3  extent 25.78 [27.91] (+17.91, +228%)   area 22.01 [22.01] (+16.02, +267%)
+    PI*   extent  n/a  [10.03]                  area  6.57 [ 6.57]   <- pi/a_ice_clim.nc, 2090-2099
+    MH-PI* area -0.01, LIG-PI* area -1.68, LGM-PI* +17.69, MIS3-PI* +15.44
+    OSI   extent 16.47 [17.94]           area 13.73 [13.73]
+  JJA 15% edge latitude (JJA-mean field), deg; anomaly vs PI in brackets:
+                   Weddell             Ross           Adelie      Circumpolar
+    PI     -67.86 (+0.00)  -65.23 (+0.00)  -63.99 (+0.00)  -65.90 (+0.00)
+    MH     -67.53 (+0.33)  -64.86 (+0.37)  -63.70 (+0.29)  -65.57 (+0.33)
+    LIG    -66.74 (+1.12)  -69.94 (-4.71)  -64.04 (-0.04)  -67.05 (-1.15)
+    LGM    -52.43 (+15.43)  -56.06 (+9.17)  -57.15 (+6.84)  -54.96 (+10.93)
+    MIS3   -53.74 (+14.12)  -56.75 (+8.49)  -58.22 (+5.78)  -56.00 (+9.90)
+    OSI    -58.58           -64.02           -61.51           -61.21         
+    PI*    -65.78           -65.19           -64.38           -65.19           <- 2090-2099 file
+  September 15% edge latitude, deg:
+    PI     -66.99  -63.63  -63.76  -64.97
+    MH     -66.59  -63.65  -63.42  -64.72
+    LIG    -65.80  -69.55  -63.32  -66.36
+    LGM    -51.61  -55.53  -56.49  -54.29
+    MIS3   -53.02  -56.21  -57.62  -55.37
+

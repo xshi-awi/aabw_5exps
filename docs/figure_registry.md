@@ -21,3 +21,4 @@
 - `figR8_domain_map` ← `plot_domain_map.py`：60°S 以南域 2.07e13 m²，9 月海冰区 1.22e13 m²，两者之差（42.7%）是常年开阔水。
 - `figR9_ross_sector` → `docs/ross_sector_seaice.md`；`figR10_deep_trend` → `docs/model_equilibrium.md`
 - 2026-09-22 以后据 git 新增：`plot_density_class_comparison.py`、`plot_pi_vs_pellichero.py`、`plot_wmt_merged_3rows.py`、`plot_wmt_oras5_*.py` 等，旧文档未记录「待核」。
+- 2026-11-22 新增与改动：`fig_seaice_obs/plot_seaice_obs.py` → `fig_seaice_obs/figR21_seaice_obs.{png,pdf}`（PI 与 OSI SAF 1979–2008 海冰对比，说明见该文件夹 CLAUDE.md）；`plot_wmt_merged_3rows.py` 加参数 `obs`/`rean`，分出 `figures/figR20a_wmt_obs` 与 `figR20b_wmt_oras5`（审稿人 3 观测与再分析分开），不带参数仍出三行合图；`plot_ross_sector.py` 只留 Ross、Weddell 两扇区；`plot_surface_density_tendency_from_raw_data_jja.py` 每张图只在最下一行画 PI 与异常两条色标，行名放左侧（各行量纲与范围本来就相同）。这几个脚本在本机要用 `python3 -s` 并只把 gsw 放进 PYTHONPATH，否则 ~/.local 的 pandas 2.3 让 xarray 解不开时间。

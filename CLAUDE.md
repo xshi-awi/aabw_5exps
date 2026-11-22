@@ -2,14 +2,14 @@
 
 AWI-ESM 五个气候态（PI / MH / LIG / LGM / MIS3）南大洋表面水团转换（WMT）的热、盐强迫分解与 SAM 调制。论文已投 Nature Communications，现处大修阶段。远程 origin = https://github.com/xshi-awi/aabw_5exps
 
-## 当前状态（2026-11-19 08:40）
+## 当前状态（2026-11-22 07:30）
 
-- **在做什么**：NC 大修。修订稿 `nc_paper/build/revised.tex`；回复信从 11-19 起改用 TexPage 上的 `revision/response_new.tex`（按 texpage-sync STYLE，由合作者的 `paper/inbox_20261119/response-JL.docx` 转写，线上是主版本）。旧的 `RESPONSE_LETTER.md` 流水线和 04/05 文件留着不动。
-- **上一步做完了什么**：11-19 转写并推送 response_new.tex（TexPage 5bf3ef0，回读一致，做法见 `nc_paper/CLAUDE.md`）。11-08 做完 D6 MOC 地理分带、D2 形成率表同源、D8 上层指数 20–70°N（TexPage 3d2ad39、c24777a）。
-- **下一步**：用户下一轮处理 response_new.tex 里的 9 条批注；待定事项（D6/D8 数字是否重新套用、图号、信头几段、旧 Word/PDF 删不删）见 `log/OPEN.md`。之后填致谢与基金（`revised.tex` 约 360 行仍是 TODO），用户上传 Zenodo 后回填 DOI。
+- **在做什么**：NC 大修。修订稿 `nc_paper/build/revised.tex`；回复信是 TexPage 上的 `revision/response_new.tex`（线上是主版本，用户在线改）。旧的 `RESPONSE_LETTER.md` 流水线和 04/05 文件留着不动。
+- **上一步做完了什么**：11-22 按用户邮件逐条处理了信里的黄色高亮并推到 TexPage（b90b273 起 9 个提交）：新增海冰与卫星对比（`fig_seaice_obs/`）、SAM 合成同一密度单位（`fig_sam_buoyancy/`），审稿人 3 观测与再分析分开，Fig. 3/4 色标合并。做法和脚本见 `nc_paper/CLAUDE.md` 与 `nc_paper/docx_to_tex/pass_20261122/`。
+- **下一步**：等用户定 `log/OPEN.md` 里 11-22 新增的四条，最要紧的是 PI 海冰文件被覆盖要不要统一重算；修订稿要跟着信改的段落也列在那里。之后填致谢与基金，回填 Zenodo DOI。
 - **动手前必须知道的**：
   - 投稿稿是 `nc_paper/nc-main.tex`（sn-jnl.cls，5 位作者）；修订在 `nc_paper/build/revised.tex`。`nc_paper/main.tex` 是旧 AGU 版，不是投稿稿。
-  - 改 response_new.tex 前先 pull，以线上为准；只推自己改的文件，推完至少等 3 分钟核 md5。旧回复信的流程和闸门在 `nc_paper/CLAUDE.md`。
+  - 改 response_new.tex 前先 pull，以线上为准；用户在改的文件等她停手 10 分钟再推；只推自己改的文件，推完至少等 3 分钟核 md5。别用 `sync_texpage.sh push`。
   - `nc_paper/NEW_ANALYSIS_RESULTS.md` §1 的「69%→61%」已被推翻，别引（见 `log/PITFALLS.md`）。
 
 ## 数据路径
@@ -57,3 +57,4 @@ AWI-ESM 五个气候态（PI / MH / LIG / LGM / MIS3）南大洋表面水团转�
 - 43 GB 源文件的 ncks 抽取、matplotlib/cartopy 画图脚本都要前台跑。放后台会被中途杀掉或空跑，留下 .tmp 或旧时间戳文件，看起来像成功了。
 - 后台长任务早看输出，别等跑完才发现第一个实验就崩了。
 - 引用极值时空间范围要和文字一致；附和审稿人的猜测前先算。
+- `pi/a_ice_clim.nc` 和 `pi/a_ice_reg.nc` 是被覆盖的 2090–2099 别的 run，PI 海冰用 `pi/a_ice_*_beta.nc`（2300–2399）。本机 python 要 `python3 -s`，否则 ~/.local 的 pandas 让 xarray 解不开时间（`log/PITFALLS.md`）。
