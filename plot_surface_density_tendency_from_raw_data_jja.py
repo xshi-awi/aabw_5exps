@@ -50,7 +50,9 @@ RHO_WATER = 1000.0  # kg/m³
 # 单位换算: 密度趋势从 per second -> per month
 # 1 month = 30 天 (约定俗成的"月"长度)
 SEC_PER_MONTH = 30.0 * 86400.0  # = 2,592,000 s
-UNIT_LABEL = 'kg m⁻³ month⁻¹'
+# Both terms are surface density fluxes in kg m-2 s-1. Shown per month and per metre of
+# water column, i.e. the density change of a surface layer 1 m thick (2026-11-22, EE2).
+UNIT_LABEL = 'kg m⁻³ month⁻¹ per metre of water column'
 
 print('='*80)
 print('绘制JJA表面密度趋势异常图 (从原始数据计算)')
@@ -340,12 +342,15 @@ for exp in ['pi'] + list(EXPERIMENTS.keys()):
     jja_density_tendency[exp]['mass_runoff'] = -beta * sss_jja * runoff_eff * RHO_WATER / RHO_WATER
     jja_density_tendency[exp]['mass_seaice'] = -beta * sss_jja * seaice_eff * RHO_WATER / RHO_WATER
 
-    # 简化: RHO_WATER 约掉
-    jja_density_tendency[exp]['mass_prec'] = -beta * sss_jja * prec_eff
-    jja_density_tendency[exp]['mass_evap'] = -beta * sss_jja * evap_eff
-    jja_density_tendency[exp]['mass_snow'] = -beta * sss_jja * snow_eff
-    jja_density_tendency[exp]['mass_runoff'] = -beta * sss_jja * runoff_eff
-    jja_density_tendency[exp]['mass_seaice'] = -beta * sss_jja * seaice_eff
+    # 2026-11-22 (EE2): the freshwater flux is in m/s, so the surface density flux is
+    # -rho_w * beta * S * FW in kg m-2 s-1, the same unit as the heat term -(alpha/cp) Q.
+    # Before this date RHO_WATER was cancelled here, which made the freshwater term about
+    # 1000 times too small next to the heat term (Fig. 4 and the text at revised.tex 149).
+    jja_density_tendency[exp]['mass_prec'] = -RHO_WATER * beta * sss_jja * prec_eff
+    jja_density_tendency[exp]['mass_evap'] = -RHO_WATER * beta * sss_jja * evap_eff
+    jja_density_tendency[exp]['mass_snow'] = -RHO_WATER * beta * sss_jja * snow_eff
+    jja_density_tendency[exp]['mass_runoff'] = -RHO_WATER * beta * sss_jja * runoff_eff
+    jja_density_tendency[exp]['mass_seaice'] = -RHO_WATER * beta * sss_jja * seaice_eff
 
     jja_density_tendency[exp]['mass_total'] = (
         jja_density_tendency[exp]['mass_prec'] +
@@ -703,7 +708,7 @@ for row, (var_key, var_title, var_title_pi) in enumerate(zip(var_keys, var_title
     cbar_ax_pi = fig.add_axes([pos0.x0, pos0.y0 - 0.055, pos0.width, 0.018])
     cbar_pi = plt.colorbar(all_cfs[0], cax=cbar_ax_pi, orientation='horizontal',
                            ticks=ticks_pi, format=fmt_pi)
-    cbar_pi.set_label(f'PI ({UNIT_LABEL})', fontsize=14)
+    cbar_pi.set_label('PI (same unit)', fontsize=14)
     cbar_pi.ax.tick_params(labelsize=14)
 
     pos1 = all_axes[1].get_position()
@@ -799,7 +804,7 @@ for row, (var_key, var_title, var_title_pi) in enumerate(zip(var_keys, var_title
     cbar_ax_pi = fig.add_axes([pos0.x0, pos0.y0 - 0.055, pos0.width, 0.018])
     cbar_pi = plt.colorbar(all_cfs[0], cax=cbar_ax_pi, orientation='horizontal',
                            ticks=ticks_pi, format=fmt_pi)
-    cbar_pi.set_label(f'PI ({UNIT_LABEL})', fontsize=14)
+    cbar_pi.set_label('PI (same unit)', fontsize=14)
     cbar_pi.ax.tick_params(labelsize=14)
 
     pos1 = all_axes[1].get_position()
@@ -849,3 +854,21 @@ for exp, exp_name in EXPERIMENTS.items():
     print(f'  Mass Sea Ice:    {mass_ice_mean:+.3f} {UNIT_LABEL}')
     print(f'  Mass Other:      {mass_other_mean:+.3f} {UNIT_LABEL}')
 print()
+
+# Values quoted in the Results freshwater paragraph (revised.tex), added 2026-11-22 (EE2).
+# Same smoothed fields as the figure, converted back to per second.
+print('Glacial freshwater anomalies for the text, kg m-3 s-1 per metre of water column:')
+for exp in ['lgm', 'mis']:
+    for var in ['mass_total', 'mass_seaice']:
+        a = anomalies[exp][var] / SEC_PER_MONTH
+        band = (lat_2d_cyclic <= -55) & (lat_2d_cyclic >= -70) & np.isfinite(a)
+        so = (lat_2d_cyclic <= -50) & np.isfinite(a)
+        coast = so & (lat_2d_cyclic <= -65)
+        print(f'  {exp:4s} {var:12s} 55-70S median {np.median(a[band]):+.1e}  90th pct {np.percentile(a[band], 90):+.1e}'
+              f' | S of 50S 99th pct {np.percentile(a[so], 99):+.1e} max {np.nanmax(a[so]):+.1e}'
+              f' | S of 65S 90th pct {np.percentile(a[coast], 90):+.1e}')
+for exp in ['pi', 'lgm', 'mis']:
+    h = jja_cyclic[exp]['heat_total'] / SEC_PER_MONTH
+    f = jja_cyclic[exp]['mass_total'] / SEC_PER_MONTH
+    so = (lat_2d_cyclic <= -50) & np.isfinite(h) & np.isfinite(f)
+    print(f'  {exp:4s} mean state S of 50S: |heat| 99th pct {np.percentile(np.abs(h[so]), 99):.1e}, |freshwater| 99th pct {np.percentile(np.abs(f[so]), 99):.1e}')

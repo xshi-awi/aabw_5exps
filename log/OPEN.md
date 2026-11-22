@@ -13,6 +13,5 @@
 - **climdiag oracle**：`test_d2_formation_csvs` 记了两张形成率表旧版的 md5，表重算后会失败，需 climdiag 那边更新。
 - **response_new.tex 待用户定**（2026-11-19）：docx 带回了 D6/D8 之前的 MOC 数字与措辞（要不要重新套用）；图号改成 R1–R15 连续、重复图各放一次是否接受；信头没有 Dear Editor、配色说明、总述、更正几段（docx 里没有）（旧 Word/PDF 已于 11-19 按用户决定从 TexPage 删除，baa76c5）；README.md 是否加 response_new.tex 一行。批注本身留到下一轮处理。
 - **PI 海冰气候态文件被覆盖**（2026-11-22 发现，最要紧）：`pi/a_ice_clim.nc`、`pi/a_ice_reg.nc` 是 03-15 换进来的来历不明的 2090–2099 十年平均，正确的 2300–2399 版在 `*_beta.nc`。受影响：修订稿 Fig. 1i–l 与 Fig. 2 的 PI 海冰、Fig. 4 的 PI 海冰掩膜、`calc_wmt_siz_pellichero.py` 的 PI 海冰区（9 月冰区大 13%，牵连信里 42.7%、70%、−9.2/+6.6 Sv 与 Figs R1、R9、R12、R13 的 PI 曲线）。是否用 _beta 统一重算待用户定（`log/PITFALLS.md`）。
-- **Fig. 4 淡水密度项少乘水密度约 1000 倍**（2026-11-22）：`plot_surface_density_tendency_from_raw_data_jja.py` 把 RHO_WATER 约掉了，图和正文 149 行的 5×10⁻⁹ 偏小三个量级；两图单位标的 kg m⁻³ 也应是每米水柱。改不改待用户定（`fig_sam_buoyancy/CLAUDE.md`）。
-- **Figs A3/A4（SAM 热、淡水合成）实为 ±1.0σ**，图注写 1.2σ（`composite_sam/*_sam_composite_*.nc` 属性和脚本都是 1.0）。重画还是改图注待用户定。
 - **response_new.tex 11-22 版待用户定**：修订稿要跟着改的段落（Discussion 245 行 Sidorenko 那段及 366 行 TODO、Fig. 1i–l 的描述、111 行 residual、241 行 they describe、249 行 53–88%、180 行 wherever、摘要 Weaker glacial transformation）；Hall & Visbeck 2002 还没进 ref.bib；批注 6、7 要看纸质修改稿；批注 8 的意思；新图 R3（海冰）、R10（SAM 密度）是否进补充材料。
+- **Methods 密度通量的符号说明自相矛盾**（2026-11-22 发现，未改）：`build/revised.tex` 303 行公式 +βSF_fw、305 行末「热量或淡水损失使 B<0 即致密化」与 307 行「正值表示致密化」对不上。EE2 只改了单位。

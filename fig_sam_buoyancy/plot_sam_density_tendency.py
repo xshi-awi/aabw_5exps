@@ -43,8 +43,10 @@ RHO_FW = 1000.0              # same factor as wfo = -fw * 1000 in the WMT pipeli
 MMDAY_TO_MS = 1.0 / (86400.0 * 1000.0)
 ICE_THR = 0.15
 LAT_SO = -50.0
-UNIT = 'kg m$^{-2}$ month$^{-1}$'
-UNIT_TXT = 'kg m-2 month-1'
+# Same quantity and label as manuscript Figs. 3 and 4 since 2026-11-22 (EE2): a surface
+# density flux in kg m-2 month-1, i.e. kg m-3 month-1 per metre of water column.
+UNIT = 'kg m$^{-3}$ month$^{-1}$ per metre of water column'
+UNIT_TXT = 'kg m-3 month-1 per metre of water column'
 
 
 # ----------------------------------------------------------------- inputs

@@ -5,10 +5,10 @@ H = -(alpha/cp) dQ,  dQ = SW+LW+SH+LH over water from ECHAM, W m-2, + into ocean
 F = -rho_fw beta S dFW,  dFW = -fw from FESOM, m s-1, + into ocean, rho_fw = 1000
 alpha, beta, cp from gsw at each state's JJA climatological SST/SSS; S = JJA SSS.
 Both in kg m-2 s-1 (shown x 30 days); positive = densification.
-Figure colour range: +/-3.0 kg m-2 month-1.
+Figure colour range: +/-3.0 kg m-3 month-1 per metre of water column.
 
 --- threshold +/-1.0 sigma (composite_sam/*_sam_composite_<exp>.nc, as plotted in Figs 5 and 6) ---
-area-weighted over ocean south of 50S; means in kg m-2 month-1; integrals in 10^6 kg s-1
+area-weighted over ocean south of 50S; means in kg m-3 month-1 per metre of water column; integrals in 10^6 kg s-1
 region: ice = JJA ice conc > 0.15 (own state, climatology); free = <= 0.15
 state    yrs reg    area     |H|     |F| |F|/|H|       H       F fr|F|>|H|    intH    intF
 PI    18/17  ice    9.02   0.095   0.847    8.91  -0.008  +0.407      0.91   -0.03   +1.42
@@ -38,7 +38,7 @@ LGM   A holds           (ice fr=0.90, |F|/|H|=6.1)   B holds  (free fr=0.29, |F|
 MIS3  A holds           (ice fr=0.92, |F|/|H|=7.1)   B holds  (free fr=0.24, |F|/|H|=0.40)
 
 --- threshold +/-1.2 sigma (recomputed from monthly 100years data, threshold stated in the captions) ---
-area-weighted over ocean south of 50S; means in kg m-2 month-1; integrals in 10^6 kg s-1
+area-weighted over ocean south of 50S; means in kg m-3 month-1 per metre of water column; integrals in 10^6 kg s-1
 region: ice = JJA ice conc > 0.15 (own state, climatology); free = <= 0.15
 state    yrs reg    area     |H|     |F| |F|/|H|       H       F fr|F|>|H|    intH    intF
 PI    10/13  ice    9.02   0.138   1.118    8.12  +0.003  +0.445      0.91   +0.01   +1.55
@@ -67,7 +67,7 @@ LGM   A holds           (ice fr=0.90, |F|/|H|=6.2)   B holds  (free fr=0.28, |F|
 MIS3  A holds           (ice fr=0.93, |F|/|H|=7.5)   B holds  (free fr=0.23, |F|/|H|=0.38)
 
 --- mean state for comparison: JJA climatology (not an anomaly), H from echam_clim.nc, F from fw_clim.nc; yrs column = SAM years, unused here ---
-area-weighted over ocean south of 50S; means in kg m-2 month-1; integrals in 10^6 kg s-1
+area-weighted over ocean south of 50S; means in kg m-3 month-1 per metre of water column; integrals in 10^6 kg s-1
 region: ice = JJA ice conc > 0.15 (own state, climatology); free = <= 0.15
 state    yrs reg    area     |H|     |F| |F|/|H|       H       F fr|F|>|H|    intH    intF
 PI    18/17  ice    9.02   1.206   4.116    3.41  +1.206  +1.071      0.69   +4.20   +3.73

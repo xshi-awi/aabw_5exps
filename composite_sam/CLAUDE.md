@@ -6,6 +6,7 @@
 - 合成 = 高 SAM 年减低 SAM 年。阈值 ±1.2σ：高 SAM 为 SAM > mean + 1.2·std，低 SAM 为 SAM < mean − 1.2·std。
 - `calc_sam_wmt_composite.py` 第 32 行 `THRESHOLD_STD = 1.2` 一直是实际生效值。2026-05-19 只修了文档：docstring、函数默认参数 `identify_composite_years(threshold_std=1.0→1.2)`（原来被显式参数覆盖，结果不受影响）、两张图注和任务描述。数据不用重算。
 - 版式参照 `../plot_wmt_4regions_5exps.py`。热通量图 3 行 5 列：total heat / LW+SW / SH+LH。淡水图 3 行 5 列：total FW / sea ice only / other（prec+evap+snow+runoff）。
+- **阈值实际不统一**（2026-11-22 核）：热、淡水通量合成（`calc_sam_heatflux_composite*.py`、`calc_sam_fwflux_composite.py`、`fw_data/calc_fw_climatology.py`，即 Figs. A3/A4）是 ±1.0σ；WMT 合成（`calc_sam_wmt_composite.py`）、push/pull（`../calc_sam_push_pull.py`）、风应力与海冰合成（`../plot_sam_wind_ice.py`）是 ±1.2σ。用户 11-22 定 A3/A4 不重画、图注改成 1.0σ。
 - 论文只用 JJA。`calc_sam_wmt_composite_djf.py` 与 DJF 结果存在，但不进论文，也没放进 Zenodo 包（只保留 5 个 `sam_index_<exp>.nc` 作来源）。
 - 放在论文哪里：2026-09-09 用户定 SAM 图全部进补充材料，见 `../nc_paper/CLAUDE.md`。
 
