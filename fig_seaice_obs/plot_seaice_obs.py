@@ -566,20 +566,35 @@ def make_figure(o, m, W_grid, pi_clim, oext, oare, pext, pare):
     laea = ccrs.LambertAzimuthalEqualArea(central_longitude=0, central_latitude=-90,
                                           globe=ccrs.Globe(ellipse='WGS84'))
     X, Y = o['xc'] * 1e3, o['yc'] * 1e3
-    fig = plt.figure(figsize=(15, 10.6))
-    gs = fig.add_gridspec(2, 3, left=0.03, right=0.985, top=0.94, bottom=0.12,
+    fig = plt.figure(figsize=(15, 11.0))
+    gs = fig.add_gridspec(2, 3, left=0.03, right=0.985, top=0.94, bottom=0.15,
                           wspace=0.16, hspace=0.30)
-    cmap = mpl.cm.get_cmap('Blues')
+    # Concentration panels drawn as sea ice is drawn in manuscript Fig. 2
+    # (plot_climate_patterns_jja.py, plot_figure2): NCL BlAqGrYeOrRe colours, levels
+    # 10-100% in 5% steps, values from 1 to 10% in the under colour (deepest blue), and
+    # only cells with less than 1% ice left white (2026-11-22, user request). Fig. 2 also
+    # smooths its 1-degree field; that smoothing is not applied here.
+    blaq = ['#0000FF', '#0040FF', '#0080FF', '#00BFFF', '#00FFFF', '#00FFB0', '#00FF60',
+            '#00FF00', '#60FF00', '#BFFF00', '#FFFF00', '#FFD000', '#FFA000', '#FF6000',
+            '#FF2000', '#FF0000', '#CC0000']
+    cmap = mpl.colors.LinearSegmentedColormap.from_list('BlAqGrYeOrRe', blaq, N=256)
+    cmap.set_under('#0000FF')
+    cmap.set_bad('white')
     cmap_d = mpl.cm.get_cmap('RdBu')
-    norm = mpl.colors.BoundaryNorm(np.arange(0, 101, 10), cmap.N)
+    norm = mpl.colors.BoundaryNorm(np.arange(10, 101, 5), cmap.N, extend='min')
     norm_d = mpl.colors.BoundaryNorm(np.arange(-90, 91, 20), cmap_d.N, extend='both')
 
     def conc_panel(spec, field, title, edge_col, ls='-'):
         ax = map_axes(fig, spec, laea)
+        ax.set_facecolor('white')
         f = np.where(o['ocean'], field, np.nan) * 100
+        f0 = np.where(np.isfinite(f), f, 0)
+        f = np.where(f < 1, np.nan, f)                  # less than 1% ice: white
         pm = ax.pcolormesh(X, Y, f, cmap=cmap, norm=norm, transform=laea,
                            shading='nearest', rasterized=True)
-        ax.contour(X, Y, np.where(np.isfinite(f), f, 0), levels=[15], colors=edge_col,
+        ax.contour(X, Y, f0, levels=[1], colors=edge_col, linewidths=1.0,
+                   linestyles=':', transform=laea, zorder=4)
+        ax.contour(X, Y, f0, levels=[15], colors=edge_col,
                    linewidths=1.3, linestyles=ls, transform=laea, zorder=4)
         decorate(ax)
         ax.set_title(title, fontsize=12.5, pad=26, loc='left')
@@ -613,9 +628,17 @@ def make_figure(o, m, W_grid, pi_clim, oext, oare, pext, pare):
     # colour bars
     p_d = ax_d.get_position()
     p_e = ax_e.get_position()
-    cax = fig.add_axes([p_d.x0 + 0.06, 0.055, p_e.x1 - p_d.x0 - 0.12, 0.017])
-    cb = fig.colorbar(pm, cax=cax, orientation='horizontal', ticks=np.arange(0, 101, 10))
-    cb.set_label('Sea ice concentration (%), panels a, b, d, e', fontsize=11)
+    cax = fig.add_axes([p_d.x0 + 0.06, 0.085, p_e.x1 - p_d.x0 - 0.12, 0.017])
+    cb = fig.colorbar(pm, cax=cax, orientation='horizontal', ticks=np.arange(10, 101, 10),
+                      extend='min')
+    cb.set_label('Sea ice concentration (%), panels a, b, d, e. Arrow: 1-10%; white: below 1%',
+                 fontsize=11)
+    hl = [mpl.lines.Line2D([], [], color=C_OBS, lw=1.3, label='OSI SAF 15%'),
+          mpl.lines.Line2D([], [], color=C_OBS, lw=1.0, ls=':', label='OSI SAF 1%'),
+          mpl.lines.Line2D([], [], color=C_MOD, lw=1.3, ls='--', label='PI 15%'),
+          mpl.lines.Line2D([], [], color=C_MOD, lw=1.0, ls=':', label='PI 1%')]
+    fig.legend(handles=hl, loc='lower center', bbox_to_anchor=(0.5 * (p_d.x0 + p_e.x1), 0.0),
+               ncol=4, fontsize=9.5, frameon=False)
     cb.ax.tick_params(labelsize=9.5)
     p_c = ax_c.get_position()
     cax2 = fig.add_axes([p_c.x0 + 0.03, p_c.y0 - 0.045, p_c.width - 0.06, 0.014])
