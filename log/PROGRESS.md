@@ -2,6 +2,11 @@
 
 按时间倒序。2026-11-08 从根 CLAUDE.md 压缩迁来，同主题已合并，只留结论；逐次细节在 git 历史里。具体数字多在 `nc_paper/NEW_ANALYSIS_RESULTS.md` 和 `docs/`。
 
+### 2026-11-23 03:45 回复信两份 latexdiff 追踪版（总管 questions-14 转用户 03:28 手机消息）
+
+- 主版对比 Word 刚转成的 tex（TexPage 5bf3ef0）与线上现版（1fce35c）；副版旧稿取 e45004e（11-22 我们改之前、含用户当天线上改动）。脚本 `nc_paper/docx_to_tex/pass_20261123/make_diff.sh`，各 39 页，pdflatex 三遍 0 error、无未定义引用；用旧/新 PDF 的词频对查，没有丢内容。
+- 主版约 120 处改动，删约 1600 词、加约 4100 词；副版只差用户自己那两处。TexPage 5971c26（两份 tex）、50384c0、e32d86b（两份 PDF），response_new.tex 没动。
+
 ### 2026-11-22 07:25 response_new.tex 黄色高亮逐条处理（总管 questions-14 派活，TexPage b90b273 起 9 个提交）
 
 - 用户 06:41 停笔后，在干净克隆上用 `nc_paper/docx_to_tex/pass_20261122/edits_1122.py`（每个锚点断言恰好一处）改完全部 40 来处高亮，看不懂的词改成通俗说法，答非所问的段落按审稿人原问题重写；仍需用户定的 4 处保留高亮，并加品红色 `\claudenote`。

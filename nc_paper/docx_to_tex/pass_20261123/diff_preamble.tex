@@ -1,0 +1,38 @@
+%DIF Preamble for the tracked-change versions of response_new.tex (2026-11-23).
+%DIF Added text is blue with a wavy underline, deleted text red and struck through. No change bars,
+%DIF because changebar did not settle after three pdfLaTeX runs.
+\RequirePackage[normalem]{ulem} %DIF PREAMBLE
+\RequirePackage{color} %DIF PREAMBLE
+\providecommand{\DIFaddtex}[1]{{\protect\color{blue}\uwave{#1}}} %DIF PREAMBLE
+\providecommand{\DIFdeltex}[1]{{\protect\color{red}\sout{#1}}} %DIF PREAMBLE
+%DIF The two flags tell \rfig and \docxcomment whether they sit inside a deleted or an added block.
+\newif\ifDIFindel %DIF PREAMBLE
+\newif\ifDIFinadd %DIF PREAMBLE
+\DeclareRobustCommand{\DIFaddbegin}{\global\DIFinaddtrue} %DIF PREAMBLE
+\DeclareRobustCommand{\DIFaddend}{\global\DIFinaddfalse} %DIF PREAMBLE
+\DeclareRobustCommand{\DIFdelbegin}{\global\DIFindeltrue} %DIF PREAMBLE
+\DeclareRobustCommand{\DIFdelend}{\global\DIFindelfalse} %DIF PREAMBLE
+\providecommand{\DIFmodbegin}{} %DIF PREAMBLE
+\providecommand{\DIFmodend}{} %DIF PREAMBLE
+\providecommand{\DIFaddFL}[1]{\DIFadd{#1}} %DIF PREAMBLE
+\providecommand{\DIFdelFL}[1]{\DIFdel{#1}} %DIF PREAMBLE
+\DeclareRobustCommand{\DIFaddbeginFL}{\global\DIFinaddtrue} %DIF PREAMBLE
+\DeclareRobustCommand{\DIFaddendFL}{\global\DIFinaddfalse} %DIF PREAMBLE
+\DeclareRobustCommand{\DIFdelbeginFL}{\global\DIFindeltrue} %DIF PREAMBLE
+\DeclareRobustCommand{\DIFdelendFL}{\global\DIFindelfalse} %DIF PREAMBLE
+\providecommand{\DIFadd}[1]{\texorpdfstring{\DIFaddtex{#1}}{#1}} %DIF PREAMBLE
+\providecommand{\DIFdel}[1]{\texorpdfstring{\DIFdeltex{#1}}{}} %DIF PREAMBLE
+\makeatletter %DIF PREAMBLE
+\let\sout@orig\sout %DIF PREAMBLE
+\renewcommand{\sout}[1]{\ifmmode\text{\sout@orig{\ensuremath{#1}}}\else\sout@orig{#1}\fi} %DIF PREAMBLE
+\makeatother %DIF PREAMBLE
+%DIF A deleted figure is shown at half width in a red frame, labelled, and does not take a figure number,
+%DIF so the numbers R1, R2, ... in the tracked version are those of the new letter. An added figure gets a blue frame.
+\renewcommand{\rfig}[3]{\ifDIFindel\par\medskip\noindent\begin{minipage}{\linewidth}\centering{\setlength{\fboxsep}{1pt}\fcolorbox{red}{white}{\includegraphics[width=0.5\linewidth,height=0.3\textheight,keepaspectratio]{figures/#2}}}\par\smallskip{\small\color{red}\textbf{Deleted figure.}}\ {\small #3}\end{minipage}\par\medskip\else\ifDIFinadd\par\medskip\noindent\begin{minipage}{\linewidth}\centering{\setlength{\fboxsep}{1pt}\fcolorbox{blue}{white}{\includegraphics[width=#1\linewidth,height=0.6\textheight,keepaspectratio]{figures/#2}}}\captionof{figure}{#3}\end{minipage}\par\medskip\else\par\medskip\noindent\begin{minipage}{\linewidth}\centering\includegraphics[width=#1\linewidth,height=0.6\textheight,keepaspectratio]{figures/#2}\captionof{figure}{#3}\end{minipage}\par\medskip\fi\fi} %DIF PREAMBLE
+%DIF A deleted Word comment is struck through as a whole, not only its text.
+\DeclareRobustCommand{\docxcomment}[4]{{\upshape\sffamily\footnotesize\color{red}\ifDIFindel\sout{[Comment #1 (#2) on ``#3'':}\ #4\sout{]}\else[Comment #1 (#2) on ``#3'': #4]\fi}} %DIF PREAMBLE
+\DeclareRobustCommand{\claudenote}[1]{{\upshape\sffamily\footnotesize\color{magenta}\ifDIFindel\sout{[Note:}\ #1\sout{]}\else[Note: #1]\fi}} %DIF PREAMBLE
+%DIF Highlighted text that changed: highlight and strike line (or underline) drawn by one ulem command,
+%DIF because nested ulem commands cannot break lines.
+\DeclareRobustCommand{\DIFdelhl}[1]{{\protect\color{red}\bgroup\markoverwith{\rlap{\textcolor{yellow}{\rule[-.5ex]{2pt}{2.6ex}}}\textcolor{red}{\rule[.55ex]{2pt}{.5pt}}}\ULon{#1}}} %DIF PREAMBLE
+\DeclareRobustCommand{\DIFaddhl}[1]{{\protect\color{blue}\bgroup\markoverwith{\rlap{\textcolor{yellow}{\rule[-.5ex]{2pt}{2.6ex}}}\textcolor{blue}{\rule[-.75ex]{2pt}{.6pt}}}\ULon{#1}}} %DIF PREAMBLE

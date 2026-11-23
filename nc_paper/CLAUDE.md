@@ -27,6 +27,7 @@ R1 单独草稿（据 git 0e2557d）：`RESPONSE_LETTER_R1.md` → `md_to_tex_r1
 - 这份 docx 是从 11-08 D6 之前的回复信转来的，MOC 数字（−10.0 等）和 MOC 图都是旧的；tex 照 docx 转写，在源文件里用 `% NOTE` 标了 D6/D8 之后的值，等用户定。
 - 11-19 用户定：旧回复信的 Word 和 PDF 已从 TexPage 的 revision/ 删除（baa76c5），本地副本保留。
 - 11-22 第二轮（用户邮件，questions-14）：黄色高亮逐条处理，改动由 `docx_to_tex/pass_20261122/edits_1122.py` 套用（锚点断言恰好一处，可在新拉的线上版上重跑），仍需用户定的地方留高亮并加品红 `\claudenote`。信里的图号从此是 R1–R17。引文仍有多处与 `build/revised.tex` 不一致，清单在 `../log/OPEN.md`。
+- 追踪版（11-23 用户要）：`docx_to_tex/pass_20261123/make_diff.sh <克隆> <旧提交> <新提交> <名> <构建目录> "<旧说明>" "<新说明>"` 出 latexdiff 版，推到 TexPage `revision/response_new_diff_{vsWord,since1122}.{tex,pdf}`。要点：`\hl`、`\docxcomment`、`\claudenote`、`\rfig` 作 textcmd，否则删掉的高亮和图整段消失；`\hl` 里的 `\DIFdel/\DIFadd` 换成单层的 `\DIFdelhl/\DIFaddhl`，嵌套 ulem 不断行会冲出页面；删掉的图缩小、红框、不占图号；`latexdiff --preamble` 在 Levante 缺 Perl 模块 Encode::Locale，改为事后替换前导块。
 - **别再用 `sync_texpage.sh push`**：它先 `rm -rf revision` 再按旧清单重建，会把上面删掉的文件推回去，并把 `response_new.tex` 删掉（只保留 docx/txt 上传）。现在改线上文件一律用干净克隆：pull，只 `git add`/`git rm` 写明的文件，推完等 3 分钟核 md5。
 
 ## 格式约定（仿 `SUBMISSION/example_response.tex`）

@@ -34,3 +34,4 @@ nc_paper/build/*.blg
 nc_paper/build/*.out
 nc_paper/letter_figs/
 nc_paper/build/
+nc_paper/docx_to_tex/pass_20261123/*.pdf
