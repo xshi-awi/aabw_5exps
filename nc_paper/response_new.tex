@@ -57,7 +57,7 @@
 
 \begin{document}
 
-\begin{center}
+\begin{center} 
 {\Large\bfseries Summary of Responses to Reviewers}\\[4pt]
 {\large Glacial--interglacial regime shift in Southern Ocean dense water formation}\\[2pt]
 Xiaoxu Shi, Jiping Liu, Chaoyuan Yang, Gerrit Lohmann
@@ -221,8 +221,10 @@ The corresponding passage added to the Discussion reads:
 In the revised manuscript this now reads:
 
 \begin{change}
-``The weaker transformation of surface water into dense water in the glacial simulations coincides with a weakening of the simulated abyssal overturning cell from about 10 to 2 Sv and with older abyssal water. Ideal ages at 4000 m remain below 500 years during interglacials but exceed 750 years basin-wide during glacials, reaching 1500 years in the Pacific.''
+``The weaker WMT in the glacial simulations coincides with a weakening of the simulated abyssal overturning cell from about 10 to 2 Sv and with older abyssal water. Ideal ages at 4000 m remain below 500 years during interglacials but exceed 750 years basin-wide during glacials, reaching 1500 years in the Pacific.''
 \end{change}
+
+\claudenote{This quoted Discussion passage, starting ``The weaker WMT in the glacial simulations'', is not in revised.tex, neither in the new wording nor in the old one. Please add it to the Discussion, or quote the passage that is there.}
 
 \comment{R1}{5. Lines 102-105: SAM is introduced only briefly here. Given its importance throughout the Results and Discussion, please consider providing a slightly more detailed introduction.}
 
@@ -248,13 +250,15 @@ In the revised manuscript this now reads:
 
 \comment{R1}{9. Line 140: As a result, the deep MLD signals, characteristic of open-ocean convection, largely…. Also, ``vanish'' is perhaps not the most scientific wording.}
 
-\response Rephrased to ``is strongly reduced and become confined to narrow coastal bands and polynyas'', and we now quantify the reduction rather than describing it qualitatively.
+\response We now rephrased it to:
 
-In the revised manuscript this now reads:
+
 
 \begin{change}
-``As a result, the MLD is strongly reduced and becomes confined to narrow coastal bands and polynyas, i.e., summed south of 55°S, the area with a winter mixed layer deeper than 400 m is 1.7×10\textsuperscript{11} m\textsuperscript{2 }in LGM and 1.6×10\textsuperscript{11} m\textsuperscript{2} in MIS3, respectively, smaller than 7.5×10\textsuperscript{11} m\textsuperscript{2 }in PI. The deep mixed layers that remain along the coast in the glacial states are shallower than their interglacial counterparts, consistent with dense water production that is confined to narrow coastal bands rather than distributed across the open gyres.''
+``As a result, the MLD is strongly reduced and becomes confined to narrow coastal bands and polynyas.''
 \end{change}
+
+\claudenote{Language: ``We have rephrased it as follows:'' reads better than ``We now rephrased it to:''. The quote does not match revised.tex line 111, which reads ``As a result, the deep mixed layers characteristic of open-ocean convection are strongly reduced and become confined to narrow coastal bands and polynyas'', followed by a figure reference and the area numbers. Please quote the sentence as it stands, or shorten the manuscript in the same way. The numbers removed here are still in the manuscript and in the reply to comment 10.}
 
 \comment{R1}{10. Line 141: These signals are not particularly visible even in the coastal regions (the darker blue shading in LGM is at 200m, so considerably shallower than the interglacials).}
 
@@ -273,10 +277,11 @@ The reviewer's observation also pointed to a presentation problem, which we have
 The text proposed for the Results reads:
 
 \begin{change}
-``\hl{The sea ice anomalies (Fig. 1i-l) follow the temperature changes. In MH the winter sea ice area changes little (+9\%). In LIG it decreases by 18\%, mainly in the Ross sector, where the winter ice edge retreats south by about 5° of latitude beneath the warm and salty surface anomaly. In LGM and MIS3 the winter sea ice area grows by a factor of 3.7 to 4.0, from 6.0 million km\textsuperscript{2} in PI to 24.3 and 22.0 million km\textsuperscript{2}, and the ice edge moves north by about 10° of latitude on average and by 14–15° in the Weddell sector.}''
+``\hl{The sea ice anomalies (Fig. 1i-l) follow the temperature changes. In MH and LIG the winter sea ice decreases in the western Weddell Sea. In LIG it also obviously decreases in the Ross sector, where the winter ice edge retreats south by about 5° of latitude beneath the warm and salty surface anomaly. In LGM and MIS3 the winter sea ice area expands substantially and the ice edge moves north by about 10-15°, especially in the Weddell sector.}''
 \end{change}
 
-\claudenote{revised.tex does not describe Fig. 1i-l yet. The passage above still has to be added to the Results (around line 111). The numbers are 100-year JJA means from the native mesh (fig\_seaice\_obs/seaice\_numbers.txt).}
+\claudenote{revised.tex does not describe Fig. 1i-l yet. now modify it like above}
+\claudenote{Checked before putting it into revised.tex, so it is not added yet. The new second sentence depends on the PI sea ice file. Against the overwritten PI file that Fig. 1i-l still uses, winter (JJA) ice in the western Weddell Sea (60--30°W, south of 60°S) shrinks in MH ($-$0.50 million km$^2$) and LIG ($-$0.41). Against the correct PI (model years 2300--2399) it grows in both ($+$0.04 and $+$0.14), and the ice of the whole Weddell sector grows too. Once Fig. 1 is redrawn with the correct file, this sentence would have to say the opposite. The LIG ice loss in the Ross sector holds with either file. Language: ``obviously'' is vague, and ``In LIG it also decreases strongly in the Ross sector'' says the same. Please write 10--15° with an en dash.}
 
 \comment{R1}{12. Line 144-146: The LIG also exhibits similar behaviour, although the changes are smaller in some basins. Likewise, the LGM shows some negative anomalies in the Atlantic–Indian sector.}
 
@@ -290,11 +295,22 @@ The text proposed for the Results reads:
 
 \comment{R1}{13. Line 146-148: An explanation of why the wind stress changes do not lead to increased sea ice in the Ross Sea would be useful. Is this due to the presence of relatively warm water despite enhanced salinity, density, and Ekman transport in this region?}
 
-\response We checked this, and the answer turned out to be interesting. The mechanism the reviewer proposes is real, but it operates in the last interglacial rather than in the glacial states. Averaged between 60 and 75°S in winter (Figure~\ref{fR:ross}), the glacial sea ice response is in fact similar in the two sectors. At the Last Glacial Maximum the ice concentration rises by 0.61 in the Ross sector and 0.80 in the Weddell sector, both sectors become almost fully ice covered (0.95), and both cool to within 0.05 K of the surface freezing point. In the glacial states the Ross Sea therefore does gain ice, and there is no Ross Sea exception to explain. The Ross sector departs from the Weddell sector in the last interglacial instead.
+\response Line 146-148 is for the glacial experiments which present increased wind stress and sea ice in the Ross sector. So we think here the reviewer is referring to the LIG experiment with increased wind stress but less sea ice in that region. We checked this and the mechanism the reviewer proposes is real. In LIG the surface of the Ross sector is about 1 K warmer than PI, and the increased salinity there reduces the freezing point.  There the wind can export ice efficiently but the water is too far from freezing for the exported ice to be replaced, which is precisely the reviewer's proposed mechanism. We have added this mechanism in the revised manuscript.
 
-\rfig{0.9}{../letter_figs/figR9_ross_sector.png}{New analysis. (a) Winter (JJA) surface temperature above the local freezing point and (b) winter sea ice concentration in the Ross sector (180°–60°W) and the Weddell sector (60°W–79°E), averaged between 60 and 75°S, for each climate state. (c) The same quantities as anomalies relative to PI. The Ross sector separates from the Weddell sector only in the last interglacial, where it sits 2.7 K above freezing and loses 0.20 of ice concentration while the Weddell sector gains 0.08. In the glacial states both sectors reach the freezing point and gain ice by similar amounts.\label{fR:ross}}
+%\rfig{0.9}{../letter_figs/figR9_ross_sector.png}{New analysis. (a) Winter (JJA) surface temperature above the local freezing point and (b) winter sea ice concentration in the Ross sector (180°–60°W) and the Weddell sector (60°W–79°E), averaged between 60 and 75°S, for each climate state. (c) The same quantities as anomalies relative to PI. The Ross sector separates from the Weddell sector only in the last interglacial, where it sits 2.7 K above freezing and loses 0.20 of ice concentration while the Weddell sector gains 0.08. In the glacial states both sectors reach the freezing point and gain ice by similar amounts.\label{fR:ross}}  %这个删了，不怎么需要。
 
-In the last interglacial the surface of the Ross sector sits 2.72 K above the freezing point, 0.98 K further from freezing than in PI, while the Weddell sector changes by only 0.12 K. The winter ice concentration of the Ross sector falls by 0.20, while that of the Weddell sector rises by 0.08. There the wind can export ice efficiently but the water is too far from freezing for the exported ice to be replaced, which is precisely the reviewer's proposed mechanism. We have rewritten the passage to say this.
+%这里加： begin change 写我们在文章中添加了哪些相关内容
+%claude回复：已加在下面，引文从 revised.tex 第 114 行原样摘出。
+
+In the revised manuscript this now reads:
+
+\begin{change}
+``The Ross sector instead stands out in the last interglacial, where the surface ocean between 60 and 75°S is 0.97~K warmer than in PI and sits 2.72~K above the freezing point, against changes below 0.3~K in the other two sectors. Winter ice concentration there falls by 0.19, an order of magnitude more than the Weddell or Ad\'elie response. In that state the wind can export ice efficiently but the water is too far from freezing for the exported ice to be replaced, so the sector loses ice cover and gains exposure to the atmosphere.''
+\end{change}
+
+\claudenote{Data check for the new reply: in LIG the Ross sector surface (60--75°S, JJA) is 0.97 K warmer and 0.25 psu saltier than in PI. The extra salt lowers the freezing point by only 0.015 K, so it is the warming, not the salinity, that puts the water 0.98 K further from freezing. Suggested: ``In LIG the surface of the Ross sector is about 1 K warmer than in PI and sits well above its freezing point.'' Language: ``Lines 146--148 describe the glacial experiments, which show stronger wind stress and more sea ice in the Ross sector. We therefore think the reviewer refers to the LIG experiment, which has stronger winds but less sea ice there.'' The reply now says twice that this is the reviewer's mechanism, and once is enough. The quoted manuscript passage still carries numbers from the overwritten PI sea ice file. With the correct file the Ross ice loss in LIG is 0.20 against a gain of 0.08 in the Weddell sector, so ``an order of magnitude more'' no longer holds, and the glacial gains earlier in the same paragraph are 0.61 (Ross) and 0.80 (Weddell) rather than 0.62 and 0.70.}
+
+
  
 \comment{R1}{14. Line 167: It would be helpful to quantify the thermal contribution, similar to the quantification provided for the haline contribution in line 157.}
 
@@ -322,7 +338,8 @@ In the revised manuscript this now reads:
 
 % NOTE: docx showed an earlier version of this figure
 
-\rfig{0.9}{../letter_figs/fig03_labels-1.png}{Revised manuscript Fig. 3. The surface density tendency figure with the climate-state headings added, so that the columns are identified in the same way as in the other figures. The rows share one colour bar for PI and one for the anomalies, drawn under the bottom row. The freshwater counterpart, Fig. 4, has been treated the same way.\label{fR:fig3lab}}
+\rfig{0.9}{../letter_figs/fig03_labels-1.png}{Revised manuscript Fig. 3. The surface density tendency figure with the climate-state headings added, so that the columns are identified in the same way as in the other figures. The rows share one colour bar for PI and one for the anomalies, drawn under the bottom row. The freshwater counterpart, Fig. 4, has been treated the same way.\label{fR:fig3lab}} %colorbar下面的单位怎么那么长
+%claude回复：这是 EE2 定的单位 kg m-3 month-1 per metre of water column，意思是表层 1 m 水柱一个月的密度变化。可以换成数值完全相同的 kg m-2 month-1（穿过海面的密度通量），色标下只写这一个单位，图注里用一句话解释。要改的话 Fig. 3、4 和信里的 R8、R10 及图注一起改，等你点头。
 
 \comment{R1}{18. Line 180/181: The LIG is first described as ``showing modest changes'', but later as ``exhibiting a pronounced increase''. These descriptions appear inconsistent.}
 
@@ -353,16 +370,23 @@ Hall, A., Visbeck, M., Synchronous Variability in the Southern Hemisphere Atmosp
 Cerovečki, I., Talley, L. D., Mazloff, M. R., Maze, G., Water Mass Transformations in the Southern Ocean Diagnosed from Observations: Contrasting Effects of Air–Sea Fluxes and Diapycnal Mixing, \textit{J. Phys. Oceanogr.} 43, 1485–1511 (2013).
 
 Abernathey, R. P., Cerovecki, I., Holland, P. R., Newsom, E., Mazloff, M., Talley, L. D., Water-mass transformation by sea ice in the upper branch of the Southern Ocean overturning, \textit{Nat. Geosci.} 9, 596–601 (2016).
+%%在L209附近是这样的：
+%claude回复：候选引用，凭记忆列出，加进 ref.bib 前要逐条核对原文。SAM 概念与指数：Gong & Wang 1999（GRL 26, 459-462，最早定义 AAO 指数）；Thompson & Wallace 2000（J. Climate 13, 1000-1016，annular modes，引用最高）；Marshall 2003（J. Climate 16, 4134-4143，站点 SAM 指数，观测研究最常用）。SAM 影响 WMT 的文章还没查，要做文献检索后再给。你点头后我核对文献、补 ref.bib、改 revised.tex 这两句，Hall & Visbeck (2002) 一起加。
+%The Southern Annular Mode (SAM) is the dominant mode of atmospheric variability in the Southern Hemisphere extratropics, characterized by a meridional pressure gradient between mid-latitudes and Antarctica that modulates the strength and position of the circumpolar westerlies （这里要cite一个通用的sam文章，最好是引用很高的第一次提出sam这个概念的文章，或者领域里公认的很出名的研究sam文章）. This atmospheric variability superimposes on mean climate states and exerts primary control on surface buoyancy forcing, thereby governing WMT rates（这里引用sam对wmt影响的文章）.
 
-\claudenote{Hall and Visbeck (2002) is not yet cited in revised.tex and not in ref.bib. Cerovečki et al. (2013) and Abernathey et al. (2016) are cited there (line 142).}
+\claudenote{Hall and Visbeck (2002) is not yet cited in revised.tex and not in ref.bib. Cerovečki et al. (2013) and Abernathey et al. (2016) are cited there (line 142).} %按照我前面说的去引用
+%claude回复：好，和上面的 SAM 引用一起做（要改 revised.tex 和 ref.bib），等确认。
 
 \comment{R1}{21. Line216-246: Please refer to the relevant subpanels of Figure A5.}
-
+%审稿人的意思是说，section2.4里面，你在描述一张子图的时候，要在引用里加上子图的abcd等，比如A5a， A5b A5cdf等。请处理。
+%claude回复：明白。要改 revised.tex 2.4 节，给每处描述 Figure A5 的地方加子图字母。等确认后和第 22 条一起做。
 \response \docxcomment{6}{Microsoft Office User, 2026-11-08}{Done, and the same treatment has been applied throughout the Result...}{Rewrite! See revision on the printed manuscript}
-
+%这里是让你把具体的区域写出来，比如During interglacials, positive SAM phases systematically enhance ocean heat loss by more than 15 W/m2 across the Weddell Sea, Amundsen Sea, Ross sea, 还有东南极对应那一片海区是不是叫Davis Sea and Mawson Sea? 然后后面In contrast, glacial periods (LGM and MIS3) show only weak SAM-driven changes across south of ?°S, as extensive sea ice coverage limits direct atmosphere-ocean exchange there.
+%claude回复：东南极沿岸从西往东确有 Cosmonaut Sea、Cooperation Sea、Davis Sea、Mawson Sea、Dumont d'Urville Sea 等名字，具体经度范围待核。哪几个海区该写进去，要先从 SAM 热通量合成里量出失热增加超过 15 W m-2 的范围，再对应海名；冰期那句的 south of ?°S 也从同一份数据量。原稿的 >15 W m-2 是当初看图读的，没算过（composite_sam/CLAUDE.md），这次一起从数据算。这是改 revised.tex 的活，等确认后做。
 \comment{R1}{22. Line 249, 255: The phrase ``across at high latitudes'' is somewhat unclear. Does this refer specifically to the Antarctic coastal region or the Southern Ocean south of a particular latitude? Please consider rephrasing for clarity.}
 
-\response \docxcomment{7}{Microsoft Office User, 2026-11-08}{Both instances have been rewritten. They now read "over the ice-fre...}{Rewrite!}
+\response \docxcomment{7}{Microsoft Office User, 2026-11-08}{Both instances have been rewritten. They now read "over the ice-fre...}{Rewrite!} %按照我前面说的改
+%claude回复：同上，和第 21 条一起改。
 
 \comment{R1}{23. Could the authors clarify where the primary deep water formation regions occur in this model? Identifying these regions would also help assess whether the SAM-related changes shown in Figure 5 are directly influencing the main regions of dense water formation, as relatively little signal is apparent over the Weddell and Ross Seas.}
 
@@ -478,9 +502,13 @@ We have phrased this in the manuscript. The passage added to the Discussion read
 
 \comment{R2}{The fundamental issue must be getting right the formation of sea ice and rejection of brine close to the continent, followed by the mixing of that dense water with the surroundings, all processes that intrinsically occur at fine spatial scales. In this regard the model looks good, by comparison to most paleo studies. The comparatively high resolution close to the continent must be helpful I'm sure, (though at 25 km it may still not be enough to realistically model the dynamics of polynya formation and brine rejection). Some more information on just how this is being managed would add to the value of the paper.}
 
-\response We agree with the reviewer's caveat and have expanded the Methods accordingly. The unstructured mesh refines to about 25 km around Antarctica, which can simulate the larger coastal polynyas as features but cannot well resolve the boundary layer processes that set polynya dynamics. The relevant mechanics are that ice growth and brine release are computed thermodynamically at each mesh and enter the ocean as a salt flux, so the brine signal is represented in the model whenever new ice forms. How much brine is released therefore depends on how strongly the simulated winds and currents push the ice apart and open the water, not on a resolved circulation inside each polynya, which the mesh is too coarse to represent. We now state this, together with the more fundamental point that the model configuration has no ice shelf cavities and therefore omits basal melt. We also mentioned that the model with higher resolution close to the continent (i.e., \textasciitilde{}5 km) would be helpful for resolve these fine scale processes.
+\response We agree with the reviewer and have expanded the Methods accordingly. The unstructured mesh refines to about 25 km around Antarctica, which can simulate the larger coastal polynyas as features but cannot well resolve the boundary layer processes that set polynya dynamics. The relevant mechanics are that ice growth and brine release are computed thermodynamically at each mesh and enter the ocean as a salt flux, so the brine signal is represented in the model whenever new ice forms. How much brine is released therefore depends on how strongly the simulated winds and currents push the ice apart and open the water, not on a resolved circulation inside each polynya, which the mesh is too coarse to represent. We now state this, together with the more fundamental point that the model configuration has no ice shelf cavities and therefore omits basal melt. We also mentioned that the model with higher resolution close to the continent (i.e., \textasciitilde{}5 km) would be helpful for resolve these fine scale processes.
+%你确定有polynya circulation这个东西？
+%claude回复：这不是标准术语，说法含糊。文献讲 polynya 时说的是风把冰推离岸、开阔水里不断结冰析盐，以及 polynya 里的小尺度对流和混合。原句想说的是：析出多少盐取决于模式里风把冰推开的程度，而不取决于 polynya 内部那些网格分辨不了的小尺度过程。建议信里改成 not on the small-scale processes inside each polynya, which the mesh is too coarse to resolve；修订稿第 271 行 rather than on a resolved polynya circulation 同样改成 rather than on small-scale processes inside the polynyas, which the mesh does not resolve。
 
 \comment{R2}{The authors highlight the lack of deep convection in the glacial open ocean due to the very extensive winter-time ice cover. A little more discussion of how/why the model achieves this ice cover would be welcome, as previous paleo-model studies often don't get that, and as a result may have too much deep convection in glacial simulations, which doesn't match so well with paleo-proxies. (Another paper they don't cite is Lhardy, Climate of the Past, 17, 1139–1159, 2021, which discusses how most PMIP models fail in this regard.)}
+%这里你先算一下咱们lgm里面南极海冰的jas/jfm sie是多少？给我几个数在接下来的回复中
+%claude回复：南半球海冰范围（SIE，密集度 >= 15% 的面积；模式取 100 年逐月平均，原生网格），单位百万 km2。LGM：JAS 平均 29.8，JFM 平均 11.1（9 月最大 30.4，2 月最小 8.9）。MIS3：27.6 和 9.1。PI：9.1 和 1.2。卫星 OSI SAF 1979-2008：18.1 和 4.5。LGM 冬季约为 PI 的 3.3 倍，夏季约 9 倍。数在 fig_seaice_obs/seaice_numbers.txt 第 4 节。要和重建值比（如 Gersonde et al. 2005），需另查文献核数。
 
 \response Thank you for this reference, which we have added and discussed. We now note that maintaining an extensive glacial ice cover is not a general feature of paleoclimate simulations, that many PMIP models underestimate glacial Southern Ocean sea ice cover and its seasonality. Colder glacial forcing on its own tends to intensify open-ocean convection rather than suppress it, so that better boundary conditions do not by themselves fix the problem. We highlight the finding of Lhardy et al. (2021) that the only configuration avoiding an unrealistically deep northern-sourced cell was the one in which brine sinking along the Antarctic margin was parameterised explicitly. In our simulations the glacial winter ice expands far enough to cover the interior gyres, and the area of deep winter mixed layers contracts to roughly one fifth of its pre-industrial value. \hl{Three simulated changes work together to produce this ice cover. The winter air over the ocean between 55 and 70°S is 14 K colder in LGM and 12 K colder in MIS3 than in PI. The surface water between 60 and 75°S stays within 0.2 K of its freezing point in every sector, against 1.5–2.0 K above freezing in PI, so the upper ocean holds almost no heat that could melt the ice or stop new ice from forming. The glacial westerlies are also stronger (Fig. 1o,p), which favours the northward export of ice. These changes reinforce each other, because ice that covers the ocean also stops the ocean from warming the air above it.} \docxcomment{8}{Microsoft Office User, 2026-11-11}{expands}{That might be due to brine rejection … } \claudenote{Comment 8 is not built into the text yet. Our output shows brine release along the coast, but we have no diagnostic showing that brine rejection causes the ice expansion. Please say what you have in mind.} We now state that our glacial result depends on that simulated expansion being realistic, and that while proxy reconstructions support the direction of the change, the quantitative agreement remains uncertain.
 
@@ -499,7 +527,8 @@ The text added to the Discussion reads:
 \response Following the reviewer’s suggestion, Figs 5 and 6 have been moved to the Supplementary Information. We have also shortened the section, removing the repetition that Reviewer 1 flagged and cutting the speculative passage about marine proxy reconstruction. What remains in the main text is a compact account of the result, with the supporting composites available to readers who want them.
 
 We note that Reviewer 3 took the opposite view of this material, describing it as the more generalisable part of the study. Moving the figures to the supplement while keeping a concise statement of the result in the main text seemed to us the arrangement most likely to satisfy both readings, and we are content with the outcome.
-
+% 这里应该就是让我们把图5，6的单位换成密度趋势对吗？那就把新图直接贴在这里，不需要说那么多，就说我们重画了，如图。5和6都是3行5列的图。
+%claude回复：对，审稿人要的是两种强迫放在同一个当量尺度上。现在信里的 Figure R10 只画了热和淡水的总量（2 行 x 5 列，已是同一密度通量单位）。把 A3（总热、LW+SW、SH+LH）和 A4（总淡水、海冰、其他）各自换成同一单位、各 3 行 5 列，数据都在，可以做；做好后这里只留一两句加两张图。要先定：这两张新图是否也替换补充材料里的 A3/A4（那样正文和图注都要改）。等你点头再做。
 \comment{R2}{For figs 5 and 6, I think it would be helpful if the forcings were on the same equivalent scales of buoyancy anomaly – currently they are in different units and it is impossible to see how they compare in absolute values.}
 
 \response We agree, and we have now put the two forcings on one scale. We converted the heat and freshwater flux composites of Figs. A3 and A4 into the surface density flux that each one produces, using the thermal expansion and haline contraction coefficients at the winter surface temperature and salinity of each climate state. This is the same conversion as in manuscript Figs. 3 and 4. Figure~\ref{fR:samrho} shows the result on a single colour scale, where positive values mean that the surface water becomes denser.
@@ -566,12 +595,16 @@ There is also a difference in what the two calculations measure. Pellichero et a
 
 The reviewer's second suggestion was to apply the transformation framework to a reanalysis such as GLORYS. A transformation budget needs the net surface heat flux and the net surface freshwater flux. The GLORYS12 monthly product (GLOBAL\_MULTIYEAR\_PHY\_001\_030) provides temperature, salinity, currents, sea surface height, mixed layer depth and sea ice, but no surface flux fields, so the calculation cannot be made from it. ORAS5 does provide the net surface heat flux and the net freshwater flux, although its freshwater flux leaves out the salt exchanged when sea ice forms and melts. We therefore computed the transformation from ORAS5 and removed the sea ice term from our model in the same way, so that both sides contain the same two terms. The result is shown in Figure~\ref{fR:wmtR3cf}.
 
-\rfig{0.9}{../letter_figs/figR20b_wmt_oras5.png}{New analysis, the reanalysis part of the comparison. Transformation rate against neutral density γ from our pre-industrial run and from ORAS5 for 1999-2018. Top row, the seasonal sea ice zone in the annual mean: (c) our model with the sea ice contribution removed and (d) ORAS5, which carries the heat flux and evaporation minus precipitation minus runoff only. Bottom row, the domain and season the paper uses, south of 60°S in JJA: (e) our model with the sea ice contribution removed and (f) ORAS5. The panels are not shaded by the dominant term, because with the sea ice term missing from both sides such shading would describe an incomplete freshwater flux.\label{fR:wmtR3cf}}
+\rfig{0.9}{../letter_figs/figR20b_wmt_oras5.png}{(New analysis) Annual mean WMT from our pre-industrial run and from ORAS5 data (1999-2018) for (a,b) the seasonal sea ice zone and (c,d) south of 60°S,  with the sea ice contribution removed. \label{fR:wmtR3cf}} %这里图里面的图标要改成abcd，
+%claude回复：图里四格已改成 (a)-(d)，旧图存 figures/versions/figR20b_wmt_oras5_v20261122.*。
+\claudenote{Panels (c,d) are winter (JJA) means south of 60°S, not annual means. Suggested caption: ``New analysis. WMT from our pre-industrial run and from ORAS5 (1999--2018), both with the sea ice contribution removed, for (a,b) the seasonal sea ice zone in the annual mean and (c,d) the region south of 60°S in JJA.''}
 
 For annual mean over the sea ice zone, the two agree closely, with densification peaks of +5.0 Sv for us and +4.4 Sv for ORAS5 one density class apart. Over our paper's own domain and season, south of 60°S in JJA, both are positive almost everywhere and peak one density class apart, but ours is the stronger, +62.9 against +36.8 Sv, which we attribute to our winter mixed layers being deeper and more extensive than in the reanalysis rather than to the diagnostic. ORAS5 is itself a model constrained by observations, and its surface fluxes are the parts that observations constrain least, so we use this comparison as a check on our calculation rather than as an observational truth.
 
 \comment{R3}{While the glacial-interglacial shift in regime displayed by the model is interesting, how applicable is this result to thinking about the real ocean and glacial interglacial change when the interglacial regime is not representative of the real preindustrial/interglacial ocean? This is not a critique of this model in particular – most models do this. But given these biases, the authors need to do more to convince the reader that there results are generalizable and applicable to the real world and not model, or model-class dependent. Given coastal polynyas are a key process in how AABW forms today are we just looking at a shift from a more biased PI state to a more realistic glacial state? Even if the model cannot represent many of the relevant shelf processes, there may still be something interesting/generalisable to say, but I do not believe this is not the case in the current framing.}
-
+%这里我标记一下，回头再仔细看，我觉得审稿人就是想知道这个shift是不是真实的（interesting/generalisable to say），我们可以说lgm时期海冰肯定是多的，既然多了，那么热力那部分效应就能大大减小，自然盐度的效应就占绝大多数了。所以即使pi有bias，我们这个机制的也没问题：冰期更加受盐度效应主导。我觉得目前这个回复版本太啰嗦了，你有什么好的建议？
+%claude回复：同意你的思路，下面是按它压短的一版，供参考（数字都取自下面现有的回复；冰期海冰扩张要配一两篇重建文献，待核后再加）。原来末尾引的那段 Pellichero 密度范围的话和这条关系不大，建议删掉或挪到给审稿人 1 的回复里。
+%Thank you for this question. We agree that open-ocean convection in our pre-industrial state is a model bias, and we now say so in the Discussion. The regime shift, however, does not rest on that bias. Proxy reconstructions agree that glacial winter sea ice was far more extensive than today. Where sea ice covers the ocean it blocks the heat loss to the atmosphere, so the thermal route to dense water weakens, while brine rejection continues. The shift in our simulations follows from this. We also tested that it does not come from open water in the interglacial integrals. Over the sea ice zone alone, the glacial states are 15\% (LGM) and 17\% (MIS3) thermally driven at the transformation maximum, against 53--70\% in the interglacial states. A model that formed its dense water on the shelf would change the density and the origin of the water produced, but not the direction of this shift. We have narrowed our claim accordingly. The paper now presents how the split of surface buoyancy forcing between heat and freshwater responds to changing sea ice cover, not a reconstruction of past bottom water formation rates.
 \response Thanks for the reviewer’s comment. We have tried to answer it honestly rather than deflect it. Two arguments, both now in the Discussion.
 
 As discussed above, the regime shift survives the domain test. Recomputed over the sea ice zone alone, the glacial states are 15\% (LGM) and 17\% (MIS3) thermally driven at the transformation maximum, while the interglacials are 53–70\% thermally driven (70\% in PI, 53\% in MH and 68\% in LIG). Over the original domain south of 60°S the interglacial values are 68–88\%. The contrast therefore does not come from including open water in the interglacial integrals. That would have been the most direct way for a biased pre-industrial state to create a regime shift that is not real.
@@ -605,6 +638,8 @@ The spatial patterns show the mechanism directly (Figure~\ref{fR:windice}). Thes
 \rfig{0.9}{../letter_figs/figR5_sam_wind_ice.png}{New Supplementary Figure. Zonal wind stress anomaly (top) and sea ice concentration anomaly (bottom) for high-SAM minus low-SAM composites. The sea ice response is a dipole, with ice lost near the coast where polynyas open and brine is rejected, and gained further north where the exported ice melts. The dipole sits further north and is substantially stronger in the glacial states.\label{fR:windice}}
 
 \comment{R3}{It is worth noting that available estimates suggest a equatorward and weakening of the glacial westerlies, that the models do not seem to capture under glacial forcings (e.g. Gray et al 2023). Such a shift may be worth discussing in light of the 'SAM' wind mechanism, and given such a shift/weakening is absent in your glacial simulations.}
+%我们的文章里面用的是10m风吗？那么用jet这个词可能不合适。另外值得查查审稿人说的这个equatorward and weakening of the glacial westerlies是哪一层的，我们在那一层上是什么响应？
+%claude回复：是 10 m 风（ECHAM var165，JJA，纬圈平均）。jet 一般指高空急流，建议改成 the latitude of the strongest near-surface westerlies 或 the surface westerly wind belt。Gray et al. (2023) 重建的是海表西风应力峰值的纬度和强度：由南大洋浮游有孔虫 d18O 定出 SST 锋面位置，再借 PMIP 模式里的经验关系推断风的纬度，得到 LGM 相对中全新世偏赤道 4.8°，峰值风应力减弱约 25%，到 0.106 N m-2（LITERATURE_NOTES.md 第 3 节）。我们在同一层（地表纬向风应力 var180，纬圈平均，年平均）：MH 峰值在 47.6°S、0.174 N m-2，LGM 在 49.4°S、0.199 N m-2，即偏极一个网格行（约 1.9°）、增强约 15%。JJA 下 PI 45.7°S、0.164，LGM 49.4°S、0.200。方向和 10 m 风一样，与 Gray 相反，回复的结论不变，只是可以补一句风应力的数（初步，纬圈平均含陆地格点）。
 
 \response The reviewer is correct and we now discuss this. We located the simulated westerly jet as the latitude where the winter (JJA) 10 m westerly wind, averaged along each latitude circle, is strongest. In PI this maximum sits at 45.7°S with 5.83 m s\textsuperscript{-1}, and in LGM and MIS3 it sits at 49.4°S with 6.30 and 6.85 m s\textsuperscript{-1}. That is a poleward shift of 3.7° together with stronger winds. The atmosphere model has a grid spacing of about 1.9° in latitude, so the shift spans two grid rows. Gray et al. (2023) inferred an equatorward shift of 4.8° (2.9–7.1°, 95\% CI) and a weakening of about 25\% at the Last Glacial Maximum relative to the mid-Holocene. Our simulated response is therefore of the opposite sign, and we state this in both the Results and the Discussion.
 
@@ -650,7 +685,7 @@ The text added to the Results reads:
 
 \comment{R3}{MH, LIG are not abbreviation that commonly used so I would remove them from the text and spell out each time. Also I don't think these were not defined at any point of the manuscript.}
 
-\response The abbreviations are now defined at first use in the Results as well as in the Methods. We have kept them after that, because the figures are organised in five columns labelled with these codes and spelling the names out each time would make the text much longer. The abstract spells the names out in full.
+\response The abbreviations are now defined at first use in the Results as well as in the Methods. We have kept them after that, because the figures are organised in five columns labelled with these names and spelling the names out each time would make the text much longer. The abstract spells the names out in full.
 
 \comment{R3}{L19: 'in the model' needs to be clearly stated as this is not how AABW forms in the real modern > ocean.}
 
@@ -658,7 +693,9 @@ The text added to the Results reads:
 
 \comment{R3}{L25: change deep from “clear imprint on deep-ocean ventilation” to abyssal Southern Ocean. As it is only one depth plot at 4000m has been shown. The deep ocean is usually considered as all the water below 1000m. Plots of overturning/ideal age globally would be helpful to assess the overall impact on ventilation.}
 
-\response Thanks for the reviewer’s suggestion. We have removed the phrase. The abstract now refers specifically to the abyssal overturning cell and to abyssal water, and the new global ideal age figure covers the whole water column rather than a single level.
+\response Thanks for the reviewer’s suggestion. We have removed the phrase. The abstract now refers specifically to the abyssal overturning cell and to abyssal water.
+
+\claudenote{The reviewer also asked for global overturning and ideal age plots. They are Figures~\ref{fR:moc} and \ref{fR:ageglobal} in the reply to the earlier comment on ideal age, and one sentence pointing there would answer that part.}
 
 \comment{R3}{L102-105: a slightly expanded intro on the SAM may be helpful.}
 
@@ -712,7 +749,9 @@ In the revised manuscript this now reads:
 
 \comment{R3}{L339: this would be great, but sed rates around the Antarctic margin are very low.}
 
-\response We agree with the reviewer. Reviewer 1 asked for a supporting reference for the same passage. We agree that the slow sedimentation around the Antarctic margin makes such a reconstruction impractical, and we no longer suggest it. The passage now presents the persistence of the coupling only as a property of the simulated system (see our reply to Reviewer 1, comment 29).
+\response Thanks. Reviewer 1 has the same concern. We agree that the slow sedimentation around the Antarctic margin makes such a reconstruction impractical, and we no longer suggest it in our discussion now.
+
+\claudenote{Language: ``no longer'' and ``now'' say the same thing. Suggested: ``and the Discussion no longer suggests it.''}
 
 \comment{R3}{L347: not the water, the carbon in the water – given the substantial and variable preformed 14C > aging.}
 
@@ -722,7 +761,7 @@ In the revised manuscript this now reads:
 
 \response Unfortunately the model configuration does not include ice shelf cavities, so there is no ocean beneath the floating ice shelves to show. The white areas are genuinely outside the model domain rather than masked output. We have stated this in the Methods and figure captions so that readers are not left wondering, and we list it among the limitations, since the absence of cavities also means basal melt is not represented.
 
-\comment{R3}{Please be consistent across figures and label MH, LIG, LGM, MIS3 on top of all panels.}
+\comment{R3}{Please be consistent across figures and label MH, LIG, LGM, MIS3 on top of all panels.} 
 
 \response We have done throughout the manuscript. Reviewer 1 also made the same request.
 
@@ -740,16 +779,6 @@ In the revised manuscript this now reads:
 
 % docx heading: Editorial requirements
 
-\reviewer{Editorial requirements}
 
-\response \textbf{Colour vision deficiency.} The new figures use the Okabe-Ito colour-blind-safe palette, and the transformation curves are additionally distinguished by line style. We have replaced the red/green pairing in the transformation figures with vermillion and bluish-green, and the overturning anomaly panels use a purple-orange diverging scale rather than red-green.
-
-\textbf{Data availability.} A statement has been added. The model output needed to reproduce every figure has been assembled as a repository deposit, comprising the climatological monthly means for the five experiments, the 100-year monthly transformation time series, the Southern Annular Mode composite fields, and the ocean mesh files. The DOI will be inserted on acceptance. Source data for the line-graph figures are provided with the paper.
-
-\textbf{Code availability.} A statement has been added. The analysis and plotting scripts, covering the surface buoyancy flux decomposition, the transformation calculations including the new sea ice sector comparison, the compositing, and all figures, are archived with the data deposit and are also available at https://github.com/xshi-awi/aabw\textsubscript{5}exps.
-
-\textbf{Source data.} Provided for the line-graph figures, as a single spreadsheet with one sheet per figure panel.
-
-\textbf{ORCID.} The corresponding author has linked an ORCID to the submission system, and co-authors have been asked to do the same.
 
 \end{document}

@@ -2,6 +2,12 @@
 
 按时间倒序。2026-11-08 从根 CLAUDE.md 压缩迁来，同主题已合并，只留结论；逐次细节在 git 历史里。具体数字多在 `nc_paper/NEW_ANALYSIS_RESULTS.md` 和 `docs/`。
 
+### 2026-11-25 05:30 用户在线改信后的一轮（总管 questions-14 转，05:08 消息）
+
+- 拉下 11-24、11-25 的 28 个 TeXPage 提交：改了第 4、9、11、13 条回复，删 R6（Ross 图，注释掉）和 Editorial requirements 一节，重写 R13 图注，另在源文件写了十来条 `%` 要求；revised.tex 155 行删掉 A3/A4 用 1.0σ 的半句。追踪版取消（用户 05:10）。
+- 修：R13 图注全角括号（唯一的编译错误）和「zone(c)」；R13 子图改 a–d（`plot_wmt_merged_3rows.py rean`，旧图存 `figures/versions/figR20b_wmt_oras5_v20261122.*`）。核对结果写成 13 条 `\claudenote`，她的问题写成 13 条 `%claude回复`（LGM 海冰范围 JAS 29.8、JFM 11.1 百万 km²；Gray 2023 是地表风应力，我们 LGM 相对 MH 偏极约 1.9°、强约 15%；polynya circulation 措辞；SAM 候选文献待核）。第 13 条按她要求加了修订稿 114 行原文，并标出其中仍是旧 PI 文件的数。TexPage 4e75934、ae8bfa1。
+- 发现：她给 Fig. 1i–l 的新描述「MH、LIG 西威德尔海冰减少」只对被覆盖的 PI 文件成立；`plot_climate_patterns_jja.py` 的 JJA 实为 6–9 月。R3 海冰图的原因与候选见 `fig_seaice_obs/CLAUDE.md`。
+
 ### 2026-11-23 03:45 回复信两份 latexdiff 追踪版（总管 questions-14 转用户 03:28 手机消息）
 
 - 主版对比 Word 刚转成的 tex（TexPage 5bf3ef0）与线上现版（1fce35c）；副版旧稿取 e45004e（11-22 我们改之前、含用户当天线上改动）。脚本 `nc_paper/docx_to_tex/pass_20261123/make_diff.sh`，各 39 页，pdflatex 三遍 0 error、无未定义引用；用旧/新 PDF 的词频对查，没有丢内容。

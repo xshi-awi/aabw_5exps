@@ -113,7 +113,8 @@ go_60, ho_60, fo_60 = oras5('wmt_oras5_so60.nc', 'jja')
 # MODE (first argument): 'all' draws the three rows on one page (figR20_wmt_merged);
 # 'obs' draws row 1 only and 'rean' rows 2-3 only, for the reply to Reviewer 3, who
 # asked for the observational and the reanalysis comparison separately (2026-11-22).
-# Panel letters stay (a)-(f) in every mode so the letter text can cite them unchanged.
+# Panel letters are (a)-(f) in 'all' (the reply to Reviewer 1 cites them); in 'rean' the two
+# rows are relettered (a)-(d), as the user asked on 2026-11-25.
 import sys
 MODE = sys.argv[1] if len(sys.argv) > 1 else 'all'
 ROWS = {'all': [0, 1, 2], 'obs': [0], 'rean': [1, 2]}[MODE]
@@ -180,6 +181,8 @@ for r, rowlab, left, right in rows:
             header(ax, rowlab)
             if handles is None:
                 handles = ax.get_legend_handles_labels()
+        if MODE == 'rean':
+            title = '(%s)' % 'abcd'['cdef'.index(title[1])] + title[3:]
         ax.set_title(title, fontsize=12, fontweight='bold', loc='left', pad=8)
 
 hl, ll = handles

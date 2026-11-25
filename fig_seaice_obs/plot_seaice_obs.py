@@ -51,6 +51,13 @@ mpl.rcParams.update({'font.family': 'sans-serif',
 
 warnings.filterwarnings('ignore', category=RuntimeWarning)
 out_lines = []
+# --si-style (2026-11-25, user request): panels a, b, d, e drawn exactly as the sea ice row of
+# the SI figure (plot_climate_patterns_jja.py, plot_figure2): 1-degree fields, cells below 1%
+# masked, Gaussian smoothing sigma=1.5 normalised by the mask (which fills masked cells from
+# icy neighbours), contourf. Writes figR21_seaice_obs_si.* and leaves figR21_seaice_obs.* alone.
+import sys
+SI_STYLE = '--si-style' in sys.argv
+PI_REG = f'{BASE}/pi/a_ice_reg_beta.nc'   # 1-degree PI, model years 2300-2399 (not pi/a_ice_reg.nc)
 
 
 def say(s=''):
@@ -562,6 +569,39 @@ def decorate(ax):
                 ha='center', va='center', clip_on=False, color='#222222')
 
 
+def smooth_si(data, sigma=1.5):
+    """smooth_data of plot_climate_patterns_jja.py, unchanged."""
+    from scipy.ndimage import gaussian_filter
+    f = np.nan_to_num(data, nan=0.0)
+    w = (~np.isnan(data)).astype(float)
+    sm, sw = gaussian_filter(f, sigma), gaussian_filter(w, sigma)
+    r = sm / sw
+    r[sw < 0.1] = np.nan
+    return r
+
+
+def si_fields(o):
+    """1-degree PI and OSI SAF fields for September and February (fractions)."""
+    d = netCDF4.Dataset(PI_REG)
+    a = d.variables['a_ice'][:, 0].data.astype(np.float64)       # (12, 180, 360)
+    lon, lat = d.variables['lon'][:].data, d.variables['lat'][:].data
+    d.close()
+    out = {('mod', k): a[k] for k in (1, 8)}
+    ok = o['ocean']
+    i = np.floor(o['lat'][ok] + 90).astype(int)
+    j = np.floor((o['lon'][ok] + 180) % 360).astype(int)
+    for k in (1, 8):
+        c = o['clim'][k][ok]
+        g = np.isfinite(c)
+        s_, n = np.zeros((180, 360)), np.zeros((180, 360))
+        np.add.at(s_, (i[g], j[g]), c[g])
+        np.add.at(n, (i[g], j[g]), 1)
+        f = np.full((180, 360), np.nan)
+        f[n > 0] = s_[n > 0] / n[n > 0]
+        out[('obs', k)] = f
+    return out, lon, lat
+
+
 def make_figure(o, m, W_grid, pi_clim, oext, oare, pext, pare):
     laea = ccrs.LambertAzimuthalEqualArea(central_longitude=0, central_latitude=-90,
                                           globe=ccrs.Globe(ellipse='WGS84'))
@@ -584,16 +624,28 @@ def make_figure(o, m, W_grid, pi_clim, oext, oare, pext, pare):
     norm = mpl.colors.BoundaryNorm(np.arange(10, 101, 5), cmap.N, extend='min')
     norm_d = mpl.colors.BoundaryNorm(np.arange(-90, 91, 20), cmap_d.N, extend='both')
 
-    def conc_panel(spec, field, title, edge_col, ls='-'):
+    if SI_STYLE:
+        sif, slon, slat = si_fields(o)
+        from cartopy.util import add_cyclic_point
+
+    def conc_panel(spec, field, title, edge_col, ls='-', si=None):
         ax = map_axes(fig, spec, laea)
         ax.set_facecolor('white')
         f = np.where(o['ocean'], field, np.nan) * 100
         f0 = np.where(np.isfinite(f), f, 0)
-        f = np.where(f < 1, np.nan, f)                  # less than 1% ice: white
-        pm = ax.pcolormesh(X, Y, f, cmap=cmap, norm=norm, transform=laea,
-                           shading='nearest', rasterized=True)
-        ax.contour(X, Y, f0, levels=[1], colors=edge_col, linewidths=1.0,
-                   linestyles=':', transform=laea, zorder=4)
+        if si is not None:
+            # SI-figure drawing; the 15% line stays the unsmoothed field of the numbers
+            g = smooth_si(np.where(si < 0.01, np.nan, si)) * 100
+            gc, lc = add_cyclic_point(g, coord=slon)
+            L, La = np.meshgrid(lc, slat)
+            pm = ax.contourf(L, La, gc, levels=np.arange(10, 101, 5), cmap=cmap,
+                             extend='min', transform=ccrs.PlateCarree())
+        else:
+            f = np.where(f < 1, np.nan, f)                  # less than 1% ice: white
+            pm = ax.pcolormesh(X, Y, f, cmap=cmap, norm=norm, transform=laea,
+                               shading='nearest', rasterized=True)
+            ax.contour(X, Y, f0, levels=[1], colors=edge_col, linewidths=1.0,
+                       linestyles=':', transform=laea, zorder=4)
         ax.contour(X, Y, f0, levels=[15], colors=edge_col,
                    linewidths=1.3, linestyles=ls, transform=laea, zorder=4)
         decorate(ax)
@@ -601,10 +653,13 @@ def make_figure(o, m, W_grid, pi_clim, oext, oare, pext, pare):
         return ax, pm
 
     mod = {k: Mesh.sample(W_grid, pi_clim[k]) for k in (1, 8)}
-    ax_a, pm = conc_panel(gs[0, 0], mod[8], '(a)  AWI-ESM2 PI, September', C_MOD, '--')
-    ax_b, _ = conc_panel(gs[0, 1], o['clim'][8], '(b)  OSI SAF 1979–2008, September', C_OBS)
-    ax_d, _ = conc_panel(gs[1, 0], mod[1], '(d)  AWI-ESM2 PI, February', C_MOD, '--')
-    ax_e, _ = conc_panel(gs[1, 1], o['clim'][1], '(e)  OSI SAF 1979–2008, February', C_OBS)
+    S = (lambda w, k: sif[(w, k)]) if SI_STYLE else (lambda w, k: None)
+    ax_a, pm = conc_panel(gs[0, 0], mod[8], '(a)  AWI-ESM2 PI, September', C_MOD, '--', S('mod', 8))
+    ax_b, _ = conc_panel(gs[0, 1], o['clim'][8], '(b)  OSI SAF 1979–2008, September', C_OBS,
+                         si=S('obs', 8))
+    ax_d, _ = conc_panel(gs[1, 0], mod[1], '(d)  AWI-ESM2 PI, February', C_MOD, '--', S('mod', 1))
+    ax_e, _ = conc_panel(gs[1, 1], o['clim'][1], '(e)  OSI SAF 1979–2008, February', C_OBS,
+                         si=S('obs', 1))
 
     # (c) difference
     ax_c = map_axes(fig, gs[0, 2], laea)
@@ -631,14 +686,20 @@ def make_figure(o, m, W_grid, pi_clim, oext, oare, pext, pare):
     cax = fig.add_axes([p_d.x0 + 0.06, 0.085, p_e.x1 - p_d.x0 - 0.12, 0.017])
     cb = fig.colorbar(pm, cax=cax, orientation='horizontal', ticks=np.arange(10, 101, 10),
                       extend='min')
-    cb.set_label('Sea ice concentration (%), panels a, b, d, e. Arrow: 1-10%; white: below 1%',
-                 fontsize=11)
-    hl = [mpl.lines.Line2D([], [], color=C_OBS, lw=1.3, label='OSI SAF 15%'),
-          mpl.lines.Line2D([], [], color=C_OBS, lw=1.0, ls=':', label='OSI SAF 1%'),
-          mpl.lines.Line2D([], [], color=C_MOD, lw=1.3, ls='--', label='PI 15%'),
-          mpl.lines.Line2D([], [], color=C_MOD, lw=1.0, ls=':', label='PI 1%')]
+    if SI_STYLE:
+        cb.set_label('Sea ice concentration (%), panels a, b, d, e, smoothed as in the SI figure',
+                     fontsize=11)
+        hl = [mpl.lines.Line2D([], [], color=C_OBS, lw=1.3, label='OSI SAF 15% (not smoothed)'),
+              mpl.lines.Line2D([], [], color=C_MOD, lw=1.3, ls='--', label='PI 15% (not smoothed)')]
+    else:
+        cb.set_label('Sea ice concentration (%), panels a, b, d, e. Arrow: 1-10%; white: below 1%',
+                     fontsize=11)
+        hl = [mpl.lines.Line2D([], [], color=C_OBS, lw=1.3, label='OSI SAF 15%'),
+              mpl.lines.Line2D([], [], color=C_OBS, lw=1.0, ls=':', label='OSI SAF 1%'),
+              mpl.lines.Line2D([], [], color=C_MOD, lw=1.3, ls='--', label='PI 15%'),
+              mpl.lines.Line2D([], [], color=C_MOD, lw=1.0, ls=':', label='PI 1%')]
     fig.legend(handles=hl, loc='lower center', bbox_to_anchor=(0.5 * (p_d.x0 + p_e.x1), 0.0),
-               ncol=4, fontsize=9.5, frameon=False)
+               ncol=len(hl), fontsize=9.5, frameon=False)
     cb.ax.tick_params(labelsize=9.5)
     p_c = ax_c.get_position()
     cax2 = fig.add_axes([p_c.x0 + 0.03, p_c.y0 - 0.045, p_c.width - 0.06, 0.014])
@@ -676,7 +737,7 @@ def make_figure(o, m, W_grid, pi_clim, oext, oare, pext, pare):
     ax_f.set_title('(f)  Southern Hemisphere seasonal cycle', fontsize=12.5, pad=26, loc='left')
 
     for ext in ('png', 'pdf'):
-        fn = os.path.join(HERE, f'figR21_seaice_obs.{ext}')
+        fn = os.path.join(HERE, f'figR21_seaice_obs{"_si" if SI_STYLE else ""}.{ext}')
         fig.savefig(fn, dpi=200 if ext == 'png' else 300)
         print('saved', fn)
 

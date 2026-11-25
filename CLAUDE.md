@@ -2,11 +2,11 @@
 
 AWI-ESM 五个气候态（PI / MH / LIG / LGM / MIS3）南大洋表面水团转换（WMT）的热、盐强迫分解与 SAM 调制。论文已投 Nature Communications，现处大修阶段。远程 origin = https://github.com/xshi-awi/aabw_5exps
 
-## 当前状态（2026-11-22 07:30）
+## 当前状态（2026-11-25 05:30）
 
 - **在做什么**：NC 大修。修订稿 `nc_paper/build/revised.tex`；回复信是 TexPage 上的 `revision/response_new.tex`（线上是主版本，用户在线改）。旧的 `RESPONSE_LETTER.md` 流水线和 04/05 文件留着不动。
-- **上一步做完了什么**：11-22 按用户邮件逐条处理了信里的黄色高亮并推到 TexPage（b90b273 起 9 个提交）：新增海冰与卫星对比（`fig_seaice_obs/`）、SAM 合成同一密度单位（`fig_sam_buoyancy/`），审稿人 3 观测与再分析分开，Fig. 3/4 色标合并。做法和脚本见 `nc_paper/CLAUDE.md` 与 `nc_paper/docx_to_tex/pass_20261122/`。
-- **下一步**：等用户定 `log/OPEN.md` 里 11-22 新增的四条，最要紧的是 PI 海冰文件被覆盖要不要统一重算；修订稿要跟着信改的段落也列在那里。之后填致谢与基金，回填 Zenodo DOI。
+- **上一步做完了什么**：11-25 用户在线改了信（28 个提交）并在源文件里写了一批 `%` 要求；已修编译错误、核对她的新句、在信里用 `%claude回复` 答她的问题、用 `\claudenote` 标出要她看的地方（TexPage 4e75934，脚本 `nc_paper/docx_to_tex/pass_20261125/edits_1125.py`）；R13 的 ORAS5 图子图改成 a–d（ae8bfa1）。她删了 revised.tex 155 行 A3/A4 用 1.0σ 那半句，已同步到本地。
+- **下一步**：等用户定 FR/FT（R3 海冰图用哪版，候选没推）和她行内要求里要改修订稿的那几件（清单在 `log/OPEN.md`）；PI 海冰文件是否统一重算（EE1、FS 都是先不动）。之后填致谢与基金，回填 Zenodo DOI。
 - **动手前必须知道的**：
   - 投稿稿是 `nc_paper/nc-main.tex`（sn-jnl.cls，5 位作者）；修订在 `nc_paper/build/revised.tex`。`nc_paper/main.tex` 是旧 AGU 版，不是投稿稿。
   - 改 response_new.tex 前先 pull，以线上为准；用户在改的文件等她停手 10 分钟再推；只推自己改的文件，推完至少等 3 分钟核 md5。别用 `sync_texpage.sh push`。
@@ -57,4 +57,5 @@ AWI-ESM 五个气候态（PI / MH / LIG / LGM / MIS3）南大洋表面水团转�
 - 43 GB 源文件的 ncks 抽取、matplotlib/cartopy 画图脚本都要前台跑。放后台会被中途杀掉或空跑，留下 .tmp 或旧时间戳文件，看起来像成功了。
 - 后台长任务早看输出，别等跑完才发现第一个实验就崩了。
 - 引用极值时空间范围要和文字一致；附和审稿人的猜测前先算。
+- `plot_climate_patterns_jja.py` 的 `jja_months=[5,6,7,8]` 是 6–9 月，不是 JJA（Fig. 1 与 SI 的 MLD/海冰图受影响，未改）。
 - `pi/a_ice_clim.nc` 和 `pi/a_ice_reg.nc` 是被覆盖的 2090–2099 别的 run，PI 海冰用 `pi/a_ice_*_beta.nc`（2300–2399）。本机 python 要 `python3 -s`，否则 ~/.local 的 pandas 让 xarray 解不开时间（`log/PITFALLS.md`）。

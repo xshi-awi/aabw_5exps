@@ -40,6 +40,8 @@
 
 ## History
 
+- 2026-11-25 用户要威德尔海像 SI 图那样连成一圈。`compare_si_weddell.py` → `compare_si_weddell.png` 对照五格（同一 SI 画法：1°、<1% 设缺测、按掩膜归一的 σ=1.5 平滑、contourf）：SI 原图的满圈来自被覆盖的 PI 文件（框 30°W–30°E、60–68°S 内着色 90%），换正确 PI 只剩 55%（6–9 月）或 67%（9 月），60°W–0° 留一块白。季节不是原因，正确 PI 9 月冰最多。加了 `--si-style` 开关出候选 `figR21_seaice_obs_si.*`（a/b/d/e 按 SI 画法，15% 线不平滑，c、f 和数字不变），没推，等用户 FR/FT。现版另存 `versions/figR21_seaice_obs_v20261122b.*`（md5 png d9d809bc，即 TexPage 10dcc65）。不要用 `pi/a_ice_reg.nc` 出 R3（总管 11-25 定）。
+
 - 2026-11-22 08:31 按正文 Fig. 2 的画法重画 a/b/d/e（旧版存 `versions/figR21_seaice_obs_v20261122a.*`，md5 png f52fe50b，TexPage 9933006；新版 TexPage 10dcc65）。数字不变。9 月 Weddell 环流区（30°W–30°E、60–68°S）用正确 PI 文件有 54% 面积 <1%、44% 在 1–15%、2% ≥15%，所以仍有一块白；正文 Fig. 2 看起来更圆，是因为平滑（着色面积升到 68%）加上它读的是被覆盖的 2090–2099 文件（升到 91%）。
 
 - 2026-11-22 新建：OSI SAF v3.0 气候态、图 R21 第一版、`seaice_numbers.txt`；发现 `pi/a_ice_clim.nc` / `pi/a_ice_reg.nc` 时段问题（未改原文件）。
