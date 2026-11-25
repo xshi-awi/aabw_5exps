@@ -1,8 +1,10 @@
-# fig_sam_buoyancy：Fig R2.2，SAM 合成的热项与淡水项放在同一密度标尺上
+# fig_sam_buoyancy：SAM 合成的热项与淡水项放在同一密度标尺上
 
-回应 R2「Figs 5 和 6 单位不同，没法比绝对大小」，并核对 `nc_paper/build/revised.tex` 第 180 行那句（冰区淡水项大、无冰区热项大、与平均态同一分区）。2026-11-22 建，未进稿、未推 TexPage。
+回应 R2「Figs 5 和 6 单位不同，没法比绝对大小」。2026-11-22 建 Fig R2.2（figR22，2 行，只在信里）；2026-11-25 用户「可以统一，确认」后，补充材料 A3/A4 整张换成密度通量版，按引用顺序现编为 **Supplementary Figs. A7、A8**，信里用这两张图替换了 R22。
 
 ## 产物
+
+- `plot_sam_density_components.py`（2026-11-25，约 15 s 前台）→ `figA3_sam_heat_density.{png,pdf}`（热：总、辐射、湍流）与 `figA4_sam_fw_density.{png,pdf}`（淡水：总、海冰、其他），各 3 行 × 5 列，1.0σ 合成，**两图同一色标 ±2 kg m⁻² month⁻¹**（30 面板 |值| 98 分位 1.99），A3 第一行紫色虚线是 ΔQ = −15 W m⁻²（直接画 W m⁻² 场）。导入 figR22 脚本的网格、gsw 系数、PI _beta 冰和陆地补点；分量的符号与总量相同（`calc_sam_fwflux_composite.py`：total = −fw，other = evap+prec+snow+runoff，sea ice = total − other，分量和等于总量到 1e-5）。稿件与 TexPage 里改名为 `figures/figS_sam_{heat,fw}_density.pdf`、信里 `letter_figs/figS_sam_{heat,fw}_density.png`。同时写 `numbers_components.txt`（六行各态冰区/无冰区平均 |值|）和 `numbers_heatloss15.txt`（正文 15 W m⁻² 海区与冰期冰缘纬度的出处）。
 
 - `plot_sam_density_tendency.py`：登录节点前台跑约 30 s。`--validate` 用逐月数据按 1.0σ 重算合成并和现成文件比。
 - `figR22_sam_density_tendency.{png,pdf}`：2 行 × 5 列（PI MH LIG LGM MIS3），上行热项、下行总淡水项（含海冰），JJA 高 SAM 减低 SAM，**共用一个色标**（±3 kg m⁻² month⁻¹，取两行合并后 |值| 98 分位）。南极立体投影到 50°S，黑线是各态自己的 JJA 15% 冰缘，灰底表示该态网格里没有海洋（冰期显示 GLAC-1D 的陆地，没叠现代海岸线）。原生网格 tricontourf，填色栅格化，PDF 约 0.7 MB。
@@ -41,5 +43,7 @@
 - 合成文件 `heatflux_sam_composite_<exp>.nc` 是在经纬度空间（度）里做最近邻，和 `--validate` 的大圆最近邻在个别节点上差到 17 W m⁻²，逐点相关 ≥ 0.9997，面积统计到小数点后两位相同。
 
 ## History
+
+- 2026-11-25 新增 `plot_sam_density_components.py` 与 A3/A4 密度版（TexPage 4d59b5f、638d640，信 6e32b68、3a40d9f）。正文 2.4 节的海区据 `numbers_heatloss15.txt`：间冰期失热多 15 W m⁻² 的面积 90–97% 在冰缘以北开阔洋，主要在 60–140°E 与 180–120°W；冰期冰缘纬圈平均 55.2/56.2°S，冰下超过 15 W m⁻² 的只占 1–3%。figR22 不再进信，文件留着。
 
 - 2026-11-22 新建脚本、图和 numbers.txt。PI 冰掩膜由 `a_ice_clim.nc` 换成 `a_ice_clim_beta.nc` 并加 history 闸门，增加 1.2σ 重算和平均态对照。

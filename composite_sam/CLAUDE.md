@@ -6,7 +6,7 @@
 - 合成 = 高 SAM 年减低 SAM 年。阈值 ±1.2σ：高 SAM 为 SAM > mean + 1.2·std，低 SAM 为 SAM < mean − 1.2·std。
 - `calc_sam_wmt_composite.py` 第 32 行 `THRESHOLD_STD = 1.2` 一直是实际生效值。2026-05-19 只修了文档：docstring、函数默认参数 `identify_composite_years(threshold_std=1.0→1.2)`（原来被显式参数覆盖，结果不受影响）、两张图注和任务描述。数据不用重算。
 - 版式参照 `../plot_wmt_4regions_5exps.py`。热通量图 3 行 5 列：total heat / LW+SW / SH+LH。淡水图 3 行 5 列：total FW / sea ice only / other（prec+evap+snow+runoff）。
-- **阈值实际不统一**（2026-11-22 核）：热、淡水通量合成（`calc_sam_heatflux_composite*.py`、`calc_sam_fwflux_composite.py`、`fw_data/calc_fw_climatology.py`，即 Figs. A3/A4）是 ±1.0σ；WMT 合成（`calc_sam_wmt_composite.py`）、push/pull（`../calc_sam_push_pull.py`）、风应力与海冰合成（`../plot_sam_wind_ice.py`）是 ±1.2σ。用户 11-22 定 A3/A4 不重画、图注改成 1.0σ。
+- **阈值实际不统一**（2026-11-22 核）：热、淡水通量合成（`calc_sam_heatflux_composite*.py`、`calc_sam_fwflux_composite.py`、`fw_data/calc_fw_climatology.py`，即 Figs. A3/A4）是 ±1.0σ；WMT 合成（`calc_sam_wmt_composite.py`）、push/pull（`../calc_sam_push_pull.py`）、风应力与海冰合成（`../plot_sam_wind_ice.py`）是 ±1.2σ。用户 11-22 定图注改成 1.0σ；11-25 A3/A4 换成密度通量版（`../fig_sam_buoyancy/plot_sam_density_components.py`，仍是 1.0σ 合成），按引用顺序现编为 A7、A8。用户 11-25 09:10 定：正文不写具体阈值，只在各图注里写实际值。
 - 论文只用 JJA。`calc_sam_wmt_composite_djf.py` 与 DJF 结果存在，但不进论文，也没放进 Zenodo 包（只保留 5 个 `sam_index_<exp>.nc` 作来源）。
 - 放在论文哪里：2026-09-09 用户定 SAM 图全部进补充材料，见 `../nc_paper/CLAUDE.md`。
 
@@ -22,4 +22,4 @@
 
 ## 旧稿里从图上读出的数「待核」
 
-2026-01 写 AGU 初稿时 SAM 一节的数字是看 PNG 读出来的，没有经过计算：高 SAM 使 50–65°S 海洋失热增加 >15 W m⁻²；WMT 调制 15–20%；热贡献间冰期 70–80%、冰期 60–65%；淡水响应里海冰项大 3–5 倍；Ross 海最敏感（>20 W m⁻²，3–4 Sv）。投稿版 `nc-main.tex` 第 248 行仍有「15-20%」，修订稿 `build/revised.tex` 已不含该数，改用「3–8 Sv」。要引用这些数前先从数据重算。
+2026-01 写 AGU 初稿时 SAM 一节的数字是看 PNG 读出来的，没有经过计算：高 SAM 使 50–65°S 海洋失热增加 >15 W m⁻²（11-25 已从数据重量，见 `../fig_sam_buoyancy/numbers_heatloss15.txt`）；WMT 调制 15–20%；热贡献间冰期 70–80%、冰期 60–65%；淡水响应里海冰项大 3–5 倍；Ross 海最敏感（>20 W m⁻²，3–4 Sv）。投稿版 `nc-main.tex` 第 248 行仍有「15-20%」，修订稿 `build/revised.tex` 已不含该数，改用「3–8 Sv」。要引用这些数前先从数据重算。

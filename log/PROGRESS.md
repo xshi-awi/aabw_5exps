@@ -2,6 +2,12 @@
 
 按时间倒序。2026-11-08 从根 CLAUDE.md 压缩迁来，同主题已合并，只留结论；逐次细节在 git 历史里。具体数字多在 `nc_paper/NEW_ANALYSIS_RESULTS.md` 和 `docs/`。
 
+### 2026-11-25 09:40 信与修订稿按用户行内要求和总管底线一次改完（questions-14 转用户 09:08「直接更新，不用再问」）
+
+- 修订稿（`nc_paper/docx_to_tex/pass_20261125/edits_1125c_revised.py`，可在备份上复现）：SAM 定义与作用并进引言单独成段，补 Gong & Wang 1999、Hall & Visbeck 2002、Sen Gupta & England 2006（Crossref 核 DOI、读摘要），2.4 节开头两句删去、阈值只留在图注；2.1 节加 Fig. 1i–l 描述（不含西威德尔那句），114 行只谈 Ross 与方向，风的描述按 6–9 月风场核过后改写；冰期风应力海洋格点重算（MH 47.6°S 0.172、LGM 49.4°S 0.195 N m⁻²，强 13%），jet 改称 westerlies；Fig. 3/4 单位 kg m⁻² month⁻¹，2.3 节数换算（×2.592e6）；A3/A4 换成密度通量版（现 A7/A8，±2 同一色标，加 −15 W m⁻² 线），2.4 节逐处加子图字母并写出海区；Sidorenko 段换成信里版本（删 1.43 K），新 SI A12（MLD 对 ORAS5，引 Zuo 2019）；239 行 69→61% 改成分密度类结果，249 行 53–88% 改 53–70%；Lhardy 2021 重建 33±5、10±3 百万 km² 写进 255 行并删掉重复句；polynya 措辞；Methods 符号约定统一为 B>0 致密化；Fig. 1、A1、A2 图注改 June-September；附录按首次引用重排为 A1–A12，正文 MOC/年龄互换。
+- 回复信（`edits_1125c_letter.py`）：27 段引文按句与修订稿对齐（`check_quotes_vs_revised.py`），图号随重排改；第 11、13、20、21、22 条、R2 的 Figs 5/6（R22 换成 A7/A8 两图）、R3 普适性（压短版）、Gray（风应力数）、MOC 数（D6/D8）、L25、L102 照用户 `%` 意见改并在其下写 `%claude回复`。剩两条 `\claudenote`（EE1 的 PI 冰区、批注 8）。
+- TexPage da2a469（三份 tex）、4d59b5f–3a40d9f（9 张图各一提交）、bea896b（符号约定）；3 分钟后核 md5 全对，期间无 TeXPage 提交。两份都本地编译 0 error，修订稿 49 页、信 36 页。
+
 ### 2026-11-25 05:30 用户在线改信后的一轮（总管 questions-14 转，05:08 消息）
 
 - 拉下 11-24、11-25 的 28 个 TeXPage 提交：改了第 4、9、11、13 条回复，删 R6（Ross 图，注释掉）和 Editorial requirements 一节，重写 R13 图注，另在源文件写了十来条 `%` 要求；revised.tex 155 行删掉 A3/A4 用 1.0σ 的半句。追踪版取消（用户 05:10）。

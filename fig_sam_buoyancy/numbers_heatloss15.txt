@@ -1,0 +1,55 @@
+Area where the 1.0 sigma JJA high-minus-low SAM total heat flux anomaly (total_heat_diff,
+W m-2, + into ocean) is below -15 W m-2, i.e. high-SAM winters lose >= 15 W m-2 more heat.
+Mesh nodes, weights = areacello. ECHAM-land nodes refilled from the nearest T63 ocean cell (as in the
+figures). Ice = own JJA 15% edge (conc > 0.15; PI from pi/a_ice_clim_beta.nc). Areas in 10^3 km2.
+Written by plot_sam_density_components.py.
+
+== PI: area 3828 x10^3 km2 = 8.3% of ocean S of 50S (45.94 x10^6 km2); raw file without refill: 3826
+   inside 15% edge 3.0%  outside 97.0%
+   lat band: 50-60S 1325 (35%)  60-70S 2304 (60%)  S of 70S 200 (5%)
+   20-deg longitude bins (lon -180..180):
+     -180..-160E   366 ( 9.5%)   -160..-140E   437 (11.4%)   -140..-120E   958 (25.0%)
+     -120..-100E     0 ( 0.0%)   -100..-80E     0 ( 0.0%)   -80..-60E     0 ( 0.0%)
+     -60..-40E   127 ( 3.3%)   -40..-20E   303 ( 7.9%)   -20..+0E     0 ( 0.0%)
+     +0..+20E     0 ( 0.0%)   +20..+40E     0 ( 0.0%)   +40..+60E    11 ( 0.3%)
+     +60..+80E   341 ( 8.9%)   +80..+100E   450 (11.8%)   +100..+120E   482 (12.6%)
+     +120..+140E   265 ( 6.9%)   +140..+160E     0 ( 0.0%)   +160..+180E    88 ( 2.3%)
+
+== MH: area 3672 x10^3 km2 = 8.0% of ocean S of 50S (45.94 x10^6 km2); raw file without refill: 3641
+   inside 15% edge 10.1%  outside 89.9%
+   lat band: 50-60S 1975 (54%)  60-70S 1507 (41%)  S of 70S 191 (5%)
+   20-deg longitude bins (lon -180..180):
+     -180..-160E     0 ( 0.0%)   -160..-140E    99 ( 2.7%)   -140..-120E   204 ( 5.6%)
+     -120..-100E     0 ( 0.0%)   -100..-80E    14 ( 0.4%)   -80..-60E     7 ( 0.2%)
+     -60..-40E    39 ( 1.1%)   -40..-20E   247 ( 6.7%)   -20..+0E    16 ( 0.4%)
+     +0..+20E     0 ( 0.0%)   +20..+40E     0 ( 0.0%)   +40..+60E    11 ( 0.3%)
+     +60..+80E   430 (11.7%)   +80..+100E  1132 (30.8%)   +100..+120E  1170 (31.8%)
+     +120..+140E   303 ( 8.2%)   +140..+160E     0 ( 0.0%)   +160..+180E     0 ( 0.0%)
+
+== LIG: area 5150 x10^3 km2 = 11.2% of ocean S of 50S (45.94 x10^6 km2); raw file without refill: 5147
+   inside 15% edge 3.5%  outside 96.5%
+   lat band: 50-60S 2716 (53%)  60-70S 1965 (38%)  S of 70S 468 (9%)
+   20-deg longitude bins (lon -180..180):
+     -180..-160E   613 (11.9%)   -160..-140E   316 ( 6.1%)   -140..-120E   198 ( 3.8%)
+     -120..-100E     0 ( 0.0%)   -100..-80E    17 ( 0.3%)   -80..-60E     0 ( 0.0%)
+     -60..-40E    18 ( 0.4%)   -40..-20E     0 ( 0.0%)   -20..+0E     0 ( 0.0%)
+     +0..+20E     0 ( 0.0%)   +20..+40E     0 ( 0.0%)   +40..+60E     0 ( 0.0%)
+     +60..+80E   280 ( 5.4%)   +80..+100E  1167 (22.7%)   +100..+120E  1577 (30.6%)
+     +120..+140E   671 (13.0%)   +140..+160E    97 ( 1.9%)   +160..+180E   196 ( 3.8%)
+
+== LGM and MIS3: south vs north of the own JJA 15% ice edge
+   ice = conc > 0.15 (any latitude S of 30S); free S50 = conc <= 0.15 and S of 50S;
+   free 40-50S = conc <= 0.15 between 40S and 50S (outside the figure domain).
+   state region           area  mean dQ  A(dQ<-15)   frac
+   LGM   ice             29936    +1.64        292  0.010
+   LGM   ice S50         29856    +1.64        292  0.010
+   LGM   free S50        12966    -2.83       3052  0.235
+   LGM   free 40-50S     29949    +3.64       1007  0.034
+   LGM   JJA 15% edge, northernmost ice node per 2-deg lon bin: zonal mean -55.2, median -55.5, range -61.1 to -48.7 (deg N), bins north of 50S: 3%
+   MIS3  ice             27908    -0.07        781  0.028
+   MIS3  ice S50         27908    -0.07        781  0.028
+   MIS3  free S50        15515    -0.40       3987  0.257
+   MIS3  free 40-50S     30233    +4.44       1173  0.039
+   MIS3  JJA 15% edge, northernmost ice node per 2-deg lon bin: zonal mean -56.2, median -57.1, range -61.7 to -50.1 (deg N), bins north of 50S: 0%
+
+   for reference, same edge measure: PI -66.0, MH -65.7, LIG -67.2

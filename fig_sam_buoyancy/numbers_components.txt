@@ -1,0 +1,34 @@
+Supplementary Figs. A3/A4 (density units): area-weighted mean |value| south of 50S,
+kg m-2 month-1. JJA high-minus-low SAM, 1.0 sigma composites (composite_sam/*_sam_composite_<exp>.nc).
+Written by plot_sam_density_components.py. ice = own JJA conc > 0.15, free = <= 0.15.
+H = -(alpha/cp) dQ, F = -rho_fw beta S dFW (dFW + into ocean); positive = densification.
+Shared colour range of both figures: +/-2.0 kg m-2 month-1. 98th percentile of |value| over
+all 30 panels S of 50S: 1.99 (node count), 1.53 (area weighted);
++/-2.0 covers 98.0% of nodes, 99.1% of area.
+
+state reg    area  H_total    H_rad   H_turb  F_total    F_ice  F_other   (mean |value|)
+PI    ice    9.02    0.095    0.027    0.076    0.847    0.787    0.206
+PI    free  36.92    0.495    0.107    0.404    0.213    0.067    0.179
+MH    ice    9.59    0.095    0.020    0.080    0.878    0.797    0.222
+MH    free  36.35    0.528    0.111    0.438    0.191    0.063    0.162
+LIG   ice    7.16    0.097    0.024    0.077    0.948    0.929    0.237
+LIG   free  38.78    0.449    0.092    0.370    0.177    0.062    0.139
+LGM   ice   29.86    0.097    0.018    0.081    0.590    0.559    0.156
+LGM   free  12.97    0.629    0.075    0.573    0.321    0.247    0.154
+MIS3  ice   27.91    0.092    0.019    0.076    0.656    0.571    0.165
+MIS3  free  15.51    0.856    0.086    0.779    0.339    0.209    0.231
+
+signed area-weighted means, same layout:
+state reg    area  H_total    H_rad   H_turb  F_total    F_ice  F_other
+PI    ice    9.02   -0.008   -0.007   -0.000   +0.407   +0.409   -0.002
+PI    free  36.92   +0.028   +0.024   +0.004   -0.158   -0.017   -0.141
+MH    ice    9.59   +0.028   +0.006   +0.022   +0.199   +0.239   -0.039
+MH    free  36.35   -0.004   +0.016   -0.020   -0.115   +0.012   -0.128
+LIG   ice    7.16   +0.003   +0.005   -0.003   +0.402   +0.472   -0.070
+LIG   free  38.78   +0.065   +0.020   +0.045   -0.089   -0.004   -0.085
+LGM   ice   29.86   -0.035   -0.006   -0.029   -0.031   +0.058   -0.089
+LGM   free  12.97   +0.121   +0.026   +0.095   -0.105   -0.020   -0.085
+MIS3  ice   27.91   +0.001   -0.001   +0.002   -0.181   -0.092   -0.088
+MIS3  free  15.51   -0.052   -0.007   -0.045   -0.118   +0.025   -0.143
+
+area in 10^6 km2.

@@ -2,7 +2,7 @@
 
 - **致谢与基金信息**：`nc_paper/build/revised.tex` 约 360 行仍是 TODO 占位（2026-11-08 核过）。需要用户提供。
 - **Zenodo DOI**：数据包 `zenodo_deposit/` 已备好，用户手动上传，之后把 DOI 回填到 Data Availability。是否已上传「待核」。
-- **`nc_paper/NEW_ANALYSIS_RESULTS.md` §1 的「69%→61%」**：已被 git 58fb985 推翻，但该文件没改，引用前注意。是否要改这个文件「待核」。
+- **`nc_paper/NEW_ANALYSIS_RESULTS.md` §1 的「69%→61%」**：已被 git 58fb985 推翻；修订稿 239 行 11-25 已改成分密度类结果，NEW_ANALYSIS_RESULTS.md 本身没改，引用前注意。
 - **合作者审阅进度**：git 0e2557d（10-13）写的是 R2、R3 部分等 Jiping Liu 审；10-15 已合并 R1+R2 的修改。R3 部分是否审过「待核」。
 - **旧 AGU 稿里从图上读出的 SAM 数字**（15–20% 调制等）没经过计算，投稿版 `nc-main.tex` 仍含「15-20%」。见 `composite_sam/CLAUDE.md`「待核」。
 - **D6/D2 数字待总管核对**（2026-11-08）：D6 已于 10:05 按用户批准推到 TexPage（commit 3d2ad39），D2 的两张表不在稿件里，没有可推的。
@@ -13,9 +13,6 @@
 - **climdiag oracle**：`test_d2_formation_csvs` 记了两张形成率表旧版的 md5，表重算后会失败，需 climdiag 那边更新。
 - **response_new.tex 待用户定**（2026-11-19）：docx 带回了 D6/D8 之前的 MOC 数字与措辞（要不要重新套用）；图号改成 R1–R15 连续、重复图各放一次是否接受；信头没有 Dear Editor、配色说明、总述、更正几段（docx 里没有）（旧 Word/PDF 已于 11-19 按用户决定从 TexPage 删除，baa76c5）；README.md 是否加 response_new.tex 一行。批注本身留到下一轮处理。
 - **PI 海冰气候态文件被覆盖**（2026-11-22 发现，最要紧）：`pi/a_ice_clim.nc`、`pi/a_ice_reg.nc` 是 03-15 换进来的来历不明的 2090–2099 十年平均，正确的 2300–2399 版在 `*_beta.nc`。受影响：修订稿 Fig. 1i–l 与 Fig. 2 的 PI 海冰、Fig. 4 的 PI 海冰掩膜、`calc_wmt_siz_pellichero.py` 的 PI 海冰区（9 月冰区大 13%，牵连信里 42.7%、70%、−9.2/+6.6 Sv 与 Figs R1、R9、R12、R13 的 PI 曲线）。是否用 _beta 统一重算待用户定（`log/PITFALLS.md`）。
-- **response_new.tex 11-22 版待用户定**：修订稿要跟着改的段落（Discussion 245 行 Sidorenko 那段及 366 行 TODO、Fig. 1i–l 的描述、111 行 residual、241 行 they describe、249 行 53–88%、180 行 wherever、摘要 Weaker glacial transformation）；Hall & Visbeck 2002 还没进 ref.bib；批注 6、7 要看纸质修改稿；批注 8 的意思；新图 R3（海冰）、R10（SAM 密度）是否进补充材料。
-- **Methods 密度通量的符号说明自相矛盾**（2026-11-22 发现，未改）：`build/revised.tex` 303 行公式 +βSF_fw、305 行末「热量或淡水损失使 B<0 即致密化」与 307 行「正值表示致密化」对不上。EE2 只改了单位。
-- **SI 图（Fig. A6）与 Fig. 1 的 PI 海冰仍读被覆盖的文件**：用户 FS=先不动（2026-11-25）。R3 已按 FT 用正确 PI 的 SI 画法（TexPage 9115556），所以 R3 和 A6 的 PI 在威德尔海不一致，A6 重画后会一致。
-- **`plot_climate_patterns_jja.py` 的「JJA」其实是 6–9 月**（2026-11-25 发现，未改）：`jja_months=[5,6,7,8]` 按 0 起数是 Jun–Sep。Fig. 1、SI 的 MLD/海冰图、`figS_density_windstress` 图注都写 JJA。
-- **信里 11-25 用户行内要求、等确认再做**（每条在 `response_new.tex` 里有 `%claude回复`）：SAM 经典文献与 SAM–WMT 文献、Hall & Visbeck 进 ref.bib；2.4 节给 Figure A5 加子图字母（R1 第 21 条）；SAM 失热区写具体海名并从数据量 15 W m⁻²（第 6、7 条批注）；A3/A4 换成密度通量各 3×5（R2）；polynya circulation 改措辞（信与修订稿 271 行）；审稿人 3 普适性那条的压缩版。Fig. 1i–l 新描述「MH、LIG 西威德尔海冰减少」只对被覆盖的 PI 文件成立，用正确 PI 是增加，没放进修订稿。
-
+- **SI 图（Fig. A6）与 Fig. 1 的 PI 海冰仍读被覆盖的文件**：用户 FS=先不动（2026-11-25）。R3 已按 FT 用正确 PI 的 SI 画法（TexPage 9115556），所以 R3 和 A6 的 PI 在威德尔海不一致，A6 重画后会一致。11-25 起 A6 编为 A2；R3（卫星海冰对比）因此没放进补充材料，讨论里只用数字并引 OSI SAF 数据集，A2 重画后可以补进去。
+- **`plot_climate_patterns_jja.py` 实为 6–9 月**：11-25 只把 Fig. 1、A1、A2 图注和 2.1 节改写成 June-September，脚本和图没重算（总管定）。A4 已换成真 JJA 的 `figR7_mld_glacial_zoom.pdf`。
+- **11-25 下午一轮留给用户的事**：docx 批注 8（brine rejection 导致海冰扩张？）的意思；摘要第 2/3 条引文按稿件原句（Jiping 10-13 版）对齐，没采用信里 docx 那版「set by sea ice cover, which is strongly influenced by the SAM」；第 4 条引文改为摘要原句（collapse、11→2 Sv）。PI 海冰区（EE1）仍是被覆盖的文件，信里 42.7%、70% 等和修订稿 239/249 行的 PI 数随之待定。
