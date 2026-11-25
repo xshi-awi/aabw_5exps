@@ -32,7 +32,7 @@
 
 ## 坑
 
-- **`pi/a_ice_clim.nc` 不是论文的 PI 时段。** history 写的是 2026-03-15 用 `cdo ensmean` 对 `a_ice.fesom.2090…2099` 十个文件求平均，相对路径，来源 run 查不到：和 pi_age、pi_mix0.1、pi_uni100、eh2pi_ssp245/585、ice_cavity_data/PI_CORE_ssp* 的 2090–2099 都对不上。同一天的 `pi/a_ice_reg.nc` 也是这一版（1° 上 9 月 extent 12.50，beta 版 10.89）。旧版改名成 `_beta` 留着，`_beta` 才是 2300–2399。`plot_climate_patterns_jja.py` 的 `load_variable_reg('pi','a_ice')` 读的就是 `pi/a_ice_reg.nc`，所以正文 Fig. 1 的海冰一行很可能以 2090–2099 为 PI 基准。JJA 面积 PI* 6.57 对 PI 6.00，MH−PI 用 PI* 为 −0.01，用 2300–2399 为 +0.56。本文件夹只用 100years 那份。
+- **`pi/a_ice_clim.nc` 不是论文的 PI 时段。** history 写的是 2026-03-15 用 `cdo ensmean` 对 `a_ice.fesom.2090…2099` 十个文件求平均，相对路径，来源 run 查不到：和 pi_age、pi_mix0.1、pi_uni100、mh_age、lig_age、eh2pi_ssp245/585、ice_cavity_data/PI_CORE_ssp* 的 2090–2099 都对不上（2026-11-25 用 `lfs find` 搜遍 /work/ba0989/a270064、/work/ba1066/a270064、/work/bb1029 里所有 `a_ice.fesom.209001.01.nc`，同网格的逐个求 10 年平均比对，最接近的 pi_mix0.1、pi_age 平均绝对差也有 0.027–0.029；PI_ICEv2_ssp*、exp_co2/lgm、lgm_age、mis_age 网格不同）。同一天的 `pi/a_ice_reg.nc` 也是这一版（1° 上 9 月 extent 12.50，beta 版 10.89）。旧版改名成 `_beta` 留着，`_beta` 才是 2300–2399。`plot_climate_patterns_jja.py` 的 `load_variable_reg('pi','a_ice')` 读的就是 `pi/a_ice_reg.nc`，所以正文 Fig. 1 的海冰一行很可能以 2090–2099 为 PI 基准。JJA 面积 PI* 6.57 对 PI 6.00，MH−PI 用 PI* 为 −0.01，用 2300–2399 为 +0.56。本文件夹只用 100years 那份。
 - 观测前 1987-08 隔天一个文件；1986 年 4、5 月无数据（这两个月气候态只有 29 年）；1986-06 只有 4 天（24–30 日隔天），1987-12 只有 2 天（12 月 1–2 日），1988-01 从 13 日开始，它把 12 月 max 抬到 13.80（去掉后 13.04）。按要求有几天用几天。
 - 由月平均场算的 extent 比日 extent 的月均大（9 月 19.11 对 18.83），多年平均场的 extent 更大（20.04）。模式只有月均，所以和模式比要用月平均场那一列。
 - 2 月冰缘只在有冰的经线上平均，PI 2 月 Weddell 只有 7/278 条经线有冰，2 月扇区冰缘数字没有意义，别引。
