@@ -15,7 +15,7 @@
 - **PI 海冰气候态文件被覆盖**（2026-11-22 发现，最要紧）：`pi/a_ice_clim.nc`、`pi/a_ice_reg.nc` 是 03-15 换进来的来历不明的 2090–2099 十年平均，正确的 2300–2399 版在 `*_beta.nc`。受影响：修订稿 Fig. 1i–l 与 Fig. 2 的 PI 海冰、Fig. 4 的 PI 海冰掩膜、`calc_wmt_siz_pellichero.py` 的 PI 海冰区（9 月冰区大 13%，牵连信里 42.7%、70%、−9.2/+6.6 Sv 与 Figs R1、R9、R12、R13 的 PI 曲线）。是否用 _beta 统一重算待用户定（`log/PITFALLS.md`）。
 - **response_new.tex 11-22 版待用户定**：修订稿要跟着改的段落（Discussion 245 行 Sidorenko 那段及 366 行 TODO、Fig. 1i–l 的描述、111 行 residual、241 行 they describe、249 行 53–88%、180 行 wherever、摘要 Weaker glacial transformation）；Hall & Visbeck 2002 还没进 ref.bib；批注 6、7 要看纸质修改稿；批注 8 的意思；新图 R3（海冰）、R10（SAM 密度）是否进补充材料。
 - **Methods 密度通量的符号说明自相矛盾**（2026-11-22 发现，未改）：`build/revised.tex` 303 行公式 +βSF_fw、305 行末「热量或淡水损失使 B<0 即致密化」与 307 行「正值表示致密化」对不上。EE2 只改了单位。
-- **R3 海冰图（FR、FT，2026-11-25）**：用户要威德尔海像 SI 图那样连成一圈。原因已查明：SI 图（`fig02_climate_mld_seaice_jja`）的 PI 读被覆盖的 2090–2099 文件，加上「<1% 设缺测后归一平滑」把空格填满；用正确 PI 怎么画都留一块白。候选 `fig_seaice_obs/figR21_seaice_obs_si.png`（`--si-style`）与对照 `compare_si_weddell.png` 没推。用户 05:21 要求 R3 改读那份文件，总管没接（来历不明、会错标数据），给了选项 FT，等她答。FS=先不动：SI 图与 Fig. 1 暂不重画。
+- **SI 图（Fig. A6）与 Fig. 1 的 PI 海冰仍读被覆盖的文件**：用户 FS=先不动（2026-11-25）。R3 已按 FT 用正确 PI 的 SI 画法（TexPage 9115556），所以 R3 和 A6 的 PI 在威德尔海不一致，A6 重画后会一致。
 - **`plot_climate_patterns_jja.py` 的「JJA」其实是 6–9 月**（2026-11-25 发现，未改）：`jja_months=[5,6,7,8]` 按 0 起数是 Jun–Sep。Fig. 1、SI 的 MLD/海冰图、`figS_density_windstress` 图注都写 JJA。
 - **信里 11-25 用户行内要求、等确认再做**（每条在 `response_new.tex` 里有 `%claude回复`）：SAM 经典文献与 SAM–WMT 文献、Hall & Visbeck 进 ref.bib；2.4 节给 Figure A5 加子图字母（R1 第 21 条）；SAM 失热区写具体海名并从数据量 15 W m⁻²（第 6、7 条批注）；A3/A4 换成密度通量各 3×5（R2）；polynya circulation 改措辞（信与修订稿 271 行）；审稿人 3 普适性那条的压缩版。Fig. 1i–l 新描述「MH、LIG 西威德尔海冰减少」只对被覆盖的 PI 文件成立，用正确 PI 是增加，没放进修订稿。
 

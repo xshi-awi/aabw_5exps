@@ -51,12 +51,13 @@ mpl.rcParams.update({'font.family': 'sans-serif',
 
 warnings.filterwarnings('ignore', category=RuntimeWarning)
 out_lines = []
-# --si-style (2026-11-25, user request): panels a, b, d, e drawn exactly as the sea ice row of
-# the SI figure (plot_climate_patterns_jja.py, plot_figure2): 1-degree fields, cells below 1%
+# Default since 2026-11-25 (user button FT): panels a, b, d, e drawn exactly as the sea ice row
+# of SI Fig. A6 (plot_climate_patterns_jja.py, plot_figure2): 1-degree fields, cells below 1%
 # masked, Gaussian smoothing sigma=1.5 normalised by the mask (which fills masked cells from
-# icy neighbours), contourf. Writes figR21_seaice_obs_si.* and leaves figR21_seaice_obs.* alone.
+# icy neighbours), contourf; but with the correct PI years 2300-2399, never pi/a_ice_reg.nc.
+# --plain gives the 2026-11-22 drawing (native field on EASE2, 1% and 15% lines) as *_plain.*
 import sys
-SI_STYLE = '--si-style' in sys.argv
+SI_STYLE = '--plain' not in sys.argv
 PI_REG = f'{BASE}/pi/a_ice_reg_beta.nc'   # 1-degree PI, model years 2300-2399 (not pi/a_ice_reg.nc)
 
 
@@ -737,7 +738,7 @@ def make_figure(o, m, W_grid, pi_clim, oext, oare, pext, pare):
     ax_f.set_title('(f)  Southern Hemisphere seasonal cycle', fontsize=12.5, pad=26, loc='left')
 
     for ext in ('png', 'pdf'):
-        fn = os.path.join(HERE, f'figR21_seaice_obs{"_si" if SI_STYLE else ""}.{ext}')
+        fn = os.path.join(HERE, f'figR21_seaice_obs{"" if SI_STYLE else "_plain"}.{ext}')
         fig.savefig(fn, dpi=200 if ext == 'png' else 300)
         print('saved', fn)
 

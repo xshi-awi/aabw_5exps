@@ -2,7 +2,7 @@
 
 ## 画什么
 
-`figR21_seaice_obs.{png,pdf}`，2×3。(a) PI 9 月海冰密集度，(b) OSI SAF 1979–2008 9 月，(c) PI 减 OSI SAF（9 月），黑实线为观测 15% 线、朱红虚线为模式 15% 线，点线是三个扇区分界（60°W、79°E、180°）；(d)(e) 2 月；(f) 南半球 extent（实线）与 area（虚线）的季节循环，灰带是观测 30 年逐月 min–max，浅朱红带是 PI 100 年 min–max。a/b/d/e 按正文 Fig. 2 的画法（2026-11-22 用户要求）：NCL BlAqGrYeOrRe 色标，10–100% 每 5% 一档，1–10% 用最深的蓝（under 色），只有 <1% 留白，另画 1% 点线；Fig. 2 那步 σ=1.5 的高斯平滑没有用，因为它会把冰画进 <1% 的区域。c 用 RdBu（红 = 模式冰少），没改。南极立体投影到 50°S，标了 60°S、70°S 和经度。配色 Okabe-Ito：模式 `#D55E00`，观测黑。
+`figR21_seaice_obs.{png,pdf}`，2×3（2026-11-25 起 a/b/d/e 按 SI Fig. A6 画法，见 History；下面这段描述的是 11-22 的 `--plain` 画法）。(a) PI 9 月海冰密集度，(b) OSI SAF 1979–2008 9 月，(c) PI 减 OSI SAF（9 月），黑实线为观测 15% 线、朱红虚线为模式 15% 线，点线是三个扇区分界（60°W、79°E、180°）；(d)(e) 2 月；(f) 南半球 extent（实线）与 area（虚线）的季节循环，灰带是观测 30 年逐月 min–max，浅朱红带是 PI 100 年 min–max。a/b/d/e 按正文 Fig. 2 的画法（2026-11-22 用户要求）：NCL BlAqGrYeOrRe 色标，10–100% 每 5% 一档，1–10% 用最深的蓝（under 色），只有 <1% 留白，另画 1% 点线；Fig. 2 那步 σ=1.5 的高斯平滑没有用，因为它会把冰画进 <1% 的区域。c 用 RdBu（红 = 模式冰少），没改。南极立体投影到 50°S，标了 60°S、70°S 和经度。配色 Okabe-Ito：模式 `#D55E00`，观测黑。
 
 数字全在 `seaice_numbers.txt`（脚本写出，别手改）。
 
@@ -39,6 +39,8 @@
 - `rm` 被 hook 拦，本目录的 `__pycache__/` 由 `.gitignore` 挡住，不用管。
 
 ## History
+
+- 2026-11-25 05:29 用户按钮 FT「用正确 PI 的 SI 画法版」：SI 画法改成脚本默认（`--plain` 出 11-22 画法，存为 `*_plain.*`），重出 `figR21_seaice_obs.{png,pdf}`（png md5 ec81f0b2），数字不变；信里图注改写（a/b/d/e 颜色按 SI Fig. A6 平滑，15% 线用未平滑场，PI 模式年 2300–2399）。TexPage dbb51e9（图注）、9115556（图）。
 
 - 2026-11-25 用户要威德尔海像 SI 图那样连成一圈。`compare_si_weddell.py` → `compare_si_weddell.png` 对照五格（同一 SI 画法：1°、<1% 设缺测、按掩膜归一的 σ=1.5 平滑、contourf）：SI 原图的满圈来自被覆盖的 PI 文件（框 30°W–30°E、60–68°S 内着色 90%），换正确 PI 只剩 55%（6–9 月）或 67%（9 月），60°W–0° 留一块白。季节不是原因，正确 PI 9 月冰最多。加了 `--si-style` 开关出候选 `figR21_seaice_obs_si.*`（a/b/d/e 按 SI 画法，15% 线不平滑，c、f 和数字不变），没推，等用户 FR/FT。现版另存 `versions/figR21_seaice_obs_v20261122b.*`（md5 png d9d809bc，即 TexPage 10dcc65）。不要用 `pi/a_ice_reg.nc` 出 R3（总管 11-25 定）。
 
