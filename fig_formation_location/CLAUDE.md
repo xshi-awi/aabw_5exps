@@ -4,7 +4,7 @@
 
 ## 产物与运行
 
-三个脚本按顺序跑，都在登录节点前台跑，用 `module load python3/2022.01-gcc-11.2.0` 和 `python3 -s`。gsw 找不到时脚本会自己从 ~/.local 只链 gsw 一个包。`calc_formation_location.py <exp>` 每个态约 40 s，读 `<exp>/surface_density_tendency_100years_<exp>.nc`，把 50°S 以南每个节点、每个密度 bin 的月表面密度通量累加成时间平均，写 `data/acc_<exp>.nc`。`analyze_formation_location.py` 不带参数跑五个态（约 20 s），写 `numbers.txt`、`data/G_<exp>.nc`（各区域的 G 曲线）、`data/regions_<exp>.nc`（掩膜、静态场和画图用的分类通量）和 `data/key_<exp>.json`。`plot_formation_location.py` 约 10 s，出 `fig_formation_location.{png,pdf}`。`data/` 里的 nc 被 .gitignore 挡掉，可以重算。
+三个脚本按顺序跑，都在登录节点前台跑，用 `module load python3/2022.01-gcc-11.2.0` 和 `python3 -s`。gsw 找不到时脚本会自己从 ~/.local 只链 gsw 一个包。`calc_formation_location.py <exp>` 每个态约 40 s，读 `<exp>/surface_density_tendency_100years_<exp>.nc`，把 50°S 以南每个节点、每个密度 bin 的月表面密度通量累加成时间平均，写 `data/acc_<exp>.nc`。`analyze_formation_location.py` 不带参数跑五个态（约 20 s），写 `numbers.txt`、`data/G_<exp>.nc`（各区域的 G 曲线）、`data/regions_<exp>.nc`（掩膜、静态场和画图用的分类通量）和 `data/key_<exp>.json`。`plot_formation_location.py` 约 10 s，出 `fig_formation_location.{png,pdf}`；加 `--no-ice-edge` 不画 15% 冰缘线和它的图例，出 `fig_formation_location_noice.{png,pdf}`。`data/` 里的 nc 被 .gitignore 挡掉，可以重算。
 
 图的 a 行是 JJA 表面密度通量只计各态最密尾部（σ2 ≥ σ_10）的那部分，对数色标，只画通量 ≥ 0.1 kg m⁻² month⁻¹ 的节点。b 行是只计论文峰值 bin（0.2 宽）的那部分，红为增密。两行都叠了 1000 m 等深线、JJA 15% 冰缘、JJA MLD1 400 m 等值线和 60°S 圈，灰底是网格里没有海洋的地方，冰期显示 GLAC-1D 的海岸。c 是峰值 bin 的转换率按深度和海冰分区堆叠，d 是最密尾部按同样分区，e 是最密尾部按离岸距离分区。
 
@@ -40,4 +40,5 @@
 
 ## History
 
+- 2026-11-26 07:10 用户要求回复信 Fig. R12 去掉海冰等值线：加 `--no-ice-edge`，`_noice.png` 拷成 `nc_paper/SUBMISSION/letter_figs/figS_formation_location.png`（TexPage 347461d）。稿里 SI A13（`build/figures/figS_formation_location.pdf`）仍带冰缘线，图注也还写着 15% winter sea ice edge，要不要一起去掉等用户定。
 - 2026-11-26 新建。三个脚本、图、numbers.txt。复现五个态论文曲线，加 0.02 bin 拆分、深度/离岸两套分区、MLD2 与带宽敏感性。

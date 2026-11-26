@@ -6,9 +6,13 @@ peak bin, plus the regional split of the transformation (c-e).
 Reads data/regions_<exp>.nc, data/G_<exp>.nc, data/key_<exp>.json written by
 analyze_formation_location.py. Run in the foreground (cartopy):
     python3 -s plot_formation_location.py
-Output: fig_formation_location.{png,pdf}
+    python3 -s plot_formation_location.py --no-ice-edge
+Output: fig_formation_location.{png,pdf}; with --no-ice-edge the 15% sea-ice
+edge contour and its legend entry are left out and the output is
+fig_formation_location_noice.{png,pdf} (letter Fig. R12, user 2026-11-26).
 """
 import json
+import sys
 import numpy as np
 import netCDF4 as nc
 import matplotlib as mpl
@@ -100,6 +104,8 @@ def stacked(ax, vals, colors, hatches, xlab, ylab, title, letter):
 
 
 def main():
+    ice_edge = '--no-ice-edge' not in sys.argv[1:]
+    out = 'fig_formation_location' + ('' if ice_edge else '_noice')
     D = {e: load(e) for e in EXPS}
     fig = plt.figure(figsize=(15.5, 12.8))
     gs = fig.add_gridspec(3, 5, height_ratios=[1, 1, 0.95], hspace=0.30, wspace=0.06,
@@ -141,8 +147,9 @@ def main():
                     ax.text(lo, -57.3, t, transform=ccrs.PlateCarree(), fontsize=7, color='#555555',
                             ha='center', va='center')
             ax.tricontour(d['tri'], d['bottom_depth'], levels=[1000], colors='#262626', linewidths=0.6)
-            ax.tricontour(d['tri'], d['aice_jja'], levels=[0.15], colors='k', linewidths=1.1,
-                          linestyles='--')
+            if ice_edge:
+                ax.tricontour(d['tri'], d['aice_jja'], levels=[0.15], colors='k', linewidths=1.1,
+                              linestyles='--')
             if (d['mld1_jja'][d['lat'] < LAT_EDGE] > 400).any():
                 ax.tricontour(d['tri'], d['mld1_jja'], levels=[400], colors='#7b3294', linewidths=1.3)
             ax.plot(np.linspace(-180, 180, 361), np.full(361, -60.0), transform=ccrs.PlateCarree(),
@@ -164,7 +171,9 @@ def main():
                Line2D([], [], color='k', lw=1.1, ls='--', label='JJA 15% sea-ice edge'),
                Line2D([], [], color='#7b3294', lw=1.3, label='JJA MLD 400 m'),
                Line2D([], [], color='#555555', lw=0.7, ls=':', label='60$^\\circ$S (WMT domain)')]
-    fig.legend(handles=handles, loc='upper center', bbox_to_anchor=(0.485, 0.998), ncol=4,
+    if not ice_edge:
+        handles.pop(1)
+    fig.legend(handles=handles, loc='upper center', bbox_to_anchor=(0.485, 0.998), ncol=len(handles),
                frameon=False, fontsize=9.5)
 
     # ------------------------------------------------ bars
@@ -194,8 +203,8 @@ def main():
     fig.legend(handles=leg, loc='lower center', bbox_to_anchor=(0.5, 0.0), ncol=6, frameon=False,
                fontsize=8.6, handlelength=1.6, columnspacing=1.2)
     for ext, dpi in [('png', 200), ('pdf', 300)]:
-        fig.savefig(f'{HERE}/fig_formation_location.{ext}', dpi=dpi)
-    print('saved fig_formation_location.{png,pdf}')
+        fig.savefig(f'{HERE}/{out}.{ext}', dpi=dpi)
+    print(f'saved {out}.{{png,pdf}}')
 
 
 if __name__ == '__main__':

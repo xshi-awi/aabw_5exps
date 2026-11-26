@@ -2,10 +2,10 @@
 
 AWI-ESM 五个气候态（PI / MH / LIG / LGM / MIS3）南大洋表面水团转换（WMT）的热、盐强迫分解与 SAM 调制。论文已投 Nature Communications，现处大修阶段。远程 origin = https://github.com/xshi-awi/aabw_5exps
 
-## 当前状态（2026-11-26 04:50）
+## 当前状态（2026-11-26 07:20）
 
 - **在做什么**：NC 大修。修订稿 `nc_paper/build/revised.tex`；回复信是 TexPage 上的 `revision/response_new.tex`（线上是主版本，用户在线改）。旧的 `RESPONSE_LETTER.md` 流水线和 04/05 文件留着不动。
-- **上一步做完了什么**：11-26 用户线上批注一轮做完并推 TexPage（b30db0e、4f07be5–89af427）：新 SI Fig. A13（各密度类在哪里形成）、西风增强机制与 PMIP4 对照、SST/AMOC 漂移、A10 与 push/pull 文字纠错、MH/LIG 全称、去掉 not…but / rather than 句式。细节见 `log/PROGRESS.md` 同日条目和 `nc_paper/docx_to_tex/pass_20261126/`。
+- **上一步做完了什么**：11-26 用户线上批注一轮做完并推 TexPage（b30db0e、4f07be5–89af427）：新 SI Fig. A13（各密度类在哪里形成）、西风增强机制与 PMIP4 对照、SST/AMOC 漂移、A10 与 push/pull 文字纠错、MH/LIG 全称、去掉 not…but / rather than 句式。细节见 `log/PROGRESS.md` 同日条目和 `nc_paper/docx_to_tex/pass_20261126/`。07:10 按用户要求把信里 Fig. R12 的冰缘线去掉（TexPage 347461d），稿里同图 A13 还带着，等她定。
 - **下一步**：等用户看；待她定的见 `log/OPEN.md` 末两条（批注 8、PI 海冰重算 EE1/FS/FX 先不动、A10 去留、LGM/MIS3 起步出处）。之后填致谢与基金，回填 Zenodo DOI。
 - **动手前必须知道的**：
   - 投稿稿是 `nc_paper/nc-main.tex`（sn-jnl.cls，5 位作者）；修订在 `nc_paper/build/revised.tex`。`nc_paper/main.tex` 是旧 AGU 版，不是投稿稿。
