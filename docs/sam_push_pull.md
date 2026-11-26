@@ -6,7 +6,7 @@
 
 - **PUSH**：60°S 纬圈积分的向北 Ekman 输运，由 τx 算得。
 - **PULL**：65°S 以南沿岸 brine 输入（来自 `fw_clim.nc` 的 fw，正值 = brine 输入，符号见根 CLAUDE.md）。
-- 计算 `calc_sam_push_pull.py` → `sam_push_pull.json`、`sam_push_pull.npy`；出图 `plot_sam_push_pull.py` → `figures/figR4_sam_push_pull.pdf`（4 个 panel：push、pull、两者散点、WMT 响应）。
+- 计算 `calc_sam_push_pull.py` → `sam_push_pull.json`、`sam_push_pull.npy`；出图 `plot_sam_push_pull.py` → `figures/figR4_sam_push_pull.pdf`（2026-11-26 起 3 个 panel：push、pull、WMT 响应。用户说散点那格和 r = 0.77 没用，去掉了，旧版在 `figures/versions/`）。
 - 风应力：`sam_wind/{exp}_taux.nc`，用 `ncks -v var180,var181` 从 `{exp}/echam_mergetime.nc` 抽取（var180 = ustr，var181 = vstr，1200 个月）。每个实验约 52 秒、177 MB，必须前台跑。
 
 ## 结果（正位相减负位相）

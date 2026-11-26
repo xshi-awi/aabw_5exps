@@ -123,7 +123,7 @@ FIGH = {3: 15.6, 1: 6.4, 2: 10.8}[len(ROWS)]
 fig = plt.figure(figsize=(14, FIGH))
 pad = 1.3 / FIGH                     # head room for the row header and the legend
 gs = fig.add_gridspec(len(ROWS), 2, hspace=0.52, wspace=0.18,
-                      left=0.075, right=0.98, top=1 - 1.17 / FIGH, bottom=pad)
+                      left=0.075, right=0.98, top=1 - (0.62 if MODE == 'obs' else 1.17) / FIGH, bottom=pad)
 HEAD = 0.6 / FIGH                    # row header sits this far above the axes
 
 
@@ -143,7 +143,8 @@ if 0 in ROWS:
     ax.set_xlabel(r'Neutral density, $\gamma$ (kg m$^{-3}$)', fontsize=11)
     ax.set_title('(a)  This study, PI, all terms including sea ice',
                  fontsize=12, fontweight='bold', loc='left', pad=8)
-    header(ax, 'Sea ice zone, annual mean  |  model against the published estimate')
+    if MODE != 'obs':          # 2026-11-26 user: no big heading on the one-row letter figure
+        header(ax, 'Sea ice zone, annual mean  |  model against the published estimate')
     handles = ax.get_legend_handles_labels()
 
     ax = fig.add_subplot(gs[ROWS.index(0), 1])

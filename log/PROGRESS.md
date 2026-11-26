@@ -2,6 +2,9 @@
 
 按时间倒序。2026-11-08 从根 CLAUDE.md 压缩迁来，同主题已合并，只留结论；逐次细节在 git 历史里。具体数字多在 `nc_paper/NEW_ANALYSIS_RESULTS.md` 和 `docs/`。
 
+### 2026-11-26 11:00
+用户 08:48–10:46 线上改信并留批注（TexPage 33aed08 两个 tex，666f9e1、656f1bb、19326af 图；脚本 `nc_paper/docx_to_tex/pass_20261126c/`）。西风机制整段从 L144 挪到审稿人 3「westerlies 为何都增强」那条，平衡只留一段：SST 趋势（四态 ±0.03、MIS3 +0.06 K/百年）与 AMOC 趋势（仅 PI 显著），引 PMIP4 判据 Kageyama et al. 2018 §4.1（web 读原文、Crossref 核 DOI）。Methods 改回投稿版加这三句，删掉 2 m 气温与对比段。结果 2.1 节 Gray/PMIP 段删除（与讨论重复），讨论 Gray 段按她改的引文同步并补 Kageyama2021 出处。A9/R15 去掉散点 panel c 与 r = 0.77。R13 去大标题。答了 4.45/4.48 Sv 的来历（JJA、σ2 36.93、陆架；与 Fig. 2 绿线、R13 年均不是同一量）和 MOC 南极边浅环（data_moc/CLAUDE.md）。她改的「The relevant contents ... reads」语法不对，批注意思没把握，留给她定。稿 50 页、信 41 页，0 错误。
+
 ### 2026-11-26 08:35
 用户 07:12–08:22 线上批注一轮（TexPage f0fddf6、a9541a6、6a8cc08、8cabb9a；脚本 `nc_paper/docx_to_tex/pass_20261126b/`）。审稿人 3 主意见回复按她的意思改成「ORAS5 的南极附近深混合层多在沿岸，模式沿岸少而浅，大部分在 Weddell 开阔洋」，数字新算（`explore/mld_coastal_oras5/`，原始网格，65°S 以南 MLD>200 m 的面积 ORAS5 87% 在离岸 200 km 内，模式 6%）。核数时发现 R2/R11 图注和审稿人 1 回复里「最深都在大西洋扇区、都向南极边缘加深」对 ORAS5 不成立（ORAS5 最深在 80–120°W 的 60–64°S 和沿岸），连同稿件讨论 L251「same large-scale pattern」一起改掉。A12/R2/R11 色标在 0–200 m 加密（BoundaryNorm）。泛化性回复加了「最密的水（σ2≥36.93）61% 在陆架、海冰项 4.45/4.48 Sv」和「中性密度只适用于现代海洋」；没写「mode water 由开阔洋热力形成」，因为 σ2 下 PI 峰值类与模式底层水同密度。讨论那段按她改的引文删掉开头两句和末尾三句，「move towards more brine-driven」改成「become more brine-driven」。A13 换成无冰缘线版（GC）。MOC 两问答在批注里。稿 51 页、信 42 页，0 错误。
 

@@ -28,3 +28,4 @@
 - 2026-11-26 07:10：信里 Fig. R12（`letter_figs/figS_formation_location.png`）换成 `plot_formation_location.py --no-ice-edge` 的版本，去掉 15% 冰缘线（用户要求）；稿里 A13 的 PDF 未动，待用户定。
 - 2026-11-26 08:33：A13 也换成 `--no-ice-edge` 版（用户 GC）。A12/R2/R11（`plot_mld_pi_vs_obs.py` → `figR17_mld_pi_vs_obs`）色标改成 0–200 m 每 25 m 一档（BoundaryNorm，占三分之二色标），200 以上 300、400、600、800；旧版存 `figures/versions/figR17_mld_pi_vs_obs_v20261126pre.*`。
 - 2026-11-26 08:50：180° 白缝。`plot_mld_pi_vs_obs.py`（A12/R2/R11）、`plot_mld_glacial_zoom.py`（A4/R5）、`plot_sam_wind_ice.py` 海冰行（A10/R16）都是 griddata 插到 −180…180 规则网格，凸包在日界线处断开。加 `regrid_closed`：只填 |lon|>178.5 的几列、且两侧 178° 都有值的纬度，其余格点与原插值逐格相同（数值核过）。全面扫过其余极地图（Fig. 1、3、4、6，A1、A2、A7、A8、A13，R3）没有缝（`add_cyclic_point`、tripcolor、pcolormesh 的都没事）。旧版 `figures/versions/*_v20261126pre.*`。
+- 2026-11-26 11:00：A9/R15（`plot_sam_push_pull.py`）去掉散点 panel c（用户：相关系数没用），现在 a push、b pull、c WMT 响应。R13（`plot_wmt_merged_3rows.py obs`）去掉顶部大标题；R14 两行的行标题保留。旧版 `figures/versions/*_v20261126pre.*`。

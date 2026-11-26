@@ -6,8 +6,9 @@ in every simulated climate state.
 
 (a) SAM composite Ekman transport anomaly at 60 S
 (b) SAM composite coastal brine-equivalent freshwater loss anomaly (<65 S)
-(c) the two against each other, showing they co-vary across states
-(d) SAM composite peak WMT anomaly, for reference
+(c) SAM composite peak WMT anomaly, for reference
+2026-11-26 (user): the scatter of push against pull (old panel c, r = 0.77)
+was dropped; the WMT panel is now (c). Old version figures/versions/*_v20261126pre.*
 """
 import json
 import numpy as np
@@ -57,7 +58,7 @@ def peak_wmt_anom(exp):
 
 wmt = {lab: peak_wmt_anom(e) for e, lab in zip(EXPS, LABELS)}
 
-fig, axes = plt.subplots(1, 4, figsize=(20, 5.0))
+fig, axes = plt.subplots(1, 3, figsize=(15.5, 5.0))
 x = np.arange(len(LABELS))
 
 # ---------------------------------------------------------------- (a) push
@@ -86,24 +87,13 @@ for i, v in enumerate(vals2):
     ax.text(i, v + 1.1, f'{v:.0f}', ha='center', fontsize=11.5)
 ax.set_ylim(0, max(vals2) * 1.24)
 
-# ---------------------------------------------------------------- (c) both
+# ---------------------------------------------------------------- (c) WMT
 ax = axes[2]
-for l in LABELS:
-    ax.scatter(R[l]['d_ekman'], R[l]['d_fwc'] * 1000, s=190, color=COLS[l],
-               marker=MARK[l], edgecolor='white', linewidth=1.4, zorder=5, label=l)
-ax.set_xlabel('$\\Delta$ Ekman transport  (Sv)', fontsize=13)
-ax.set_ylabel('$\\Delta$ coastal brine input  (mSv)', fontsize=13)
-ax.set_title('(c)  Push and pull\nrespond together', fontsize=15, fontweight='bold')
-ax.grid(alpha=0.25, lw=0.6)
-ax.legend(frameon=False, fontsize=11, loc='upper left')
-
-# ---------------------------------------------------------------- (d) WMT
-ax = axes[3]
 vals3 = [wmt[l][0] for l in LABELS]
 ax.bar(x, vals3, color=[COLS[l] for l in LABELS], edgecolor='none', width=0.62)
 ax.set_xticks(x); ax.set_xticklabels(LABELS, fontsize=13)
 ax.set_ylabel('$\\Delta$ peak transformation  (Sv)', fontsize=13)
-ax.set_title('(d)  The response:\ndense water formation', fontsize=15, fontweight='bold')
+ax.set_title('(c)  The response:\ndense water formation', fontsize=15, fontweight='bold')
 ax.axhline(0, color='#444444', lw=0.9)
 ax.grid(axis='y', alpha=0.25, lw=0.6)
 for i, l in enumerate(LABELS):
@@ -114,7 +104,7 @@ ax.set_ylim(0, max(vals3) * 1.34)
 for a in axes:
     a.tick_params(labelsize=12)
 
-fig.subplots_adjust(left=0.055, right=0.99, top=0.80, bottom=0.13, wspace=0.34)
+fig.subplots_adjust(left=0.07, right=0.99, top=0.80, bottom=0.13, wspace=0.34)
 fig.savefig('figures/figR4_sam_push_pull.pdf', dpi=400)
 fig.savefig('figures/figR4_sam_push_pull.png', dpi=200)
 print('saved figures/figR4_sam_push_pull.{pdf,png}')

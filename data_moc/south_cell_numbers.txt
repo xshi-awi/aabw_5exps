@@ -1,0 +1,25 @@
+Southern cell 60-70S (lat bands -71..-59), 0-4000 m: minimum of the global streamfunction (Sv), where; and max
+  PI    min  -3.34 at -69S 340 m | max 13.69 | anomaly vs PI min   0.00 at -71 0 m
+  MH    min  -3.29 at -69S 340 m | max 13.04 | anomaly vs PI min  -0.74 at -59 70 m
+  LIG   min  -3.09 at -69S 190 m | max 13.35 | anomaly vs PI min  -2.08 at -61 3400 m
+  LGM   min  -3.48 at -69S 280 m | max 16.16 | anomaly vs PI min  -2.66 at -67 1920 m
+  MIS3  min  -3.46 at -65S 160 m | max 16.14 | anomaly vs PI min  -1.99 at -63 1500 m
+Profile at 65S (lat -65) of the streamfunction, selected depths (Sv)
+    100 m: PI  -2.74  MH  -2.88  LIG  -3.02  LGM  -2.46  MIS3  -3.40
+    490 m: PI  -2.03  MH  -2.19  LIG  -2.25  LGM  -2.29  MIS3  -2.83
+   1040 m: PI  -0.48  MH  -0.76  LIG  -0.76  LGM  -1.46  MIS3  -1.72
+   1920 m: PI   0.76  MH   0.41  LIG   0.44  LGM  -1.19  MIS3  -0.69
+   2900 m: PI   0.83  MH   0.62  LIG   0.45  LGM   0.34  MIS3  -0.32
+   3900 m: PI  -1.13  MH  -1.13  LIG  -2.63  LGM   0.53  MIS3   0.62
+Abyssal index (below 2000 m, south of 30S, min) for reference
+  PI -11.69
+  MH -11.26
+  LIG -11.40
+  LGM  -2.30
+  MIS3  -1.67
+Northward export at 55S below 2000 m: streamfunction minimum over depth >= 2000 m at 55S
+  PI  -1.52  (lat -55.0)
+  MH  -1.89  (lat -55.0)
+  LIG  -1.96  (lat -55.0)
+  LGM  -0.00  (lat -55.0)
+  MIS3  -0.06  (lat -55.0)
