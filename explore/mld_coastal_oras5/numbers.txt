@@ -1,0 +1,23 @@
+ORAS5 JJA months averaged: 60; ORAS5 coastline points 2640
+
+== AWI-ESM PI (MLD1): area south of 60S 20.71e12 m2, within 200 km of coast 3.88e12 m2
+  mean MLD: within 200 km 85 m, beyond 122 m
+  MLD > 100 m: area 6.253e12 m2; within 200 km of coast 11% (of which JJA ice < 0.7: 55%); offshore Weddell 60W-30E 34%; max 991 m
+  MLD > 150 m: area 3.079e12 m2; within 200 km of coast 5% (of which JJA ice < 0.7: 68%); offshore Weddell 60W-30E 47%; max 991 m
+  MLD > 200 m: area 2.047e12 m2; within 200 km of coast 2% (of which JJA ice < 0.7: 86%); offshore Weddell 60W-30E 54%; max 991 m
+  MLD > 300 m: area 1.092e12 m2; within 200 km of coast 0% (of which JJA ice < 0.7: 66%); offshore Weddell 60W-30E 65%; max 991 m
+  MLD > 400 m: area 0.554e12 m2; within 200 km of coast 0% (of which JJA ice < 0.7: 0%); offshore Weddell 60W-30E 82%; max 991 m
+  sensitivity: MLD > 200 m within 100 km of coast 2%
+  sensitivity: MLD > 200 m within 300 km of coast 7%
+  coastal band MLD percentiles (area): p50 79, p90 119, p99 211 m
+
+== ORAS5 1990-2009 (somxl010): area south of 60S 20.23e12 m2, within 200 km of coast 4.32e12 m2
+  mean MLD: within 200 km 92 m, beyond 95 m
+  MLD > 100 m: area 4.544e12 m2; within 200 km of coast 28% (of which JJA ice < 0.7: 9%); offshore Weddell 60W-30E 6%; max 589 m
+  MLD > 150 m: area 2.508e12 m2; within 200 km of coast 24% (of which JJA ice < 0.7: 16%); offshore Weddell 60W-30E 4%; max 589 m
+  MLD > 200 m: area 1.502e12 m2; within 200 km of coast 19% (of which JJA ice < 0.7: 18%); offshore Weddell 60W-30E 3%; max 589 m
+  MLD > 300 m: area 0.171e12 m2; within 200 km of coast 13% (of which JJA ice < 0.7: 43%); offshore Weddell 60W-30E 0%; max 589 m
+  MLD > 400 m: area 0.003e12 m2; within 200 km of coast 100% (of which JJA ice < 0.7: 86%); offshore Weddell 60W-30E 0%; max 589 m
+  sensitivity: MLD > 200 m within 100 km of coast 15%
+  sensitivity: MLD > 200 m within 300 km of coast 22%
+  coastal band MLD percentiles (area): p50 76, p90 173, p99 281 m

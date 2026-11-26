@@ -40,5 +40,6 @@
 
 ## History
 
+- 2026-11-26 08:33 用户按钮 GC「A13 也去掉」：稿里 `figS_formation_location.pdf` 换成 `_noice.pdf`，图注删掉 15% 冰缘（TexPage 8cabb9a）。现在信里 R12 和稿里 A13 一致，都不带冰缘线。
 - 2026-11-26 07:10 用户要求回复信 Fig. R12 去掉海冰等值线：加 `--no-ice-edge`，`_noice.png` 拷成 `nc_paper/SUBMISSION/letter_figs/figS_formation_location.png`（TexPage 347461d）。稿里 SI A13（`build/figures/figS_formation_location.pdf`）仍带冰缘线，图注也还写着 15% winter sea ice edge，要不要一起去掉等用户定。
 - 2026-11-26 新建。三个脚本、图、numbers.txt。复现五个态论文曲线，加 0.02 bin 拆分、深度/离岸两套分区、MLD2 与带宽敏感性。

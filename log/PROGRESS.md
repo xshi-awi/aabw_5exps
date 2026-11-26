@@ -2,6 +2,9 @@
 
 按时间倒序。2026-11-08 从根 CLAUDE.md 压缩迁来，同主题已合并，只留结论；逐次细节在 git 历史里。具体数字多在 `nc_paper/NEW_ANALYSIS_RESULTS.md` 和 `docs/`。
 
+### 2026-11-26 08:35
+用户 07:12–08:22 线上批注一轮（TexPage f0fddf6、a9541a6、6a8cc08、8cabb9a；脚本 `nc_paper/docx_to_tex/pass_20261126b/`）。审稿人 3 主意见回复按她的意思改成「ORAS5 的南极附近深混合层多在沿岸，模式沿岸少而浅，大部分在 Weddell 开阔洋」，数字新算（`explore/mld_coastal_oras5/`，原始网格，65°S 以南 MLD>200 m 的面积 ORAS5 87% 在离岸 200 km 内，模式 6%）。核数时发现 R2/R11 图注和审稿人 1 回复里「最深都在大西洋扇区、都向南极边缘加深」对 ORAS5 不成立（ORAS5 最深在 80–120°W 的 60–64°S 和沿岸），连同稿件讨论 L251「same large-scale pattern」一起改掉。A12/R2/R11 色标在 0–200 m 加密（BoundaryNorm）。泛化性回复加了「最密的水（σ2≥36.93）61% 在陆架、海冰项 4.45/4.48 Sv」和「中性密度只适用于现代海洋」；没写「mode water 由开阔洋热力形成」，因为 σ2 下 PI 峰值类与模式底层水同密度。讨论那段按她改的引文删掉开头两句和末尾三句，「move towards more brine-driven」改成「become more brine-driven」。A13 换成无冰缘线版（GC）。MOC 两问答在批注里。稿 51 页、信 42 页，0 错误。
+
 ### 2026-11-26 04:50 用户 11-26 线上批注一轮（questions-14 转 04:12「回复信我又更新了，请处理」）
 
 - 拉下 38 个 TeXPage 提交（11-25 17:12 到 11-26 11:10 +0800），只改 response_new.tex：语法与措辞、把 GLORYS 意见拆成单独一条、注释掉几段，另写约 20 条 `%` 要求。按她 11-25 09:08 的授权直接改，改动在 `nc_paper/docx_to_tex/pass_20261126/`（`edits_1126_revised.py`、`edits_1126_letter.py`、`mhlig.py`、`notbut_1126.json`，可在 bb5f6eb 版上复现，md5 已对）。

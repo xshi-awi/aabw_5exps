@@ -1,0 +1,55 @@
+
+MODEL MLD>200: total 2.047e12 m2
+   lat -60..-62:   27%  (near coast   0%)
+   lat -62..-64:   18%  (near coast   0%)
+   lat -64..-66:   18%  (near coast   0%)
+   lat -66..-70:   24%  (near coast   1%)
+   lat -70..-90:   13%  (near coast   1%)
+   Weddell 60W-30E         :   55%  (near coast   1%)
+   Indian 30-90E           :   15%  (near coast   1%)
+   W Pacific 90-160E       :    0%  (near coast   0%)
+   Ross 160E-140W          :    6%  (near coast   0%)
+   Amundsen-Bell. 140-60W  :   24%  (near coast   0%)
+
+MODEL MLD>300: total 1.092e12 m2
+   lat -60..-62:   19%  (near coast   0%)
+   lat -62..-64:   15%  (near coast   0%)
+   lat -64..-66:   20%  (near coast   0%)
+   lat -66..-70:   30%  (near coast   0%)
+   lat -70..-90:   15%  (near coast   0%)
+   Weddell 60W-30E         :   65%  (near coast   0%)
+   Indian 30-90E           :   15%  (near coast   0%)
+   W Pacific 90-160E       :    0%  (near coast   0%)
+   Ross 160E-140W          :    0%  (near coast   0%)
+   Amundsen-Bell. 140-60W  :   20%  (near coast   0%)
+  MODEL near-coast area with MLD>200: 0.051e12 m2; >150: 0.162e12 m2
+
+ORAS5 MLD>200: total 1.502e12 m2
+   lat -60..-62:   50%  (near coast   0%)
+   lat -62..-64:   25%  (near coast   0%)
+   lat -64..-66:    3%  (near coast   0%)
+   lat -66..-70:    5%  (near coast   5%)
+   lat -70..-90:   16%  (near coast  14%)
+   Weddell 60W-30E         :   11%  (near coast   8%)
+   Indian 30-90E           :    4%  (near coast   4%)
+   W Pacific 90-160E       :    2%  (near coast   2%)
+   Ross 160E-140W          :   17%  (near coast   6%)
+   Amundsen-Bell. 140-60W  :   67%  (near coast   0%)
+
+ORAS5 MLD>300: total 0.171e12 m2
+   lat -60..-62:   84%  (near coast   0%)
+   lat -62..-64:    3%  (near coast   0%)
+   lat -64..-66:    0%  (near coast   0%)
+   lat -66..-70:    2%  (near coast   2%)
+   lat -70..-90:   11%  (near coast  11%)
+   Weddell 60W-30E         :    4%  (near coast   4%)
+   Indian 30-90E           :    2%  (near coast   2%)
+   W Pacific 90-160E       :    0%  (near coast   0%)
+   Ross 160E-140W          :    7%  (near coast   7%)
+   Amundsen-Bell. 140-60W  :   87%  (near coast   1%)
+  ORAS5 near-coast area with MLD>200: 0.291e12 m2; >150: 0.603e12 m2
+
+MODEL south of 65S, MLD>150: 1.228e12 m2, within 200 km of coast 13%, offshore Weddell 79%
+MODEL south of 65S, MLD>200: 0.894e12 m2, within 200 km of coast 6%, offshore Weddell 87%
+ORAS5 south of 65S, MLD>150: 0.742e12 m2, within 200 km of coast 81%, offshore Weddell 12%
+ORAS5 south of 65S, MLD>200: 0.334e12 m2, within 200 km of coast 87%, offshore Weddell 11%

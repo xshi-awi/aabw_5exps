@@ -17,6 +17,11 @@ One caveat is stated in the caption rather than buried: the two use different
 definitions. ORAS5 uses a 0.01 kg/m3 density threshold, our model a bulk
 Richardson number criterion, so a point-by-point difference is not purely model
 error.
+
+2026-11-26 (user): the colour scale is stretched between 0 and 200 m (25 m
+steps, two thirds of the colour range) so that the moderately deep coastal
+mixed layers are visible; above 200 m the steps are 300, 400, 600, 800 m.
+Previous version: figures/versions/figR17_mld_pi_vs_obs_v20261126pre.*
 """
 import glob
 import numpy as np
@@ -93,13 +98,14 @@ fig = plt.figure(figsize=(11.6, 6.3))
 gs = fig.add_gridspec(1, 2, wspace=0.08, left=0.05, right=0.96,
                       top=0.92, bottom=0.17)
 proj = ccrs.SouthPolarStereo()
-levels = np.arange(0, 801, 50)
+levels = np.array([0, 25, 50, 75, 100, 125, 150, 175, 200, 300, 400, 600, 800])
+norm = mpl.colors.BoundaryNorm(levels, ncolors=256, extend='max')
 
 for c, (title, grid) in enumerate(panels):
     ax = fig.add_subplot(gs[0, c], projection=proj)
     ax.set_extent([-180, 180, -90, -60], crs=ccrs.PlateCarree())
     circular(ax)
-    cf = ax.contourf(GX, GY, grid, levels=levels, cmap='YlGnBu',
+    cf = ax.contourf(GX, GY, grid, levels=levels, cmap='YlGnBu', norm=norm,
                      extend='max', transform=ccrs.PlateCarree())
     ax.add_feature(cfeature.LAND, facecolor='#999999', zorder=3)
     gl = ax.gridlines(draw_labels=True, linewidth=0.5, color='gray',
@@ -110,7 +116,7 @@ for c, (title, grid) in enumerate(panels):
 
 cax = fig.add_axes([0.30, 0.095, 0.40, 0.028])
 cb = fig.colorbar(cf, cax=cax, orientation='horizontal',
-                  ticks=np.arange(0, 801, 200))
+                  ticks=[0, 50, 100, 150, 200, 300, 400, 600, 800])
 cb.set_label('JJA mixed layer depth (m)', fontsize=13)
 cb.ax.tick_params(labelsize=11)
 
