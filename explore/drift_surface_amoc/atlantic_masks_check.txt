@@ -1,0 +1,17 @@
+awicm2_final384: nodes 126858, in boxes 52296, connected Atlantic 52232, dropped 64
+  dropped    12 nodes at -40..8N, lon -70.0..29.8
+  dropped    16 nodes at 8..16N, lon -83.9..-78.3
+  dropped    15 nodes at 16..30N, lon -99.9..-93.9
+  dropped    18 nodes at 30..66N, lon -114.9..-112.5
+  dropped     3 nodes at 66..91N, lon -179.7..-178.8
+  user mask mask_NA_pi.dat: 52327 nodes; equal to boxes rule: False; user-not-ours 95, ours-not-user 0
+mesh_glac1d: nodes 92416, in boxes 30745, connected Atlantic 30727, dropped 18
+  dropped    12 nodes at -40..8N, lon -70.0..29.8
+  dropped     4 nodes at 8..16N, lon -83.7..-79.9
+  dropped     2 nodes at 16..30N, lon -99.7..-98.9
+  user mask mask_NA_lgm.dat: 30745 nodes; equal to boxes rule: True; user-not-ours 18, ours-not-user 0
+mesh_glac1d_38k: nodes 102065, in boxes 37328, connected Atlantic 37307, dropped 21
+  dropped    10 nodes at -40..8N, lon 28.0..29.8
+  dropped     4 nodes at 8..16N, lon -83.7..-82.4
+  dropped     7 nodes at 16..30N, lon -99.8..-97.0
+  user mask mask_NA_38k.dat: 37328 nodes; equal to boxes rule: True; user-not-ours 21, ours-not-user 0

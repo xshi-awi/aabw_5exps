@@ -1,0 +1,15 @@
+PI (awicm2_final384): runoff south of 60S 0.0852 Sv (plain 12-month mean); receiving nodes 6797 of 13274; on coastal nodes 9.2%, coastal or first neighbour 29.6%; negative node values 0 (sum 0.00e+00 Sv)
+  distance to coast: <100 km 69.4% <200 km 95.8% <300 km 99.8%; runoff-weighted mean 77 km
+  monthly Sv: 0.053 0.064 0.086 0.103 0.105 0.105 0.102 0.097 0.093 0.086 0.070 0.057
+MH (awicm2_final384): runoff south of 60S 0.0825 Sv (plain 12-month mean); receiving nodes 6797 of 13274; on coastal nodes 9.2%, coastal or first neighbour 29.6%; negative node values 0 (sum 0.00e+00 Sv)
+  distance to coast: <100 km 69.4% <200 km 95.8% <300 km 99.8%; runoff-weighted mean 77 km
+  monthly Sv: 0.050 0.063 0.085 0.101 0.103 0.100 0.098 0.095 0.092 0.083 0.066 0.052
+LIG (awicm2_final384): runoff south of 60S 0.0871 Sv (plain 12-month mean); receiving nodes 6797 of 13274; on coastal nodes 9.1%, coastal or first neighbour 29.5%; negative node values 0 (sum 0.00e+00 Sv)
+  distance to coast: <100 km 69.4% <200 km 95.8% <300 km 99.8%; runoff-weighted mean 77 km
+  monthly Sv: 0.057 0.068 0.090 0.105 0.107 0.106 0.106 0.102 0.097 0.086 0.066 0.056
+LGM (mesh_glac1d): runoff south of 60S 0.0704 Sv (plain 12-month mean); receiving nodes 3142 of 7413; on coastal nodes 9.9%, coastal or first neighbour 34.7%; negative node values 0 (sum 0.00e+00 Sv)
+  distance to coast: <100 km 52.7% <200 km 87.8% <300 km 99.2%; runoff-weighted mean 108 km
+  monthly Sv: 0.061 0.055 0.064 0.074 0.078 0.079 0.079 0.080 0.079 0.074 0.064 0.059
+MIS3 (mesh_glac1d_38k): runoff south of 60S 0.0691 Sv (plain 12-month mean); receiving nodes 4246 of 8731; on coastal nodes 8.2%, coastal or first neighbour 28.2%; negative node values 0 (sum 0.00e+00 Sv)
+  distance to coast: <100 km 55.6% <200 km 89.1% <300 km 99.2%; runoff-weighted mean 101 km
+  monthly Sv: 0.059 0.056 0.062 0.072 0.077 0.080 0.079 0.078 0.076 0.072 0.063 0.056

@@ -1,0 +1,106 @@
+{
+ "model": "AWI-ESM (this study)",
+ "source": "this study",
+ "member": "-",
+ "exps": {
+  "piControl": {
+   "u10jja": {
+    "lat_fit": -45.22750147929987,
+    "val_fit": 5.83035388041997,
+    "lat_grid": -45.698693877701785,
+    "val_grid": 5.828492504854997,
+    "flag": "ok",
+    "y0": "clim",
+    "y1": "clim",
+    "nyears": "echam_clim",
+    "dir": "/work/ba1066/a270064/cc_projects/aabw_5exps/pi/echam_clim.nc",
+    "field_min": -10.454344431559244,
+    "field_max": 11.12765121459961
+   },
+   "tauu_ocn": {
+    "lat_fit": -48.638333010947505,
+    "val_fit": 0.1726671644760125,
+    "lat_grid": -49.42915369712305,
+    "val_grid": 0.17184087943734852,
+    "flag": "ok",
+    "y0": "all",
+    "y1": "all",
+    "nyears": 100,
+    "nmonths": 1200,
+    "dir": "/work/ba1066/a270064/cc_projects/aabw_5exps/sam_wind/pi_taux.nc",
+    "sftlf": "/work/ba1066/a270064/cc_projects/aabw_5exps/pi/echam_clim.nc:var172<0.5",
+    "field_min": -0.32118604550759,
+    "field_max": 0.7779658458133538
+   },
+   "ua850": {
+    "missing": "not computed for our runs"
+   }
+  },
+  "midHolocene": {
+   "u10jja": {
+    "lat_fit": -45.0059298717814,
+    "val_fit": 5.849990795077439,
+    "lat_grid": -45.698693877701785,
+    "val_grid": 5.844937831370366,
+    "flag": "ok",
+    "y0": "clim",
+    "y1": "clim",
+    "nyears": "echam_clim",
+    "dir": "/work/ba1066/a270064/cc_projects/aabw_5exps/mh/echam_clim.nc",
+    "field_min": -10.1312042872111,
+    "field_max": 10.672982215881348
+   },
+   "tauu_ocn": {
+    "lat_fit": -48.33988153176439,
+    "val_fit": 0.17230891650497426,
+    "lat_grid": -47.56392574797867,
+    "val_grid": 0.17184145675166282,
+    "flag": "ok",
+    "y0": "all",
+    "y1": "all",
+    "nyears": 100,
+    "nmonths": 1200,
+    "dir": "/work/ba1066/a270064/cc_projects/aabw_5exps/sam_wind/mh_taux.nc",
+    "sftlf": "/work/ba1066/a270064/cc_projects/aabw_5exps/mh/echam_clim.nc:var172<0.5",
+    "field_min": -0.31253210847576457,
+    "field_max": 0.8283586485683918
+   },
+   "ua850": {
+    "missing": "not computed for our runs"
+   }
+  },
+  "lgm": {
+   "u10jja": {
+    "lat_fit": -50.126226057730904,
+    "val_fit": 6.316845459311608,
+    "lat_grid": -49.42915369712305,
+    "val_grid": 6.303006684873253,
+    "flag": "ok",
+    "y0": "clim",
+    "y1": "clim",
+    "nyears": "echam_clim",
+    "dir": "/work/ba1066/a270064/cc_projects/aabw_5exps/lgm/echam_clim.nc",
+    "field_min": -10.63372008005778,
+    "field_max": 11.775339444478353
+   },
+   "tauu_ocn": {
+    "lat_fit": -49.4243518227219,
+    "val_fit": 0.195094499295569,
+    "lat_grid": -49.42915369712305,
+    "val_grid": 0.1950944675369696,
+    "flag": "ok",
+    "y0": "all",
+    "y1": "all",
+    "nyears": 100,
+    "nmonths": 1200,
+    "dir": "/work/ba1066/a270064/cc_projects/aabw_5exps/sam_wind/lgm_taux.nc",
+    "sftlf": "/work/ba1066/a270064/cc_projects/aabw_5exps/lgm/echam_clim.nc:var172<0.5",
+    "field_min": -0.3725762008627256,
+    "field_max": 0.5130629134674867
+   },
+   "ua850": {
+    "missing": "not computed for our runs"
+   }
+  }
+ }
+}

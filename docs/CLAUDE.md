@@ -9,3 +9,4 @@
 - `ross_sector_seaice.md` 审稿人 1 第 13 条：冰期 Ross 海没有偏暖，信号在 LIG
 - `reanalysis_wmt_feasibility.md` 能否用再分析算观测 WMT：GLORYS 无表面通量，ORAS5 淡水不含结冰项
 - `oras5_data_description.md` ORAS5 是什么，它是再分析不是观测
+- `proposal_my_style_no_contrast.md` 给总管的 my_style 修改建议：禁用「不是……而是 / rather than」句式（用户 11-26）

@@ -1,0 +1,56 @@
+Shift = |lat_LGM| - |lat_ref| (deg), positive = poleward. lat = parabolic fit; grid = raw grid-row shift. Strength from grid-max value.
+
+== u10jja  LGM - PI
+  AWI-ESM-1-1-LR           ref  -49.21    6.317  lgm  -48.66    6.261  shift  -0.56 (grid  +0.00)  dval  -0.0556  pct   -0.9%  centroid shift  -0.40
+  INM-CM4-8                ref  -46.59    6.052  lgm  -47.71    6.077  shift  +1.12 (grid  +0.00)  dval  +0.0253  pct   +0.4%  centroid shift  +0.46
+  MIROC-ES2L               ref  -35.85    3.607  lgm  -35.69    3.518  shift  -0.16 (grid  +0.00)  dval  -0.0885  pct   -2.5%  centroid shift  +0.37
+  MPI-ESM1-2-LR            ref  -44.16    5.669  lgm  -44.28    5.317  shift  +0.12 (grid  +0.00)  dval  -0.3523  pct   -6.2%  centroid shift  -0.27
+  AWI-ESM (this study)     ref  -45.23    5.828  lgm  -50.13    6.303  shift  +4.90 (grid  +3.73)  dval  +0.4745  pct   +8.1%  centroid shift  +1.19
+  PMIP4 n=4: shift mean +0.13 range [-0.56, +1.12]; poleward 2 equatorward 2 zero 0; pct mean -2.3% range [-6.2, +0.4]%; stronger 1 weaker 3
+  PMIP4 centroid shift mean +0.04 range [-0.40, +0.46]; poleward 2 equatorward 2
+
+== u10jja  LGM - MH
+  AWI-ESM-1-1-LR           ref  -48.58    6.063  lgm  -48.66    6.261  shift  +0.08 (grid  +0.00)  dval  +0.1984  pct   +3.3%  centroid shift  +0.05
+  INM-CM4-8                ref  -46.97    5.973  lgm  -47.71    6.077  shift  +0.74 (grid  +0.00)  dval  +0.1049  pct   +1.8%  centroid shift  +0.41
+  MIROC-ES2L               ref  -35.78    3.571  lgm  -35.69    3.518  shift  -0.09 (grid  +0.00)  dval  -0.0532  pct   -1.5%  centroid shift  +0.63
+  MPI-ESM1-2-LR            ref  -40.58    5.764  lgm  -44.28    5.317  shift  +3.70 (grid  +3.73)  dval  -0.4473  pct   -7.8%  centroid shift  +0.21
+  AWI-ESM (this study)     ref  -45.01    5.845  lgm  -50.13    6.303  shift  +5.12 (grid  +3.73)  dval  +0.4581  pct   +7.8%  centroid shift  +1.53
+  PMIP4 n=4: shift mean +1.11 range [-0.09, +3.70]; poleward 3 equatorward 1 zero 0; pct mean -1.1% range [-7.8, +3.3]%; stronger 2 weaker 2
+  PMIP4 centroid shift mean +0.32 range [+0.05, +0.63]; poleward 4 equatorward 0
+
+== tauu_ocn  LGM - PI
+  AWI-ESM-1-1-LR           ref  -50.21   0.1909  lgm  -49.70   0.1992  shift  -0.51 (grid  +0.00)  dval  +0.0083  pct   +4.4%  centroid shift  -0.56
+  INM-CM4-8                ref  -52.84   0.1875  lgm  -52.47   0.1819  shift  -0.38 (grid  -1.50)  dval  -0.0055  pct   -3.0%  centroid shift  +0.01
+  MIROC-ES2L               ref  -45.14   0.1027  lgm  -43.92   0.1017  shift  -1.21 (grid  -2.79)  dval  -0.0011  pct   -1.0%  centroid shift  -0.68
+  MPI-ESM1-2-LR            ref  -48.88   0.1744  lgm  -48.51   0.1691  shift  -0.36 (grid  +0.00)  dval  -0.0054  pct   -3.1%  centroid shift  -0.59
+  AWI-ESM (this study)     ref  -48.64   0.1718  lgm  -49.42   0.1951  shift  +0.79 (grid  +0.00)  dval  +0.0233  pct  +13.5%  centroid shift  +0.46
+  PMIP4 n=4: shift mean -0.62 range [-1.21, -0.36]; poleward 0 equatorward 4 zero 0; pct mean -0.7% range [-3.1, +4.4]%; stronger 1 weaker 3
+  PMIP4 centroid shift mean -0.45 range [-0.68, +0.01]; poleward 1 equatorward 3
+
+== tauu_ocn  LGM - MH
+  AWI-ESM-1-1-LR           ref  -50.10   0.1881  lgm  -49.70   0.1992  shift  -0.39 (grid  +0.00)  dval  +0.0111  pct   +5.9%  centroid shift  -0.50
+  INM-CM4-8                ref  -52.38   0.1817  lgm  -52.47   0.1819  shift  +0.08 (grid  +0.00)  dval  +0.0002  pct   +0.1%  centroid shift  +0.34
+  MIROC-ES2L               ref  -44.26   0.1009  lgm  -43.92   0.1017  shift  -0.34 (grid  +0.00)  dval  +0.0007  pct   +0.7%  centroid shift  -0.28
+  MPI-ESM1-2-LR            ref  -48.85    0.175  lgm  -48.51   0.1691  shift  -0.33 (grid  +0.00)  dval  -0.0059  pct   -3.4%  centroid shift  -0.57
+  AWI-ESM (this study)     ref  -48.34   0.1718  lgm  -49.42   0.1951  shift  +1.08 (grid  +1.87)  dval  +0.0233  pct  +13.5%  centroid shift  +0.58
+  PMIP4 n=4: shift mean -0.25 range [-0.39, +0.08]; poleward 1 equatorward 3 zero 0; pct mean +0.8% range [-3.4, +5.9]%; stronger 3 weaker 1
+  PMIP4 centroid shift mean -0.25 range [-0.57, +0.34]; poleward 1 equatorward 3
+
+== ua850  LGM - PI
+  AWI-ESM-1-1-LR           ref  -48.95    12.56  lgm  -48.34    12.98  shift  -0.61 (grid  -1.87)  dval  +0.4156  pct   +3.3%  centroid shift  -0.40
+  INM-CM4-8                ref  -50.87    11.51  lgm     nan      nan  shift   +nan (grid   +nan)  dval     +nan  pct   +nan%  centroid shift   +nan
+  MIROC-ES2L               ref  -43.59     8.31  lgm  -42.47    8.359  shift  -1.12 (grid  +0.00)  dval  +0.0491  pct   +0.6%  centroid shift  -0.62
+  MPI-ESM1-2-LR            ref  -47.05    11.81  lgm  -46.52    11.68  shift  -0.53 (grid  -1.87)  dval  -0.1320  pct   -1.1%  centroid shift  -0.42
+  AWI-ESM (this study)     ref     nan      nan  lgm     nan      nan  shift   +nan (grid   +nan)  dval     +nan  pct   +nan%  centroid shift   +nan
+  PMIP4 n=3: shift mean -0.76 range [-1.12, -0.53]; poleward 0 equatorward 3 zero 0; pct mean +0.9% range [-1.1, +3.3]%; stronger 2 weaker 1
+  PMIP4 centroid shift mean -0.48 range [-0.62, -0.40]; poleward 0 equatorward 3
+
+== ua850  LGM - MH
+  AWI-ESM-1-1-LR           ref  -48.84    12.43  lgm  -48.34    12.98  shift  -0.50 (grid  -1.87)  dval  +0.5505  pct   +4.4%  centroid shift  -0.37
+  INM-CM4-8                ref  -50.43    11.33  lgm     nan      nan  shift   +nan (grid   +nan)  dval     +nan  pct   +nan%  centroid shift   +nan
+  MIROC-ES2L               ref  -43.24    8.312  lgm  -42.47    8.359  shift  -0.77 (grid  +0.00)  dval  +0.0472  pct   +0.6%  centroid shift  -0.35
+  MPI-ESM1-2-LR            ref  -47.01    11.86  lgm  -46.52    11.68  shift  -0.49 (grid  -1.87)  dval  -0.1874  pct   -1.6%  centroid shift  -0.48
+  AWI-ESM (this study)     ref     nan      nan  lgm     nan      nan  shift   +nan (grid   +nan)  dval     +nan  pct   +nan%  centroid shift   +nan
+  PMIP4 n=3: shift mean -0.59 range [-0.77, -0.49]; poleward 0 equatorward 3 zero 0; pct mean +1.1% range [-1.6, +4.4]%; stronger 2 weaker 1
+  PMIP4 centroid shift mean -0.40 range [-0.48, -0.35]; poleward 0 equatorward 3
+

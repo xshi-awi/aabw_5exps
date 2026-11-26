@@ -1,0 +1,147 @@
+{
+ "model": "INM-CM4-8",
+ "source": "PMIP4",
+ "member": "r1i1p1f1",
+ "exps": {
+  "piControl": {
+   "u10jja": {
+    "y0": 2281,
+    "y1": 2380,
+    "nyears": 100,
+    "nmonths": 1200,
+    "complete": true,
+    "n_fill_masked": 0,
+    "dir": "/work/ik1017/CMIP6/data/CMIP6/CMIP/INM/INM-CM4-8/piControl/r1i1p1f1/Amon/uas/gr1/v20190605",
+    "field_min": -11.172761561075847,
+    "field_max": 9.097420336008073,
+    "lat_fit": -46.588850384354494,
+    "val_fit": 6.060960196693806,
+    "lat_grid": -47.25,
+    "val_grid": 6.052157104889488,
+    "flag": "ok"
+   },
+   "tauu_ocn": {
+    "y0": 2281,
+    "y1": 2380,
+    "nyears": 100,
+    "nmonths": 1200,
+    "complete": true,
+    "n_fill_masked": 0,
+    "dir": "/work/ik1017/CMIP6/data/CMIP6/CMIP/INM/INM-CM4-8/piControl/r1i1p1f1/Amon/tauu/gr1/v20190605",
+    "sftlf": "/work/ik1017/CMIP6/data/CMIP6/CMIP/INM/INM-CM4-8/piControl/r1i1p1f1/fx/sftlf/gr1/v20190604/sftlf_fx_INM-CM4-8_piControl_r1i1p1f1_gr1.nc",
+    "field_min": -1.3508525672306615,
+    "field_max": 1.527574836685477,
+    "lat_fit": -52.84469205728586,
+    "val_fit": 0.1877298295908778,
+    "lat_grid": -53.25,
+    "val_grid": 0.18747732844418757,
+    "flag": "ok"
+   },
+   "ua850": {
+    "y0": 2281,
+    "y1": 2380,
+    "nyears": 100,
+    "nmonths": 1200,
+    "complete": true,
+    "n_fill_masked": 0,
+    "dir": "/work/ik1017/CMIP6/data/CMIP6/CMIP/INM/INM-CM4-8/piControl/r1i1p1f1/Amon/ua/gr1/v20190605",
+    "field_min": -10.846205047369002,
+    "field_max": 13.665345175266268,
+    "lat_fit": -50.865099308731274,
+    "val_fit": 11.530919770369735,
+    "lat_grid": -50.25,
+    "val_grid": 11.511020415327913,
+    "flag": "ok"
+   }
+  },
+  "midHolocene": {
+   "u10jja": {
+    "y0": 1980,
+    "y1": 2079,
+    "nyears": 100,
+    "nmonths": 1200,
+    "complete": true,
+    "n_fill_masked": 0,
+    "dir": "/work/ik1017/CMIP6/data/CMIP6/PMIP/INM/INM-CM4-8/midHolocene/r1i1p1f1/Amon/uas/gr1/v20190802",
+    "field_min": -10.62009744644165,
+    "field_max": 8.818289324442546,
+    "lat_fit": -46.97257502177279,
+    "val_fit": 5.974168487076696,
+    "lat_grid": -47.25,
+    "val_grid": 5.972553060226544,
+    "flag": "ok"
+   },
+   "tauu_ocn": {
+    "y0": 1980,
+    "y1": 2079,
+    "nyears": 100,
+    "nmonths": 1200,
+    "complete": true,
+    "n_fill_masked": 0,
+    "dir": "/work/ik1017/CMIP6/data/CMIP6/PMIP/INM/INM-CM4-8/midHolocene/r1i1p1f1/Amon/tauu/gr1/v20190802",
+    "sftlf": "/work/ik1017/CMIP6/data/CMIP6/PMIP/INM/INM-CM4-8/midHolocene/r1i1p1f1/fx/sftlf/gr1/v20190802/sftlf_fx_INM-CM4-8_midHolocene_r1i1p1f1_gr1.nc",
+    "field_min": -1.2914959863324962,
+    "field_max": 1.5808700713348418,
+    "lat_fit": -52.38213661394804,
+    "val_fit": 0.18233822051757897,
+    "lat_grid": -51.75,
+    "val_grid": 0.1817413726027111,
+    "flag": "ok"
+   },
+   "ua850": {
+    "y0": 1980,
+    "y1": 2079,
+    "nyears": 100,
+    "nmonths": 1200,
+    "complete": true,
+    "n_fill_masked": 0,
+    "dir": "/work/ik1017/CMIP6/data/CMIP6/PMIP/INM/INM-CM4-8/midHolocene/r1i1p1f1/Amon/ua/gr1/v20190802",
+    "field_min": -10.764840253194173,
+    "field_max": 13.141996242205302,
+    "lat_fit": -50.42860754139119,
+    "val_fit": 11.327163066860521,
+    "lat_grid": -50.25,
+    "val_grid": 11.325517406325886,
+    "flag": "ok"
+   }
+  },
+  "lgm": {
+   "u10jja": {
+    "y0": 2000,
+    "y1": 2099,
+    "nyears": 100,
+    "nmonths": 1200,
+    "complete": true,
+    "n_fill_masked": 0,
+    "dir": "/work/ik1017/CMIP6/data/CMIP6/PMIP/INM/INM-CM4-8/lgm/r1i1p1f1/Amon/uas/gr1/v20190802",
+    "field_min": -13.47300416946411,
+    "field_max": 8.847422927220663,
+    "lat_fit": -47.712591848296206,
+    "val_fit": 6.083235938950473,
+    "lat_grid": -47.25,
+    "val_grid": 6.077486641531905,
+    "flag": "ok"
+   },
+   "tauu_ocn": {
+    "y0": 2000,
+    "y1": 2099,
+    "nyears": 100,
+    "nmonths": 1200,
+    "complete": true,
+    "n_fill_masked": 0,
+    "dir": "/work/ik1017/CMIP6/data/CMIP6/PMIP/INM/INM-CM4-8/lgm/r1i1p1f1/Amon/tauu/gr1/v20190802",
+    "sftlf": "/work/ik1017/CMIP6/data/CMIP6/PMIP/INM/INM-CM4-8/lgm/r1i1p1f1/fx/sftlf/gr1/v20190802/sftlf_fx_INM-CM4-8_lgm_r1i1p1f1_gr1.nc",
+    "field_min": -1.99619339376688,
+    "field_max": 1.4586354165275892,
+    "lat_fit": -52.465919898338115,
+    "val_fit": 0.1825360138262324,
+    "lat_grid": -51.75,
+    "val_grid": 0.18193827208133823,
+    "flag": "ok"
+   },
+   "ua850": {
+    "missing": "no Amon/ua"
+   }
+  }
+ }
+}

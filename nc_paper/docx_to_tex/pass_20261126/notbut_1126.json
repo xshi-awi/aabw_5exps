@@ -1,0 +1,317 @@
+{
+ "revised": [
+  {
+   "old": "Indeed, existing paleoclimate modeling studies have largely diagnosed circulation changes through overturning streamfunctions, water mass volumes, or deep-ocean tracer distributions \\cite{Weber2007,Wainer2012}, rather than by explicitly decomposing the surface buoyancy fluxes that drive those changes.",
+   "new": "Indeed, existing paleoclimate modeling studies have largely diagnosed circulation changes through overturning streamfunctions, water mass volumes, or deep-ocean tracer distributions \\cite{Weber2007,Wainer2012}. The surface buoyancy fluxes that drive those changes have rarely been decomposed explicitly.",
+   "line": 78
+  },
+  {
+   "old": "Because that offset is applied uniformly, the anomaly maps in Fig. \\ref{sst}g,h combine it with the locally generated signal, and the regional structure rather than the absolute magnitude is what reflects local dynamics.",
+   "new": "Because that offset is applied uniformly, the anomaly maps in Fig. \\ref{sst}g,h combine it with the locally generated signal, so only their regional structure reflects local dynamics.",
+   "line": 110
+  },
+  {
+   "old": "The surface density anomalies (Fig. \\ref{sst}i-l) follow the salinity field rather than the temperature field in the glacial states.",
+   "new": "In the glacial states the surface density anomalies (Fig. \\ref{sst}i-l) follow the salinity field.",
+   "line": 110
+  },
+  {
+   "old": "In PI this convection is concentrated in the Weddell sector, which accounts for 70\\% of the area with a winter mixed layer deeper than 400 m south of 55°S and for 97\\% of the area deeper than 600 m, centred near 68°S in the interior of the gyre rather than over the continental shelf.",
+   "new": "In PI this convection is concentrated in the Weddell sector, which accounts for 70\\% of the area with a winter mixed layer deeper than 400 m south of 55°S and for 97\\% of the area deeper than 600 m, centred near 68°S in the interior of the gyre, away from the continental shelf.",
+   "line": 115
+  },
+  {
+   "old": "The reduction is substantial rather than complete.",
+   "new": "The reduction is substantial, and some deep mixed layers remain.",
+   "line": 115
+  },
+  {
+   "old": "The residual glacial signals in coastal regions are therefore genuinely shallower than their interglacial counterparts (Supplementary Fig. \\ref{s1}), consistent with dense water production that is confined to narrow coastal bands rather than distributed across the open gyres.",
+   "new": "The residual glacial signals in coastal regions are therefore genuinely shallower than their interglacial counterparts (Supplementary Fig. \\ref{s1}), consistent with dense water production that is confined to narrow coastal bands.",
+   "line": 115
+  },
+  {
+   "old": "The Ross sector instead stands out in the last interglacial.",
+   "new": "In the last interglacial the Ross sector stands out.",
+   "line": 118
+  },
+  {
+   "old": "We note that this thermally dominated maximum occurs at densities that correspond to intermediate and mode waters rather than to bottom water.",
+   "new": "We note that this thermally dominated maximum occurs at densities that correspond to intermediate and mode waters, which are lighter than bottom water.",
+   "line": 128
+  },
+  {
+   "old": "This indicates that under extensive glacial sea ice cover, SAM-driven changes in brine rejection, rather than direct heat loss, become the dominant process for modulating dense water formation.",
+   "new": "This indicates that under extensive glacial sea ice cover, SAM-driven changes in brine rejection become the dominant process for modulating dense water formation.",
+   "line": 163
+  },
+  {
+   "old": "Freshwater flux composites indicate that SAM influences dense water formation primarily through sea ice processes rather than net precipitation or river runoff (Fig.~\\ref{sam_fwf}f-j against k-o).",
+   "new": "Freshwater flux composites indicate that SAM influences dense water formation primarily through sea ice processes, and that net precipitation and river runoff contribute less (Fig.~\\ref{sam_fwf}f-j against k-o).",
+   "line": 174
+  },
+  {
+   "old": "These composites indicate that the mode acts on dense water formation through two routes at once, rather than through the wind alone.",
+   "new": "These composites indicate that the mode acts on dense water formation through two routes at once.",
+   "line": 176
+  },
+  {
+   "old": "These are local magnitudes and not area totals, because the freshwater term makes the surface denser near the coast and lighter further offshore.",
+   "new": "These comparisons use local magnitudes. The freshwater term makes the surface denser near the coast and lighter further offshore, so its two parts partly offset each other in an area total.",
+   "line": 184
+  },
+  {
+   "old": "The glacial reorganisation in these simulations is therefore concentrated in the abyssal cell and expresses a contraction of the southern-sourced cell rather than a wholesale collapse of the overturning.",
+   "new": "The glacial reorganisation in these simulations is therefore concentrated in the abyssal cell and expresses a contraction of the southern-sourced cell. The overturning as a whole remains active.",
+   "line": 219
+  },
+  {
+   "old": "For example, based on Argo floats and instrumented seals, Pellichero et al. \\cite{Pellichero2018} show that seasonal sea ice growth and melt dominates WMT in the ice-covered region, with freshwater fluxes rather than heat fluxes driving the meridional overturning that feeds bottom water formation, yielding an annual mean of approximately 5$\\pm$5 Sv transformation into denser bottom water classes.",
+   "new": "For example, based on Argo floats and instrumented seals, Pellichero et al. \\cite{Pellichero2018} show that seasonal sea ice growth and melt dominates WMT in the ice-covered region, with freshwater fluxes driving the meridional overturning that feeds bottom water formation, yielding an annual mean of approximately 5$\\pm$5 Sv transformation into denser bottom water classes.",
+   "line": 241
+  },
+  {
+   "old": "Because this difference concerns the central claim of the present study, we examined it directly rather than attributing it to unspecified model bias.",
+   "new": "Because this difference concerns the central claim of the present study, we examined it directly.",
+   "line": 241
+  },
+  {
+   "old": "A residual discrepancy remains, and it reflects a genuine limitation of the model rather than a difference in bookkeeping.",
+   "new": "A residual discrepancy remains, and it reflects a genuine limitation of the model.",
+   "line": 247
+  },
+  {
+   "old": "In the model, PI dense water forms by open-ocean convection in the interior of the Weddell gyre near 68°S, not by the sequence of ice shelf melt, dense shelf water formation in coastal polynyas, and downslope overflow that operates in the real ocean \\cite{Orsi1999,ToggweilerSamuels1995}.",
+   "new": "In the real ocean, dense water forms through a sequence of ice shelf melt, dense shelf water formation in coastal polynyas, and downslope overflow \\cite{Orsi1999,ToggweilerSamuels1995}. In the model, PI dense water forms by open-ocean convection in the interior of the Weddell gyre near 68°S.",
+   "line": 247
+  },
+  {
+   "old": "Independent evaluations of this model provide context for these limitations, and we summarise the relevant points here rather than leaving them to be sought in the model description literature.",
+   "new": "Independent evaluations of this model provide context for these limitations, and we summarise the relevant points here.",
+   "line": 249
+  },
+  {
+   "old": "This bias is shared across the current generation of climate models rather than particular to AWI-ESM2.",
+   "new": "AWI-ESM2 shares this bias with the current generation of climate models.",
+   "line": 251
+  },
+  {
+   "old": "Our results should be read as a statement about how the partitioning of surface buoyancy forcing between heat and freshwater responds to changing sea ice cover, which is a robust property of the simulations, and not as a quantitative reconstruction of past bottom water formation rates.",
+   "new": "Our results should be read as a statement about how the partitioning of surface buoyancy forcing between heat and freshwater responds to changing sea ice cover, which is a robust property of the simulations. They do not give a quantitative reconstruction of past bottom water formation rates.",
+   "line": 251
+  },
+  {
+   "old": "The agreement is worth stating explicitly, and the two studies are complementary rather than overlapping.",
+   "new": "The agreement is worth stating explicitly, and the two studies complement each other.",
+   "line": 255
+  },
+  {
+   "old": "The transformation framework applied here measures the surface buoyancy forcing directly and attributes it to individual flux components in sverdrups, so the contribution of sea ice is quantified rather than inferred from covarying fields.",
+   "new": "The transformation framework applied here measures the surface buoyancy forcing directly and attributes it to individual flux components in sverdrups, so the contribution of sea ice is quantified.",
+   "line": 255
+  },
+  {
+   "old": "Though our analysis focuses on surface forcing rather than bottom water formation directly, these results have important implications for understanding how deep water formation mechanisms may respond to climate change (Fig. \\ref{schematic}).",
+   "new": "Our analysis addresses the surface forcing of all water masses south of 60°S. These results still have important implications for understanding how deep water formation mechanisms may respond to climate change (Fig. \\ref{schematic}).",
+   "line": 257
+  },
+  {
+   "old": "In this regime, the decoupling of thermal forcing implies that ventilation rates become sensitive to sea ice production rather than atmospheric cooling anomalies.",
+   "new": "In this regime, the decoupling of thermal forcing implies that ventilation rates become sensitive mainly to sea ice production.",
+   "line": 257
+  },
+  {
+   "old": "Many PMIP models underestimate glacial Southern Ocean sea ice and its seasonality, and colder glacial forcing on its own tends to intensify open-ocean convection rather than suppress it, which degrades the properties of the simulated bottom water; in one systematic study the only configuration that avoided an unrealistically deep northern-sourced cell was the one in which brine sinking along the Antarctic margin was parameterised explicitly \\cite{Lhardy2021}.",
+   "new": "Many PMIP models underestimate glacial Southern Ocean sea ice and its seasonality, and colder glacial forcing on its own tends to intensify open-ocean convection, which degrades the properties of the simulated bottom water; in one systematic study the only configuration that avoided an unrealistically deep northern-sourced cell was the one in which brine sinking along the Antarctic margin was parameterised explicitly \\cite{Lhardy2021}.",
+   "line": 259
+  },
+  {
+   "old": "Ideal age also responds to mixing as well as to advection, so it measures the combined effect of a weaker abyssal cell and altered interior mixing rather than the overturning rate alone.",
+   "new": "Ideal age also responds to mixing as well as to advection, so it measures the combined effect of a weaker abyssal cell and altered interior mixing.",
+   "line": 265
+  },
+  {
+   "old": "The thermal-to-haline transition identified here is not a purely glacial phenomenon but a manifestation of a general state-dependence of surface buoyancy forcing, and the same competing mechanisms are projected to operate, in the opposite direction, under anthropogenic warming.",
+   "new": "The thermal-to-haline transition identified here reflects a general state-dependence of surface buoyancy forcing. The same competing mechanisms are projected to operate, in the opposite direction, under anthropogenic warming.",
+   "line": 269
+  },
+  {
+   "old": "This implies that projections of Southern Ocean ventilation and its associated carbon uptake will remain uncertain until the thermal and haline components of surface buoyancy forcing are evaluated separately, rather than only through bulk overturning metrics.",
+   "new": "This implies that projections of Southern Ocean ventilation and its associated carbon uptake will remain uncertain until the thermal and haline components of surface buoyancy forcing are evaluated separately, alongside bulk overturning metrics.",
+   "line": 269
+  },
+  {
+   "old": "Sea ice growth and melt are computed thermodynamically at each surface node, and the associated brine release enters the ocean as a salt flux at that node, so the brine signal appears wherever the model forms ice; its intensity, however, depends on the simulated wind-driven ice divergence rather than on small-scale processes inside the polynyas, which the mesh does not resolve.",
+   "new": "Sea ice growth and melt are computed thermodynamically at each surface node, and the associated brine release enters the ocean as a salt flux at that node, so the brine signal appears wherever the model forms ice. Its intensity depends on the simulated wind-driven ice divergence, since the mesh does not resolve the small-scale processes inside the polynyas.",
+   "line": 275
+  },
+  {
+   "old": "The LIG and MIS3 values exceed the $\\pm0.05$~K~century$^{-1}$ criterion applied in earlier work with this model \\cite{Shi2022JCLI}, and we note this explicitly rather than leaving it implicit.",
+   "new": "The LIG and MIS3 values exceed the $\\pm0.05$~K~century$^{-1}$ criterion applied in earlier work with this model \\cite{Shi2022JCLI}, and we note this explicitly.",
+   "line": 294
+  },
+  {
+   "old": "Because the balance of agreement and disagreement in those evaluations bears on how far the present results can be trusted, we summarise it here rather than leaving it to be sought in the earlier papers.",
+   "new": "Because the balance of agreement and disagreement in those evaluations bears on how far the present results can be trusted, we summarise it here.",
+   "line": 298
+  },
+  {
+   "old": "We note that none of these evaluations examines Southern Ocean hydrography, sea ice or overturning against observations, so they constrain the large-scale climate response of the model rather than the specific fields on which the present analysis depends.",
+   "new": "We note that the present analysis depends on Southern Ocean hydrography, sea ice and overturning, and none of these evaluations examines these fields against observations. They therefore constrain only the large-scale climate response of the model.",
+   "line": 298
+  }
+ ],
+ "letter": [
+  {
+   "old": "To match the published figure of Pellichero et al. (2018), we recomputed our WMT over the region enclosed by the 15\\% September sea ice concentration, and took the annual mean (used in Pellichero et al., 2018) instead of the austral winter mean used in our manuscript.",
+   "new": "To match the published figure of Pellichero et al. (2018), we recomputed our WMT over the region enclosed by the 15\\% September sea ice concentration, and took the annual mean (used in Pellichero et al., 2018). Our manuscript uses the austral winter mean.",
+   "line": 87
+  },
+  {
+   "old": "Pink shading in (a) marks where the heat term carries the total and blue shading where the freshwater term does, classified point by point along the drawn curve rather than by density bin, which places the thermally driven band at γ = 27.10–27.68 kg m\\textsuperscript{-3}.",
+   "new": "Pink shading in (a) marks where the heat term carries the total and blue shading where the freshwater term does. The shading is classified point by point along the drawn curve, which places the thermally driven band at γ = 27.10–27.68 kg m\\textsuperscript{-3}.",
+   "line": 89
+  },
+  {
+   "old": "When the transformation is instead summed in density classes 0.25 kg m\\textsuperscript{-3} wide in σ\\textsubscript{2}, as in our reply to Reviewer 2, the only class that falls inside this band is γ = 27.33–27.59 kg m\\textsuperscript{-3}.",
+   "new": "When the transformation is summed in density classes 0.25 kg m\\textsuperscript{-3} wide in σ\\textsubscript{2}, as in our reply to Reviewer 2, the only class that falls inside this band is γ = 27.33–27.59 kg m\\textsuperscript{-3}.",
+   "line": 89
+  },
+  {
+   "old": "Rows two and three are unshaded, because with the sea ice term absent from both sides, a heat-against-freshwater classification would describe an incomplete freshwater flux and read as a physical result rather than a missing field.",
+   "new": "Rows two and three are unshaded, because with the sea ice term absent from both sides, a heat-against-freshwater classification would describe an incomplete freshwater flux and would present a missing field as a physical result.",
+   "line": 89
+  },
+  {
+   "old": "The reviewer, and Reviewer 3, also asked whether we could compute an observational transformation from a reanalysis rather than citing a published one.",
+   "new": "The reviewer, and Reviewer 3, also asked whether we could compute an observational transformation ourselves from a reanalysis.",
+   "line": 99
+  },
+  {
+   "old": "For the domain and season our paper uses, south of 60°S in JJA, panels (e) and (f), the two agree in shape but not in amplitude.",
+   "new": "For the domain and season our paper uses, south of 60°S in JJA, panels (e) and (f), the two agree in shape and differ in amplitude.",
+   "line": 103
+  },
+  {
+   "old": "We therefore read the winter comparison as agreement in sign, shape and density class, with an amplitude difference that follows from a mixed layer bias we document rather than from the diagnostic itself.",
+   "new": "We therefore read the winter comparison as agreement in sign, shape and density class, with an amplitude difference that follows from a mixed layer bias we document.",
+   "line": 103
+  },
+  {
+   "old": "ORAS5 is a model constrained by observations rather than a measurement.",
+   "new": "ORAS5 is a model product constrained by observations.",
+   "line": 107
+  },
+  {
+   "old": "Its heat flux is computed from ERA-Interim forcing and then adjusted by sea surface temperature restoring, not fitted to any flux observation.",
+   "new": "Its heat flux is computed from ERA-Interim forcing and then adjusted by sea surface temperature restoring.",
+   "line": 107
+  },
+  {
+   "old": "Following the reviewer’s suggestion, we provided a summary table (Table R1, manuscript Table 1), which lists greenhouse gas concentrations, orbital parameters, and ice sheet configuration for all five AWI-ESM2 model experiments, and the values are those actually used in the model runs rather than the protocol defaults.",
+   "new": "Following the reviewer’s suggestion, we provided a summary table (Table R1, manuscript Table 1), which lists greenhouse gas concentrations, orbital parameters, and ice sheet configuration for all five AWI-ESM2 model experiments, and the values are those actually used in the model runs.",
+   "line": 115
+  },
+  {
+   "old": "This is open-ocean convection, not the shelf overflow pathway that operates in the real ocean.",
+   "new": "This is open-ocean convection. In the real ocean, dense water forms through the shelf overflow pathway.",
+   "line": 158
+  },
+  {
+   "old": "Area-weighted over the whole sector the model gives 100 m against 78 m, so the bias is concentrated in the convecting patch rather than spread evenly. We note that the two use different mixed layer definitions, a 0.01 kg m\\textsuperscript{-3} density threshold in ORAS5 and a bulk Richardson number criterion in the model, so the point-by-point difference is not purely model error.\\label{fR:mld}}",
+   "new": "Area-weighted over the whole sector the model gives 100 m against 78 m, so the bias is concentrated in the convecting patch. We note that the two use different mixed layer definitions, a 0.01 kg m\\textsuperscript{-3} density threshold in ORAS5 and a bulk Richardson number criterion in the model, so the point-by-point difference is not purely model error.\\label{fR:mld}}",
+   "line": 160
+  },
+  {
+   "old": "That cell is produced by the wrong pathway in the Weddell Sea, as described above, so we present our results as a statement about how the partitioning of surface buoyancy forcing responds to changing ice cover, and explicitly not as a quantitative reconstruction of bottom water formation rates.",
+   "new": "That cell is produced by the wrong pathway in the Weddell Sea, as described above. We therefore present our results as a statement about how the partitioning of surface buoyancy forcing responds to changing ice cover. We state explicitly that a quantitative reconstruction of bottom water formation rates lies outside what they can support.",
+   "line": 168
+  },
+  {
+   "old": "We make no claim about the absolute transformation rate or the absolute density at which it occurs; we claim that the balance between the thermal and haline pathways shifts between climate states, and a bias common to every state cannot generate that shift.",
+   "new": "Our claim is that the balance between the thermal and haline pathways shifts between climate states, and a bias common to every state cannot generate that shift. The claim leaves aside the absolute transformation rate and the absolute density at which it occurs.",
+   "line": 170
+  },
+  {
+   "old": "The formation region is therefore the open Weddell gyre rather than the shelf, which is directly relevant to the model limitation discussed above.",
+   "new": "The formation region is therefore the open Weddell gyre. This is directly relevant to the model limitation discussed above.",
+   "line": 411
+  },
+  {
+   "old": "The passage now states the mechanism as a chain rather than asserting the endpoint, and cites the observational work on Antarctic Bottom Water production in the Cape Darnley polynya and on the sea ice contribution to Southern Ocean transformation.",
+   "new": "The passage now states each step of the mechanism in turn, and cites the observational work on Antarctic Bottom Water production in the Cape Darnley polynya and on the sea ice contribution to Southern Ocean transformation.",
+   "line": 415
+  },
+  {
+   "old": "We chose to make the comparison quantitatively in the text and in a dedicated figure rather than overplotting their curve, because their analysis is in neutral density over a different density range and an overlay would misleadingly imply a point-by-point correspondence that does not exist.",
+   "new": "We chose to make the comparison quantitatively in the text and in a dedicated figure. Their analysis is in neutral density over a different density range, and overplotting their curve on ours would misleadingly imply a point-by-point correspondence that does not exist.",
+   "line": 433
+  },
+  {
+   "old": "On reflection we think the passage was speculative rather than supported, and Reviewer 3 raised the same objection from the opposite direction, noting that accumulation rates around the Antarctic margin are very low.",
+   "new": "On reflection we think the passage was speculative, and Reviewer 3 raised the same objection from the opposite direction, noting that accumulation rates around the Antarctic margin are very low.",
+   "line": 457
+  },
+  {
+   "old": "We now present the persistence of the coupling as a property of the simulated system rather than as a practical route to a marine reconstruction.",
+   "new": "We now present the persistence of the coupling as a property of the simulated system.",
+   "line": 457
+  },
+  {
+   "old": "Compared Fig.~\\ref{fR:wmtR2} a and b, the curves agree in structure and the forcing is mixed rather than thermal.",
+   "new": "Compared Fig.~\\ref{fR:wmtR2} a and b, the curves agree in structure and the forcing is mixed, with both heat and freshwater contributing.",
+   "line": 495
+  },
+  {
+   "old": "The characterisation of our pre-industrial simulation state as thermally dominated, which the reviewer reasonably took from our text, is therefore not what the comparable calculation shows. The driving component is mixed, and the thermal part of it sits in a narrow band of intermediate and mode water densities rather than across the whole range.",
+   "new": "The reviewer reasonably took from our text that our pre-industrial simulation state is thermally dominated. The comparable calculation shows that the driving component is mixed, and the thermal part of it is confined to a narrow band of intermediate and mode water densities.",
+   "line": 495
+  },
+  {
+   "old": "Pellichero et al. (2018) defined their sector as the region enclosed by the contour of the 15\\% September sea ice concentration, so its northern boundary is an ice contour that varies with longitude, not a latitude circle.",
+   "new": "Pellichero et al. (2018) defined their sector as the region enclosed by the contour of the 15\\% September sea ice concentration, so its northern boundary is an ice contour whose latitude varies with longitude.",
+   "line": 497
+  },
+  {
+   "old": "Pellichero et al. (2018) did not observe the surface fluxes.",
+   "new": "Pellichero et al. (2018) inferred the surface fluxes.",
+   "line": 499
+  },
+  {
+   "old": "Over our paper's own domain and season, south of 60°S in JJA, both are positive almost everywhere and peak one density class apart, but ours is the stronger, +62.9 against +36.8 Sv, which we attribute to our winter mixed layers being deeper and more extensive than in the reanalysis rather than to the diagnostic.",
+   "new": "Over our paper's own domain and season, south of 60°S in JJA, both are positive almost everywhere and peak one density class apart, but ours is the stronger, +62.9 against +36.8 Sv, which we attribute to our winter mixed layers being deeper and more extensive than in the reanalysis.",
+   "line": 501
+  },
+  {
+   "old": "The paper is now cited in both the Introduction and the Discussion, and we address the reviewer's question directly rather than merely adding the reference.",
+   "new": "The paper is now cited in both the Introduction and the Discussion, and we also address the reviewer's question directly.",
+   "line": 505
+  },
+  {
+   "old": "The first is measurement rather than inference.",
+   "new": "The first concerns the method.",
+   "line": 509
+  },
+  {
+   "old": "A decomposed surface buoyancy budget measures the transformation directly and attributes it to individual flux components in sverdrups, so the sea ice contribution is quantified rather than inferred.",
+   "new": "A decomposed surface buoyancy budget measures the transformation directly and attributes it to individual flux components in sverdrups, so the sea ice contribution is quantified.",
+   "line": 509
+  },
+  {
+   "old": "How much brine is released therefore depends on how strongly the simulated winds and currents push the ice apart and open the water, not on the small-scale processes inside each polynya, which the mesh is too coarse to resolve.",
+   "new": "How much brine is released therefore depends on how strongly the simulated winds and currents push the ice apart and open the water, since the mesh is too coarse to resolve the small-scale processes inside each polynya.",
+   "line": 523
+  },
+  {
+   "old": "Colder glacial forcing on its own tends to intensify open-ocean convection rather than suppress it, so that better boundary conditions do not by themselves fix the problem.",
+   "new": "Colder glacial forcing on its own tends to intensify open-ocean convection, so that better boundary conditions do not by themselves fix the problem.",
+   "line": 535
+  },
+  {
+   "old": "Thus, the driving component is mixed in our pre-industrial simulation state, and the thermal part of it sits in a narrow band of intermediate and mode water densities instead of across the whole range.",
+   "new": "Thus, the driving component is mixed in our pre-industrial simulation state, and the thermal part of it is confined to a narrow band of intermediate and mode water densities.",
+   "line": 618
+  }
+ ],
+ "note": "2026-11-26 not-but sweep, proposals by a subagent, reviewed: r20/r23/l25 reworded, r12/l30 dropped (user-chosen upper-cell wording of 11-08)."
+}

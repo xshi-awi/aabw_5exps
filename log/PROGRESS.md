@@ -2,6 +2,13 @@
 
 按时间倒序。2026-11-08 从根 CLAUDE.md 压缩迁来，同主题已合并，只留结论；逐次细节在 git 历史里。具体数字多在 `nc_paper/NEW_ANALYSIS_RESULTS.md` 和 `docs/`。
 
+### 2026-11-26 04:50 用户 11-26 线上批注一轮（questions-14 转 04:12「回复信我又更新了，请处理」）
+
+- 拉下 38 个 TeXPage 提交（11-25 17:12 到 11-26 11:10 +0800），只改 response_new.tex：语法与措辞、把 GLORYS 意见拆成单独一条、注释掉几段，另写约 20 条 `%` 要求。按她 11-25 09:08 的授权直接改，改动在 `nc_paper/docx_to_tex/pass_20261126/`（`edits_1126_revised.py`、`edits_1126_letter.py`、`mhlig.py`、`notbut_1126.json`，可在 bb5f6eb 版上复现，md5 已对）。
+- 新分析（各有文件夹和 CLAUDE.md）：密度类形成位置 `fig_formation_location/`（新 SI Fig. A13，讨论加一段；间冰期峰值类 69% 在无冰深水、最密尾部 61–88% 在陆架，冰期达到底层水密度的 0.7–1.0 Sv 全在陆架）；西风增强机制 `explore/westerly_mechanism/`（冰缘北移使近地面温度梯度变陡但仍在西风以南 10–12°，Eady 增 21–28%；LIG 是轨道强迫加热热带高空）；PMIP4 四个 LGM 模式 `explore/pmip_westerlies/`（位移 −0.6 到 +1.1°，我们偏极 3.7° 在其外，稿件原句 shared across the PMIP ensemble 改掉）；SST/AMOC 漂移与南极径流 `explore/drift_surface_amoc/`；A10 海冰形状 `explore/sam_windice_check/`（原「近岸减少、北边增加」偶极子不成立，图注与正文改）。
+- 改正：push/pull 段「冰期 Ekman 响应最弱，因海冰削弱应力传递」无依据，删去（MIS3 10.1 > MH 8.9 Sv）；补 MH brine 12 mSv；Methods 的 two orders of magnitude 改 more than an order of magnitude；2.3 节和 Methods 补冰盖降水减蒸发以径流入海（PI 0.085 Sv）。A2 重画（a–c MLD 色标到 1000 m，海冰行不变）。正文与图注 MH、LIG 改全称（只在图、表 1、定义处留简称）。用户新规矩「不用 不是…而是 / rather than」：修订稿 31 处、信 29 处改写，建议写进 my_style（`docs/proposal_my_style_no_contrast.md`，交总管）。
+- TexPage b30db0e（两份 tex）、4f07be5–89af427（5 张图各一提交）。本地编译修订稿 51 页、信 42 页，0 error；引文核对只剩原有 6 处写法差别。
+
 ### 2026-11-25 09:40 信与修订稿按用户行内要求和总管底线一次改完（questions-14 转用户 09:08「直接更新，不用再问」）
 
 - 修订稿（`nc_paper/docx_to_tex/pass_20261125/edits_1125c_revised.py`，可在备份上复现）：SAM 定义与作用并进引言单独成段，补 Gong & Wang 1999、Hall & Visbeck 2002、Sen Gupta & England 2006（Crossref 核 DOI、读摘要），2.4 节开头两句删去、阈值只留在图注；2.1 节加 Fig. 1i–l 描述（不含西威德尔那句），114 行只谈 Ross 与方向，风的描述按 6–9 月风场核过后改写；冰期风应力海洋格点重算（MH 47.6°S 0.172、LGM 49.4°S 0.195 N m⁻²，强 13%），jet 改称 westerlies；Fig. 3/4 单位 kg m⁻² month⁻¹，2.3 节数换算（×2.592e6）；A3/A4 换成密度通量版（现 A7/A8，±2 同一色标，加 −15 W m⁻² 线），2.4 节逐处加子图字母并写出海区；Sidorenko 段换成信里版本（删 1.43 K），新 SI A12（MLD 对 ORAS5，引 Zuo 2019）；239 行 69→61% 改成分密度类结果，249 行 53–88% 改 53–70%；Lhardy 2021 重建 33±5、10±3 百万 km² 写进 255 行并删掉重复句；polynya 措辞；Methods 符号约定统一为 B>0 致密化；Fig. 1、A1、A2 图注改 June-September；附录按首次引用重排为 A1–A12，正文 MOC/年龄互换。
