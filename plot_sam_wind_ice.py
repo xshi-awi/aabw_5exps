@@ -29,6 +29,28 @@ mpl.rcParams.update({'font.family': 'sans-serif',
                      'font.sans-serif': ['DejaVu Sans'], 'pdf.fonttype': 42})
 
 
+def regrid_closed(lon, lat, val, GX, GY):
+    """griddata on (GX, GY), then close the seam at 180 deg (2026-11-26).
+    Only the grid columns with |lon| > 178.5 are filled, from an interpolation
+    in which points within 10 deg of the dateline are repeated at lon -/+ 360,
+    and only at latitudes where the plain interpolation has data on both
+    sides of the seam (|lon| ~ 178). Every other cell is the plain result."""
+    old = griddata(np.column_stack([lon, lat]), val, (GX, GY), method='linear')
+    lon = np.mod(lon + 180.0, 360.0) - 180.0
+    e, w = lon > 170, lon < -170
+    per = griddata(np.column_stack([np.concatenate([lon, lon[e] - 360.0, lon[w] + 360.0]),
+                                    np.concatenate([lat, lat[e], lat[w]])]),
+                   np.concatenate([val, val[e], val[w]]), (GX, GY), method='linear')
+    gx = GX[0]
+    seam = np.abs(gx) > 178.5
+    inner = ~seam & (np.abs(gx) > 177.0)
+    left = np.isfinite(old[:, inner & (gx < 0)]).all(axis=1)
+    right = np.isfinite(old[:, inner & (gx > 0)]).all(axis=1)
+    fill = np.isnan(old) & seam[None, :] & (left & right)[:, None] & np.isfinite(per)
+    old[fill] = per[fill]
+    return old
+
+
 def circular(ax):
     t = np.linspace(0, 2 * np.pi, 200)
     c = np.vstack([np.sin(t), np.cos(t)]).T
@@ -104,8 +126,7 @@ for c, (e, lab) in enumerate(zip(EXPS, LABELS)):
     gy = np.arange(-78, -39, 0.75)
     gx = np.arange(-180, 180.5, 1.0)
     GX, GY = np.meshgrid(gx, gy)
-    grid = griddata(np.column_stack([flon[sel], flat[sel]]), dai[sel], (GX, GY),
-                    method='linear')
+    grid = regrid_closed(flon[sel], flat[sel], dai[sel], GX, GY)
 
     ax = fig.add_subplot(gs[1, c], projection=proj)
     ax.set_extent([-180, 180, -90, LAT_MAX], crs=ccrs.PlateCarree())

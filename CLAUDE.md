@@ -2,10 +2,10 @@
 
 AWI-ESM 五个气候态（PI / MH / LIG / LGM / MIS3）南大洋表面水团转换（WMT）的热、盐强迫分解与 SAM 调制。论文已投 Nature Communications，现处大修阶段。远程 origin = https://github.com/xshi-awi/aabw_5exps
 
-## 当前状态（2026-11-26 08:35）
+## 当前状态（2026-11-26 09:50）
 
 - **在做什么**：NC 大修。修订稿 `nc_paper/build/revised.tex`；回复信是 TexPage 上的 `revision/response_new.tex`（线上是主版本，用户在线改）。旧的 `RESPONSE_LETTER.md` 流水线和 04/05 文件留着不动。
-- **上一步做完了什么**：11-26 用户线上批注一轮做完并推 TexPage（b30db0e、4f07be5–89af427）：新 SI Fig. A13（各密度类在哪里形成）、西风增强机制与 PMIP4 对照、SST/AMOC 漂移、A10 与 push/pull 文字纠错、MH/LIG 全称、去掉 not…but / rather than 句式。细节见 `log/PROGRESS.md` 同日条目和 `nc_paper/docx_to_tex/pass_20261126/`。08:33 又做完她 07:12–08:22 的批注一轮（TexPage f0fddf6–8cabb9a，`pass_20261126b/`）：ORAS5 沿岸深混合层对比、A12 色标、R12/A13 去冰缘线、讨论段按她的引文删短、ORAS5「同一大尺度型态」的错句改掉。
+- **上一步做完了什么**：11-26 用户线上批注一轮做完并推 TexPage（b30db0e、4f07be5–89af427）：新 SI Fig. A13（各密度类在哪里形成）、西风增强机制与 PMIP4 对照、SST/AMOC 漂移、A10 与 push/pull 文字纠错、MH/LIG 全称、去掉 not…but / rather than 句式。细节见 `log/PROGRESS.md` 同日条目和 `nc_paper/docx_to_tex/pass_20261126/`。08:33 又做完她 07:12–08:22 的批注一轮（TexPage f0fddf6–8cabb9a，`pass_20261126b/`）：ORAS5 沿岸深混合层对比、A12 色标、R12/A13 去冰缘线、讨论段按她的引文删短、ORAS5「同一大尺度型态」的错句改掉。09:48 补了 A12/R2/R11、A4/R5、A10/R16 三张图 180° 的白缝（TexPage 7788597–37f6494）。她 08:48–09:37 又线上改了一阵，新批注「大标题去掉」（Pellichero/ORAS5 那段）还没处理，等她说改完。
 - **下一步**：等用户看；待她定的见 `log/OPEN.md` 末两条（批注 8、PI 海冰重算 EE1/FS/FX 先不动、A10 去留、LGM/MIS3 起步出处）。之后填致谢与基金，回填 Zenodo DOI。
 - **动手前必须知道的**：
   - 投稿稿是 `nc_paper/nc-main.tex`（sn-jnl.cls，5 位作者）；修订在 `nc_paper/build/revised.tex`。`nc_paper/main.tex` 是旧 AGU 版，不是投稿稿。
