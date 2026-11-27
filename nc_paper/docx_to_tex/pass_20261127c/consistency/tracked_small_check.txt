@@ -1,0 +1,16 @@
+== check_tracked_docx.py
+marks: {('ins', 'Xiaoxu Shi'): 1858, ('del', 'Xiaoxu Shi'): 791}
+maths objects with inserted/deleted runs: 4 2
+accept all = revised: identical (293 paragraphs)
+reject all = original: identical (168 paragraphs)
+  figures in accepted: 22
+  figures in rejected: 13
+  figures in revised: 22
+  figures in original: 13
+exit 0
+== validate.py --original orig.docx --author 'Xiaoxu Shi'
+
+Paragraphs: 170 → 332 (+162)
+All validations PASSED!
+== document.xml identical to the 40 MB version
+identical
