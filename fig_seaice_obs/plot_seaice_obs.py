@@ -61,6 +61,11 @@ SI_STYLE = '--plain' not in sys.argv
 # Default since 2026-11-27 (user note in the letter): two panels, JJA only, (a) PI sea ice drawn
 # as in the SI figure, (b) PI minus OSI SAF. --six gives the earlier six-panel figure as *_six.*
 SIX = '--six' in sys.argv
+# 15% lines of the JJA figure. Default since 2026-11-27 05:48 (user button GH "both lines off"):
+# no lines, written as figR21_seaice_obs.*. Variants under their own suffix: --with-edges (both
+# lines in both panels), --no-obs-edge (model line only), --edges-b-only (both lines in (b) only).
+EDGE_MODE = ('withedges' if '--with-edges' in sys.argv else 'noobsedge' if '--no-obs-edge' in sys.argv
+             else 'edgesb' if '--edges-b-only' in sys.argv else 'noedges')
 PI_REG = f'{BASE}/pi/a_ice_reg_beta.nc'   # 1-degree PI, model years 2300-2399 (not pi/a_ice_reg.nc)
 
 
@@ -774,10 +779,13 @@ def make_figure_jja(o, W_grid, pi_clim):
     fig = plt.figure(figsize=(10.5, 6.2))
     gs = fig.add_gridspec(1, 2, left=0.04, right=0.96, top=0.88, bottom=0.2, wspace=0.18)
 
-    def lines(ax):
+    def lines(ax, panel):
+        if EDGE_MODE == 'noedges' or (EDGE_MODE == 'edgesb' and panel == 'a'):
+            return
         # land stays NaN so that the 15% lines do not trace the coastline
-        ax.contour(X, Y, np.where(o['ocean'], obs, np.nan), levels=[THR], colors=C_OBS,
-                   linewidths=1.4, transform=laea, zorder=4)
+        if EDGE_MODE != 'noobsedge':
+            ax.contour(X, Y, np.where(o['ocean'], obs, np.nan), levels=[THR], colors=C_OBS,
+                       linewidths=1.4, transform=laea, zorder=4)
         ax.contour(X, Y, np.where(o['ocean'], mod, np.nan), levels=[THR],
                    colors=C_MOD, linewidths=1.6, linestyles='--', transform=laea, zorder=4)
 
@@ -788,14 +796,14 @@ def make_figure_jja(o, W_grid, pi_clim):
     L, La = np.meshgrid(lc, slat)
     pm = ax_a.contourf(L, La, gc, levels=np.arange(10, 101, 5), cmap=cmap, extend='min',
                        transform=ccrs.PlateCarree())
-    lines(ax_a)
+    lines(ax_a, 'a')
     decorate(ax_a)
     ax_a.set_title('(a)  AWI-ESM2 PI, JJA', fontsize=12.5, pad=26, loc='left')
 
     ax_b = map_axes(fig, gs[0, 1], laea)
     pd = ax_b.pcolormesh(X, Y, (mod - obs) * 100, cmap=cmap_d, norm=norm_d, transform=laea,
                          shading='nearest', rasterized=True)
-    lines(ax_b)
+    lines(ax_b, 'b')
     decorate(ax_b)
     ax_b.set_title('(b)  PI minus OSI SAF 1979–2008, JJA', fontsize=12.5, pad=26, loc='left')
 
@@ -812,10 +820,14 @@ def make_figure_jja(o, W_grid, pi_clim):
     cb2.ax.tick_params(labelsize=9.5)
     hl = [mpl.lines.Line2D([], [], color=C_OBS, lw=1.4, label='OSI SAF 15%'),
           mpl.lines.Line2D([], [], color=C_MOD, lw=1.6, ls='--', label='PI 15%')]
-    fig.legend(handles=hl, loc='lower center', bbox_to_anchor=(0.5, 0.0), ncol=2,
-               fontsize=10, frameon=False)
+    if EDGE_MODE == 'noobsedge':
+        hl = hl[1:]
+    if EDGE_MODE != 'noedges':
+        fig.legend(handles=hl, loc='lower center', bbox_to_anchor=(0.5, 0.0), ncol=len(hl),
+                   fontsize=10, frameon=False)
+    suf = '' if EDGE_MODE == 'noedges' else f'_{EDGE_MODE}'
     for ext in ('png', 'pdf'):
-        fn = os.path.join(HERE, f'figR21_seaice_obs.{ext}')
+        fn = os.path.join(HERE, f'figR21_seaice_obs{suf}.{ext}')
         fig.savefig(fn, dpi=200 if ext == 'png' else 300)
         print('saved', fn)
 
