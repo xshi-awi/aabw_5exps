@@ -58,6 +58,9 @@ out_lines = []
 # --plain gives the 2026-11-22 drawing (native field on EASE2, 1% and 15% lines) as *_plain.*
 import sys
 SI_STYLE = '--plain' not in sys.argv
+# Default since 2026-11-27 (user note in the letter): two panels, JJA only, (a) PI sea ice drawn
+# as in the SI figure, (b) PI minus OSI SAF. --six gives the earlier six-panel figure as *_six.*
+SIX = '--six' in sys.argv
 PI_REG = f'{BASE}/pi/a_ice_reg_beta.nc'   # 1-degree PI, model years 2300-2399 (not pi/a_ice_reg.nc)
 
 
@@ -483,7 +486,10 @@ def main():
     print('wrote seaice_numbers.txt')
 
     # ------------------------------------------------ figure
-    make_figure(o, m, W_grid, pi_clim, oext, oare, pext, pare)
+    if SIX:
+        make_figure(o, m, W_grid, pi_clim, oext, oare, pext, pare)
+    else:
+        make_figure_jja(o, W_grid, pi_clim)
 
 
 def polynyas(o, F):
@@ -738,7 +744,78 @@ def make_figure(o, m, W_grid, pi_clim, oext, oare, pext, pare):
     ax_f.set_title('(f)  Southern Hemisphere seasonal cycle', fontsize=12.5, pad=26, loc='left')
 
     for ext in ('png', 'pdf'):
-        fn = os.path.join(HERE, f'figR21_seaice_obs{"" if SI_STYLE else "_plain"}.{ext}')
+        fn = os.path.join(HERE, f'figR21_seaice_obs_six{"" if SI_STYLE else "_plain"}.{ext}')
+        fig.savefig(fn, dpi=200 if ext == 'png' else 300)
+        print('saved', fn)
+
+
+def make_figure_jja(o, W_grid, pi_clim):
+    """Two panels, JJA (June-August): (a) PI drawn as the sea ice row of the SI figure,
+    (b) PI minus OSI SAF on the EASE2 grid. The 15% lines are the unsmoothed fields."""
+    from cartopy.util import add_cyclic_point
+    laea = ccrs.LambertAzimuthalEqualArea(central_longitude=0, central_latitude=-90,
+                                          globe=ccrs.Globe(ellipse='WGS84'))
+    X, Y = o['xc'] * 1e3, o['yc'] * 1e3
+    J = (5, 6, 7)
+    mod = np.mean([Mesh.sample(W_grid, pi_clim[k]) for k in J], axis=0)
+    obs = np.mean([o['clim'][k] for k in J], axis=0)
+    d = netCDF4.Dataset(PI_REG)
+    a = d.variables['a_ice'][:, 0].data.astype(np.float64)
+    slon, slat = d.variables['lon'][:].data, d.variables['lat'][:].data
+    d.close()
+    a = a[list(J)].mean(axis=0)
+    blaq = ['#0000FF', '#0040FF', '#0080FF', '#00BFFF', '#00FFFF', '#00FFB0', '#00FF60',
+            '#00FF00', '#60FF00', '#BFFF00', '#FFFF00', '#FFD000', '#FFA000', '#FF6000',
+            '#FF2000', '#FF0000', '#CC0000']
+    cmap = mpl.colors.LinearSegmentedColormap.from_list('BlAqGrYeOrRe', blaq, N=256)
+    cmap.set_under('#0000FF')
+    cmap_d = mpl.cm.get_cmap('RdBu')
+    norm_d = mpl.colors.BoundaryNorm(np.arange(-90, 91, 20), cmap_d.N, extend='both')
+    fig = plt.figure(figsize=(10.5, 6.2))
+    gs = fig.add_gridspec(1, 2, left=0.04, right=0.96, top=0.88, bottom=0.2, wspace=0.18)
+
+    def lines(ax):
+        # land stays NaN so that the 15% lines do not trace the coastline
+        ax.contour(X, Y, np.where(o['ocean'], obs, np.nan), levels=[THR], colors=C_OBS,
+                   linewidths=1.4, transform=laea, zorder=4)
+        ax.contour(X, Y, np.where(o['ocean'], mod, np.nan), levels=[THR],
+                   colors=C_MOD, linewidths=1.6, linestyles='--', transform=laea, zorder=4)
+
+    ax_a = map_axes(fig, gs[0, 0], laea)
+    ax_a.set_facecolor('white')
+    g = smooth_si(np.where(a < 0.01, np.nan, a)) * 100
+    gc, lc = add_cyclic_point(g, coord=slon)
+    L, La = np.meshgrid(lc, slat)
+    pm = ax_a.contourf(L, La, gc, levels=np.arange(10, 101, 5), cmap=cmap, extend='min',
+                       transform=ccrs.PlateCarree())
+    lines(ax_a)
+    decorate(ax_a)
+    ax_a.set_title('(a)  AWI-ESM2 PI, JJA', fontsize=12.5, pad=26, loc='left')
+
+    ax_b = map_axes(fig, gs[0, 1], laea)
+    pd = ax_b.pcolormesh(X, Y, (mod - obs) * 100, cmap=cmap_d, norm=norm_d, transform=laea,
+                         shading='nearest', rasterized=True)
+    lines(ax_b)
+    decorate(ax_b)
+    ax_b.set_title('(b)  PI minus OSI SAF 1979–2008, JJA', fontsize=12.5, pad=26, loc='left')
+
+    pa, pb = ax_a.get_position(), ax_b.get_position()
+    cax = fig.add_axes([pa.x0 + 0.04, 0.115, pa.width - 0.08, 0.025])
+    cb = fig.colorbar(pm, cax=cax, orientation='horizontal', ticks=np.arange(10, 101, 10),
+                      extend='min')
+    cb.set_label('Sea ice concentration (%)', fontsize=11)
+    cb.ax.tick_params(labelsize=9.5)
+    cax2 = fig.add_axes([pb.x0 + 0.04, 0.115, pb.width - 0.08, 0.025])
+    cb2 = fig.colorbar(pd, cax=cax2, orientation='horizontal', ticks=np.arange(-90, 91, 30),
+                       extend='both')
+    cb2.set_label('Concentration difference (%)', fontsize=11)
+    cb2.ax.tick_params(labelsize=9.5)
+    hl = [mpl.lines.Line2D([], [], color=C_OBS, lw=1.4, label='OSI SAF 15%'),
+          mpl.lines.Line2D([], [], color=C_MOD, lw=1.6, ls='--', label='PI 15%')]
+    fig.legend(handles=hl, loc='lower center', bbox_to_anchor=(0.5, 0.0), ncol=2,
+               fontsize=10, frameon=False)
+    for ext in ('png', 'pdf'):
+        fn = os.path.join(HERE, f'figR21_seaice_obs.{ext}')
         fig.savefig(fn, dpi=200 if ext == 'png' else 300)
         print('saved', fn)
 

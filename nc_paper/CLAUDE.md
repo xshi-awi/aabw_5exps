@@ -26,10 +26,10 @@ R1 单独草稿（据 git 0e2557d）：`RESPONSE_LETTER_R1.md` → `md_to_tex_r1
 - 由 `docx_to_tex/` 生成一次：`dump_docx.py` 拆 docx 的 run（删除线、高亮、批注、上下标），`build_response_new.py` 按 STYLE 写 tex（段落编号写死，只适用于这一份 docx），`check_paras2.py` 拿 PDF 文本逐段核对。删除线删掉；高亮用 ulem 版 `\hl`（soul 3.0 以前在 pdfLaTeX 下碰 UTF-8 会挂）；Word 批注印成红色 `\docxcomment`；图按出现顺序 R1–R15 连续编号，同一张图在不同审稿人处各放一次（题注不同）。
 - 这份 docx 是从 11-08 D6 之前的回复信转来的，MOC 数字（−10.0 等）和 MOC 图都是旧的；tex 照 docx 转写，在源文件里用 `% NOTE` 标了 D6/D8 之后的值，等用户定。
 - 11-19 用户定：旧回复信的 Word 和 PDF 已从 TexPage 的 revision/ 删除（baa76c5），本地副本保留。
-- 11-22 第二轮（用户邮件，questions-14）：黄色高亮逐条处理，改动由 `docx_to_tex/pass_20261122/edits_1122.py` 套用（锚点断言恰好一处，可在新拉的线上版上重跑），仍需用户定的地方留高亮并加品红 `\claudenote`。信里的图号从此是 R1–R17。引文与修订稿的不一致 11-25 已逐句对齐。
-- 追踪版（11-23）：`docx_to_tex/pass_20261123/make_diff.sh <克隆> <旧提交> <新提交> <名> <构建目录> "<旧说明>" "<新说明>"`；要点（`\hl` 等作 textcmd、单层 `\DIFdelhl/\DIFaddhl`、删掉的图不占号、事后替换前导块）写在脚本注释里。11-25 用户说追踪版不再需要。
-- 11-25 下午一轮（用户「直接改，不用再问」）：`docx_to_tex/pass_20261125/edits_1125c_revised.py`（改 build/revised.tex 与 ref.bib）和 `edits_1125c_letter.py`（改线上 response_new.tex），都可在备份上重跑复现。信里引文用 `check_quotes_vs_revised.py` 与修订稿逐句对过（剩下的 MISSING 多是 ±、σ₂ 之类写法差别）。修订稿附录图已按首次引用排序，信里写死的图号（A1–A12、Fig. 5 MOC）都跟着改了，以后改图序要同时改信。
-- 11-26 一轮：`docx_to_tex/pass_20261126/edits_1126_revised.py`（改 build/revised.tex）和 `edits_1126_letter.py <信> <改后 revised.tex> <revised.aux>`（引文从改后的修订稿程序化截取，\\ref 换 aux 号、\cite 换作者年份）；`mhlig.py` 是 MH/LIG 改全称的规则（稿件和引文共用），`notbut_1126.json` 是审过的 not…but 改写清单。补充材料新增 A13（`figS_formation_location.pdf`），附录现为 A1–A13。11-26 08:30 一轮在 `pass_20261126b/`（`edits_1126b_revised.py <revised.tex>`、`edits_1126b_letter.py <信>`），A13 已是无冰缘线版。11-26 11:00 一轮在 `pass_20261126c/`（同样两个脚本）：西风机制挪到审稿人 3 的 westerlies 那条，Methods 漂移只留 SST/AMOC，A9 只剩三个 panel。
+- 每轮的改动都由 `docx_to_tex/pass_<日期>/` 里的脚本套用（锚点断言恰好一处，可在新拉的线上版上重跑）：`edits_1122.py`；`pass_20261125/edits_1125c_{revised,letter}.py`；`pass_20261126{,b,c}/`；`pass_20261127/`。仍需用户定的地方加 `%claude回复（日期）：` 批注。信里引文从修订稿程序化截取（\ref 换 aux 号、\cite 换作者年份），每轮用 `pass_20261125/check_quotes_vs_revised.py <信> <修订稿> <aux>` 逐句核，剩下的 MISSING 只是 ±、σ₂、\citet 之类写法差别。`mhlig.py` 是 MH/LIG 改全称的规则。追踪版脚本 `pass_20261123/make_diff.sh`，11-25 用户说不再需要。
+- 附录图按首次引用排序，现为 A1–A13；信里写死的图号（A1–A13、Fig. 5 MOC）改图序时要一起改。
+- 11-27 用户要先把审稿人 1、2 的回复和审稿人 3 对齐，对照表在 `pass_20261127/alignment_R1R2_R3.md`。SAM 折中规矩仍有效；2.4 节已比投稿版长一倍，给审稿人 2 的回复不能再说缩短了。
+- 写 LaTeX 的编辑脚本一律用原始字符串：旧脚本把 `\t`、`\r` 当成转义，印出过制表符和 esponse。
 - **别再用 `sync_texpage.sh push`**：它先 `rm -rf revision` 再按旧清单重建，会把上面删掉的文件推回去，并把 `response_new.tex` 删掉（只保留 docx/txt 上传）。现在改线上文件一律用干净克隆：pull，只 `git add`/`git rm` 写明的文件，推完等 3 分钟核 md5。
 
 ## 格式约定（仿 `SUBMISSION/example_response.tex`）

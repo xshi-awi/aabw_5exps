@@ -2,6 +2,9 @@
 
 按时间倒序。2026-11-08 从根 CLAUDE.md 压缩迁来，同主题已合并，只留结论；逐次细节在 git 历史里。具体数字多在 `nc_paper/NEW_ANALYSIS_RESULTS.md` 和 `docs/`。
 
+### 2026-11-27 05:40
+用户 11-27 08:30–12:15（+0800）线上改信，05:21 要求先把审稿人 1、2 的回复与审稿人 3 对齐（questions-14 转）。脚本 `nc_paper/docx_to_tex/pass_20261127/edits_1127_{revised,letter}.py`，对照表 `alignment_R1R2_R3.md`。稿件按她改过的引文同步（摘要删「balance … set by sea ice extent」句、A13 段、Heuzé 段去 by construction、2.4 节删「两种响应大小……correlation」段、A10 段 pack→ice、2.1 节 MLD 句删 70%/97%、2.3 节径流句截短），另把 LIG 冰缘「约 1°」标成环极平均，state 名统一大写。R1「模式局限」改成与 R3 同一套论证（冰期没有开阔洋对流，旧的「同一偏差在差值里抵消」删去），R1 第 23 条与 R2 brine 条补 A13 结论，R2 不再说 SAM 节缩短（2.4 节约 1,430 词，投稿版约 730）。图 R3（`fig_seaice_obs/`）按她的要求改成 JJA 两格。她两问的答案：A13 阈值是每态 0.02 细格曲线上转换率掉到峰值 10% 以下的等密线（PI 36.93）；Fig. 2a 在 37 处读到约 20 Sv 是 0.2 粗格把 36.89→36.93 的陡降平均进去、再连线的效果，细格穿过 37.0 只有 2.5 Sv。Pellichero 上层转换是 22 ± 4 Sv（信里原写 ±5）。TexPage 9635651（两份 tex）、d4d9c79（图）；本地编译修订稿 49 页、信 41 页，0 error。
+
 ### 2026-11-26 11:00
 用户 08:48–10:46 线上改信并留批注（TexPage 33aed08 两个 tex，666f9e1、656f1bb、19326af 图；脚本 `nc_paper/docx_to_tex/pass_20261126c/`）。西风机制整段从 L144 挪到审稿人 3「westerlies 为何都增强」那条，平衡只留一段：SST 趋势（四态 ±0.03、MIS3 +0.06 K/百年）与 AMOC 趋势（仅 PI 显著），引 PMIP4 判据 Kageyama et al. 2018 §4.1（web 读原文、Crossref 核 DOI）。Methods 改回投稿版加这三句，删掉 2 m 气温与对比段。结果 2.1 节 Gray/PMIP 段删除（与讨论重复），讨论 Gray 段按她改的引文同步并补 Kageyama2021 出处。A9/R15 去掉散点 panel c 与 r = 0.77。R13 去大标题。答了 4.45/4.48 Sv 的来历（JJA、σ2 36.93、陆架；与 Fig. 2 绿线、R13 年均不是同一量）和 MOC 南极边浅环（data_moc/CLAUDE.md）。她改的「The relevant contents ... reads」语法不对，批注意思没把握，留给她定。稿 50 页、信 41 页，0 错误。
 

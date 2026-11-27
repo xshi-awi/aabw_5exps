@@ -2,48 +2,40 @@
 
 ## 画什么
 
-`figR21_seaice_obs.{png,pdf}`，2×3（2026-11-25 起 a/b/d/e 按 SI Fig. A6 画法，见 History；下面这段描述的是 11-22 的 `--plain` 画法）。(a) PI 9 月海冰密集度，(b) OSI SAF 1979–2008 9 月，(c) PI 减 OSI SAF（9 月），黑实线为观测 15% 线、朱红虚线为模式 15% 线，点线是三个扇区分界（60°W、79°E、180°）；(d)(e) 2 月；(f) 南半球 extent（实线）与 area（虚线）的季节循环，灰带是观测 30 年逐月 min–max，浅朱红带是 PI 100 年 min–max。a/b/d/e 按正文 Fig. 2 的画法（2026-11-22 用户要求）：NCL BlAqGrYeOrRe 色标，10–100% 每 5% 一档，1–10% 用最深的蓝（under 色），只有 <1% 留白，另画 1% 点线；Fig. 2 那步 σ=1.5 的高斯平滑没有用，因为它会把冰画进 <1% 的区域。c 用 RdBu（红 = 模式冰少），没改。南极立体投影到 50°S，标了 60°S、70°S 和经度。配色 Okabe-Ito：模式 `#D55E00`，观测黑。
+`figR21_seaice_obs.{png,pdf}`（信里图 R3），2026-11-27 起默认两格、只画 JJA（6–8 月）：(a) PI 海冰密集度，按补充材料 A2 海冰行的画法（1°、<1% 设缺测、按掩膜归一的 σ=1.5 高斯平滑、contourf、NCL BlAqGrYeOrRe 色标 10–100%）；(b) PI 减 OSI SAF（RdBu，红 = 模式冰少），在 EASE2 格点上算。两格都叠观测 15% 线（黑实线）和模式 15% 线（朱红虚线），线用未平滑场，陆地设 NaN，免得线沿海岸画一圈。`--six` 出 11-25 的六格版（9 月、2 月、季节循环）为 `figR21_seaice_obs_six.*`，`--six --plain` 出 11-22 的不平滑画法。南极立体投影到 50°S。配色 Okabe-Ito：模式 `#D55E00`，观测黑。
 
-数字全在 `seaice_numbers.txt`（脚本写出，别手改）。
+数字全在 `seaice_numbers.txt`（脚本写出，别手改；重画图不改数字）。
 
 ## 数据与时段
 
-- **模式 PI = pi_age 模式年 2300–2399**，读 `pi/100years/a_ice_mergetime.nc`（1200 个月）。和论文里其他 PI 场（fh、fw、MLD、WMT 100years）同一段，和 MH/LIG（2300–2399，LIG 缺 2318、2372 共 98 年）、LGM（2400–2499）、MIS3（2500–2599）一致。`{exp}/a_ice_clim.nc` 与这些 100 年均值逐点一致（差 < 1e-6），PI 的对应文件是 `pi/a_ice_clim_beta.nc`。
+- **模式 PI = pi_age 模式年 2300–2399**，读 `pi/100years/a_ice_mergetime.nc`（1200 个月）；1° 场读 `pi/a_ice_reg_beta.nc`。和论文里其他 PI 场（fh、fw、MLD、WMT 100years）同一段。MH/LIG 2300–2399（LIG 缺 2318、2372），LGM 2400–2499，MIS3 2500–2599。
 - a_ice 是 0–1 的分数，units 属性写 "%" 是错的。
-- 网格面积用 `fesom.mesh.diag.nc` 的 `nod_area[0]`，单位 m²（mesh_core2 海洋总面积 364.4×10⁶ km²，对得上）；`nodes` 是弧度；`elem` 从 1 起数。冰期网格的维度叫 `nz`/`nod2`，取法一样。
-- **观测**：EUMETSAT OSI SAF 海冰密集度气候数据记录 v3.0（OSI-450-a），doi:10.15770/EUM_SAF_OSI_0013，日值，SH EASE2 25 km LAEA 432×432，格点面积 625 km²（由 xc/yc 间距核过，等积投影所以处处相同）。路径 `/pool/data/ICDC/ice_and_snow/osisaf_iceconc/DATA/YYYY/MM/ice_conc_sh_ease2-250_cdr-v3p0_YYYYMMDD1200.nc`。时段 1979–2008。引用：OSI SAF (2022), Global Sea Ice Concentration Climate Data Record v3.0, EUMETSAT OSI SAF, doi:10.15770/EUM_SAF_OSI_0013；算法论文可配 Lavergne et al. 2019 (The Cryosphere 13, 49–78，v2 记录)。
+- 网格面积用 `fesom.mesh.diag.nc` 的 `nod_area[0]`，单位 m²；`nodes` 是弧度；`elem` 从 1 起数。冰期网格的维度叫 `nz`/`nod2`。
+- **观测**：EUMETSAT OSI SAF 海冰密集度 CDR v3.0（OSI-450-a），doi:10.15770/EUM_SAF_OSI_0013，日值，SH EASE2 25 km LAEA 432×432，格点面积 625 km²。路径 `/pool/data/ICDC/ice_and_snow/osisaf_iceconc/DATA/YYYY/MM/ice_conc_sh_ease2-250_cdr-v3p0_YYYYMMDD1200.nc`，时段 1979–2008。引用 OSI SAF (2022)；算法论文 Lavergne et al. 2019 (The Cryosphere 13, 49–78)。
 
 ## 步骤
 
-1. `prep_osisaf_clim.py`（SLURM `slurm_prep_osisaf.sh`，shared 16 核，实跑 37 秒）：逐月把当月有的日值逐点平均，写 `osisaf_sh_monthly_1979_2008.nc`（30 年 × 12 月场、每月天数、月内日 extent 均值）。
-2. `plot_seaice_obs.py`（前台跑，约 25 秒）：
-   - extent = 密集度 ≥ 15% 的面积和，area = 密集度 × 面积之和，模式在原生网格上算，观测在 EASE2 上算。两边都由月平均场算月值；季节循环取「各年月值的平均」，另给「多年平均场的 extent」和观测「日 extent 的月均」（OSI SAF 指数的做法）作对照。
-   - 地图：模式用网格三角形线性插值到 EASE2 格点（重心坐标，LAEA 平面里算）。
-   - 冰缘纬度：沿每条经线（0.5° 间隔，80–45°S 每 0.05° 采样）找最北的 15% 穿越点并线性插值，再按扇区对经线取平均。有 polynya 也不会被误判。
-   - 观测冰区内的缺冰比例：观测插到模式节点（双线性，靠岸缺值用 50 km 内最近格点），按 nod_area 加权；EASE2 上再算一遍作交叉核对。
-   - polynya 检查：EASE2 上把 <15% 的格点做 8 邻接连通，不与 50°S 外海相连的才算封闭，再分「贴岸」和「开阔洋」。
+1. `prep_osisaf_clim.py`（SLURM `slurm_prep_osisaf.sh`，37 秒）：逐月把日值逐点平均，写 `osisaf_sh_monthly_1979_2008.nc`。
+2. `plot_seaice_obs.py`（前台跑，约 25 秒）：extent = 密集度 ≥ 15% 的面积和，area = 密集度 × 面积之和，模式在原生网格上算，观测在 EASE2 上算，都由月平均场算月值。地图里模式用网格三角形线性插值到 EASE2。冰缘纬度沿每条经线（0.5° 间隔）找最北的 15% 穿越点，再按扇区平均。polynya 检查：<15% 的格点 8 邻接连通，不与 50°S 外海相连才算封闭。
 
 ## 结论要点（数字见 txt）
 
-- 南半球 9 月 extent：PI 9.89 对观测 19.11（×10⁶ km²，各年月值平均），约为观测的一半；2 月 0.74 对 3.32。季节循环相位对（9 月最大、2 月最小）。
-- 缺冰几乎全在 Weddell（60°W–79°E）和 Adélie 扇区西部：9 月 Weddell 扇区 extent 2.67 对 10.36，冰缘平均偏南 9.7°，30°W–30°E 偏南 13–14°；79–120°E 偏南约 4–7°，120°E 以东降到 2° 以内。Ross 扇区（180°–60°W）5.54 对 5.77，冰缘 −63.6° 对 −63.3°，基本吻合。
-- 观测 9 月 15% 线以内，PI 有 49%（EASE2 上 50%）面积不足 15%；平均密集度 38% 对 79%。
-- Weddell 环流区（30°W–30°E，60–70°S）9 月 PI 平均密集度 7.5%，观测 96%。这不是封闭 polynya：100 年里没有一年出现 > 0.1×10⁶ km² 的封闭开阔洋 polynya，开阔水与外海连通，冰只剩西 Weddell 和沿岸一条带。和模式在 68°S 附近开阔洋对流一致。
+- JJA（各年 6–8 月月值的平均）：extent PI 7.87 对观测 16.47（×10⁶ km²），约一半；冰缘 Weddell −67.9° 对 −58.6°（偏南约 9°），Ross 扇区（180°–60°W）−65.2° 对 −64.0°，环极 −65.9° 对 −61.2°。
+- 9 月 extent 9.89 对 19.11，2 月 0.74 对 3.32；季节相位对。9 月 Weddell 扇区冰缘偏南 9.7°，30°W–30°E 偏南 13–14°，Ross 扇区差 0.4°。
+- 观测 9 月 15% 线以内 PI 有 49% 面积不足 15%。Weddell 环流区（30°W–30°E，60–70°S）9 月 PI 7.5% 对观测 96%，不是封闭 polynya，开阔水与外海连通，和模式在 68°S 附近开阔洋对流一致。
 
 ## 坑
 
-- **`pi/a_ice_clim.nc` 不是论文的 PI 时段。** history 写的是 2026-03-15 用 `cdo ensmean` 对 `a_ice.fesom.2090…2099` 十个文件求平均，相对路径，来源 run 查不到：和 pi_age、pi_mix0.1、pi_uni100、mh_age、lig_age、eh2pi_ssp245/585、ice_cavity_data/PI_CORE_ssp* 的 2090–2099 都对不上（2026-11-25 用 `lfs find` 搜遍 /work/ba0989/a270064、/work/ba1066/a270064、/work/bb1029 里所有 `a_ice.fesom.209001.01.nc`，同网格的逐个求 10 年平均比对，最接近的 pi_mix0.1、pi_age 平均绝对差也有 0.027–0.029；PI_ICEv2_ssp*、exp_co2/lgm、lgm_age、mis_age 网格不同）。同一天的 `pi/a_ice_reg.nc` 也是这一版（1° 上 9 月 extent 12.50，beta 版 10.89）。旧版改名成 `_beta` 留着，`_beta` 才是 2300–2399。`plot_climate_patterns_jja.py` 的 `load_variable_reg('pi','a_ice')` 读的就是 `pi/a_ice_reg.nc`，所以正文 Fig. 1 的海冰一行很可能以 2090–2099 为 PI 基准。JJA 面积 PI* 6.57 对 PI 6.00，MH−PI 用 PI* 为 −0.01，用 2300–2399 为 +0.56。本文件夹只用 100years 那份。
-- 观测前 1987-08 隔天一个文件；1986 年 4、5 月无数据（这两个月气候态只有 29 年）；1986-06 只有 4 天（24–30 日隔天），1987-12 只有 2 天（12 月 1–2 日），1988-01 从 13 日开始，它把 12 月 max 抬到 13.80（去掉后 13.04）。按要求有几天用几天。
-- 由月平均场算的 extent 比日 extent 的月均大（9 月 19.11 对 18.83），多年平均场的 extent 更大（20.04）。模式只有月均，所以和模式比要用月平均场那一列。
-- 2 月冰缘只在有冰的经线上平均，PI 2 月 Weddell 只有 7/278 条经线有冰，2 月扇区冰缘数字没有意义，别引。
-- `rm` 被 hook 拦，本目录的 `__pycache__/` 由 `.gitignore` 挡住，不用管。
+- **`pi/a_ice_clim.nc`、`pi/a_ice_reg.nc` 不是论文的 PI 时段**，是 2026-03-15 由来源不明的 2090–2099 求平均覆盖的（11-25 搜遍三个项目目录对不上任何 run）。`_beta` 才是 2300–2399。正文 Fig. 1 和补充材料 A2 的 PI 海冰仍读被覆盖的文件（用户 FS 先不动），所以 A2 的 PI 那格 Weddell 是满圈，本图 (a) 中间有一块没冰。JJA 面积 PI* 6.57 对 PI 6.00。
+- 观测前 1987-08 隔天一个文件；1986 年 4、5 月无数据；1986-06 只有 4 天，1987-12 只有 2 天（把 12 月 max 抬到 13.80）。有几天用几天。
+- 月平均场算的 extent 比日 extent 的月均大（9 月 19.11 对 18.83），和模式比用月平均场那一列。
+- 2 月 Weddell 只有 7/278 条经线有冰，2 月扇区冰缘数字没有意义。
+- `rm` 被 hook 拦，`__pycache__/` 由 `.gitignore` 挡住。
 
 ## History
 
-- 2026-11-25 05:29 用户按钮 FT「用正确 PI 的 SI 画法版」：SI 画法改成脚本默认（`--plain` 出 11-22 画法，存为 `*_plain.*`），重出 `figR21_seaice_obs.{png,pdf}`（png md5 ec81f0b2），数字不变；信里图注改写（a/b/d/e 颜色按 SI Fig. A6 平滑，15% 线用未平滑场，PI 模式年 2300–2399）。TexPage dbb51e9（图注）、9115556（图）。
-
-- 2026-11-25 用户要威德尔海像 SI 图那样连成一圈。`compare_si_weddell.py` → `compare_si_weddell.png` 对照五格（同一 SI 画法：1°、<1% 设缺测、按掩膜归一的 σ=1.5 平滑、contourf）：SI 原图的满圈来自被覆盖的 PI 文件（框 30°W–30°E、60–68°S 内着色 90%），换正确 PI 只剩 55%（6–9 月）或 67%（9 月），60°W–0° 留一块白。季节不是原因，正确 PI 9 月冰最多。加了 `--si-style` 开关出候选 `figR21_seaice_obs_si.*`（a/b/d/e 按 SI 画法，15% 线不平滑，c、f 和数字不变），没推，等用户 FR/FT。现版另存 `versions/figR21_seaice_obs_v20261122b.*`（md5 png d9d809bc，即 TexPage 10dcc65）。不要用 `pi/a_ice_reg.nc` 出 R3（总管 11-25 定）。
-
-- 2026-11-22 08:31 按正文 Fig. 2 的画法重画 a/b/d/e（旧版存 `versions/figR21_seaice_obs_v20261122a.*`，md5 png f52fe50b，TexPage 9933006；新版 TexPage 10dcc65）。数字不变。9 月 Weddell 环流区（30°W–30°E、60–68°S）用正确 PI 文件有 54% 面积 <1%、44% 在 1–15%、2% ≥15%，所以仍有一块白；正文 Fig. 2 看起来更圆，是因为平滑（着色面积升到 68%）加上它读的是被覆盖的 2090–2099 文件（升到 91%）。
-
-- 2026-11-22 新建：OSI SAF v3.0 气候态、图 R21 第一版、`seaice_numbers.txt`；发现 `pi/a_ice_clim.nc` / `pi/a_ice_reg.nc` 时段问题（未改原文件）。
+- 2026-11-27 用户在信里批注「只画 jja……a 画海冰，b 画差异，其他的不要了……简单对比一段话」：加 `make_figure_jja`，默认出两格 JJA 版（png md5 c8901d29），六格版改由 `--six` 出；旧图存 `versions/figR21_seaice_obs_v20261127pre.*`（ec81f0b2）。信里文字压成一段（6–8 月数字）。TexPage d4d9c79。
+- 2026-11-25 用户按钮 FT「用正确 PI 的 SI 画法版」：a/b/d/e 改用 SI 画法（正确 PI），TexPage 9115556。旧版 `versions/figR21_seaice_obs_v20261122b.*`。
+- 2026-11-25 `compare_si_weddell.py`：SI 原图 Weddell 满圈来自被覆盖的 PI 文件（框内着色 90%），换正确 PI 只剩 55–67%。不要用 `pi/a_ice_reg.nc` 出信里的图（总管 11-25 定）。
+- 2026-11-22 按正文 Fig. 2 画法重画（`versions/figR21_seaice_obs_v20261122a.*`）。
+- 2026-11-22 新建：OSI SAF v3.0 气候态、图第一版、`seaice_numbers.txt`；发现 PI 海冰文件时段问题。
