@@ -28,3 +28,7 @@
 她那句话的另一种读法和证据一致：「nc-main（TexPage 上的 nc-main_submitted）是正式投稿版，比你本地那份新」。如果她指的是本地 `nc_paper/nc-main.tex`，上面 1–4 条都不支持。
 
 09-08 的 REVISION_PLAN.md 写「submitted manuscript is nc-main.tex … confirmed against submitted.pdf」，当时只是为了区分旧的 AGU `main.tex`，没有逐句比。
+
+## 她的决定
+
+2026-11-27 14:30 用户按钮 GQ：「以TexPage投稿版为准」。tracked Word、一致性表、submitted_vs_draft.md 都以 A 为原稿，保持不变。
