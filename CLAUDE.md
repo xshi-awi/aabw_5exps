@@ -2,11 +2,11 @@
 
 AWI-ESM 五个气候态（PI / MH / LIG / LGM / MIS3）南大洋表面水团转换（WMT）的热、盐强迫分解与 SAM 调制。论文已投 Nature Communications，现处大修阶段。远程 origin = https://github.com/xshi-awi/aabw_5exps
 
-## 当前状态（2026-11-27 14:15）
+## 当前状态（2026-11-27 14:45）
 
 - **在做什么**：NC 大修。修订稿 `nc_paper/build/revised.tex`（同步自 TexPage `revision/revised.tex`）；回复信是 TexPage 上的 `revision/response_new.tex`（线上是主版本，用户在线改，本地副本 `nc_paper/response_new.tex`）。旧的 `RESPONSE_LETTER.md` 流水线和 04/05 文件留着不动。
-- **上一步做完了什么**：11-27 13:38 她要的终查：信与修订稿逐条对照（`nc_paper/docx_to_tex/pass_20261127c/consistency_table.md`），纯文字对不上的已改（TexPage 9163f4f）；修订追踪 Word `nc_paper/SUBMISSION/manuscript_tracked_20261127.docx`（投稿版→修订稿，作者 Xiaoxu Shi）；信 Word f `nc_paper/SUBMISSION/response_letter_20261127f.docx`。
-- **下一步**：等她定 consistency_table.md「需要她定」的 12 条，头一条是修订稿底子是投稿前的草稿（`pass_20261127c/submitted_vs_draft.md`）；之后填致谢与基金，回填 Zenodo DOI。
+- **上一步做完了什么**：11-27 终查信与修订稿（`nc_paper/docx_to_tex/pass_20261127c/consistency_table.md`）；她 GQ 定以 TexPage 投稿版为准，投稿版最后一轮的措辞、5 篇文献和基金文字已补回修订稿（TexPage 1423854）。修订追踪 Word `nc_paper/SUBMISSION/manuscript_tracked_20261127b.docx`（发邮件用 `_b_small.docx`，7.8 MB）；信 Word g `response_letter_20261127g.docx`。
+- **下一步**：等她定一致性表里余下的条目（其中 2.1 节 A3 指针、信图 R20 的格宽口径最要紧）；之后回填 Zenodo DOI。
 - **动手前必须知道的**：
   - 真正的投稿版是 TexPage `original_submission/nc-main_submitted.tex`（有行号，审稿人行号对得上）。本地 `nc_paper/nc-main.tex` 是投稿前的草稿，和投稿版有 35 处不同，修订稿就是从它改出来的（`log/PITFALLS.md`）。`nc_paper/main.tex` 是旧 AGU 版。
   - 改 response_new.tex 前先 pull，以线上为准；用户在改的文件等她停手 10 分钟再推；只推自己改的文件，推完至少等 3 分钟核 md5。别用 `sync_texpage.sh push`。

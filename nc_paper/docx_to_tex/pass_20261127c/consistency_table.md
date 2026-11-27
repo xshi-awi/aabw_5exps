@@ -91,3 +91,41 @@
 - 接受全部修订后与修订稿的 Word 逐段相同（293 段、22 张图），拒绝全部修订后与原稿相同（168 段、13 张图）。
 - docx skill 的 validate.py --author 通过（没有漏标的改动），XSD 校验通过。
 - LibreOffice 能打开并显示修订，接受全部后正文与修订稿一致。只有 6 处改过的公式在 LibreOffice 里显示成空框：式 (1) 新旧两版、新加的 M(ρ) 式、三处行内符号。LibreOffice 不支持公式内部的修订标记，这里没有 Word 可以实测。
+
+## 14:31 以后：恢复投稿版措辞（她 GQ「以TexPage投稿版为准」，TexPage 1423854，`edits_1127j_restore.py`）
+
+修订稿里 56 处还是草稿写法的片段，恢复后只剩 5 处，都有意保留：
+- 2.3 节冰期淡水那句的面板指针 d,e,i,j：这段按审稿人重写了，句末原来的 i,j 指针已经没有。
+- 「$-$150」：正确的负号，只是排版。
+- R3 L347 改写的放射性碳那句。
+- M(ρ) 的定义（占 2 处）：投稿版说「positive F(ρ) indicates accumulation」，物理上不对。
+
+另有 25 处在按审稿人重写过的段落里，照修订稿：2.3 节的单位和数、A7/A8 图注的阈值、A2 换图、数据可用性、年龄的限定、冰期 WMT 的数。2.1 节 A3 指针（第 ⑧ 条）没动，仍等她定。
+
+**整段或整句恢复的**：
+- 引言第 1、2 段，第 4 段的 knorr2021 句和只引一次 Skinner2017。
+- precondition。
+- Fig. 2 面板指针 a-c、d,e、f-t。
+- 2.2 节「densification.」；2.4 节「contributors, i.e.,」。
+- 讨论里 knorr2021 那半句。
+- 年龄段的语序和措辞，审稿人要求改的句子不动。
+- 未来含义段放回 single-model 段之前，删去 de Lavergne 2014 和「This implies that projections…」那句。
+- GHG 引文去掉 buiron2011；「transformation framework」。
+- 致谢恢复投稿版的基金文字：国家重点研发计划 2024YFF0506604、南方海洋实验室 SML2023SP204、ONCE 计划。
+- Fig. 2 与 A11 图注的线色说明。
+- Fig. 9 图注恢复投稿版，不带数字，取代今天上午改的 0.1 格数。Fig. 9 去掉 angle=270：修订稿 PDF 里示意图原来是横躺的，现在立起来了。
+
+**投稿版的五处错字顺手改了**：though which → through which，Southern ocean → Southern Ocean，firstly → first，remove → removes，These work point → These studies point。
+
+**五篇文献加回 ref.bib**：sime2013southern、chadwick2022compilation、volker2013responses、mandal2021roles、knorr2021salty。
+
+**对上面「需要她定」各条的影响**：
+- ① 已办。
+- ⑩ 也随之办了：「Moreover, our paleoclimate…」一段按投稿版重新注释掉，不再和下一段重复。
+- ⑫ 里的基金文字已从投稿版恢复，要不要更新由她定。
+- 其余各条不变。
+
+**信**：不受影响。信里没有引用或引文碰到这些句子，引文核对仍是那 12 处写法差别。
+编译：稿 50 页、信 43 页，0 错误，无未定义引用。
+
+**tracked Word b**：插入 1694、删除 645 处（之前 1858、791）；删除的词 2519 → 1494（−41%），插入的词 10040 → 9093；未改的段 45 → 71，整段删除 30 → 17。

@@ -1,0 +1,25 @@
+== tracked b (full)
+marks: {('ins', 'Xiaoxu Shi'): 1694, ('del', 'Xiaoxu Shi'): 645}
+maths objects with inserted/deleted runs: 4 2
+accept all = revised: identical (293 paragraphs)
+reject all = original: identical (168 paragraphs)
+  figures in accepted: 22
+  figures in rejected: 13
+  figures in revised: 22
+  figures in original: 13
+Paragraphs: 170 → 319 (+149)
+All validations PASSED!
+== tracked b small: check_tracked_docx.py
+marks: {('ins', 'Xiaoxu Shi'): 1694, ('del', 'Xiaoxu Shi'): 645}
+maths objects with inserted/deleted runs: 4 2
+accept all = revised: identical (293 paragraphs)
+reject all = original: identical (168 paragraphs)
+  figures in accepted: 22
+  figures in rejected: 13
+  figures in revised: 22
+  figures in original: 13
+exit 0
+== validate.py --author
+Paragraphs: 170 → 319 (+149)
+All validations PASSED!
+== words: tracked (a) ins 10040 del 2519; tracked b ins 9093 del 1494

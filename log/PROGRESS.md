@@ -2,6 +2,9 @@
 
 按时间倒序。2026-11-08 从根 CLAUDE.md 压缩迁来，同主题已合并，只留结论；逐次细节在 git 历史里。具体数字多在 `nc_paper/NEW_ANALYSIS_RESULTS.md` 和 `docs/`。
 
+### 2026-11-27 14:45
+她 14:20 说本地 nc-main.tex 才是投稿版，核了证据（`pass_20261127c/provenance.md`）：审稿人 30 处行号引用，TexPage 投稿版 27 处对上，本地 10 处；R3 L347 批评的句子只在 TexPage 版；09-08 的 submitted.pdf 和 TexPage 版逐词相同；本地 Ref.bib 是 TexPage 版 Ref.bib 的开头，TexPage 版末尾多 5 条。她按钮 GQ 定以 TexPage 投稿版为准，14:31 让按建议补回投稿版措辞。`edits_1127j_restore.py` 恢复后 56 处草稿片段只剩 5 处有意保留，5 篇文献加回，基金文字恢复，Fig. 9 不再横躺（TexPage 1423854，稿 50 页）。tracked Word b 删除的词少了 41%，压缩版 7.8 MB（`shrink_docx_images.py`）；信 Word g。
+
 ### 2026-11-27 14:15
 用户 13:38 要终查信与修订稿，并出投稿版→修订稿的修订追踪 Word。四个 agent 逐条对照（审稿人 1、2+4、3 和反向），123 条里一致 101、不一致 13、缺失 6、原稿已有 3，汇总在 `nc_paper/docx_to_tex/pass_20261127c/consistency_table.md`，明细在同目录 `consistency/`。纯文字的改了（`edits_1127i_consistency.py`，TexPage 9163f4f），包括 9 处 `\citet` 印成「(author?)」、两处密度图指针、A12 先于 A13 被引、LIG brine 41 mSv、Fig. 9 图注 0.1 格数、信里残留的 0.2 格数和 Heuzé「28 of 35」。终查发现修订稿底子是投稿前的草稿（`submitted_vs_draft.md`，56 处、5 篇文献），列给她定。追踪 Word 由 `make_tracked_docx.py` 写 w:ins/w:del（difflib 段落对齐、互为最佳配对，逐词标改动，公式按 Word 写法在 m:r 和 m:ctrlPr 上标），`check_tracked_docx.py` 核接受全部等于修订稿（293 段、22 图）、拒绝全部等于原稿（168 段、13 图），docx skill 的 validate.py --author 通过。信 Word f 已出。
 
