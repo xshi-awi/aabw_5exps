@@ -9,8 +9,10 @@ Together these show the wind perturbation that drives the Ekman divergence, and
 the sea ice response that carries the salt pump, for all five climate states.
 
 2026-11-27 (A4 readability): drawn at the printed width 5.81 in, so every size below is
-the printed size in pt. Gridline labels are drawn by hand: longitudes outside the outer
-columns, two latitudes in panel (a) only. Old: figures/versions/*_v20261127pre.*
+the printed size in pt. Old: figures/versions/*_v20261127pre.*
+2026-11-27 10:34 (user): every latitude circle and every meridian labelled in every
+panel, small (6 pt). Meridian labels sit outside the circle along it; latitude labels
+along 20E, where a search over meridians found the least hidden signal. Old: *_v20261127b.*
 """
 import numpy as np
 import xarray as xr
@@ -36,6 +38,16 @@ mpl.rcParams.update({'font.family': 'sans-serif',
 PRINT_W = 5.81          # in, width of the figure in the letter
 PNG_DPI = 723           # 5.81 in x 723 = 4200 px, the old pixel width
 PC = ccrs.PlateCarree()
+proj = ccrs.SouthPolarStereo()
+import matplotlib.patheffects as patheffects
+import matplotlib.ticker as mticker
+GRID_LONS = [-180, -120, -60, 0, 60, 120]      # cartopy's default lines here, now fixed
+GRID_LATS = [-80, -70, -60, -50]
+FS_GRID = 6                                    # printed pt
+LATLAB_LON = 20
+# side of the meridian (L, R, C), and the gap in pt to the pole side of the circle (None = on it)
+LAT_LAYOUT = {-80: ('C', 2.0), -70: ('C', 0.5), -60: ('L', None), -50: ('L', None)}
+HALO = [patheffects.withStroke(linewidth=1.2, foreground='white')]
 
 
 def regrid_closed(lon, lat, val, GX, GY):
@@ -67,33 +79,57 @@ def circular(ax):
 
 
 def gridlines(ax):
-    ax.gridlines(draw_labels=False, linewidth=0.5, color='#555555', alpha=0.6,
-                 linestyle='--')
+    gl = ax.gridlines(draw_labels=False, linewidth=0.5, color='#555555', alpha=0.6,
+                      linestyle='--')
+    gl.xlocator = mticker.FixedLocator(GRID_LONS)
+    gl.ylocator = mticker.FixedLocator(GRID_LATS)
     ax.spines['geo'].set_linewidth(0.6)
 
 
-def lon_labels(ax, side):
-    """60/120 deg labels just outside the circle, on the outer side of the figure."""
-    sgn = -1 if side == 'W' else 1
-    tr = PC._as_mpl_transform(ax)
-    for lo in (60, 120):
-        ax.annotate(f'{lo}°{side}', xy=(sgn * lo, LAT_MAX), xycoords=tr,
-                    xytext=(sgn * 4, 0), textcoords='offset points', fontsize=8,
-                    ha='right' if side == 'W' else 'left', va='center',
+def lon_text(lo):
+    if lo == 0:
+        return '0°'
+    if abs(lo) == 180:
+        return '180°'
+    return f'{abs(lo)}°{"E" if lo > 0 else "W"}'
+
+
+def grid_labels(ax):
+    """Each meridian labelled just outside the circle where it ends, written along the
+    circle; each latitude circle labelled along LATLAB_LON (LAT_LAYOUT: side of the
+    meridian, and whether the label sits on the pole side of its circle)."""
+    for lo in GRID_LONS:
+        dx, dy = proj.transform_point(lo, -60, PC)
+        n = np.hypot(dx, dy)
+        dx, dy = dx / n, dy / n
+        rot = np.degrees(np.arctan2(dy, dx)) - 90
+        rot = (rot + 180) % 360 - 180
+        if rot > 90:
+            rot -= 180
+        elif rot < -90:
+            rot += 180
+        ax.annotate(lon_text(lo), xy=(0.5 + 0.5 * dx, 0.5 + 0.5 * dy), xycoords='axes fraction',
+                    xytext=(5 * dx, 5 * dy), textcoords='offset points', fontsize=FS_GRID,
+                    ha='center', va='center', rotation=rot, rotation_mode='anchor',
                     annotation_clip=False)
-
-
-def lat_labels(ax):
-    for la in (-60, -80):
-        ax.text(150, la, f'{abs(la)}°S', transform=PC, ha='center', va='center',
-                fontsize=8, zorder=6,
-                bbox=dict(facecolor='white', edgecolor='none', alpha=0.7, pad=0.3))
+    for la in GRID_LATS:
+        side, gap = LAT_LAYOUT[la]
+        pole = gap is not None
+        px, py = proj.transform_point(LATLAB_LON, la, PC)
+        up = py > 0
+        ax.annotate(f'{abs(la)}°S', xy=(px, py), xycoords='data',
+                    xytext=({'L': -2.0, 'R': 2.0, 'C': 0.0}[side],
+                            ((-gap if up else gap) if pole else 0.0)),
+                    textcoords='offset points', fontsize=FS_GRID,
+                    ha={'L': 'right', 'R': 'left', 'C': 'center'}[side],
+                    va=('top' if up else 'bottom') if pole else 'center',
+                    path_effects=HALO, zorder=6, annotation_clip=False)
 
 
 def panel_letter(ax, letter):
     """Above the top-left corner of the square axes, outside the circular map."""
-    ax.text(-0.07, 1.04, f'({letter})', transform=ax.transAxes, fontsize=9,
-            fontweight='bold', va='top', ha='left')
+    ax.text(-0.07, 1.0, f'({letter})', transform=ax.transAxes, fontsize=9,
+            fontweight='bold', va='bottom', ha='left')
 
 
 def sam_phases(exp):
@@ -113,13 +149,13 @@ def sam_phases(exp):
 
 # layout in inches (printed size)
 FW = PRINT_W
-left, right, gap = 0.72, 0.38, 0.05          # left/right hold the longitude labels
+over = 8.6 / 72                              # 120°E/W label beyond the square, 6 pt
+left, right, gap = 0.03 + 0.27 + 0.04 + over, over + 0.02, 2 * over + 2.5 / 72
 D = (FW - left - right - 4 * gap) / 5        # side of one square map
-top, below, between, bottom = 0.24, 0.60, 0.14, 0.04   # below = colorbar + ticks + label
+top, below, between, bottom = 0.36, 0.67, 0.17, 0.04   # below = 180° label + colour bar
 FH = top + D + below + between + D + below + bottom
 y_row = [FH - top - D, bottom + below]       # bottom edge of row 1 and row 2
 fig = plt.figure(figsize=(FW, FH))
-proj = ccrs.SouthPolarStereo()
 letters = 'abcdefghij'
 p = 0
 cf1 = cf2 = None
@@ -151,17 +187,14 @@ for c, (e, lab) in enumerate(zip(EXPS, LABELS)):
                       cmap='PuOr_r', extend='both', transform=ccrs.PlateCarree())
     ax.add_feature(cfeature.LAND, facecolor='#999999', zorder=3)
     gridlines(ax)
-    ax.set_title(lab, fontsize=10, fontweight='bold', pad=4)
+    ax.set_title(lab, fontsize=10, fontweight='bold', pad=12)
     panel_letter(ax, letters[p])
+    grid_labels(ax)
     p += 1
     if c == 0:
-        lon_labels(ax, 'W')
-        lat_labels(ax)                  # same grid in every panel; label it once
-        fig.text(0.31 / FW, (y_row[0] + D / 2) / FH, 'Zonal wind\nstress', rotation=90,
-                 va='center', ha='right', fontsize=8.5, fontweight='bold',
+        fig.text((left - 0.04 - over) / FW, (y_row[0] + D / 2) / FH, 'Zonal wind\nstress',
+                 rotation=90, va='center', ha='right', fontsize=8.5, fontweight='bold',
                  multialignment='center', linespacing=1.1)
-    if c == 4:
-        lon_labels(ax, 'E')
 
     # ---------------- row 2: sea ice concentration anomaly (FESOM nodes)
     m = xr.open_dataset(f'/home/a/a270064/bb1029/inputs/{MESH[e]}/fesom.mesh.diag.nc')
@@ -186,21 +219,19 @@ for c, (e, lab) in enumerate(zip(EXPS, LABELS)):
     ax.add_feature(cfeature.LAND, facecolor='#999999', zorder=3)
     gridlines(ax)
     panel_letter(ax, letters[p])
+    grid_labels(ax)
     p += 1
     if c == 0:
-        lon_labels(ax, 'W')
-        fig.text(0.31 / FW, (y_row[1] + D / 2) / FH, 'Sea ice\nconcentration', rotation=90,
-                 va='center', ha='right', fontsize=8.5, fontweight='bold',
+        fig.text((left - 0.04 - over) / FW, (y_row[1] + D / 2) / FH, 'Sea ice\nconcentration',
+                 rotation=90, va='center', ha='right', fontsize=8.5, fontweight='bold',
                  multialignment='center', linespacing=1.1)
-    if c == 4:
-        lon_labels(ax, 'E')
 
 for row, cf, ticks, label in (
         (0, cf1, np.arange(-0.12, 0.121, 0.04),
          'Zonal wind stress anomaly, high $-$ low SAM  (N m$^{-2}$)'),
         (1, cf2, np.arange(-0.2, 0.21, 0.1),
          'Sea ice concentration anomaly, high $-$ low SAM')):
-    cax = fig.add_axes([0.20, (y_row[row] - 0.10 - 0.09) / FH, 0.60, 0.09 / FH])
+    cax = fig.add_axes([0.20, (y_row[row] - 0.17 - 0.09) / FH, 0.60, 0.09 / FH])
     cb = fig.colorbar(cf, cax=cax, orientation='horizontal', ticks=ticks)
     cb.set_label(label, fontsize=8.5, fontweight='bold', labelpad=2)
     cb.ax.tick_params(labelsize=8, width=0.6, length=3)

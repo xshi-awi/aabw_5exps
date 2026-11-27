@@ -21,6 +21,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.colors as mcolors
 import matplotlib.ticker as mticker
+import matplotlib.patheffects as pe
 import cartopy.crs as ccrs
 import cartopy.feature as cfeature
 import xarray as xr
@@ -560,18 +561,20 @@ FS_PANEL = 10.0   # (a), (b), ... bold
 FS_ROW = 9.2      # row names on the left, bold
 FS_CBLAB = 9.2    # colour bar labels, bold
 FS_CBTICK = 9.0   # colour bar tick labels
-FS_GEO = 8.2      # latitude and meridian labels
+FS_GEO = 6.8      # latitude and meridian labels (about 6.3 pt printed, user 11-27b)
+LAT_LABEL_LON = 40  # meridian along which the latitude circles are labelled
 LW_COAST = 0.6
 LW_GRID = 0.55
 
 # Layout in inches: maps are square and placed by hand so the frame, the labels
 # outside it and the colour bars line up exactly.
 FIG_W = 6.3
-MAP_L = 0.95      # left of the first map: row name, then the 60/120 W labels
-MAP_R = 0.43      # right of the last map: the 60/120 E labels
-MAP_G = 0.06      # between columns (no labels sit there)
-TOP = 0.28        # column headings
-ROW_G = 0.25      # between rows: the 180 deg label under each map
+MAP_L = 0.63      # left of the first map: row name, then the 60/120 W labels
+MAP_R = 0.16      # right of the last map: the 60/120 E labels
+MAP_G = 0.28      # between columns: 60/120 E of one map and 60/120 W of the next
+TOP = 0.37        # column headings above the 0 deg labels
+ROW_G = 0.28      # between rows: 180 deg under one map, 0 deg over the next
+TITLE_PAD = 11    # pt, clears the 0 deg label
 BOTTOM = 0.66     # 180 deg label, colour bar, its ticks and label
 MAP_A = (FIG_W - MAP_L - MAP_R - 4 * MAP_G) / 5
 FIG_H = TOP + 3 * MAP_A + 2 * ROW_G + BOTTOM
@@ -600,7 +603,7 @@ def map_rect(row, col):
 def add_row_name(fig, row, text):
     """Row name left of the map, clear of the 60/120 W labels."""
     x0, y0, w, h = map_rect(row, 0)
-    fig.text(x0 - 0.45 / FIG_W, y0 + 0.5 * h, text, rotation=90,
+    fig.text(x0 - 0.17 / FIG_W, y0 + 0.5 * h, text, rotation=90,
              ha='right', va='center', multialignment='center',
              fontsize=FS_ROW, fontweight='bold', color='black')
 
@@ -661,58 +664,41 @@ def plot_field(ax, lon_2d, lat_2d, data, vmin, vmax, cmap, panel_label,
     gl.xlocator = mticker.FixedLocator(np.arange(-180, 180, 60))
     gl.ylocator = mticker.FixedLocator(np.arange(-80, -49, 10))
 
-    # Every panel is labelled. These panels are square, so the corners are free
-    # and the meridian labels can sit in them without touching the next column.
-    # Latitudes go along 150 deg E, where the Indian sector leaves a quiet strip.
-    # Since 2026-11-27 only 60 and 80 deg S are labelled: at the printed size the
-    # 50 deg S label covered the open-ocean corner and the 70 deg S label the
-    # coastal signal; the frame edge midpoints are 50 deg S.
+    # Every panel is labelled (2026-11-27b, user: lat/lon smaller, every
+    # latitude circle labelled). Latitudes 50-80 deg S go along 40 deg E, the
+    # meridian whose labels cover the least signal and coast over all 30
+    # panels of Figs. 3 and 4 (scored on the plotted fields); thin white halo.
     if label_axes:
-        for la in (-60, -80):
-            ax.text(150, la, '%d°S' % abs(la), transform=ccrs.PlateCarree(),
+        for la in (-50, -60, -70, -80):
+            ax.text(LAT_LABEL_LON, la, '%d°S' % abs(la), transform=ccrs.PlateCarree(),
                     ha='center', va='center', fontsize=FS_GEO, color='black',
                     zorder=5,
-                    bbox=dict(facecolor='white', edgecolor='none', alpha=0.65,
-                              pad=0.3))
-        # One label per meridian, outside the frame at the point where that
-        # meridian meets it. Western meridians on the leftmost column only and
-        # eastern ones on the rightmost, so no label sits between two panels;
-        # 180 deg on every panel, below the frame. 0 deg is omitted because it
-        # falls under the panel title.
+                    path_effects=[pe.withStroke(linewidth=1.5, foreground='white')])
+        # Every drawn meridian, outside the frame where it meets the frame:
+        # 0 deg above, 180 deg below (horizontal), 60/120 W on the left and
+        # 60/120 E on the right edge, written along the edge (rotated 90 deg)
+        # so that the labels of two neighbouring maps fit in the gap between them.
         HALF = 4651194.0
-        lons = [-180]
-        if col == 0:
-            lons += [-120, -60]
-        if col == ncol - 1:
-            lons += [60, 120]
-        for lon in lons:
-            px, py = ccrs.SouthPolarStereo().transform_point(
-                lon, -50.0, ccrs.PlateCarree())
-            ax_x = 0.5 + 0.5 * px / HALF
-            ax_y = 0.5 + 0.5 * py / HALF
-            # The frame now coincides with the axes edge, so each label goes on
-            # the side its meridian crosses, a hair beyond 0 or 1 in axes
-            # coordinates. clip_on is already False, so text outside the axes
-            # still draws; wspace provides the room between columns.
-            dx, dy = ax_x - 0.5, ax_y - 0.5
-            PAD = 0.03
-            if abs(lon) == 180:                 # bottom edge
-                ax_x, ax_y = 0.5, -PAD
-            else:                               # left or right edge
-                ax_x = (1.0 + PAD) if dx > 0 else -PAD
-                ax_y = 0.5 + dy / abs(dx) * 0.5
-            lab = ('0°' if lon == 0 else '180°' if abs(lon) == 180
+        PAD = 0.015 / MAP_A                      # 0.015 in, in axes units
+        for lon in (0, 60, 120, 180, -120, -60):
+            lab = ('0°' if lon == 0 else '180°' if lon == 180
                    else '%d°%s' % (abs(lon), 'W' if lon < 0 else 'E'))
-            # Anchor by the edge facing the map, so the text grows away from
-            # the frame and never straddles it. The 60 and 120 deg labels meet
-            # the left or right side, where the horizontal anchor is what
-            # matters; 180 deg meets the bottom, where the vertical one does.
-            if abs(lon) == 180:
-                ha, va = 'center', 'top'
+            if lon == 0:
+                kw = dict(x=0.5, y=1.0 + PAD, ha='center', va='bottom', rotation=0)
+            elif lon == 180:
+                kw = dict(x=0.5, y=-PAD, ha='center', va='top', rotation=0)
             else:
-                ha, va = ('left' if dx > 0 else 'right'), 'center'
-            ax.text(ax_x, ax_y, lab, transform=ax.transAxes, ha=ha, va=va,
-                    fontsize=FS_GEO, color='black', zorder=5, clip_on=False)
+                px, py = ccrs.SouthPolarStereo().transform_point(
+                    lon, -50.0, ccrs.PlateCarree())
+                dx, dy = px / HALF, py / HALF
+                y = 0.5 + 0.5 * dy / abs(dx)     # where the meridian meets the side
+                if dx > 0:
+                    kw = dict(x=1.0 + PAD, y=y, ha='left', va='center', rotation=90)
+                else:
+                    kw = dict(x=-PAD, y=y, ha='right', va='center', rotation=90)
+            x, y = kw.pop('x'), kw.pop('y')
+            ax.text(x, y, lab, transform=ax.transAxes, fontsize=FS_GEO,
+                    color='black', zorder=5, clip_on=False, **kw)
 
     return cf
 
@@ -763,7 +749,7 @@ for row, (var_key, var_title, var_title_pi) in enumerate(zip(var_keys, var_title
     all_cfs.append(cf_pi)
     # climate-state column headings on the top row (Reviewer 1, comment 17)
     if row == 0:
-        ax.set_title('PI', fontsize=FS_TITLE, fontweight='bold', pad=4, color='black')
+        ax.set_title('PI', fontsize=FS_TITLE, fontweight='bold', pad=TITLE_PAD, color='black')
 
     # 第2-5列: 异常 (使用统一的异常范围)
     for col, exp in enumerate(exp_list, start=1):
@@ -784,7 +770,7 @@ for row, (var_key, var_title, var_title_pi) in enumerate(zip(var_keys, var_title
         if row == 0:
             EXPNAME = {'mh': 'MH', 'lig': 'LIG', 'lgm': 'LGM', 'mis': 'MIS3'}
             ax.set_title(EXPNAME.get(exp, exp.upper()) + ' $-$ PI',
-                         fontsize=FS_TITLE, fontweight='bold', pad=4, color='black')
+                         fontsize=FS_TITLE, fontweight='bold', pad=TITLE_PAD, color='black')
 
     # Row label on the left. All rows share one PI range and one anomaly range in the
     # same unit, so the colour bars are drawn once, under the bottom row (2026-11-22,
@@ -844,7 +830,7 @@ for row, (var_key, var_title, var_title_pi) in enumerate(zip(var_keys, var_title
     all_cfs.append(cf_pi)
     # climate-state column headings on the top row (Reviewer 1, comment 17)
     if row == 0:
-        ax.set_title('PI', fontsize=FS_TITLE, fontweight='bold', pad=4, color='black')
+        ax.set_title('PI', fontsize=FS_TITLE, fontweight='bold', pad=TITLE_PAD, color='black')
 
     # 第2-5列: 异常 (使用统一的异常范围)
     for col, exp in enumerate(exp_list, start=1):
@@ -865,7 +851,7 @@ for row, (var_key, var_title, var_title_pi) in enumerate(zip(var_keys, var_title
         if row == 0:
             EXPNAME = {'mh': 'MH', 'lig': 'LIG', 'lgm': 'LGM', 'mis': 'MIS3'}
             ax.set_title(EXPNAME.get(exp, exp.upper()) + ' $-$ PI',
-                         fontsize=FS_TITLE, fontweight='bold', pad=4, color='black')
+                         fontsize=FS_TITLE, fontweight='bold', pad=TITLE_PAD, color='black')
 
     # Row label on the left. All rows share one PI range and one anomaly range in the
     # same unit, so the colour bars are drawn once, under the bottom row (2026-11-22,

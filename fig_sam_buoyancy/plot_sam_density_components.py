@@ -22,6 +22,7 @@ import matplotlib.pyplot as plt
 import matplotlib.tri as mtri
 import matplotlib.ticker as mticker
 from matplotlib.lines import Line2D
+import matplotlib.patheffects as patheffects
 import cartopy.crs as ccrs
 
 import plot_sam_density_tendency as base
@@ -32,12 +33,24 @@ HERE = Path(__file__).resolve().parent
 UNIT = 'kg m$^{-2}$ month$^{-1}$'
 UNIT_TXT = 'kg m-2 month-1'
 DQ_LINE = -15.0                       # W m-2, contour on the total heat row of A3
-DQ_COLOR = '#5b1a8c'                  # dark purple, distinct from the black ice edge
+DQ_COLOR = '#5b1a8c'                  # dark purple
 # 2026-11-27 A4 readability pass: the letter prints both figures 5.81 in wide, so they are
 # drawn at that width and every font size and line width below is the printed size.
 PRINT_W = 5.81                        # in
 PNG_DPI = 585                         # 5.81 in x 585 = 3399 px, about the old 3400 px
 PDF_DPI = 600                         # raster of the filled contours inside the PDF
+# 2026-11-27 10:34 (user): no sea ice edge in A7/A8; every latitude circle and every
+# meridian labelled in every panel, small (6 pt printed, may go below the 7.5 pt floor).
+GRID_LONS = np.arange(-180, 180, 60)          # meridians drawn and labelled
+GRID_LATS = [-80, -70, -60, -50]              # latitude circles drawn and labelled
+FS_GRID = 6                                   # printed pt
+# Latitude labels sit along 20E: a search over meridians and label positions (box under
+# each label scored by the area integral of |field|/vmax in all 30 panels, the brine rows
+# counted twice) found this the least hidden signal. Per label: side of the meridian
+# (L, R, C = centred) and whether it sits on the pole side of its circle.
+LATLAB_LON = 20
+LAT_LAYOUT = {-80: ('C', True), -70: ('C', True), -60: ('L', False), -50: ('R', True)}
+HALO = [patheffects.withStroke(linewidth=1.2, foreground='white')]
 
 HEAT_VARS = ['total_heat_diff', 'radiative_diff', 'turbulent_diff']
 FW_VARS = ['total_fw_diff', 'seaice_fw_diff', 'other_fw_diff']
@@ -125,6 +138,56 @@ def shared_scale(res):
     return vmax, info
 
 
+def lon_text(lo):
+    lo = ((lo + 180) % 360) - 180
+    if lo == 0:
+        return '0°'
+    if abs(lo) == 180:
+        return '180°'
+    return f'{abs(lo)}°{"E" if lo > 0 else "W"}'
+
+
+def grid_labels(ax, proj, pc):
+    """Meridian labels just outside the square frame where each meridian meets it
+    (rotated on the left and right sides); latitude labels along LATLAB_LON as set in
+    LAT_LAYOUT, with a thin white halo."""
+    x0, x1 = ax.get_xlim()
+    y0, y1 = ax.get_ylim()
+    cx, cy = proj.transform_point(0, -90, pc)
+    for lo in GRID_LONS:
+        px, py = proj.transform_point(lo, -60, pc)
+        dx, dy = px - cx, py - cy
+        n = np.hypot(dx, dy)
+        dx, dy = dx / n, dy / n
+        tx = (x1 - cx) / dx if dx > 1e-9 else ((x0 - cx) / dx if dx < -1e-9 else np.inf)
+        ty = (y1 - cy) / dy if dy > 1e-9 else ((y0 - cy) / dy if dy < -1e-9 else np.inf)
+        t = min(tx, ty)
+        fx = (cx + t * dx - x0) / (x1 - x0)
+        fy = (cy + t * dy - y0) / (y1 - y0)
+        if tx < ty:                                  # left or right side
+            right = fx > 0.5
+            kw = dict(xytext=(1.5 if right else -1.5, 0), ha='left' if right else 'right',
+                      va='center', rotation=90)
+        else:                                        # top or bottom
+            top = fy > 0.5
+            kw = dict(xytext=(0, 1.5 if top else -1.5), ha='center',
+                      va='bottom' if top else 'top', rotation=0)
+        ax.annotate(lon_text(lo), xy=(fx, fy), xycoords='axes fraction',
+                    textcoords='offset points', fontsize=FS_GRID, color='k',
+                    annotation_clip=False, **kw)
+    for la in GRID_LATS:
+        side, pole = LAT_LAYOUT[la]
+        px, py = proj.transform_point(LATLAB_LON, la, pc)
+        up = py > cy                                 # meridian in the upper half
+        va = ('top' if up else 'bottom') if pole else 'center'
+        oy = (-1.0 if up else 1.0) if pole else 0.0
+        ox = {'L': -2.0, 'R': 2.0, 'C': 0.0}[side]
+        ha = {'L': 'right', 'R': 'left', 'C': 'center'}[side]
+        ax.annotate(f'{abs(la)}°S', xy=(px, py), xycoords='data', xytext=(ox, oy),
+                    textcoords='offset points', ha=ha, va=va, fontsize=FS_GRID, color='k',
+                    path_effects=HALO, zorder=6, annotation_clip=False)
+
+
 def plot(res, rows, outbase, vmax, dq_line=False):
     proj = ccrs.SouthPolarStereo()
     pc = ccrs.PlateCarree()
@@ -133,9 +196,15 @@ def plot(res, rows, outbase, vmax, dq_line=False):
 
     ncol, nrow = 5, len(rows)
     FW = PRINT_W
-    left_in, right_in, gap_in = 0.60, 0.03, 0.035      # left margin holds the row labels
+    lab_in = (1.5 + 7.0) / 72                 # one 6 pt meridian label and its pad
+    gap_in = 2 * lab_in + 3 / 72              # E labels of one panel, W labels of the next
+    rowlab_in = 0.56                          # rotated row labels, up to 4 lines
+    left_in = 0.02 + rowlab_in + 0.04 + lab_in
+    right_in = lab_in + 0.02
     pw_in = (FW - left_in - right_in - gap_in * (ncol - 1)) / ncol
-    bot_in, top_in, vgap_in = 1.08, 0.24, 0.20         # vgap holds the panel letters
+    vgap_in = (8.5 + 2 + 12.5) / 72           # 180° label below, letter and 0° label above
+    top_in = 0.40                             # column titles above letters and 0° labels
+    bot_in = 1.14 if dq_line else 0.92        # colour bar, its label and (A7) the legend
     FH = bot_in + top_in + nrow * pw_in + (nrow - 1) * vgap_in
     fig = plt.figure(figsize=(FW, FH))
     L, w, gap, h = left_in / FW, pw_in / FW, gap_in / FW, pw_in / FH
@@ -154,8 +223,6 @@ def plot(res, rows, outbase, vmax, dq_line=False):
             cs = ax.tricontourf(tri, d[key][sel], levels=levels, cmap=cmap, extend='both', zorder=1)
             for coll in cs.collections:
                 coll.set_rasterized(True)
-            ax.tricontour(tri, d['ai'][sel], levels=[ICE_THR], colors='k',
-                          linewidths=0.9, zorder=3)
             if dq_line and r == 0:
                 ax.tricontour(tri, d['dq'][sel], levels=[DQ_LINE], colors=DQ_COLOR,
                               linewidths=0.9, linestyles='--', zorder=3.5)
@@ -164,24 +231,20 @@ def plot(res, rows, outbase, vmax, dq_line=False):
 
             gl = ax.gridlines(crs=pc, draw_labels=False, linewidth=0.5, color='#444444',
                               alpha=0.6, linestyle='--', zorder=4)
-            gl.xlocator = mticker.FixedLocator(np.arange(-180, 180, 60))
-            gl.ylocator = mticker.FixedLocator([-80, -70, -60, -50])
-            if r == nrow - 1 and c == 0:   # same grid in every panel; label it once, in (k)
-                for la in (-50, -70):          # two labels fit at printed size
-                    ax.text(150, la, f'{abs(la)}°S', transform=pc, ha='center', va='center',
-                            fontsize=8, color='k', zorder=6,
-                            bbox=dict(facecolor='white', edgecolor='none', alpha=0.7, pad=0.3))
+            gl.xlocator = mticker.FixedLocator(GRID_LONS)
+            gl.ylocator = mticker.FixedLocator(GRID_LATS)
+            grid_labels(ax, proj, pc)
             # panel letter above the panel, so that it hides no data
             fig.text(x0, y0 + h + 0.03 / FH, f'({chr(97 + r * ncol + c)})', fontsize=9,
                      fontweight='bold', color='k', va='bottom', ha='left')
             if r == 0:
-                ax.set_title(LABELS[exp], fontsize=10, fontweight='bold', color='k', pad=3)
+                ax.set_title(LABELS[exp], fontsize=10, fontweight='bold', color='k', pad=14)
             if c == 0:
-                fig.text(x0 - 0.04 / FW, y0 + h / 2, rlab, rotation=90, ha='right', va='center',
-                         fontsize=8.5, fontweight='bold', color='k', multialignment='center',
-                         linespacing=1.1)
+                fig.text(x0 - (0.04 + lab_in) / FW, y0 + h / 2, rlab, rotation=90, ha='right',
+                         va='center', fontsize=8.5, fontweight='bold', color='k',
+                         multialignment='center', linespacing=1.1)
 
-    cax = fig.add_axes([0.19, (bot_in - 0.24) / FH, 0.62, 0.10 / FH])
+    cax = fig.add_axes([0.19, (bot_in - 0.30) / FH, 0.62, 0.10 / FH])
     sm = plt.cm.ScalarMappable(norm=plt.Normalize(-vmax, vmax), cmap=cmap)
     cb = fig.colorbar(sm, cax=cax, orientation='horizontal', extend='both',
                       ticks=np.linspace(-vmax, vmax, 9))
@@ -190,13 +253,12 @@ def plot(res, rows, outbase, vmax, dq_line=False):
     cb.set_label(f'Surface density flux anomaly, high minus low SAM ({UNIT});\n'
                  'positive = densification', fontsize=8.5, fontweight='bold', color='k',
                  labelpad=2, linespacing=1.15)
-    handles = [Line2D([], [], color='k', lw=0.9, label='JJA 15% sea ice edge')]
     if dq_line:
-        handles.append(Line2D([], [], color=DQ_COLOR, lw=1.0, ls='--',
-                              label='total heat flux anomaly = $-$15 W m$^{-2}$ (panels a–e)'))
-    fig.legend(handles=handles, loc='lower center', bbox_to_anchor=(0.5, 0.05 / FH),
-               ncol=len(handles), frameon=False, fontsize=8, handlelength=2.2,
-               columnspacing=1.6, borderaxespad=0, labelcolor='k')
+        handles = [Line2D([], [], color=DQ_COLOR, lw=1.0, ls='--',
+                          label='total heat flux anomaly = $-$15 W m$^{-2}$ (panels a–e)')]
+        fig.legend(handles=handles, loc='lower center', bbox_to_anchor=(0.5, 0.05 / FH),
+                   frameon=False, fontsize=8, handlelength=2.2, borderaxespad=0,
+                   labelcolor='k')
     for ext, dpi in (('png', PNG_DPI), ('pdf', PDF_DPI)):
         fig.savefig(f'{outbase}.{ext}', dpi=dpi)
     plt.close(fig)

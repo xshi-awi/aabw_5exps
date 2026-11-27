@@ -84,23 +84,25 @@ norm_anm = mcolors.BoundaryNorm(levels_anm, cmap_anm.N)
 # The figure is drawn near the size it is printed at (letter: 5.81 in wide;
 # manuscript: \textwidth), so these are close to printed points. Before this date
 # it was 18 in wide and every text shrank to 3-7 pt on the page.
-FS_TITLE = 10.2   # panel titles, bold
-FS_PANEL = 10.2   # (a), (b), ... bold
-FS_CBLAB = 9.2    # colour bar labels, bold
-FS_CBTICK = 9.0   # colour bar tick labels
-FS_GEO = 8.5      # latitude and meridian labels
+FS_TITLE = 10.4   # panel titles, bold
+FS_PANEL = 10.4   # (a), (b), ... bold
+FS_CBLAB = 9.4    # colour bar labels, bold
+FS_CBTICK = 9.2   # colour bar tick labels
+FS_GEO = 7.0      # latitude and meridian labels (about 6.4 pt printed, user 11-27b)
+LAT_LABEL_LON = 160  # meridian along which the latitude circles are labelled
+TITLE_PAD = 9     # pt, clears the 0 deg label above each circle
 LW_COAST = 0.6
 
 # ---- Figure layout (inches) ----
 # 2 rows: row1=5 panels, row2=4 panels (centered), each row with its colour bar.
 FIG_W = 6.4
-SIDE = 0.36       # outside the outer maps: the 60/120 W and E labels
-GAP = 0.04        # between maps (no labels sit there)
+SIDE = 0.12       # outside the outer maps: the 60/120 W and E labels
+GAP = 0.21        # between maps: 60/120 E of one map and 60/120 W of the next
 A = (FIG_W - 2 * SIDE - 4 * GAP) / 5
-TOP = 0.27        # panel titles
+TOP = 0.32        # panel titles above the 0 deg labels
 CB_DROP = 0.20    # map bottom to colour bar top: the 180 deg label
 CB_H = 0.09
-MID = 0.71        # colour bar 1 ticks and label, then row 2 titles
+MID = 0.76        # colour bar 1 ticks and label, then row 2 titles
 BOTTOM = 0.64     # rotated tick labels and label of colour bar 2
 FIG_H = TOP + A + CB_DROP + CB_H + MID + A + CB_DROP + CB_H + BOTTOM
 
@@ -143,56 +145,45 @@ def plot_polar(ax, data, lat, lon, norm, cmap, label, title, first_col=True,
                        transform=ccrs.PlateCarree(),
                        shading='auto', zorder=2)
 
-    # Labels outside the circular boundary, rotated to follow it, ran into each
-    # other between neighbouring panels and ate the space between them. Both
-    # sets go inside instead: longitudes upright at the rim, latitudes along the
-    # 180 deg meridian, which is where Xiaoxu asked for them.
-    # Every panel is labelled. With the columns spaced apart there is room for
-    # the full set outside the circle; 0 deg is omitted because it falls under
-    # the panel title.
-    # Since 2026-11-27, at the printed size, the 60/120 W labels are drawn on the
-    # first map of each row and the 60/120 E labels on the last one, as in
-    # Figs. 3/4; between two maps there is no room for both. 180 deg stays on
-    # every map.
-    LON_LABELS = ((-120, -60) if first_col else ()) + ((60, 120) if last_col else ()) + (180,)
-
     gl = ax.gridlines(draw_labels=False, linewidth=0.6, alpha=0.8,
                       linestyle='--', color='gray', zorder=5)
     gl.xlocator = mticker.FixedLocator(np.arange(-180, 181, 60))
     gl.ylocator = mticker.FixedLocator(np.arange(-80, -49, 10))
 
-    # Longitudes sit just outside the circular boundary, in axes coordinates so
-    # they cannot drift onto the data and need no background box. Placed by
-    # angle around the circle: the projection puts 0 deg at the top and runs
-    # clockwise. The radius is a touch beyond 0.5 so the labels clear the rim
-    # without reaching the neighbouring panel.
-    import numpy as _np
-    R = 0.475
-    for lon in LON_LABELS:
-        lab = '0°' if lon == 0 else ('180°' if abs(lon) == 180
+    # 2026-11-27b (user: lat/lon smaller, every latitude circle labelled).
+    # Every map carries every drawn meridian, just outside the circle and
+    # written along it, so the labels of two neighbouring maps fit in the gap
+    # between them. Placed by angle around the circle: the projection puts
+    # 0 deg at the top and runs clockwise. The circle (radius 0.46 of the axes)
+    # lies at about 53 deg S, so the 50 deg S grid circle is not drawn and the
+    # drawn latitude circles are 60, 70 and 80 deg S.
+    r_c = 0.46 + (0.015 + 0.5 * 1.164 * FS_GEO / 72) / A   # rim + gap + half the text
+    for lon in (0, 60, 120, 180, -120, -60):
+        lab = '0°' if lon == 0 else ('180°' if lon == 180
                                      else '%d°%s' % (abs(lon), 'W' if lon < 0 else 'E'))
-        th = _np.radians(lon)
-        x = 0.5 + R * _np.sin(th)
-        y = 0.5 + R * _np.cos(th)
-        # anchor away from the circle so the text grows outwards, not inwards
-        ha = 'center' if abs(_np.sin(th)) < 0.3 else ('left' if _np.sin(th) > 0 else 'right')
-        va = 'center' if abs(_np.cos(th)) < 0.3 else ('bottom' if _np.cos(th) > 0 else 'top')
-        ax.text(x, y, lab, transform=ax.transAxes, ha=ha, va=va,
-                fontsize=FS_GEO, color='black', zorder=6, clip_on=False)
-    # thin white halo (no box) so the 180 deg grid line and the coast do not
-    # run through the digits at the printed size
+        th = np.radians(lon)
+        rot = -lon if abs(lon) <= 90 else (180 - lon if lon > 0 else -180 - lon)
+        ax.text(0.5 + r_c * np.sin(th), 0.5 + r_c * np.cos(th), lab,
+                transform=ax.transAxes, ha='center', va='center', rotation=rot,
+                rotation_mode='anchor', fontsize=FS_GEO, color='black', zorder=6,
+                clip_on=False)
+    # Latitudes along 160 deg E, where they cover the least deep-ocean data and
+    # the 60 deg S label stays inside the circle; thin white halo, no box.
     for la in (-60, -70, -80):
-        ax.text(150, la, '%d°S' % abs(la), transform=ccrs.PlateCarree(),
+        ax.text(LAT_LABEL_LON, la, '%d°S' % abs(la), transform=ccrs.PlateCarree(),
                 ha='center', va='center', fontsize=FS_GEO, color='black',
                 zorder=6,
-                path_effects=[pe.withStroke(linewidth=1.8, foreground='white')])
+                path_effects=[pe.withStroke(linewidth=1.5, foreground='white')])
 
-    # panel label
-    ax.text(0.0, 1.0, f'({label})', transform=ax.transAxes,
-            fontsize=FS_PANEL, fontweight='bold', va='top', ha='left', color='black',
-            bbox=dict(facecolor='white', edgecolor='none', alpha=0.7, pad=1))
+    # panel label on the title line, left of the map (the corners now hold
+    # the 60/120 deg labels)
+    ax.annotate(f'({label})', xy=(0, 1), xycoords='axes fraction',
+                xytext=(-10, TITLE_PAD), textcoords='offset points',
+                fontsize=FS_PANEL, fontweight='bold', va='baseline', ha='left',
+                color='black', annotation_clip=False)
     # title
-    ax.set_title(title, fontsize=FS_TITLE, fontweight='bold', pad=3, color='black')
+    ax.set_title(title, fontsize=FS_TITLE, fontweight='bold', pad=TITLE_PAD,
+                 color='black')
     return im
 
 # Row 1: absolute values
@@ -213,15 +204,17 @@ for i, (exp, name) in enumerate(zip(paleo, paleo_names)):
 # ---- Colorbars ----
 # Both bars span the five maps of row 1, so that the rotated anomaly tick labels
 # at -50/-25 and 25/50 (one colour step apart) stay clear of each other.
-CB_W = 5 * A + 4 * GAP
-cax1 = fig.add_axes(rect(SIDE, Y_CB1, CB_W, CB_H))
+# Inset 0.25 in at both ends so the rotated -1500 label stays within the maps.
+CB_IN = 0.25
+CB_W = 5 * A + 4 * GAP - 2 * CB_IN
+cax1 = fig.add_axes(rect(SIDE + CB_IN, Y_CB1, CB_W, CB_H))
 cb1 = plt.colorbar(plt.cm.ScalarMappable(norm=norm_abs, cmap=cmap_abs),
                    cax=cax1, orientation='horizontal')
 cb1.set_label('Age (years)', fontsize=FS_CBLAB, fontweight='bold', color='black',
               labelpad=2)
 cb1.set_ticks(np.arange(0, 2501, 500))
 
-cax2 = fig.add_axes(rect(SIDE, Y_CB2, CB_W, CB_H))
+cax2 = fig.add_axes(rect(SIDE + CB_IN, Y_CB2, CB_W, CB_H))
 cb2 = plt.colorbar(plt.cm.ScalarMappable(norm=norm_anm, cmap=cmap_anm),
                    cax=cax2, orientation='horizontal', extend='both')
 cb2.set_label('Age anomaly (years)', fontsize=FS_CBLAB, fontweight='bold',
