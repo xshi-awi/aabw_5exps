@@ -9,7 +9,7 @@ WMT integrates over everything south of 60 S, which includes a large open-ocean
 area that never sees sea ice and where thermal forcing necessarily dominates.
 Pellichero et al. analysed only the ice-covered sector.
 
-Usage:  python calc_wmt_siz_pellichero.py <exp>       # exp in pi mh lig lgm mis
+Usage:  python calc_wmt_siz_pellichero.py <exp> [bin width, default 0.2]   # exp in pi mh lig lgm mis
 Output: wmt_siz_<exp>.nc  with total / heat / salt-component transformation in sigma2.
 
 Uses climatological monthly means (12 months) so that a single run is cheap; the
@@ -23,6 +23,8 @@ from pathlib import Path
 from scipy.interpolate import griddata
 
 exp = sys.argv[1] if len(sys.argv) > 1 else 'pi'
+# optional sigma2 bin width (2026-11-27, user GN: 0.1); 0.2 is the original and keeps the original file name
+BW = float(sys.argv[2]) if len(sys.argv) > 2 else 0.2
 
 MESH = {
     'pi':  '/home/a/a270064/bb1029/inputs/mesh_core2',
@@ -167,7 +169,7 @@ for dom_name, dom_mask in DOMAINS.items():
                 del dec[b]['lambda']
 
         wm = xwmt.WaterMassTransformations(grid, dec)
-        bins = np.arange(0, 40, 0.2)
+        bins = np.arange(0, 40, 0.2) if BW == 0.2 else np.round(np.arange(0, 40.0 + 1e-9, BW), 6)
         with warnings.catch_warnings():
             warnings.simplefilter('ignore')
             G = wm.integrate_transformations('sigma2', bins=bins, sum_components=True)
@@ -194,6 +196,7 @@ out.attrs['description'] = ('WMT over seasonal sea ice zone (amax>15%), full <60
 out.attrs['siz_area_m2'] = float(areacello_1d[siz_mask].sum())
 out.attrs['so60_area_m2'] = float(areacello_1d[so60_mask].sum())
 out.attrs['open_area_m2'] = float(areacello_1d[open_mask].sum())
-fn = f'wmt_siz_{exp}.nc'
+fn = f'wmt_siz_{exp}.nc' if BW == 0.2 else f'wmt_siz_{exp}_bin{str(BW).replace(".", "p")}.nc'
+out.attrs['bin_width'] = BW
 out.to_netcdf(fn)
 print(f'\nsaved {fn}')

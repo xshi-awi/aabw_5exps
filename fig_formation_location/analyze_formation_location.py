@@ -7,6 +7,10 @@ Usage: python3 -s analyze_formation_location.py [pi mh lig lgm mis]
 Writes data/G_<exp>.nc (regional curves), data/regions_<exp>.nc (masks,
 fields and class-restricted JJA density-flux maps) and numbers.txt.
 
+Peak class = the peak bin of the 0.1-wide sigma2 curve (the paper's bin width
+from 2026-11-27; 0.1 bins are sums of five 0.02 bins). The 0.2 curve is still
+reproduced as a check of the pipeline.
+
 G(s) is the transformation across isopycnal s (Sv, positive = towards higher
 density); G_r(s) is the part forced inside region r, i.e. the rate at which
 region r turns lighter water into water denser than s. Formation in a class
@@ -138,6 +142,15 @@ def main(exp):
     Fm = {k: A[k][:] for k in A.variables if k.startswith('F_')}
     sig_jja = A['sig2_mean_jja'][:]
     A.close()
+    # 0.1 bins ('sig2m'): five adjacent 0.02 bins. The fine edges are -inf, 33.00, 33.02, ..., 38.60, inf,
+    # so the 0.1 edges 33.0 ... 38.6 line up; the two overflow bins are left out.
+    ef0 = E['sig2f']
+    assert np.isclose(ef0[1], 33.0) and np.isinf(ef0[[0, -1]]).all() and (ef0.size - 3) % 5 == 0
+    nm = (ef0.size - 3) // 5
+    E['sig2m'] = ef0[1:-1][::5]
+    assert E['sig2m'].size == nm + 1 and np.allclose(np.diff(E['sig2m']), 0.1)
+    for k in [k for k in acc if '_sig2f_' in k]:
+        acc[k.replace('_sig2f_', '_sig2m_')] = acc[k][:, 1:-1].reshape(acc[k].shape[0], nm, 5).sum(axis=2)
     cen = {b: 0.5 * (e[1:] + e[:-1]) for b, e in E.items()}
 
     smesh, rmesh = read_mesh(SURF_MESH[exp]), read_mesh(RUN_MESH[exp])
@@ -168,32 +181,42 @@ def main(exp):
       f'other boundary nodes south of 60S (islands, not counted as coast) {nisl}')
     P(f'bottom layer check: |T| one layer below the bottom max {empty_below:.1e}')
 
-    # --------------------------------------------- reproduction (0.2 bins)
-    pub = nc.Dataset(f'{ROOT}/{exp}/wmt_results/wmt_southern_ocean_100years_{exp}.nc')
-    pub.set_auto_mask(False)
-    tv = pub['time']
-    mon = np.array([d.month for d in nc.num2date(tv[:], tv.units, tv.calendar)])
-    assert np.allclose(pub['sigma2_l_target'][:], cen['sig2c'])
+    # --------------------------------------------- reproduction (0.2 and 0.1 bins)
     vn = ['total_heat_surface_exchange_flux_nonadvective_heat'] + \
         [f'surface_ocean_flux_advective_negative_rhs_{k}_salt'
          for k in ['sea_ice_melt', 'evaporation', 'snow', 'rain_and_ice', 'rivers']]
-    raw = sum(np.nan_to_num(pub[v][:]) for v in vn)
-    pub.close()
-    Gc = {}
-    for s, sel in [('jja', np.isin(mon, [6, 7, 8])), ('ann', np.ones(mon.size, bool))]:
-        gp = -raw[sel].mean(axis=0) / 1e9
-        Gc[s] = G(ALL, s, 'sig2c')
-        k = int(np.argmax(gp))
-        d = np.abs(Gc[s] - gp).max()
-        P(f'reproduction {s.upper()} (published 0.2 bins): published peak {gp[k]:.3f} Sv at {cen["sig2c"][k]:.1f}, '
-          f'this script {Gc[s][k]:.3f} Sv; max |difference| over all bins {d:.1e} Sv ({d / gp[k]:.1e} of peak)')
-        key[f'repro_{s}'] = [float(gp[k]), float(Gc[s][k]), float(d)]
+    Gc, Gm = {}, {}
+    for b, sub_dir, w, Gd, kk in [('sig2c', 'wmt_results', '0.2', Gc, 'repro'),
+                                  ('sig2m', 'wmt_results_bin0p1', '0.1', Gm, 'repro01')]:
+        pub = nc.Dataset(f'{ROOT}/{exp}/{sub_dir}/wmt_southern_ocean_100years_{exp}.nc')
+        pub.set_auto_mask(False)
+        tv = pub['time']
+        mon = np.array([d.month for d in nc.num2date(tv[:], tv.units, tv.calendar)])
+        pc = pub['sigma2_l_target'][:]
+        ip = np.searchsorted(pc, cen[b] - 1e-6)           # published bins covered here
+        assert np.allclose(pc[ip], cen[b])
+        out_rng = np.setdiff1d(np.arange(pc.size), ip)
+        raw = sum(np.nan_to_num(pub[v][:]) for v in vn)
+        pub.close()
+        for s, sel in [('jja', np.isin(mon, [6, 7, 8])), ('ann', np.ones(mon.size, bool))]:
+            gp = -raw[sel].mean(axis=0) / 1e9
+            Gd[s] = G(ALL, s, b)
+            k = int(np.argmax(gp))
+            assert k in ip
+            d = np.abs(Gd[s] - gp[ip]).max()
+            dout = np.abs(gp[out_rng]).max() if out_rng.size else 0.0
+            P(f'reproduction {s.upper()} (published {w} bins): published peak {gp[k]:.3f} Sv at {pc[k]:.2f}, '
+              f'this script {Gd[s][np.searchsorted(ip, k)]:.3f} Sv; max |difference| over all bins {d:.1e} Sv '
+              f'({d / gp[k]:.1e} of peak); max |published| outside the bins covered here {dout:.1e} Sv')
+            key[f'{kk}_{s}'] = [float(gp[k]), float(Gd[s][np.searchsorted(ip, k)]), float(d), float(dout)]
 
     # --------------------------------------------- class thresholds
     gf = G(ALL)
     gf[[0, -1]] = 0.0                    # under/overflow bins have no width
-    kc = int(np.argmax(Gc['jja']))        # published peak bin
-    pk_lo, pk_hi = E['sig2c'][kc], E['sig2c'][kc + 1]
+    kc = int(np.argmax(Gm['jja']))        # peak bin of the 0.1 curve (the peak class)
+    pk_lo, pk_hi = E['sig2m'][kc], E['sig2m'][kc + 1]
+    kc2 = int(np.argmax(Gc['jja']))       # the old 0.2 peak bin, for reference only
+    key['peak_bin_0p2'] = [float(E['sig2c'][kc2]), float(E['sig2c'][kc2 + 1]), float(Gc['jja'][kc2])]
     kf = int(np.argmax(gf))
     gmax = gf[kf]
     dense = np.arange(kf, gf.size)
@@ -203,8 +226,8 @@ def main(exp):
     cdf = np.cumsum(occ) / occ.sum()
     kp99 = int(np.searchsorted(cdf, 0.99))
     ef = E['sig2f']
-    thr = [('published peak bin, lower edge', kbin(ef, pk_lo + 1e-6)),
-           ('published peak bin, upper edge', kbin(ef, pk_hi + 1e-6)),
+    thr = [('peak bin (0.1), lower edge', kbin(ef, pk_lo + 1e-6)),
+           ('peak bin (0.1), upper edge', kbin(ef, pk_hi + 1e-6)),
            ('bottom water p10', kbin(ef, bq[0])), ('bottom water median', kbin(ef, bq[1])),
            ('bottom water p90', kbin(ef, bq[2])),
            ('sigma_50 (G<50% of fine peak beyond)', int(k50)),
@@ -213,13 +236,14 @@ def main(exp):
     thr += [(f'fixed sigma2 {x:.1f}', kbin(ef, x + 1e-6)) for x in FIXED_S2]
     ks = {n: k for n, k in thr}
     cf = cen['sig2f']
-    P(f'JJA published-bin peak {Gc["jja"][kc]:.2f} Sv in sigma2 {pk_lo:.1f}-{pk_hi:.1f}; '
+    P(f'JJA 0.1-bin peak {Gm["jja"][kc]:.2f} Sv in sigma2 {pk_lo:.1f}-{pk_hi:.1f} (0.2-bin peak '
+      f'{Gc["jja"][kc2]:.2f} Sv in {E["sig2c"][kc2]:.1f}-{E["sig2c"][kc2 + 1]:.1f}); '
       f'0.02-bin peak {gmax:.2f} Sv at {cf[kf]:.2f}; sigma_50 {cf[k50]:.2f}; sigma_10 {cf[k10]:.2f} '
       f'(G there {gf[k10]:.2f} Sv); surface JJA sigma2 p99 {cf[kp99]:.2f}')
     P(f'bottom water sigma2 (annual clim, deepest layer, H>={DEEP_FOR_BOTTOM:.0f} m, south of 60S, area weights): '
       f'p10 {bq[0]:.3f}, median {bq[1]:.3f}, p90 {bq[2]:.3f}; median bottom T {wq(tb[dp], area[dp], 0.5):.2f} C, '
       f'S {wq(sb[dp], area[dp], 0.5):.3f} (range S {sb[dp].min():.2f}-{sb[dp].max():.2f})')
-    key.update(peak_bin=[float(pk_lo), float(pk_hi)], G_peak_bin=float(Gc['jja'][kc]),
+    key.update(peak_bin=[float(pk_lo), float(pk_hi)], G_peak_bin=float(Gm['jja'][kc]),
                fine_peak=[float(cf[kf]), float(gmax)], sig10=float(cf[k10]), G_sig10=float(gf[k10]),
                sig50=float(cf[k50]), surf_p99=float(cf[kp99]))
 
@@ -262,17 +286,17 @@ def main(exp):
               + (f', mean JJA ice {np.average(aice_jja[m], weights=area[m]):.2f}, '
                  f'mean JJA MLD {np.average(mld_jja[m], weights=area[m]):.0f} m' if a else ''))
         Greg[p] = {s: [G(m, s) for _, m in regs] for s in ['jja', 'ann']}
-        Gcr = {s: [G(m, s, 'sig2c') for _, m in regs] for s in ['jja', 'ann']}
+        Gcr = {s: [G(m, s, 'sig2m') for _, m in regs] for s in ['jja', 'ann']}
         for s in ['jja', 'ann']:
             gt = G(ALL, s)
             P(f'{s.upper()} transformation across isopycnal, Sv [share], 0.02 bins:')
             for n, k in thr:
                 P(f'  {n:38s} {cf[k]:6.2f} total {gt[k]:6.2f} | ' +
                   ' '.join(f'R{i + 1} {c[k]:6.2f} [{pct(c[k], gt[k]):4.0f}%]' for i, c in enumerate(Greg[p][s])))
-            P(f'  {"published peak bin (0.2 bin) " + f"{pk_lo:.1f}-{pk_hi:.1f}":45s} total {Gc[s][kc]:6.2f} | ' +
-              ' '.join(f'R{i + 1} {c[kc]:6.2f} [{pct(c[kc], Gc[s][kc]):4.0f}%]' for i, c in enumerate(Gcr[s])))
+            P(f'  {"peak bin (0.1 bin) " + f"{pk_lo:.1f}-{pk_hi:.1f}":45s} total {Gm[s][kc]:6.2f} | ' +
+              ' '.join(f'R{i + 1} {c[kc]:6.2f} [{pct(c[kc], Gm[s][kc]):4.0f}%]' for i, c in enumerate(Gcr[s])))
             # formation by class range relative to the state's bottom water
-            lo = ks['published peak bin, lower edge']
+            lo = ks['peak bin (0.1), lower edge']
             rng = [('peak-bin lower edge -> bottom p10', lo, ks['bottom water p10']),
                    ('bottom p10 -> bottom p90', ks['bottom water p10'], ks['bottom water p90']),
                    ('denser than bottom p90', ks['bottom water p90'], None)]
@@ -297,7 +321,7 @@ def main(exp):
     # --------------------------------------------- components, primary partition
     P('')
     P('--- heat / sea-ice FW / other FW parts, partition depth1000, JJA (Sv) ---')
-    for n, b, k in [(f'published peak bin {pk_lo:.1f}-{pk_hi:.1f}', 'sig2c', kc),
+    for n, b, k in [(f'peak bin (0.1) {pk_lo:.1f}-{pk_hi:.1f}', 'sig2m', kc),
                     (f'sigma_10 = {cf[k10]:.2f}', 'sig2f', k10)]:
         row = f'  {n}: '
         for name, msk in parts['depth1000']:
@@ -311,7 +335,7 @@ def main(exp):
     sec = {}
     for sname, l0, l1 in SECTORS:
         inb = (lon >= l0) & (lon < l1)
-        r = {'peak': [float(G(inb & m, 'jja', 'sig2c')[kc]) for _, m in parts['depth1000']],
+        r = {'peak': [float(G(inb & m, 'jja', 'sig2m')[kc]) for _, m in parts['depth1000']],
              'sig10': [float(G(inb & m)[k10]) for _, m in parts['depth1000']],
              'area': [float(area[inb & m & s60].sum()) for _, m in parts['depth1000']]}
         sec[sname] = r
@@ -321,9 +345,9 @@ def main(exp):
     free = parts['depth1000'][3][1]
     f65 = free & (lat <= -65)
     P(f'  deep ice-free water south of 65S (open water near the continent in winter): area {area[f65 & s60].sum() / 1e12:.3f}e12 m2; '
-      f'JJA G at peak bin {G(f65, "jja", "sig2c")[kc]:.2f} Sv, across sigma_10 {G(f65)[k10]:.2f} Sv, '
+      f'JJA G at peak bin {G(f65, "jja", "sig2m")[kc]:.2f} Sv, across sigma_10 {G(f65)[k10]:.2f} Sv, '
       f'across bottom median {G(f65)[ks["bottom water median"]]:.2f} Sv')
-    key['free65'] = [float(area[f65 & s60].sum()), float(G(f65, 'jja', 'sig2c')[kc]), float(G(f65)[k10]),
+    key['free65'] = [float(area[f65 & s60].sum()), float(G(f65, 'jja', 'sig2m')[kc]), float(G(f65)[k10]),
                      float(G(f65)[ks['bottom water median']])]
     key['sectors'] = sec
     # densest surface spots
@@ -364,18 +388,21 @@ def main(exp):
     o.createDimension('binc', cen['sig2c'].size)
     o.createVariable('sigma2_fine', 'f8', ('binf',))[:] = cf
     o.createVariable('sigma2_coarse', 'f8', ('binc',))[:] = cen['sig2c']
+    o.createDimension('binm', cen['sig2m'].size)
+    o.createVariable('sigma2_medium', 'f8', ('binm',))[:] = cen['sig2m']
     o.createDimension('bin0', c0.size)
     o.createVariable('sigma0_fine', 'f8', ('bin0',))[:] = c0
     o.createVariable('G_total_jja_sig0', 'f8', ('bin0',))[:] = g0
     for s in ['jja', 'ann']:
         o.createVariable(f'G_total_{s}', 'f8', ('binf',))[:] = G(ALL, s)
         o.createVariable(f'G_total_coarse_{s}', 'f8', ('binc',))[:] = Gc[s]
+        o.createVariable(f'G_total_medium_{s}', 'f8', ('binm',))[:] = Gm[s]
     for p, cur in Greg.items():
         o.createDimension(f'reg_{p}', len(parts[p]))
         for s in ['jja', 'ann']:
             o.createVariable(f'G_{p}_{s}', 'f8', (f'reg_{p}', 'binf'))[:] = np.array(cur[s])
         setattr(o, f'regions_{p}', ' | '.join(n for n, _ in parts[p]))
-    o.k_peak_coarse, o.k_peak_fine, o.k_sig10, o.k_sig50 = kc, kf, int(k10), int(k50)
+    o.k_peak_medium, o.k_peak_coarse, o.k_peak_fine, o.k_sig10, o.k_sig50 = kc, kc2, kf, int(k10), int(k50)
     o.sig_bot_p10, o.sig_bot_med, o.sig_bot_p90 = bq
     o.close()
 
@@ -388,7 +415,7 @@ def main(exp):
     for k, v in Fm.items():
         r.createVariable(k, 'f8', ('node',))[:] = v
     # JJA-mean density flux restricted to months/nodes in the class set (kg m-2 s-1)
-    totc = sum(acc[f'acc_jja_sig2c_{c}'] for c in ('heat', 'ice', 'other')) / area[:, None]
+    totc = sum(acc[f'acc_jja_sig2m_{c}'] for c in ('heat', 'ice', 'other')) / area[:, None]
     totf = sum(acc[f'acc_jja_sig2f_{c}'] for c in ('heat', 'ice', 'other')) / area[:, None]
     r.createVariable('F_jja_peakbin', 'f8', ('node',))[:] = totc[:, kc]
     r.createVariable('F_jja_dense_sig10', 'f8', ('node',))[:] = totf[:, k10:].sum(axis=1)
@@ -410,15 +437,19 @@ def summary(keys):
     P('All numbers from analyze_formation_location.py; G = transformation across an isopycnal (Sv),')
     P('positive = towards higher density; G_r = part forced inside region r; shares in % of the total.')
     P('')
-    P('1. Reproduction of the published curves (0.2 sigma2 bins, south of 60S)')
-    for k in keys:
-        a, b = k['repro_jja'], k['repro_ann']
-        P(f'  {LABEL[k["exp"]]:4s} JJA peak published {a[0]:.3f}, here {a[1]:.3f}, max|diff| {a[2]:.1e} Sv; '
-          f'annual peak {b[0]:.3f}, here {b[1]:.3f}, max|diff| {b[2]:.1e} Sv')
+    P('1. Reproduction of the published curves (south of 60S; wmt_results 0.2 bins, wmt_results_bin0p1 0.1 bins)')
+    for w, kk in [('0.2', 'repro'), ('0.1', 'repro01')]:
+        for k in keys:
+            a, b = k[f'{kk}_jja'], k[f'{kk}_ann']
+            P(f'  {w} {LABEL[k["exp"]]:4s} JJA peak published {a[0]:.3f}, here {a[1]:.3f}, max|diff| {a[2]:.1e} Sv; '
+              f'annual peak {b[0]:.3f}, here {b[1]:.3f}, max|diff| {b[2]:.1e} Sv; '
+              f'max|published| outside 33.0-38.6 {max(a[3], b[3]):.1e} Sv')
     P('')
-    P('2. Per-state classes (sigma2)')
+    P('2. Per-state classes (sigma2); peak bin = peak of the 0.1-bin JJA curve (old 0.2 peak bin in brackets)')
     for k in keys:
-        P(f'  {LABEL[k["exp"]]:4s} peak bin {k["peak_bin"][0]:.1f}-{k["peak_bin"][1]:.1f} ({k["G_peak_bin"]:.1f} Sv); '
+        q = k['peak_bin_0p2']
+        P(f'  {LABEL[k["exp"]]:4s} peak bin {k["peak_bin"][0]:.1f}-{k["peak_bin"][1]:.1f} ({k["G_peak_bin"]:.1f} Sv) '
+          f'[0.2: {q[0]:.1f}-{q[1]:.1f}, {q[2]:.1f} Sv]; '
           f'0.02-bin peak {k["fine_peak"][1]:.1f} Sv at {k["fine_peak"][0]:.2f}; sigma_10 {k["sig10"]:.2f} '
           f'(G {k["G_sig10"]:.2f} Sv); bottom water p10/median/p90 {k["sig_bot"][0]:.2f}/{k["sig_bot"][1]:.2f}/'
           f'{k["sig_bot"][2]:.2f}; surface p99 {k["surf_p99"]:.2f}; sigma0 peak {k["sig0_peak"][1]:.1f} Sv at '
@@ -429,10 +460,10 @@ def summary(keys):
         P(f'3. Regional shares, partition {p} ({title})')
         names = keys[0][p]['names']
         P('  regions: ' + '; '.join(f'R{i + 1} {n}' for i, n in enumerate(names)))
-        for metric, lab in [('peak_bin_jja', 'JJA, published peak bin'), ('sig10_jja', 'JJA, across sigma_10 (densest tail)'),
+        for metric, lab in [('peak_bin_jja', 'JJA, peak bin (0.1)'), ('sig10_jja', 'JJA, across sigma_10 (densest tail)'),
                             ('botmed_jja', 'JJA, across bottom-water median'),
                             ('botp90_jja', 'JJA, across bottom-water p90'),
-                            ('peak_bin_ann', 'annual, published peak bin'), ('sig10_ann', 'annual, across sigma_10')]:
+                            ('peak_bin_ann', 'annual, peak bin (0.1)'), ('sig10_ann', 'annual, across sigma_10')]:
             P(f'  {lab}:')
             for k in keys:
                 v = k[p][metric]

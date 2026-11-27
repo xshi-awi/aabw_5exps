@@ -12,6 +12,9 @@ was dropped; the WMT panel is now (c). Old version figures/versions/*_v20261126p
 2026-11-27 (A4 readability): drawn at the printed width 5.81 in, so every size is the
 printed size in pt. (a) and (b) side by side, (c) below at full width, because the
 sigma_2 labels of (c) need about 34 pt per bar at 8 pt. Old: *_v20261127pre.*
+2026-11-27 12:04 (user): WMT in 0.1 sigma_2 bins; (c) reads the new composites, the
+sigma_2 of the maximum is a bin centre (x.x5) and is printed with two decimals.
+Old 0.2-bin version: *_v20261127bin0p2.*
 """
 import json
 import numpy as np
@@ -116,7 +119,7 @@ vals3 = [wmt[l][0] for l in LABELS]
 ax.bar(x, vals3, color=[COLS[l] for l in LABELS], edgecolor='none', width=0.62)
 style(ax, '$\\Delta$ peak\ntransformation  (Sv)', '(c)  The response: dense water formation', 2)
 for i, l in enumerate(LABELS):
-    ax.text(i, vals3[i] + 0.22, f'{vals3[i]:.1f}\n$\\sigma_2$={wmt[l][1]:.1f}',
+    ax.text(i, vals3[i] + 0.22, f'{vals3[i]:.1f}\n$\\sigma_2$={wmt[l][1]:.2f}',   # 0.1 bins: centres at x.x5
             ha='center', fontsize=FS_NUM, linespacing=1.1)
 ax.set_ylim(0, max(vals3) * 1.34)
 

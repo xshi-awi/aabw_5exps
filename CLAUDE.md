@@ -2,11 +2,11 @@
 
 AWI-ESM 五个气候态（PI / MH / LIG / LGM / MIS3）南大洋表面水团转换（WMT）的热、盐强迫分解与 SAM 调制。论文已投 Nature Communications，现处大修阶段。远程 origin = https://github.com/xshi-awi/aabw_5exps
 
-## 当前状态（2026-11-27 11:00）
+## 当前状态（2026-11-27 12:35）
 
 - **在做什么**：NC 大修。修订稿 `nc_paper/build/revised.tex`；回复信是 TexPage 上的 `revision/response_new.tex`（线上是主版本，用户在线改）。旧的 `RESPONSE_LETTER.md` 流水线和 04/05 文件留着不动。
-- **上一步做完了什么**：11-27 下午（`nc_paper/docx_to_tex/pass_20261127c/`）按她批注改信与稿，信里 18 张底图全部按 A4 打印放大，稿件同底图一并换（清单 `fig_font_checklist.md`）；11:00 第二轮按她 10:34 的话把 Fig. 3、4、6、A7、A8、A10 每格标全经纬度（约 6 pt），A7/A8 去冰缘线，信里 R20 只放 MLD a–e。图 R3 暂为她要看的试看版（A2 的海冰文件）。11:25 第三轮按她 11:09 的话，8 格以上的地图经纬度缩到约 3 pt、纬度排成直列。TexPage 6a1cb6a、772216d、4584ff1、4f2f9ab。
-- **下一步**：等她看图；待她定的见 `log/OPEN.md` 末三条。之后填致谢与基金，回填 Zenodo DOI。
+- **上一步做完了什么**：11-27 下午按她批注改信与稿，信里全部图按 A4 打印放大、地图标全经纬度（`nc_paper/docx_to_tex/pass_20261127c/`）；R3 用 A2 的海冰文件、图注去年份、正文 has little ice；12:30 WMT 的 σ2 格宽全部改成 0.1（数据 `<exp>/wmt_results_bin0p1/`，对照表 `pass_20261127c/bin0p1_table.md`）。TexPage 8992ae9，Word d 在 `nc_paper/SUBMISSION/response_letter_20261127d.docx`。
+- **下一步**：等她定 0.1 格后的四处（`log/OPEN.md` 首条）和 Fig. 2 列标题 MIS/MIS3；之后填致谢与基金，回填 Zenodo DOI。
 - **动手前必须知道的**：
   - 投稿稿是 `nc_paper/nc-main.tex`（sn-jnl.cls，5 位作者）；修订在 `nc_paper/build/revised.tex`。`nc_paper/main.tex` 是旧 AGU 版，不是投稿稿。
   - 改 response_new.tex 前先 pull，以线上为准；用户在改的文件等她停手 10 分钟再推；只推自己改的文件，推完至少等 3 分钟核 md5。别用 `sync_texpage.sh push`。
@@ -18,7 +18,7 @@ AWI-ESM 五个气候态（PI / MH / LIG / LGM / MIS3）南大洋表面水团转�
 实验目录名 `{pi,mh,lig,lgm,mis}`，`mis` 即论文里的 MIS3。
 - 气候态月均：`./{exp}/`；100 年逐月：`./{exp}/100years/`（SAM 用其中的 `slp*`）
 - 表面密度倾向（100 年逐月）：`./{exp}/surface_density_tendency_100years_{exp}.nc`
-- WMT：气候态 `./{exp}/wmt*nc`；100 年逐月 `./{exp}/wmt_results/wmt_*_100years_{exp}.nc`；9 月海冰区 WMT `./wmt_siz_{exp}.nc`
+- WMT：气候态 `./{exp}/wmt*nc`；100 年逐月 `./{exp}/wmt_results_bin0p1/`（σ2 格 0.1，11-27 起论文用这套），旧的 0.2 格在 `./{exp}/wmt_results/wmt_*_100years_{exp}.nc`；9 月海冰区 WMT `./wmt_siz_{exp}.nc`
 - 理想年龄：`./{exp}/age_reg.nc`（全球 1°×47 层，单位已是年）
 - ECHAM 全量：`./{exp}/echam_mergetime.nc`（约 43 GB，1200 个月）；风应力抽取 `sam_wind/{exp}_taux.nc`；t2m 抽取 `drift_check/{exp}_t2m.nc`
 - 原始模式输出：`/work/ba1066/a270064/production/{exp}_age/`（`outdata/fesom/` 逐年 3D 温盐与 w；`diag_gmoc.nc` 模式自带 MOC，PI/MH/LIG 那份分带错了，别用，MOC 用 `data_moc/`）；run 配置 `production/{exp}_age.yaml` 与 `config/*echam*`

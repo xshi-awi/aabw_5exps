@@ -54,7 +54,7 @@ def wmt_components(ds, jja=False):
 for reg, reglab in zip(REGIONS, REGION_LABELS):
     frames = []
     for e, lab in zip(EXPS, LABELS):
-        f = BASE / e / 'wmt_results' / f'wmt_{reg}_100years_{e}.nc'
+        f = BASE / e / 'wmt_results_bin0p1' / f'wmt_{reg}_100years_{e}.nc'   # 0.1 bins since 2026-11-27 (user GN)
         if not f.exists():
             continue
         ds = xr.open_dataset(f)
@@ -132,7 +132,7 @@ sheets['Fig7_age_below2000m'] = pd.DataFrame(
 # ------------------------------------------------------- Fig 8: domain sensitivity
 frames = []
 for e, lab in zip(EXPS, LABELS):
-    f = BASE / f'wmt_siz_{e}.nc'
+    f = BASE / f'wmt_siz_{e}_bin0p1.nc'   # 0.1 bins since 2026-11-27 (user GN)
     if not f.exists():
         continue
     d = xr.open_dataset(f)

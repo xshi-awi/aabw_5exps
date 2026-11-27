@@ -2,6 +2,9 @@
 
 按时间倒序。2026-11-08 从根 CLAUDE.md 压缩迁来，同主题已合并，只留结论；逐次细节在 git 历史里。具体数字多在 `nc_paper/NEW_ANALYSIS_RESULTS.md` 和 `docs/`。
 
+### 2026-11-27 12:35
+用户 12:04 按钮 GM（R3 改 has little ice，TexPage 9940c5f）和 GN（σ2 格宽 0.2 → 0.1，全部重算）。数据和核对见 `docs/figure_registry.md` 末条；图由四个子代理按 A4 标准重出；正文、方法、图注和信里能直接换的数都换了（峰值 70–81 / 50–59 Sv、峰位 36.4–36.8 / 37.1–37.6、A13 份额、海冰区热占比 53–78%、冰期 13–18%），结论受影响或旧数本来就复现不出的四处没改，稿里加 % 注并列在 `pass_20261127c/bin0p1_table.md`（翻倍那句、70–85%/15–30%、0.79/0.06 Sv、SAM 段与 3–8 Sv）。Fig. 8 用的气候月在 0.1 格下有锯齿。TexPage 8992ae9；信 42 页、稿 50 页，0 error；Word d。
+
 ### 2026-11-27 11:45
 用户 11:33（总管转）：回复信转 Word。`nc_paper/docx_to_tex/letter_to_word.py`（tex2docx 加前后处理）出 `nc_paper/SUBMISSION/response_letter_20261127.docx`（19.6 MB，20 张图，用信里同一批 PNG），没推 TexPage。和 TexPage 编译的 PDF 逐词比：文字只差断行连字符和公式空格，颜色在约 1.89 万个对齐词里只有一个公式的 6 个词不同（LibreOffice 不给 Word 公式上色，文件里已设蓝色），图的数量、顺序、文件和 R1–R20 编号全对。
 

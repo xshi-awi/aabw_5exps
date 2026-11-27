@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 """
 从100年月数据计算WMT多年平均并绘制对比图
-- 读取wmt_results/wmt_*_100years_*.nc (1200个月)
+- 读取wmt_results_bin0p1/wmt_*_100years_*.nc (1200个月；2026-11-27 起论文 WMT 用 0.1 宽的 σ2 bin)
 - 在脚本内计算多年平均
 - 生成两张图：全年平均 + 冬季平均（6-8月）
 - 所有数据乘以-1
@@ -118,7 +118,7 @@ def plot_wmt_comparison(season_name, month_selector=None):
             print(f'\n处理: {region_title} - {exp_title}')
 
             # 构建文件路径（100年数据）
-            file_path = BASE_PATH / exp_key / 'wmt_results' / f'wmt_{region_key}_100years_{exp_key}.nc'
+            file_path = BASE_PATH / exp_key / 'wmt_results_bin0p1' / f'wmt_{region_key}_100years_{exp_key}.nc'
 
             if not file_path.exists():
                 print(f'  ⚠ 文件不存在: {file_path}')
@@ -310,10 +310,11 @@ def plot_wmt_comparison(season_name, month_selector=None):
             ax.set_xlim(35.5, 38.5)
 
             # common y-axis across ALL panels (supplementary variant)
-            ax.set_ylim(-45, 90)
-            # same ticks as the 20-in version had; the auto locator thins them at this size
+            # 0.1 bins: LIG Southern Ocean heat peaks at 91 Sv (100 Sv with +1 std), above the old
+            # -45..90 window; the window keeps its 135 Sv span (same vertical scale), data min is -26
+            ax.set_ylim(-30, 105)
             ax.set_xticks([36, 37, 38])
-            ax.set_yticks([-25, 0, 25, 50, 75])
+            ax.set_yticks([-25, 0, 25, 50, 75, 100])
 
             # Tick polish
             ax.tick_params(axis='both', which='major', labelsize=12,
