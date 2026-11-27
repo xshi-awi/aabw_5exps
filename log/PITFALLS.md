@@ -53,3 +53,8 @@
 错在哪：FESOM 节点或 ORCA 格点用 `scipy.interpolate.griddata` 插到 `np.arange(-180, 180.5, Δ)` 的规则网格时，日界线两侧的点不在同一个凸包里，±180° 那几列是 NaN，南极立体投影里成了一条从岸边到图边的白缝（A12/R2/R11、A4/R5、A10/R16 海冰行）。
 怎么发现：2026-11-26 总管看 figR17 图发现。用像素检测脚本扫了全部极地图，`add_cyclic_point`、tripcolor、pcolormesh 画的都没事。
 怎么处理：三个脚本里的 `regrid_closed` 只填 |lon|>178.5 的列，填值来自把日界线 10° 内的点复制到 lon∓360 后的插值，且只在两侧 178° 都有值的纬度填；全局用复制点插值会改变凸包，在冰期接地冰上凭空插出数值，别那样做。
+
+### 本地 nc-main.tex 不是投稿版
+错在哪：根 CLAUDE.md 和 nc_paper/CLAUDE.md 一直把本地 `nc_paper/nc-main.tex` 当投稿版，修订稿（09-08 起）就是从它改的。它其实是投稿前的草稿，真正的投稿版在 TexPage `original_submission/nc-main_submitted.tex`。投稿前最后一轮的措辞（引言前两段、第四段等）和 5 篇引用在修订稿里丢了，追踪版里显示成没交代的改动。
+怎么发现：2026-11-27 用户要按 TexPage 的 Original Submission 出追踪 Word，比对时两份 tex 有 35 处不同，修订稿除作者块外都跟着草稿（`nc_paper/docx_to_tex/pass_20261127c/submitted_vs_draft.md`）。
+怎么处理：以后以 TexPage 那份为原稿；要不要把丢的措辞补回修订稿由用户定。

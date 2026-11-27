@@ -1,0 +1,11 @@
+marks: {('ins', 'Xiaoxu Shi'): 1858, ('del', 'Xiaoxu Shi'): 791}
+maths objects with inserted/deleted runs: 4 2
+accept all = revised: identical (293 paragraphs)
+reject all = original: identical (168 paragraphs)
+  figures in accepted: 22
+  figures in rejected: 13
+  figures in revised: 22
+  figures in original: 13
+
+Paragraphs: 170 → 332 (+162)
+All validations PASSED!

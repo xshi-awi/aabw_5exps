@@ -2,6 +2,9 @@
 
 按时间倒序。2026-11-08 从根 CLAUDE.md 压缩迁来，同主题已合并，只留结论；逐次细节在 git 历史里。具体数字多在 `nc_paper/NEW_ANALYSIS_RESULTS.md` 和 `docs/`。
 
+### 2026-11-27 14:15
+用户 13:38 要终查信与修订稿，并出投稿版→修订稿的修订追踪 Word。四个 agent 逐条对照（审稿人 1、2+4、3 和反向），123 条里一致 101、不一致 13、缺失 6、原稿已有 3，汇总在 `nc_paper/docx_to_tex/pass_20261127c/consistency_table.md`，明细在同目录 `consistency/`。纯文字的改了（`edits_1127i_consistency.py`，TexPage 9163f4f），包括 9 处 `\citet` 印成「(author?)」、两处密度图指针、A12 先于 A13 被引、LIG brine 41 mSv、Fig. 9 图注 0.1 格数、信里残留的 0.2 格数和 Heuzé「28 of 35」。终查发现修订稿底子是投稿前的草稿（`submitted_vs_draft.md`，56 处、5 篇文献），列给她定。追踪 Word 由 `make_tracked_docx.py` 写 w:ins/w:del（difflib 段落对齐、互为最佳配对，逐词标改动，公式按 Word 写法在 m:r 和 m:ctrlPr 上标），`check_tracked_docx.py` 核接受全部等于修订稿（293 段、22 图）、拒绝全部等于原稿（168 段、13 图），docx skill 的 validate.py --author 通过。信 Word f 已出。
+
 ### 2026-11-27 13:00
 用户 12:39 GP：Fig. 2、A5、A6、A11 列标题统一 MIS3（TexPage 483da70）。12:44 定 0.1 格后的四处：2.2 节热 63–90%、海冰加其他淡水 10–37%；σ2 ≥ 37.0 改平均 0.44/0.04 Sv；Fig. 8 改用 100 年逐月数据（`calc_wmt_siz_100years.py`，锯齿消失），讨论「约翻倍」改成方向一致但峰值处很小（79→76%，海冰项都约 2.6 Sv）；SAM 6–10 Sv、2.4 节按 0.1 格改写。她问的海冰负值是冬季冰缘融冰（`explore/wmt_binwidth/ice_negative_map.png`）。TexPage 16296ee；信 42、稿 50 页，0 error；Word e。
 

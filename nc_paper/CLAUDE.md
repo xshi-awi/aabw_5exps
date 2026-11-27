@@ -2,7 +2,7 @@
 
 ## 哪个文件是什么
 
-- `nc-main.tex` 投稿版（Nature 格式 sn-jnl.cls，5 位作者含 Lohmann）。`main.tex` 是更早的 AGU 格式版，**不是**投稿稿。
+- 真正的投稿版在 TexPage `original_submission/nc-main_submitted.tex`（有行号）。本地 `nc-main.tex` 是投稿前的草稿（Nature 格式 sn-jnl.cls），和投稿版有 35 处不同，修订稿是从它改出来的，逐处对照在 `docx_to_tex/pass_20261127c/submitted_vs_draft.md`。`main.tex` 是更早的 AGU 格式版。
 - `build/revised.tex` 修订稿。`build/` 自包含（ref.bib、sn-jnl.cls、sn-nature.bst、figures/），整个目录 gitignored。
 - `SUBMISSION/` 交付物：01 修订稿、02 latexdiff 追踪版、04 回复信 tex/pdf、05 回复信 docx、`Source_Data.xlsx`（`../make_source_data.py` 生成）、`letter_figs/`（真实目录，非软链）、`sn-jnl.cls`。在该目录直接 `pdflatex 04_response_letter.tex` 两遍即可。
 - 分析笔记：`NEW_ANALYSIS_RESULTS.md`（域敏感性、MOC、理想年龄、对流位置、边界条件、漂移的全部数字），`SUGGESTION_TODO.md`（用户 23 处黄色批注清单），`REVISION_PLAN.md`，文献核对 `LITERATURE_NOTES.md`、`LITERATURE_VERIFIED_BY_MAIN.md`、`reviewer_refs_verified.bib`。
@@ -20,6 +20,7 @@
 - 11-19 用户定：旧回复信的 Word 和 PDF 已从 TexPage 的 revision/ 删除（baa76c5），本地副本保留。
 - 每轮的改动都由 `docx_to_tex/pass_<日期>/` 里的脚本套用（锚点断言恰好一处，可在新拉的线上版上重跑）：`edits_1122.py`；`pass_20261125/edits_1125c_{revised,letter}.py`；`pass_20261126{,b,c}/`；`pass_20261127/`；`pass_20261127c/`（另有图字号清单 `fig_font_checklist.md`）。仍需用户定的地方加 `%claude回复（日期）：` 批注。信里引文从修订稿程序化截取（\ref 换 aux 号、\cite 换作者年份），每轮用 `pass_20261125/check_quotes_vs_revised.py <信> <修订稿> <aux>` 逐句核，剩下的 MISSING 只是 ±、σ₂、\citet 之类写法差别。`mhlig.py` 是 MH/LIG 改全称的规则。追踪版脚本 `pass_20261123/make_diff.sh`，11-25 用户说不再需要。
 - Word 版：`docx_to_tex/letter_to_word.py <revision 目录> <out.docx>`，用 tex2docx 转换，前后各加一步：先把信里自定义的宏展开成普通 LaTeX 并插入颜色标记，转完再按标记上色（回复蓝、引文蓝斜体缩进、claudenote 品红，图注和表保持黑）。核对用 `compare_word_pdf.py`（逐词比文字和颜色、按 md5 比图序）。11-27 出 `SUBMISSION/response_letter_20261127.docx`，核对结果在 `pass_20261127c/word_check.txt`。
+- 修订追踪 Word：`docx_to_tex/make_tracked_docx.py <orig.docx> <rev.docx> <out.docx>`，两份都先用 tex2docx 转（原稿用 TexPage 的 original_submission 编译），Word 修订标记作者 Xiaoxu Shi，图按图注配对；`check_tracked_docx.py` 核「接受全部=修订稿、拒绝全部=原稿」。LibreOffice 把带修订的公式显示成空框，Word 用的是它自己的公式修订写法。11-27 出 `SUBMISSION/manuscript_tracked_20261127.docx`。
 - 附录图按首次引用排序，现为 A1–A13；信里写死的图号（A1–A13、Fig. 5 MOC）改图序时要一起改。
 - 11-27 用户要先把审稿人 1、2 的回复和审稿人 3 对齐，对照表在 `pass_20261127/alignment_R1R2_R3.md`。SAM 折中规矩仍有效；2.4 节已比投稿版长一倍，给审稿人 2 的回复不能再说缩短了。
 - 写 LaTeX 的编辑脚本一律用原始字符串：旧脚本把 `\t`、`\r` 当成转义，印出过制表符和 esponse。

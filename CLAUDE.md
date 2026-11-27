@@ -2,15 +2,16 @@
 
 AWI-ESM 五个气候态（PI / MH / LIG / LGM / MIS3）南大洋表面水团转换（WMT）的热、盐强迫分解与 SAM 调制。论文已投 Nature Communications，现处大修阶段。远程 origin = https://github.com/xshi-awi/aabw_5exps
 
-## 当前状态（2026-11-27 13:00）
+## 当前状态（2026-11-27 14:15）
 
-- **在做什么**：NC 大修。修订稿 `nc_paper/build/revised.tex`；回复信是 TexPage 上的 `revision/response_new.tex`（线上是主版本，用户在线改）。旧的 `RESPONSE_LETTER.md` 流水线和 04/05 文件留着不动。
-- **上一步做完了什么**：11-27 下午按她批注改信与稿，信里全部图按 A4 打印放大、地图标全经纬度（`nc_paper/docx_to_tex/pass_20261127c/`）；R3 用 A2 的海冰文件；WMT σ2 格宽全部改 0.1（数据 `<exp>/wmt_results_bin0p1/`，Fig. 8 用 `wmt_siz100_<exp>_bin0p1.nc`），她 12:44 定的四处已改（`pass_20261127c/bin0p1_table.md`）。TexPage 16296ee，Word e 在 `nc_paper/SUBMISSION/response_letter_20261127e.docx`。
-- **下一步**：等她看 0.1 格版本和 Word e；之后填致谢与基金，回填 Zenodo DOI。
+- **在做什么**：NC 大修。修订稿 `nc_paper/build/revised.tex`（同步自 TexPage `revision/revised.tex`）；回复信是 TexPage 上的 `revision/response_new.tex`（线上是主版本，用户在线改，本地副本 `nc_paper/response_new.tex`）。旧的 `RESPONSE_LETTER.md` 流水线和 04/05 文件留着不动。
+- **上一步做完了什么**：11-27 13:38 她要的终查：信与修订稿逐条对照（`nc_paper/docx_to_tex/pass_20261127c/consistency_table.md`），纯文字对不上的已改（TexPage 9163f4f）；修订追踪 Word `nc_paper/SUBMISSION/manuscript_tracked_20261127.docx`（投稿版→修订稿，作者 Xiaoxu Shi）；信 Word f `nc_paper/SUBMISSION/response_letter_20261127f.docx`。
+- **下一步**：等她定 consistency_table.md「需要她定」的 12 条，头一条是修订稿底子是投稿前的草稿（`pass_20261127c/submitted_vs_draft.md`）；之后填致谢与基金，回填 Zenodo DOI。
 - **动手前必须知道的**：
-  - 投稿稿是 `nc_paper/nc-main.tex`（sn-jnl.cls，5 位作者）；修订在 `nc_paper/build/revised.tex`。`nc_paper/main.tex` 是旧 AGU 版，不是投稿稿。
+  - 真正的投稿版是 TexPage `original_submission/nc-main_submitted.tex`（有行号，审稿人行号对得上）。本地 `nc_paper/nc-main.tex` 是投稿前的草稿，和投稿版有 35 处不同，修订稿就是从它改出来的（`log/PITFALLS.md`）。`nc_paper/main.tex` 是旧 AGU 版。
   - 改 response_new.tex 前先 pull，以线上为准；用户在改的文件等她停手 10 分钟再推；只推自己改的文件，推完至少等 3 分钟核 md5。别用 `sync_texpage.sh push`。
   - 用户写作新规矩：不用「不是…而是 / X rather than Y / X, not Y」句式；正文 MH、LIG 写全称。
+  - 稿件用数字编号引文（sn-nature），`\citet` 印成「(author?)」，写作者名加 `\cite`。
   - `nc_paper/NEW_ANALYSIS_RESULTS.md` §1 的「69%→61%」已被推翻，别引（见 `log/PITFALLS.md`）。
 
 ## 数据路径

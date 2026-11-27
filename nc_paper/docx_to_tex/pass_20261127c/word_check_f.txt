@@ -1,0 +1,71 @@
+words: latex 18982, word 18949, ratio 0.9966
+  replace p4   latex: 36 . 75 - 37 . 00                                            | word p4: 36.75-37.00
+  replace p4   latex: - 3                                                          | word p4: -3
+  replace p4   latex: 27 . 3                                                       | word p4: 27.3
+  replace p4   latex: - 3                                                          | word p4: -3
+  replace p4   latex: 27 . 9 - 28 . 8                                              | word p4: 27.9- 28.8
+  replace p4   latex: - 3                                                          | word p4: -3
+  replace p4   latex: 37 . 0                                                       | word p4: 37.0
+  replace p4   latex: - 3                                                          | word p4: -3
+  replace p4   latex: landsea                                                      | word p4: land-sea
+  replace p5   latex: GLAC- 1D                                                     | word p5: GLAC-1D
+  replace p5   latex: interannualto-decadal                                        | word p5: interannual-to-decadal
+  replace p7   latex: open-ocean                                                   | word p8: openocean
+  replace p9   latex: mid-latitudes                                                | word p10: midlatitudes
+  replace p10  latex: largely. . . .                                               | word p11: largely….
+  replace p13  latex: sub-sectors                                                  | word p14: subsectors
+  replace p14  latex: sea-ice-driven                                               | word p15: sea-icedriven
+  replace p14  latex: α/C                                                          | word p15: α / C
+  replace p14  latex: βSF                                                          | word p15: β SF
+  replace p15  latex: mid-latitudes                                                | word p16: midlatitudes
+  replace p18  latex: interannualto-decadal                                        | word p19: interannual-to-decadal
+  replace p18  latex: ice-sheet                                                    | word p19: icesheet
+  replace p22  latex: ocean-only                                                   | word p23: oceanonly
+  replace p26  latex: open-ocean                                                   | word p27: openocean
+  replace p27  latex: 70-81                                                        | word p28: 70- 81
+  replace p27  latex: (3.0- 7.4                                                    | word p28: (3.0-7.4
+  replace p27  latex: (87-90%),                                                    | word p28: (87- 90%),
+  replace p29  latex: open-ocean                                                   | word p30: openocean
+  replace p29  latex: https://data.marine.copernicus.eu/product/GLOBAL_MULTIYEAR_P | word p30: https://data.marine.copernicus.eu/product/GLOBAL_MULTIYEAR_P
+  replace p34  latex: zonal-mean                                                   | word p35: zonalmean
+  replace p36  latex: - 2                                                          | word p37: -2
+  replace p37  latex: ± 0 . 03                                                     | word p38: ±0.03
+  replace p37  latex: - 1                                                          | word p38: -1
+  replace p37  latex: +0 . 06                                                      | word p38: +0.06
+  replace p37  latex: - 1                                                          | word p38: -1
+  replace p37  latex: +1 . 3                                                       | word p38: +1.3
+  replace p37  latex: - 1                                                          | word p38: -1
+  replace p37  latex: ( p                                                          | word p38: (p
+  replace p37  latex: 0 . 04 ).                                                    | word p38: 0.04).
+  replace p38  latex: zonalmean                                                    | word p39: zonal-mean
+  replace p40  latex: mid-latitudes                                                | word p41: midlatitudes
+  replace p42  latex: interannualto-decadal                                        | word p43: interannual-to-decadal
+text blocks that differ: 41
+colour pairs (latex, word): {('black', 'black'): 4671, ('blue', 'blue'): 14224, ('blue', 'black'): 6}
+aligned words whose colour or italic differ: 34
+  latex p2 word p2 black   ->black    italic True->False: γ
+  latex p4 word p4 blue    ->blue     italic False->True: 2 =
+  latex p4 word p4 blue    ->blue     italic True->False: ≈
+  latex p4 word p4 blue    ->blue     italic False->True: = 2
+  latex p4 word p4 blue    ->blue     italic True->False: ≥
+  latex p14 word p15 blue    ->black    italic True->True: −
+  latex p14 word p15 blue    ->black    italic False->False: (
+  latex p14 word p15 blue    ->black    italic True->True: p
+  latex p14 word p15 blue    ->black    italic False->False: )
+  latex p14 word p15 blue    ->black    italic True->True: Q net
+  latex p17 word p18 blue    ->blue     italic True->False: σ
+  latex p20 word p21 black   ->black    italic True->False: γ
+  latex p20 word p21 blue    ->blue     italic True->False: γ γ
+  latex p27 word p28 blue    ->blue     italic True->False: σ σ σ
+  latex p28 word p29 blue    ->blue     italic True->False: σ
+  latex p30 word p31 black   ->black    italic True->False: γ
+  latex p30 word p31 blue    ->blue     italic True->False: γ γ γ
+  latex p32 word p33 blue    ->blue     italic True->False: σ σ
+  latex p34 word p35 blue    ->blue     italic False->True: 2
+  latex p37 word p38 blue    ->blue     italic False->True: =
+  latex p42 word p43 blue    ->blue     italic True->False: σ ≈ γ ≈
+  latex p43 word p43 blue    ->blue     italic False->True: 14
+figures: latex 20, word 20, same order and files: True
+caption labels latex ['R1', 'R2', 'R3', 'R4', 'R5', 'R6', 'R7', 'R8', 'R9', 'R10', 'R11', 'R12', 'R13', 'R13', 'R14', 'R14', 'R15', 'R16', 'R17', 'R18', 'R19', 'R20']
+caption labels word  ['R1', 'R2', 'R3', 'R4', 'R5', 'R6', 'R7', 'R8', 'R9', 'R10', 'R11', 'R12', 'R13', 'R13', 'R14', 'R14', 'R15', 'R16', 'R17', 'R18', 'R19', 'R20']
+R-number mentions equal: True 
