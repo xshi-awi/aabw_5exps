@@ -561,21 +561,20 @@ FS_PANEL = 10.0   # (a), (b), ... bold
 FS_ROW = 9.2      # row names on the left, bold
 FS_CBLAB = 9.2    # colour bar labels, bold
 FS_CBTICK = 9.0   # colour bar tick labels
-FS_GEO = 6.8      # latitude and meridian labels (about 6.3 pt printed, user 11-27b)
-LAT_LABEL_LON = 40  # meridian along which the latitude circles are labelled
+FS_GEO = 3.4      # latitude and meridian labels (about 3.2 pt printed, user 11-27c)
 LW_COAST = 0.6
 LW_GRID = 0.55
 
 # Layout in inches: maps are square and placed by hand so the frame, the labels
 # outside it and the colour bars line up exactly.
 FIG_W = 6.3
-MAP_L = 0.63      # left of the first map: row name, then the 60/120 W labels
-MAP_R = 0.16      # right of the last map: the 60/120 E labels
-MAP_G = 0.28      # between columns: 60/120 E of one map and 60/120 W of the next
-TOP = 0.37        # column headings above the 0 deg labels
-ROW_G = 0.28      # between rows: 180 deg under one map, 0 deg over the next
-TITLE_PAD = 11    # pt, clears the 0 deg label
-BOTTOM = 0.66     # 180 deg label, colour bar, its ticks and label
+MAP_L = 0.66      # left of the first map: row name, then the 60/120 W labels
+MAP_R = 0.18      # right of the last map: the 60/120 E labels
+MAP_G = 0.19      # between columns: 60/120 E of one map and 60/120 W of the next
+TOP = 0.30        # column headings above the 0 deg labels
+ROW_G = 0.16      # between rows: 180 deg under one map, 0 deg over the next
+TITLE_PAD = 7     # pt, clears the 0 deg label
+BOTTOM = 0.60     # 180 deg label, colour bar, its ticks and label
 MAP_A = (FIG_W - MAP_L - MAP_R - 4 * MAP_G) / 5
 FIG_H = TOP + 3 * MAP_A + 2 * ROW_G + BOTTOM
 
@@ -603,7 +602,7 @@ def map_rect(row, col):
 def add_row_name(fig, row, text):
     """Row name left of the map, clear of the 60/120 W labels."""
     x0, y0, w, h = map_rect(row, 0)
-    fig.text(x0 - 0.17 / FIG_W, y0 + 0.5 * h, text, rotation=90,
+    fig.text(x0 - 0.20 / FIG_W, y0 + 0.5 * h, text, rotation=90,
              ha='right', va='center', multialignment='center',
              fontsize=FS_ROW, fontweight='bold', color='black')
 
@@ -616,7 +615,7 @@ def add_bottom_colorbars(fig, cf_pi, cf_anom, ticks_pi, fmt_pi, ticks_anom, fmt_
     pi = map_rect(2, 0)
     a1 = map_rect(2, 1)
     a4 = map_rect(2, 4)
-    y = pi[1] - 0.29 / FIG_H
+    y = pi[1] - 0.215 / FIG_H
     hgt = 0.09 / FIG_H
     inset_pi = 0.08 / FIG_W
     inset_an = 0.12 / FIG_W
@@ -664,41 +663,46 @@ def plot_field(ax, lon_2d, lat_2d, data, vmin, vmax, cmap, panel_label,
     gl.xlocator = mticker.FixedLocator(np.arange(-180, 180, 60))
     gl.ylocator = mticker.FixedLocator(np.arange(-80, -49, 10))
 
-    # Every panel is labelled (2026-11-27b, user: lat/lon smaller, every
-    # latitude circle labelled). Latitudes 50-80 deg S go along 40 deg E, the
-    # meridian whose labels cover the least signal and coast over all 30
-    # panels of Figs. 3 and 4 (scored on the plotted fields); thin white halo.
+    # Every panel is labelled (2026-11-27c, user: lat/lon half the size, the
+    # latitude labels in one straight row, no slanted text). Latitudes 50-80
+    # deg S in one column just east of the 0 deg meridian, each label on the
+    # poleward side of its circle: of the four half-columns along 0/180 deg this
+    # one covers the least signal over the 30 panels of Figs. 3 and 4. Thin
+    # white halo.
     if label_axes:
         for la in (-50, -60, -70, -80):
-            ax.text(LAT_LABEL_LON, la, '%d°S' % abs(la), transform=ccrs.PlateCarree(),
-                    ha='center', va='center', fontsize=FS_GEO, color='black',
-                    zorder=5,
-                    path_effects=[pe.withStroke(linewidth=1.5, foreground='white')])
-        # Every drawn meridian, outside the frame where it meets the frame:
-        # 0 deg above, 180 deg below (horizontal), 60/120 W on the left and
-        # 60/120 E on the right edge, written along the edge (rotated 90 deg)
-        # so that the labels of two neighbouring maps fit in the gap between them.
+            px, py = ccrs.SouthPolarStereo().transform_point(0, la, ccrs.PlateCarree())
+            ax.annotate('%d°S' % abs(la), xy=(px, py), xycoords='data',
+                        xytext=(0.7, -0.3), textcoords='offset points',
+                        ha='left', va='top', fontsize=FS_GEO, color='black',
+                        zorder=5, annotation_clip=False,
+                        path_effects=[pe.withStroke(linewidth=1.0, foreground='white')])
+        # Every drawn meridian, horizontal text just outside the frame where the
+        # meridian meets it: 0 deg above, 180 deg below, 60/120 E on the right
+        # (above the crossing), 60/120 W on the left (below the crossing). The
+        # E labels of one map and the W labels of the next share the gap at
+        # different heights, so the gap only needs room for one label.
         HALF = 4651194.0
-        PAD = 0.015 / MAP_A                      # 0.015 in, in axes units
+        PAD = 0.01 / MAP_A                       # 0.01 in, in axes units
+        DY = 0.005 / MAP_A
         for lon in (0, 60, 120, 180, -120, -60):
             lab = ('0°' if lon == 0 else '180°' if lon == 180
                    else '%d°%s' % (abs(lon), 'W' if lon < 0 else 'E'))
             if lon == 0:
-                kw = dict(x=0.5, y=1.0 + PAD, ha='center', va='bottom', rotation=0)
+                x, y, ha, va = 0.5, 1.0 + PAD, 'center', 'bottom'
             elif lon == 180:
-                kw = dict(x=0.5, y=-PAD, ha='center', va='top', rotation=0)
+                x, y, ha, va = 0.5, -PAD, 'center', 'top'
             else:
                 px, py = ccrs.SouthPolarStereo().transform_point(
                     lon, -50.0, ccrs.PlateCarree())
                 dx, dy = px / HALF, py / HALF
-                y = 0.5 + 0.5 * dy / abs(dx)     # where the meridian meets the side
+                yc = 0.5 + 0.5 * dy / abs(dx)    # where the meridian meets the side
                 if dx > 0:
-                    kw = dict(x=1.0 + PAD, y=y, ha='left', va='center', rotation=90)
+                    x, y, ha, va = 1.0 + PAD, yc + DY, 'left', 'bottom'
                 else:
-                    kw = dict(x=-PAD, y=y, ha='right', va='center', rotation=90)
-            x, y = kw.pop('x'), kw.pop('y')
-            ax.text(x, y, lab, transform=ax.transAxes, fontsize=FS_GEO,
-                    color='black', zorder=5, clip_on=False, **kw)
+                    x, y, ha, va = -PAD, yc - DY, 'right', 'top'
+            ax.text(x, y, lab, transform=ax.transAxes, ha=ha, va=va,
+                    fontsize=FS_GEO, color='black', zorder=5, clip_on=False)
 
     return cf
 

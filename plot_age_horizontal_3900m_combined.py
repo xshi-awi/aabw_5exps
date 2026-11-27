@@ -88,21 +88,20 @@ FS_TITLE = 10.4   # panel titles, bold
 FS_PANEL = 10.4   # (a), (b), ... bold
 FS_CBLAB = 9.4    # colour bar labels, bold
 FS_CBTICK = 9.2   # colour bar tick labels
-FS_GEO = 7.0      # latitude and meridian labels (about 6.4 pt printed, user 11-27b)
-LAT_LABEL_LON = 160  # meridian along which the latitude circles are labelled
-TITLE_PAD = 9     # pt, clears the 0 deg label above each circle
+FS_GEO = 3.6      # latitude and meridian labels (about 3.2 pt printed, user 11-27c)
+TITLE_PAD = 4     # pt, clears the 0 deg label above each circle
 LW_COAST = 0.6
 
 # ---- Figure layout (inches) ----
 # 2 rows: row1=5 panels, row2=4 panels (centered), each row with its colour bar.
 FIG_W = 6.4
-SIDE = 0.12       # outside the outer maps: the 60/120 W and E labels
-GAP = 0.21        # between maps: 60/120 E of one map and 60/120 W of the next
+SIDE = 0.08       # outside the outer maps: the 60/120 W and E labels
+GAP = 0.15        # between maps: 60/120 E of one map and 60/120 W of the next
 A = (FIG_W - 2 * SIDE - 4 * GAP) / 5
-TOP = 0.32        # panel titles above the 0 deg labels
-CB_DROP = 0.20    # map bottom to colour bar top: the 180 deg label
+TOP = 0.27        # panel titles above the 0 deg labels
+CB_DROP = 0.12    # map bottom to colour bar top: the 180 deg label
 CB_H = 0.09
-MID = 0.76        # colour bar 1 ticks and label, then row 2 titles
+MID = 0.72        # colour bar 1 ticks and label, then row 2 titles
 BOTTOM = 0.64     # rotated tick labels and label of colour bar 2
 FIG_H = TOP + A + CB_DROP + CB_H + MID + A + CB_DROP + CB_H + BOTTOM
 
@@ -150,35 +149,38 @@ def plot_polar(ax, data, lat, lon, norm, cmap, label, title, first_col=True,
     gl.xlocator = mticker.FixedLocator(np.arange(-180, 181, 60))
     gl.ylocator = mticker.FixedLocator(np.arange(-80, -49, 10))
 
-    # 2026-11-27b (user: lat/lon smaller, every latitude circle labelled).
-    # Every map carries every drawn meridian, just outside the circle and
-    # written along it, so the labels of two neighbouring maps fit in the gap
-    # between them. Placed by angle around the circle: the projection puts
-    # 0 deg at the top and runs clockwise. The circle (radius 0.46 of the axes)
-    # lies at about 53 deg S, so the 50 deg S grid circle is not drawn and the
-    # drawn latitude circles are 60, 70 and 80 deg S.
-    r_c = 0.46 + (0.015 + 0.5 * 1.164 * FS_GEO / 72) / A   # rim + gap + half the text
+    # 2026-11-27c (user: lat/lon half the size, latitude labels in one straight
+    # row, no slanted text). Every map carries every drawn meridian, horizontal
+    # text just outside the circle, anchored so it grows away from the circle.
+    # Placed by angle: the projection puts 0 deg at the top and runs clockwise.
+    # The circle (radius 0.46 of the axes) lies at about 53 deg S, so the
+    # 50 deg S grid circle is not drawn and the drawn latitude circles are 60,
+    # 70 and 80 deg S.
+    r_l = 0.46 + 0.012 / A
     for lon in (0, 60, 120, 180, -120, -60):
         lab = '0°' if lon == 0 else ('180°' if lon == 180
                                      else '%d°%s' % (abs(lon), 'W' if lon < 0 else 'E'))
         th = np.radians(lon)
-        rot = -lon if abs(lon) <= 90 else (180 - lon if lon > 0 else -180 - lon)
-        ax.text(0.5 + r_c * np.sin(th), 0.5 + r_c * np.cos(th), lab,
-                transform=ax.transAxes, ha='center', va='center', rotation=rot,
-                rotation_mode='anchor', fontsize=FS_GEO, color='black', zorder=6,
-                clip_on=False)
-    # Latitudes along 160 deg E, where they cover the least deep-ocean data and
-    # the 60 deg S label stays inside the circle; thin white halo, no box.
+        sn, cs = np.sin(th), np.cos(th)
+        ha = 'center' if abs(sn) < 0.3 else ('left' if sn > 0 else 'right')
+        va = 'center' if abs(cs) < 0.3 else ('bottom' if cs > 0 else 'top')
+        ax.text(0.5 + r_l * sn, 0.5 + r_l * cs, lab, transform=ax.transAxes,
+                ha=ha, va=va, fontsize=FS_GEO, color='black', zorder=6, clip_on=False)
+    # Latitudes in one column just east of the 180 deg meridian, each label on
+    # the poleward side of its circle: of the four half-columns along 0/180 deg
+    # this one covers the least deep-ocean data. Thin white halo.
     for la in (-60, -70, -80):
-        ax.text(LAT_LABEL_LON, la, '%d°S' % abs(la), transform=ccrs.PlateCarree(),
-                ha='center', va='center', fontsize=FS_GEO, color='black',
-                zorder=6,
-                path_effects=[pe.withStroke(linewidth=1.5, foreground='white')])
+        px, py = proj.transform_point(180, la, ccrs.PlateCarree())
+        ax.annotate('%d°S' % abs(la), xy=(px, py), xycoords='data',
+                    xytext=(0.7, 0.3), textcoords='offset points',
+                    ha='left', va='bottom', fontsize=FS_GEO, color='black',
+                    zorder=6, annotation_clip=False,
+                    path_effects=[pe.withStroke(linewidth=1.0, foreground='white')])
 
     # panel label on the title line, left of the map (the corners now hold
     # the 60/120 deg labels)
     ax.annotate(f'({label})', xy=(0, 1), xycoords='axes fraction',
-                xytext=(-10, TITLE_PAD), textcoords='offset points',
+                xytext=(-6, TITLE_PAD), textcoords='offset points',
                 fontsize=FS_PANEL, fontweight='bold', va='baseline', ha='left',
                 color='black', annotation_clip=False)
     # title

@@ -23,6 +23,8 @@ import matplotlib.tri as mtri
 import matplotlib.ticker as mticker
 from matplotlib.lines import Line2D
 import matplotlib.patheffects as patheffects
+from matplotlib.textpath import TextPath
+from matplotlib.font_manager import FontProperties
 import cartopy.crs as ccrs
 
 import plot_sam_density_tendency as base
@@ -39,18 +41,18 @@ DQ_COLOR = '#5b1a8c'                  # dark purple
 PRINT_W = 5.81                        # in
 PNG_DPI = 585                         # 5.81 in x 585 = 3399 px, about the old 3400 px
 PDF_DPI = 600                         # raster of the filled contours inside the PDF
-# 2026-11-27 10:34 (user): no sea ice edge in A7/A8; every latitude circle and every
-# meridian labelled in every panel, small (6 pt printed, may go below the 7.5 pt floor).
+# 2026-11-27 (user, 10:34 and 11:09): no sea ice edge in A7/A8; every latitude circle and
+# every meridian labelled in every panel, small (3.2 pt printed), all text horizontal.
 GRID_LONS = np.arange(-180, 180, 60)          # meridians drawn and labelled
 GRID_LATS = [-80, -70, -60, -50]              # latitude circles drawn and labelled
-FS_GRID = 6                                   # printed pt
-# Latitude labels sit along 20E: a search over meridians and label positions (box under
-# each label scored by the area integral of |field|/vmax in all 30 panels, the brine rows
-# counted twice) found this the least hidden signal. Per label: side of the meridian
-# (L, R, C = centred) and whether it sits on the pole side of its circle.
-LATLAB_LON = 20
-LAT_LAYOUT = {-80: ('C', True), -70: ('C', True), -60: ('L', False), -50: ('R', True)}
-HALO = [patheffects.withStroke(linewidth=1.2, foreground='white')]
+FS_GRID = 3.2                                 # printed pt
+# Latitude labels form one straight column along 0 deg, centred on the meridian, each
+# LAT_GAP pt on the pole side of its circle. Of the straight lines through the pole
+# (0, 180, 90E, 90W) this hides the least signal (area integral of |field|/vmax under the
+# label boxes, 30 panels, brine rows counted twice); rows along 90E/W overlap.
+LATLAB_LON = 0
+LAT_GAP = 0.5
+HALO = [patheffects.withStroke(linewidth=0.8, foreground='white')]
 
 HEAT_VARS = ['total_heat_diff', 'radiative_diff', 'turbulent_diff']
 FW_VARS = ['total_fw_diff', 'seaice_fw_diff', 'other_fw_diff']
@@ -148,9 +150,10 @@ def lon_text(lo):
 
 
 def grid_labels(ax, proj, pc):
-    """Meridian labels just outside the square frame where each meridian meets it
-    (rotated on the left and right sides); latitude labels along LATLAB_LON as set in
-    LAT_LAYOUT, with a thin white halo."""
+    """Meridian labels, horizontal, just outside the square frame where each meridian
+    meets it. On the sides the E labels sit just above the end of their meridian and the
+    W labels just below it, so that the labels of two neighbouring panels share the gap
+    without touching. Latitude labels in one column along LATLAB_LON, thin white halo."""
     x0, x1 = ax.get_xlim()
     y0, y1 = ax.get_ylim()
     cx, cy = proj.transform_point(0, -90, pc)
@@ -166,25 +169,21 @@ def grid_labels(ax, proj, pc):
         fy = (cy + t * dy - y0) / (y1 - y0)
         if tx < ty:                                  # left or right side
             right = fx > 0.5
-            kw = dict(xytext=(1.5 if right else -1.5, 0), ha='left' if right else 'right',
-                      va='center', rotation=90)
+            kw = dict(xytext=(1.0, 0.5) if right else (-1.0, -0.5),
+                      ha='left' if right else 'right', va='bottom' if right else 'top')
         else:                                        # top or bottom
             top = fy > 0.5
-            kw = dict(xytext=(0, 1.5 if top else -1.5), ha='center',
-                      va='bottom' if top else 'top', rotation=0)
+            kw = dict(xytext=(0, 1.0 if top else -1.0), ha='center',
+                      va='bottom' if top else 'top')
         ax.annotate(lon_text(lo), xy=(fx, fy), xycoords='axes fraction',
                     textcoords='offset points', fontsize=FS_GRID, color='k',
                     annotation_clip=False, **kw)
     for la in GRID_LATS:
-        side, pole = LAT_LAYOUT[la]
         px, py = proj.transform_point(LATLAB_LON, la, pc)
         up = py > cy                                 # meridian in the upper half
-        va = ('top' if up else 'bottom') if pole else 'center'
-        oy = (-1.0 if up else 1.0) if pole else 0.0
-        ox = {'L': -2.0, 'R': 2.0, 'C': 0.0}[side]
-        ha = {'L': 'right', 'R': 'left', 'C': 'center'}[side]
-        ax.annotate(f'{abs(la)}°S', xy=(px, py), xycoords='data', xytext=(ox, oy),
-                    textcoords='offset points', ha=ha, va=va, fontsize=FS_GRID, color='k',
+        ax.annotate(f'{abs(la)}°S', xy=(px, py), xycoords='data',
+                    xytext=(0, -LAT_GAP if up else LAT_GAP), textcoords='offset points',
+                    ha='center', va='top' if up else 'bottom', fontsize=FS_GRID, color='k',
                     path_effects=HALO, zorder=6, annotation_clip=False)
 
 
@@ -196,15 +195,17 @@ def plot(res, rows, outbase, vmax, dq_line=False):
 
     ncol, nrow = 5, len(rows)
     FW = PRINT_W
-    lab_in = (1.5 + 7.0) / 72                 # one 6 pt meridian label and its pad
-    gap_in = 2 * lab_in + 3 / 72              # E labels of one panel, W labels of the next
+    fp = FontProperties(family='DejaVu Sans', size=FS_GRID)
+    lab_in = (max(TextPath((0, 0), lon_text(lo), prop=fp).get_extents().width
+                  for lo in GRID_LONS) + 1.0 + 0.5) / 72   # widest side label and its pad
+    gap_in = lab_in + 1.5 / 72                # E above, W below: one label width per gap
     rowlab_in = 0.56                          # rotated row labels, up to 4 lines
     left_in = 0.02 + rowlab_in + 0.04 + lab_in
     right_in = lab_in + 0.02
     pw_in = (FW - left_in - right_in - gap_in * (ncol - 1)) / ncol
-    vgap_in = (8.5 + 2 + 12.5) / 72           # 180° label below, letter and 0° label above
+    vgap_in = (1.0 + 0.9 * FS_GRID + 2 + 12.5) / 72   # 180° below, letter and 0° above
     top_in = 0.40                             # column titles above letters and 0° labels
-    bot_in = 1.14 if dq_line else 0.92        # colour bar, its label and (A7) the legend
+    bot_in = 1.08 if dq_line else 0.86        # colour bar, its label and (A7) the legend
     FH = bot_in + top_in + nrow * pw_in + (nrow - 1) * vgap_in
     fig = plt.figure(figsize=(FW, FH))
     L, w, gap, h = left_in / FW, pw_in / FW, gap_in / FW, pw_in / FH
@@ -244,7 +245,7 @@ def plot(res, rows, outbase, vmax, dq_line=False):
                          va='center', fontsize=8.5, fontweight='bold', color='k',
                          multialignment='center', linespacing=1.1)
 
-    cax = fig.add_axes([0.19, (bot_in - 0.30) / FH, 0.62, 0.10 / FH])
+    cax = fig.add_axes([0.19, (bot_in - 0.24) / FH, 0.62, 0.10 / FH])
     sm = plt.cm.ScalarMappable(norm=plt.Normalize(-vmax, vmax), cmap=cmap)
     cb = fig.colorbar(sm, cax=cax, orientation='horizontal', extend='both',
                       ticks=np.linspace(-vmax, vmax, 9))

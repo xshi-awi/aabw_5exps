@@ -5,7 +5,7 @@ AWI-ESM 五个气候态（PI / MH / LIG / LGM / MIS3）南大洋表面水团转�
 ## 当前状态（2026-11-27 11:00）
 
 - **在做什么**：NC 大修。修订稿 `nc_paper/build/revised.tex`；回复信是 TexPage 上的 `revision/response_new.tex`（线上是主版本，用户在线改）。旧的 `RESPONSE_LETTER.md` 流水线和 04/05 文件留着不动。
-- **上一步做完了什么**：11-27 下午（`nc_paper/docx_to_tex/pass_20261127c/`）按她批注改信与稿，信里 18 张底图全部按 A4 打印放大，稿件同底图一并换（清单 `fig_font_checklist.md`）；11:00 第二轮按她 10:34 的话把 Fig. 3、4、6、A7、A8、A10 每格标全经纬度（约 6 pt），A7/A8 去冰缘线，信里 R20 只放 MLD a–e。图 R3 暂为她要看的试看版（A2 的海冰文件）。TexPage 6a1cb6a、772216d、4584ff1。
+- **上一步做完了什么**：11-27 下午（`nc_paper/docx_to_tex/pass_20261127c/`）按她批注改信与稿，信里 18 张底图全部按 A4 打印放大，稿件同底图一并换（清单 `fig_font_checklist.md`）；11:00 第二轮按她 10:34 的话把 Fig. 3、4、6、A7、A8、A10 每格标全经纬度（约 6 pt），A7/A8 去冰缘线，信里 R20 只放 MLD a–e。图 R3 暂为她要看的试看版（A2 的海冰文件）。11:25 第三轮按她 11:09 的话，8 格以上的地图经纬度缩到约 3 pt、纬度排成直列。TexPage 6a1cb6a、772216d、4584ff1、4f2f9ab。
 - **下一步**：等她看图；待她定的见 `log/OPEN.md` 末三条。之后填致谢与基金，回填 Zenodo DOI。
 - **动手前必须知道的**：
   - 投稿稿是 `nc_paper/nc-main.tex`（sn-jnl.cls，5 位作者）；修订在 `nc_paper/build/revised.tex`。`nc_paper/main.tex` 是旧 AGU 版，不是投稿稿。

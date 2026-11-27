@@ -10,9 +10,9 @@ the sea ice response that carries the salt pump, for all five climate states.
 
 2026-11-27 (A4 readability): drawn at the printed width 5.81 in, so every size below is
 the printed size in pt. Old: figures/versions/*_v20261127pre.*
-2026-11-27 10:34 (user): every latitude circle and every meridian labelled in every
-panel, small (6 pt). Meridian labels sit outside the circle along it; latitude labels
-along 20E, where a search over meridians found the least hidden signal. Old: *_v20261127b.*
+2026-11-27 10:34 and 11:09 (user): every latitude circle and every meridian labelled in
+every panel, small (3.2 pt), all horizontal. Meridian labels sit just outside the circle;
+latitude labels form one straight column along 0 deg. Old: *_v20261127b.*, *_v20261127c.*
 """
 import numpy as np
 import xarray as xr
@@ -43,11 +43,16 @@ import matplotlib.patheffects as patheffects
 import matplotlib.ticker as mticker
 GRID_LONS = [-180, -120, -60, 0, 60, 120]      # cartopy's default lines here, now fixed
 GRID_LATS = [-80, -70, -60, -50]
-FS_GRID = 6                                    # printed pt
-LATLAB_LON = 20
-# side of the meridian (L, R, C), and the gap in pt to the pole side of the circle (None = on it)
-LAT_LAYOUT = {-80: ('C', 2.0), -70: ('C', 0.5), -60: ('L', None), -50: ('L', None)}
-HALO = [patheffects.withStroke(linewidth=1.2, foreground='white')]
+FS_GRID = 3.2                                  # printed pt
+# Latitude labels: one column along 0 deg, centred on the meridian, LAT_GAP pt on the pole
+# side of each circle (0 and 180 hide about the same signal here; 0 as in A7/A8).
+LATLAB_LON = 0
+LAT_GAP = 0.5
+HALO = [patheffects.withStroke(linewidth=0.8, foreground='white')]
+from matplotlib.textpath import TextPath
+from matplotlib.font_manager import FontProperties
+_FP = FontProperties(family='DejaVu Sans', size=FS_GRID)
+LAB_H = 1.17 * FS_GRID                         # text box height, pt
 
 
 def regrid_closed(lon, lat, val, GX, GY):
@@ -94,35 +99,30 @@ def lon_text(lo):
     return f'{abs(lo)}°{"E" if lo > 0 else "W"}'
 
 
+def lon_offset(lo, dx, dy):
+    """Distance (pt) from the circle to the centre of a horizontal label on the ray
+    (dx, dy), so that the whole label box stays 1 pt outside the circle."""
+    w = TextPath((0, 0), lon_text(lo), prop=_FP).get_extents().width
+    return 0.5 * w * abs(dx) + 0.5 * LAB_H * abs(dy) + 1.0
+
+
 def grid_labels(ax):
-    """Each meridian labelled just outside the circle where it ends, written along the
-    circle; each latitude circle labelled along LATLAB_LON (LAT_LAYOUT: side of the
-    meridian, and whether the label sits on the pole side of its circle)."""
+    """Each meridian labelled, horizontally, just outside the circle where it ends; the
+    latitude circles labelled in one column along LATLAB_LON with a thin white halo."""
     for lo in GRID_LONS:
         dx, dy = proj.transform_point(lo, -60, PC)
         n = np.hypot(dx, dy)
         dx, dy = dx / n, dy / n
-        rot = np.degrees(np.arctan2(dy, dx)) - 90
-        rot = (rot + 180) % 360 - 180
-        if rot > 90:
-            rot -= 180
-        elif rot < -90:
-            rot += 180
+        d = lon_offset(lo, dx, dy)
         ax.annotate(lon_text(lo), xy=(0.5 + 0.5 * dx, 0.5 + 0.5 * dy), xycoords='axes fraction',
-                    xytext=(5 * dx, 5 * dy), textcoords='offset points', fontsize=FS_GRID,
-                    ha='center', va='center', rotation=rot, rotation_mode='anchor',
-                    annotation_clip=False)
+                    xytext=(d * dx, d * dy), textcoords='offset points', fontsize=FS_GRID,
+                    ha='center', va='center', annotation_clip=False)
     for la in GRID_LATS:
-        side, gap = LAT_LAYOUT[la]
-        pole = gap is not None
         px, py = proj.transform_point(LATLAB_LON, la, PC)
         up = py > 0
         ax.annotate(f'{abs(la)}°S', xy=(px, py), xycoords='data',
-                    xytext=({'L': -2.0, 'R': 2.0, 'C': 0.0}[side],
-                            ((-gap if up else gap) if pole else 0.0)),
-                    textcoords='offset points', fontsize=FS_GRID,
-                    ha={'L': 'right', 'R': 'left', 'C': 'center'}[side],
-                    va=('top' if up else 'bottom') if pole else 'center',
+                    xytext=(0, -LAT_GAP if up else LAT_GAP), textcoords='offset points',
+                    fontsize=FS_GRID, ha='center', va='top' if up else 'bottom',
                     path_effects=HALO, zorder=6, annotation_clip=False)
 
 
@@ -149,10 +149,14 @@ def sam_phases(exp):
 
 # layout in inches (printed size)
 FW = PRINT_W
-over = 8.6 / 72                              # 120°E/W label beyond the square, 6 pt
-left, right, gap = 0.03 + 0.27 + 0.04 + over, over + 0.02, 2 * over + 2.5 / 72
+# E labels of one map and W labels of the next sit at the same height, so a gap holds two
+# overhangs; overhang beyond the square = centre x + half width - R (R ~ 32 pt here)
+_dx = np.sin(np.radians(60))
+_w = max(TextPath((0, 0), lon_text(lo), prop=_FP).get_extents().width for lo in (60, 120))
+over = (0.5 * _w + _dx * (0.5 * _w * _dx + 0.25 * LAB_H + 1.0) - (1 - _dx) * 32) / 72
+left, right, gap = 0.03 + 0.27 + 0.04 + over, over + 0.02, 2 * over + 5.0 / 72
 D = (FW - left - right - 4 * gap) / 5        # side of one square map
-top, below, between, bottom = 0.36, 0.67, 0.17, 0.04   # below = 180° label + colour bar
+top, below, between, bottom = 0.36, 0.62, 0.17, 0.04   # below = 180° label + colour bar
 FH = top + D + below + between + D + below + bottom
 y_row = [FH - top - D, bottom + below]       # bottom edge of row 1 and row 2
 fig = plt.figure(figsize=(FW, FH))
@@ -231,7 +235,7 @@ for row, cf, ticks, label in (
          'Zonal wind stress anomaly, high $-$ low SAM  (N m$^{-2}$)'),
         (1, cf2, np.arange(-0.2, 0.21, 0.1),
          'Sea ice concentration anomaly, high $-$ low SAM')):
-    cax = fig.add_axes([0.20, (y_row[row] - 0.17 - 0.09) / FH, 0.60, 0.09 / FH])
+    cax = fig.add_axes([0.20, (y_row[row] - 0.12 - 0.09) / FH, 0.60, 0.09 / FH])
     cb = fig.colorbar(cf, cax=cax, orientation='horizontal', ticks=ticks)
     cb.set_label(label, fontsize=8.5, fontweight='bold', labelpad=2)
     cb.ax.tick_params(labelsize=8, width=0.6, length=3)
