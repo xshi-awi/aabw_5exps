@@ -19,6 +19,7 @@
 - 这份 docx 是从 11-08 D6 之前的回复信转来的，MOC 数字（−10.0 等）和 MOC 图都是旧的；tex 照 docx 转写，在源文件里用 `% NOTE` 标了 D6/D8 之后的值，等用户定。
 - 11-19 用户定：旧回复信的 Word 和 PDF 已从 TexPage 的 revision/ 删除（baa76c5），本地副本保留。
 - 每轮的改动都由 `docx_to_tex/pass_<日期>/` 里的脚本套用（锚点断言恰好一处，可在新拉的线上版上重跑）：`edits_1122.py`；`pass_20261125/edits_1125c_{revised,letter}.py`；`pass_20261126{,b,c}/`；`pass_20261127/`；`pass_20261127c/`（另有图字号清单 `fig_font_checklist.md`）。仍需用户定的地方加 `%claude回复（日期）：` 批注。信里引文从修订稿程序化截取（\ref 换 aux 号、\cite 换作者年份），每轮用 `pass_20261125/check_quotes_vs_revised.py <信> <修订稿> <aux>` 逐句核，剩下的 MISSING 只是 ±、σ₂、\citet 之类写法差别。`mhlig.py` 是 MH/LIG 改全称的规则。追踪版脚本 `pass_20261123/make_diff.sh`，11-25 用户说不再需要。
+- Word 版：`docx_to_tex/letter_to_word.py <revision 目录> <out.docx>`，用 tex2docx 转换，前后各加一步：先把信里自定义的宏展开成普通 LaTeX 并插入颜色标记，转完再按标记上色（回复蓝、引文蓝斜体缩进、claudenote 品红，图注和表保持黑）。核对用 `compare_word_pdf.py`（逐词比文字和颜色、按 md5 比图序）。11-27 出 `SUBMISSION/response_letter_20261127.docx`，核对结果在 `pass_20261127c/word_check.txt`。
 - 附录图按首次引用排序，现为 A1–A13；信里写死的图号（A1–A13、Fig. 5 MOC）改图序时要一起改。
 - 11-27 用户要先把审稿人 1、2 的回复和审稿人 3 对齐，对照表在 `pass_20261127/alignment_R1R2_R3.md`。SAM 折中规矩仍有效；2.4 节已比投稿版长一倍，给审稿人 2 的回复不能再说缩短了。
 - 写 LaTeX 的编辑脚本一律用原始字符串：旧脚本把 `\t`、`\r` 当成转义，印出过制表符和 esponse。

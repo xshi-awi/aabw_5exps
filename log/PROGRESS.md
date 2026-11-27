@@ -2,6 +2,9 @@
 
 按时间倒序。2026-11-08 从根 CLAUDE.md 压缩迁来，同主题已合并，只留结论；逐次细节在 git 历史里。具体数字多在 `nc_paper/NEW_ANALYSIS_RESULTS.md` 和 `docs/`。
 
+### 2026-11-27 11:45
+用户 11:33（总管转）：回复信转 Word。`nc_paper/docx_to_tex/letter_to_word.py`（tex2docx 加前后处理）出 `nc_paper/SUBMISSION/response_letter_20261127.docx`（19.6 MB，20 张图，用信里同一批 PNG），没推 TexPage。和 TexPage 编译的 PDF 逐词比：文字只差断行连字符和公式空格，颜色在约 1.89 万个对齐词里只有一个公式的 6 个词不同（LibreOffice 不给 Word 公式上色，文件里已设蓝色），图的数量、顺序、文件和 R1–R20 编号全对。
+
 ### 2026-11-27 11:25
 用户 11:09（总管转）：8 格以上的地图经纬度再小一半、纬度排成一排。Fig. 3、4、6，A7、A8、A10 标签约 3 pt、全部横写，纬度沿 0° 或 180° 排成直列，地图放回接近原大小；文字不用改。TexPage 4f2f9ab。
 
