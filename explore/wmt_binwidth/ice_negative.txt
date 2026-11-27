@@ -1,0 +1,24 @@
+PI Weddell, JJA, sigma2 36.7-36.8: sea ice term -2.86 Sv = melt -9.75 + growth +6.89
+    ice-free (<0.15)     melt  -2.40  growth  +0.80 Sv
+    edge (0.15-0.5)      melt  -5.96  growth  +1.83 Sv
+    pack (0.5-0.9)       melt  -1.39  growth  +2.17 Sv
+    close pack (>=0.9)   melt  -0.01  growth  +2.09 Sv
+    melt where winter MLD > 400 m: -0.67 Sv; melt-weighted mean latitude -67.2, lon 4.0, ice conc 0.30
+    lighter neighbour 36.6-36.7: sea ice term +1.97 Sv; 0.2 bin 36.6-36.8 average -0.45 Sv
+
+MH Weddell, JJA, sigma2 36.7-36.8: sea ice term -3.32 Sv = melt -10.51 + growth +7.19
+    ice-free (<0.15)     melt  -1.89  growth  +0.72 Sv
+    edge (0.15-0.5)      melt  -6.31  growth  +1.81 Sv
+    pack (0.5-0.9)       melt  -2.30  growth  +2.30 Sv
+    close pack (>=0.9)   melt  -0.01  growth  +2.36 Sv
+    melt where winter MLD > 400 m: -0.89 Sv; melt-weighted mean latitude -67.0, lon 11.6, ice conc 0.34
+    lighter neighbour 36.6-36.7: sea ice term +3.06 Sv; 0.2 bin 36.6-36.8 average -0.13 Sv
+
+LIG Southern Ocean, JJA, sigma2 36.6-36.7: sea ice term -3.30 Sv = melt -17.85 + growth +14.55
+    ice-free (<0.15)     melt  -3.56  growth  +0.68 Sv
+    edge (0.15-0.5)      melt  -7.88  growth  +4.22 Sv
+    pack (0.5-0.9)       melt  -6.13  growth  +5.73 Sv
+    close pack (>=0.9)   melt  -0.28  growth  +3.93 Sv
+    melt where winter MLD > 400 m: -0.08 Sv; melt-weighted mean latitude -67.4, lon 27.1, ice conc 0.40
+    lighter neighbour 36.5-36.6: sea ice term +12.82 Sv; 0.2 bin 36.5-36.7 average +4.76 Sv
+

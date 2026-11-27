@@ -30,7 +30,7 @@ import matplotlib.pyplot as plt
 from matplotlib.ticker import MultipleLocator
 from matplotlib.transforms import offset_copy
 
-WMT_FILE = 'wmt_siz_{exp}_bin0p1.nc'     # 0.1 kg m-3 bins (user, 2026-11-27)
+WMT_FILE = 'wmt_siz100_{exp}_bin0p1.nc'  # 0.1 kg m-3 bins, 100 years of monthly output (user, 2026-11-27 12:44; calc_wmt_siz_100years.py)
 
 P_W, P_H = 5.15, 4.59          # printed size (in) at \textwidth in the manuscript
 FIG_W = 7.0

@@ -39,3 +39,12 @@
 ## 图
 
 Fig. 2、A11（`plot_wmt_4regions_5exps_from_100years.py`）、Fig. 8（`plot_wmt_domain_sensitivity.py`）、A5（`plot_wmt_common_axis_supp.py`，纵轴改成 −30 到 105，LIG 热项加 1σ 到 100 Sv）、A6（`composite_sam/plot_sam_wmt_composite.py --a6`）、A9（`plot_sam_push_pull.py`，只有 (c) 变）、A13（`fig_formation_location`）。按 A4 标准重排字号（稿件里按版心 5.15 in 设计）。旧图都存 `*_v20261127bin0p2`。
+
+## 12:44 她定了之后（TexPage 16296ee）
+
+- 2.2 节占比：热 63–90%，海冰加其他淡水 10–37%（Fig. 2 冬季峰值处，|项|/三项绝对值之和），信里引文和回复同步；冬季峰值的冰期热占比 17–19%（讨论末段和信里回复，原 12–17% 来自年均，和句子说的冬季不符）。
+- σ2 ≥ 37.0：改成平均转换率，海冰 0.44 对热 0.04 Sv（100 年逐月、年均，60°S 以南和海冰区相同）。
+- Fig. 8 改用 100 年逐月数据（`calc_wmt_siz_100years.py` → `wmt_siz100_<exp>_bin0p1.nc`，同样的域掩膜；60°S 以南与 Fig. 2 管线年均逐格相同），锯齿消失。新数（0.1）：60°S 以南 PI 17.5 Sv@36.85、热 79%、海冰 2.62 Sv；海冰区 PI 13.0 Sv、76%、2.55 Sv；MH 81/54%；LIG 90/83%；LGM 16/16%；MIS3 13/19%。讨论那句改成「方向一致但在峰值处很小：PI 热占比 79%→76%，海冰项都约 2.6 Sv」。海冰区热占比：冰期 16%、19%，间冰期 54–83%。方法里 climatological monthly means 那句改成 the same 100 years of monthly output。
+- SAM：摘要和讨论 6–10 Sv；2.4 节按 0.1 格最大异常改写（PI 6.1、MH 8.2、LIG 10.4、LGM 10.2、MIS3 7.0 Sv），「冰期异常更小」删去，改成「大小在各态相近，机制不同」。
+- 稿里的 % 注都删了。
+- 她的问题（为什么 0.1 格下海冰项有负值）：`explore/wmt_binwidth/ice_negative.{py,txt}`、`ice_negative_map.png`。冬季冰缘融冰：PI Weddell σ2 36.7–36.8 净 −2.9 Sv = 融 −9.8 + 结 +6.9，融冰集中在冰缘（0.15–0.5 密集度 −6.0），平均 67°S、4°E；0.2 格与相邻 +2.0 的类平均成 −0.45。

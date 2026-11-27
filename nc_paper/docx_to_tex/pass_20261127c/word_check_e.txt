@@ -1,4 +1,4 @@
-words: latex 18943, word 18910, ratio 0.9966
+words: latex 18973, word 18940, ratio 0.9967
   replace p4   latex: 36 . 75 - 37 . 00                                            | word p4: 36.75-37.00
   replace p4   latex: - 3                                                          | word p4: -3
   replace p4   latex: 27 . 3                                                       | word p4: 27.3
@@ -40,7 +40,7 @@ words: latex 18943, word 18910, ratio 0.9966
   replace p39  latex: mid-latitudes                                                | word p41: midlatitudes
   replace p41  latex: interannualto-decadal                                        | word p43: interannual-to-decadal
 text blocks that differ: 40
-colour pairs (latex, word): {('black', 'black'): 4671, ('blue', 'blue'): 14186, ('blue', 'black'): 6}
+colour pairs (latex, word): {('black', 'black'): 4671, ('blue', 'blue'): 14216, ('blue', 'black'): 6}
 aligned words whose colour or italic differ: 34
   latex p2 word p2 black   ->black    italic True->False: γ
   latex p4 word p4 blue    ->blue     italic False->True: 2 =

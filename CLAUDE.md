@@ -2,11 +2,11 @@
 
 AWI-ESM 五个气候态（PI / MH / LIG / LGM / MIS3）南大洋表面水团转换（WMT）的热、盐强迫分解与 SAM 调制。论文已投 Nature Communications，现处大修阶段。远程 origin = https://github.com/xshi-awi/aabw_5exps
 
-## 当前状态（2026-11-27 12:35）
+## 当前状态（2026-11-27 13:00）
 
 - **在做什么**：NC 大修。修订稿 `nc_paper/build/revised.tex`；回复信是 TexPage 上的 `revision/response_new.tex`（线上是主版本，用户在线改）。旧的 `RESPONSE_LETTER.md` 流水线和 04/05 文件留着不动。
-- **上一步做完了什么**：11-27 下午按她批注改信与稿，信里全部图按 A4 打印放大、地图标全经纬度（`nc_paper/docx_to_tex/pass_20261127c/`）；R3 用 A2 的海冰文件、图注去年份、正文 has little ice；12:30 WMT 的 σ2 格宽全部改成 0.1（数据 `<exp>/wmt_results_bin0p1/`，对照表 `pass_20261127c/bin0p1_table.md`）。TexPage 8992ae9，Word d 在 `nc_paper/SUBMISSION/response_letter_20261127d.docx`。
-- **下一步**：等她定 0.1 格后的四处（`log/OPEN.md` 首条）和 Fig. 2 列标题 MIS/MIS3；之后填致谢与基金，回填 Zenodo DOI。
+- **上一步做完了什么**：11-27 下午按她批注改信与稿，信里全部图按 A4 打印放大、地图标全经纬度（`nc_paper/docx_to_tex/pass_20261127c/`）；R3 用 A2 的海冰文件；WMT σ2 格宽全部改 0.1（数据 `<exp>/wmt_results_bin0p1/`，Fig. 8 用 `wmt_siz100_<exp>_bin0p1.nc`），她 12:44 定的四处已改（`pass_20261127c/bin0p1_table.md`）。TexPage 16296ee，Word e 在 `nc_paper/SUBMISSION/response_letter_20261127e.docx`。
+- **下一步**：等她看 0.1 格版本和 Word e；之后填致谢与基金，回填 Zenodo DOI。
 - **动手前必须知道的**：
   - 投稿稿是 `nc_paper/nc-main.tex`（sn-jnl.cls，5 位作者）；修订在 `nc_paper/build/revised.tex`。`nc_paper/main.tex` 是旧 AGU 版，不是投稿稿。
   - 改 response_new.tex 前先 pull，以线上为准；用户在改的文件等她停手 10 分钟再推；只推自己改的文件，推完至少等 3 分钟核 md5。别用 `sync_texpage.sh push`。

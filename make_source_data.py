@@ -132,7 +132,7 @@ sheets['Fig7_age_below2000m'] = pd.DataFrame(
 # ------------------------------------------------------- Fig 8: domain sensitivity
 frames = []
 for e, lab in zip(EXPS, LABELS):
-    f = BASE / f'wmt_siz_{e}_bin0p1.nc'   # 0.1 bins since 2026-11-27 (user GN)
+    f = BASE / f'wmt_siz100_{e}_bin0p1.nc'   # 0.1 bins, 100 years of monthly output since 2026-11-27 (user)
     if not f.exists():
         continue
     d = xr.open_dataset(f)

@@ -1,0 +1,18 @@
+Fig. 8 from 100 years of monthly output (calc_wmt_siz_100years.py), annual mean; peak / sigma2 / heat / sea ice / other / thermal share
+pi   so60  0.1:  17.52 @36.85  H  16.67 I   2.62 O  -1.77 th  79% | 0.2 (100yr):  11.39 @36.70 I  0.79 th  69% | 0.2 clim (published):  10.60 @36.70 I  0.86 th  68%
+pi   siz   0.1:  12.99 @36.85  H  11.57 I   2.55 O  -1.14 th  76% | 0.2 (100yr):   7.40 @36.90 I  2.17 th  67% | 0.2 clim (published):   6.82 @36.90 I  1.84 th  70%
+mh   so60  0.1:  16.57 @36.85  H  16.16 I   2.11 O  -1.70 th  81% | 0.2 (100yr):  10.77 @36.70 I  0.69 th  69% | 0.2 clim (published):  10.10 @36.90 I  1.56 th  79%
+mh   siz   0.1:   5.49 @36.85  H   3.68 I   2.49 O  -0.68 th  54% | 0.2 (100yr):   4.00 @36.70 I  1.49 th  54% | 0.2 clim (published):   3.77 @36.70 I  1.47 th  53%
+lig  so60  0.1:  21.16 @36.85  H  21.26 I   1.20 O  -1.30 th  90% | 0.2 (100yr):  11.00 @36.90 I  1.02 th  86% | 0.2 clim (published):   9.97 @36.90 I  0.65 th  88%
+lig  siz   0.1:   7.14 @36.75  H   8.99 I  -0.46 O  -1.40 th  83% | 0.2 (100yr):   5.05 @36.70 I -1.11 th  70% | 0.2 clim (published):   4.39 @36.70 I -1.50 th  68%
+lgm  so60  0.1:  12.13 @37.65  H   4.52 I  15.53 O  -7.93 th  16% | 0.2 (100yr):  10.15 @37.70 I 13.11 th  15% | 0.2 clim (published):  10.22 @37.70 I 13.13 th  15%
+lgm  siz   0.1:  10.04 @37.65  H   5.02 I  15.79 O -10.77 th  16% | 0.2 (100yr):   8.93 @37.70 I 13.31 th  15% | 0.2 clim (published):   9.31 @37.70 I 13.58 th  15%
+mis  so60  0.1:  10.21 @37.15  H   4.93 I  18.81 O -13.53 th  13% | 0.2 (100yr):   7.76 @37.10 I 17.50 th  13% | 0.2 clim (published):   8.24 @37.10 I 18.40 th  12%
+mis  siz   0.1:   5.04 @37.25  H   5.23 I  11.02 O -11.21 th  19% | 0.2 (100yr):   4.18 @37.30 I  8.02 th  18% | 0.2 clim (published):   4.13 @37.30 I  7.90 th  17%
+PI so60 heat 0.1 (100yr): 6.7 11.6 11.8 14.6 15.1 20.2 16.7
+PI so60 heat 0.1 (12-month clim): 8.3 12.6 9.3 16.4 13.9 19.5 16.5
+PI so60 (lat<-60) vs main Southern Ocean (lat<=-60), annual 0.1: max diff 0.000 Sv
+wmt_siz100_pi_bin0p1.nc SIZ sigma2 37.0-37.5 class mean: sea ice 0.44, heat 0.04, total 0.41 Sv
+wmt_siz100_pi_bin0p2.nc SIZ sigma2 37.0-37.5 class mean: sea ice 0.50, heat 0.04, total 0.48 Sv
+PI so60 annual 0.1, sigma2 37.0-37.5 class mean: sea ice 0.44, heat 0.04 Sv
+PI siz annual 0.1, sigma2 37.0-37.5 class mean: sea ice 0.44, heat 0.04 Sv
