@@ -25,6 +25,7 @@ mpl.use('Agg')
 import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
 from matplotlib.patches import Patch
+from matplotlib.ticker import MaxNLocator
 
 mpl.rcParams.update({'font.family': 'sans-serif',
                      'font.sans-serif': ['DejaVu Sans'], 'pdf.fonttype': 42,
@@ -37,6 +38,12 @@ OBS = 'nc_paper/SUBMISSION/p3.png'
 JJA = [5, 6, 7]
 
 C_TOT, C_HEAT, C_FW, C_ICE = '#000000', '#E8000B', '#1F3FD4', '#1B7F3B'
+
+# The letter prints these figures 5.81 in wide (0.9 x textwidth on A4) and caps the height
+# at 5.93 in. So the figure is drawn 7 in wide (scale 0.83) and no taller than 1.02 x its
+# width; the font sizes below then print at about 7.8 / 8.3 / 9.1 pt (2026-11-27).
+W = 7.0
+FS_TICK, FS_LAB, FS_LEG, FS_TITLE, FS_HEAD = 9.4, 10, 10, 11, 10.4
 
 
 def model(prefix, months=None):
@@ -82,11 +89,11 @@ def shade(ax, g, h, f):
 def curve(ax, g, h, f, ice=None, zeroline=True):
     m = (g >= XLIM[0]) & (g <= XLIM[1])
     ax.axhline(0, color='#999999', lw=0.8, zorder=1)
-    ax.plot(g[m], (h + f)[m], color=C_TOT, lw=2.3, label='Total surface flux', zorder=3)
-    ax.plot(g[m], h[m], color=C_HEAT, lw=1.9, label='Surface heat flux', zorder=3)
-    ax.plot(g[m], f[m], color=C_FW, lw=1.9, label='Surface fresh water flux', zorder=3)
+    ax.plot(g[m], (h + f)[m], color=C_TOT, lw=1.9, label='Total surface flux', zorder=3)
+    ax.plot(g[m], h[m], color=C_HEAT, lw=1.5, label='Surface heat flux', zorder=3)
+    ax.plot(g[m], f[m], color=C_FW, lw=1.5, label='Surface fresh water flux', zorder=3)
     if ice is not None:
-        ax.plot(g[m], ice[m], color=C_ICE, lw=1.7, ls='--',
+        ax.plot(g[m], ice[m], color=C_ICE, lw=1.4, ls='--',
                 label='Sea ice component', zorder=3)
     if zeroline:
         # Their dashed line marks where water stops becoming lighter and starts
@@ -97,11 +104,14 @@ def curve(ax, g, h, f, ice=None, zeroline=True):
         tf = np.interp(gf, g[m], (h + f)[m])
         cr = np.where(np.diff(np.sign(tf)) > 0)[0]
         if len(cr) and np.nanmin(tf) < -0.05 * np.nanmax(np.abs(tf)):
-            ax.axvline(gf[cr[0]], color=C_HEAT, lw=1.5, ls='--', zorder=2)
+            ax.axvline(gf[cr[0]], color=C_HEAT, lw=1.2, ls='--', zorder=2)
     ax.set_xlim(*XLIM)
     ax.set_xticks(np.arange(26.3, 28.95, 0.4))
-    ax.set_xticklabels(['%.1f' % v for v in np.arange(26.3, 28.95, 0.4)], fontsize=8.5)
-    ax.tick_params(labelsize=9)
+    ax.set_xticklabels(['%.1f' % v for v in np.arange(26.3, 28.95, 0.4)], fontsize=FS_TICK)
+    ax.tick_params(labelsize=FS_TICK, labelcolor='black')
+    # short axes in the merged figure get every other y label, so the labels stay apart
+    ax.yaxis.set_major_locator(MaxNLocator(nbins=5, steps=[1, 2, 2.5, 4, 5, 10]) if AX_H < 1.3
+                               else MaxNLocator(nbins=7, steps=[1, 2, 2.5, 5, 10]))
 
 
 # ------------------------------------------------------------------ the data
@@ -119,81 +129,122 @@ import sys
 MODE = sys.argv[1] if len(sys.argv) > 1 else 'all'
 ROWS = {'all': [0, 1, 2], 'obs': [0], 'rean': [1, 2]}[MODE]
 OUT = {'all': 'figR20_wmt_merged', 'obs': 'figR20a_wmt_obs', 'rean': 'figR20b_wmt_oras5'}[MODE]
-FIGH = {3: 15.6, 1: 6.4, 2: 10.8}[len(ROWS)]
-fig = plt.figure(figsize=(14, FIGH))
-pad = 1.3 / FIGH                     # head room for the row header and the legend
-gs = fig.add_gridspec(len(ROWS), 2, hspace=0.52, wspace=0.18,
-                      left=0.075, right=0.98, top=1 - (0.62 if MODE == 'obs' else 1.17) / FIGH, bottom=pad)
-HEAD = 0.6 / FIGH                    # row header sits this far above the axes
+
+# Layout in inches from the top. Each row: header line, two-line panel titles, axes,
+# then tick labels and x title. The text heights are fixed and the axes take the rest.
+HEAD_H = 1.25 * FS_HEAD / 72 + 0.05
+TITLE_H = 2 * 1.2 * FS_TITLE / 72 + 6 / 72
+BELOW, GAP_ROW, TOP, BOT = 0.50, 0.10, 0.04, 0.02
+LEG_H = 0.25 if MODE == "rean" else 0.44        # one legend line, or two
+YLAB2 = MODE == 'all'                           # short axes: y title on two lines
+YLABEL = 'Transformation\nrate (Sv)' if YLAB2 else 'Transformation rate (Sv)'
+L = 0.80 if YLAB2 else 0.66
+GAPC, R = 0.47, 0.06
+COLW = (W - L - GAPC - R) / 2
+HAS_HEAD = [not (MODE == 'obs' and r == 0) for r in ROWS]   # 2026-11-26 user: no heading on R13
+fixed = TOP + BOT + LEG_H - GAP_ROW + sum((HEAD_H if hh else 0) + TITLE_H + BELOW + GAP_ROW
+                                          for hh in HAS_HEAD)
+AX_H = {'all': (1.02 * W - fixed) / 3, 'obs': 1.95, 'rean': 1.6}[MODE]
+H = fixed + AX_H * len(ROWS)
+fig = plt.figure(figsize=(W, H))
+
+ROW_Y = []                     # (header top, axes top) in inches from the top
+y = TOP
+for hh in HAS_HEAD:
+    hy = y if hh else None
+    y += (HEAD_H if hh else 0) + TITLE_H
+    ROW_Y.append((hy, y))
+    y += AX_H + BELOW + GAP_ROW
 
 
-def header(ax, text):
-    fig.text(0.5, ax.get_position().y1 + HEAD, text, ha='center',
-             fontsize=15, fontweight='bold', color='#111111')
+def box(x, top, w, h):
+    return [x / W, 1 - (top + h) / H, w / W, h / H]
+
+
+def header(top, text):
+    fig.text(0.5, 1 - top / H, text, ha='center', va='top',
+             fontsize=FS_HEAD, fontweight='bold', color='black')
+
+
+def labels(ax, ylab=True):
+    ax.set_xlabel(r'Neutral density, $\gamma$ (kg m$^{-3}$)', fontsize=FS_LAB, fontweight='bold')
+    if ylab:
+        ax.set_ylabel(YLABEL, fontsize=FS_LAB, fontweight='bold')
+
+
+def title(ax, text):
+    ax.set_title(text, fontsize=FS_TITLE, fontweight='bold', loc='left', pad=6, color='black')
 
 
 handles = None
 if 0 in ROWS:
     # ---- row 1: ours against the published observational estimate
-    ax = fig.add_subplot(gs[ROWS.index(0), 0])
+    hy, at = ROW_Y[ROWS.index(0)]
+    if MODE == 'obs':          # one row only: give the published panel more width
+        wa = 2.62
+        xb = L + wa + 0.25
+    else:
+        wa = COLW
+        xb = L + COLW + GAPC
+    ax = fig.add_axes(box(L, at, wa, AX_H))
     shade(ax, g_siz, h_siz, o_siz + i_siz)
     curve(ax, g_siz, h_siz, o_siz + i_siz, ice=i_siz)
     ax.set_ylim(-10.5, 10.5)
-    ax.set_ylabel('Transformation rate (Sv)', fontsize=11)
-    ax.set_xlabel(r'Neutral density, $\gamma$ (kg m$^{-3}$)', fontsize=11)
-    ax.set_title('(a)  This study, PI, all terms including sea ice',
-                 fontsize=12, fontweight='bold', loc='left', pad=8)
-    if MODE != 'obs':          # 2026-11-26 user: no big heading on the one-row letter figure
-        header(ax, 'Sea ice zone, annual mean  |  model against the published estimate')
+    labels(ax)
+    title(ax, '(a)  This study, PI,\nall terms including sea ice')
+    if hy is not None:
+        header(hy, 'Sea ice zone, annual mean  |  model against the published estimate')
     handles = ax.get_legend_handles_labels()
 
-    ax = fig.add_subplot(gs[ROWS.index(0), 1])
+    # the published figure has no x title of ours below it, so it may use that height too
+    ax = fig.add_axes(box(xb, at, W - xb - 0.02, AX_H + BELOW))
     img = mpimg.imread(OBS)
     hh, ww = img.shape[:2]
     ax.imshow(img[0:int(hh * 0.355), 0:int(ww * 0.60)])
+    ax.set_anchor('NW')
     ax.axis('off')
-    ax.set_title('(b)  Pellichero et al. (2018), their Fig. 3a',
-                 fontsize=12, fontweight='bold', loc='left', pad=8)
+    title(ax, '(b)  Pellichero et al. (2018),\ntheir Fig. 3a')
 
 # ---- rows 2 and 3: like-for-like against ORAS5, no shading
 rows = [
     (1, 'Sea ice zone, annual mean  |  model against ORAS5, sea ice term absent from both',
-     ('(c)  This study, PI, sea ice contribution removed', g_siz, h_siz, o_siz),
-     ('(d)  ORAS5 reanalysis 1999-2018, heat and E$-$P$-$R', go_siz, ho_siz, fo_siz)),
+     ('(c)  This study, PI,\nsea ice contribution removed', g_siz, h_siz, o_siz),
+     ('(d)  ORAS5 reanalysis\n1999-2018, heat and E$-$P$-$R', go_siz, ho_siz, fo_siz)),
     (2, 'South of 60$^\\circ$S, JJA  |  model against ORAS5, sea ice term absent from both',
-     ('(e)  This study, PI, sea ice contribution removed', g_60, h_60, o_60),
-     ('(f)  ORAS5 reanalysis 1999-2018, heat and E$-$P$-$R', go_60, ho_60, fo_60)),
+     ('(e)  This study, PI,\nsea ice contribution removed', g_60, h_60, o_60),
+     ('(f)  ORAS5 reanalysis\n1999-2018, heat and E$-$P$-$R', go_60, ho_60, fo_60)),
 ]
 
 for r, rowlab, left, right in rows:
     if r not in ROWS:
         continue
+    hy, at = ROW_Y[ROWS.index(r)]
     # scale from every curve, not just the total: in (d) the heat line rises
     # well above the total and was being clipped
     lim = 1.1 * max(max(np.nanmax(np.abs(p[2])), np.nanmax(np.abs(p[3])),
                         np.nanmax(np.abs(p[2] + p[3]))) for p in (left, right))
-    for c, (title, g, h, f) in enumerate((left, right)):
-        ax = fig.add_subplot(gs[ROWS.index(r), c])
+    for c, (ttl, g, h, f) in enumerate((left, right)):
+        ax = fig.add_axes(box(L + c * (COLW + GAPC), at, COLW, AX_H))
         curve(ax, g, h, f)
         ax.set_ylim(-lim, lim)
-        ax.set_xlabel(r'Neutral density, $\gamma$ (kg m$^{-3}$)', fontsize=11)
+        labels(ax, ylab=(c == 0))
         if c == 0:
-            ax.set_ylabel('Transformation rate (Sv)', fontsize=11)
-            header(ax, rowlab)
+            header(hy, rowlab)
             if handles is None:
                 handles = ax.get_legend_handles_labels()
         if MODE == 'rean':
-            title = '(%s)' % 'abcd'['cdef'.index(title[1])] + title[3:]
-        ax.set_title(title, fontsize=12, fontweight='bold', loc='left', pad=8)
+            ttl = '(%s)' % 'abcd'['cdef'.index(ttl[1])] + ttl[3:]
+        title(ax, ttl)
 
 hl, ll = handles
 if 0 in ROWS:
     patches = [Patch(facecolor=SHADE[0], label='Heat driven (a only)'),
                Patch(facecolor=SHADE[1], label='Freshwater driven (a only)')]
     hl, ll = hl + patches, ll + [p.get_label() for p in patches]
-fig.legend(hl, ll, frameon=False, fontsize=10, ncol=6, loc='lower center',
-           bbox_to_anchor=(0.5, 0.18 / FIGH), columnspacing=1.5, handlelength=1.9)
+fig.legend(hl, ll, frameon=False, fontsize=FS_LEG, ncol=3, loc='lower center',
+           bbox_to_anchor=(0.5, BOT / H), columnspacing=1.2, handlelength=1.8,
+           handletextpad=0.5, labelspacing=0.3, borderaxespad=0)
 
 fig.savefig('figures/%s.pdf' % OUT, dpi=400)
-fig.savefig('figures/%s.png' % OUT, dpi=200)
-print('saved figures/%s.{pdf,png}' % OUT)
+fig.savefig('figures/%s.png' % OUT, dpi=400)
+print('saved figures/%s.{pdf,png}  %.2f x %.2f in, axes height %.2f in' % (OUT, W, H, AX_H))

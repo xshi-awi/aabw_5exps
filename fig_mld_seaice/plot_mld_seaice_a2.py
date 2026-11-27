@@ -8,6 +8,11 @@ panels (d-e) keep the old 0-400 m scale. Run from the project root:
     python3 -s fig_mld_seaice/plot_mld_seaice_a2.py
 The PI sea-ice panel still reads pi/a_ice_reg.nc (the overwritten 2090-2099 file); the user
 decided (FS, 2026-11-25) not to change it yet. Do not switch to *_beta here without her.
+
+2026-11-27: text enlarged for an A4 printout of the reply letter (printed 5.81 in wide).
+Font sizes are given as printed points through pt(); the figure is 8 in wide instead of
+20 in, so lines print thicker too. Data, levels, colours and panel order unchanged.
+Previous version: figures/versions/fig02_climate_mld_seaice_jja_mld1000_v20261127pre.*
 """
 import sys, os
 sys.path.insert(0, os.getcwd())
@@ -19,9 +24,19 @@ import matplotlib.colors
 import cartopy.crs as ccrs
 import cartopy.feature as cfeature
 from matplotlib.gridspec import GridSpec
+from matplotlib.transforms import offset_copy
 import plot_climate_patterns_jja as P
 
 OUT = 'figures/fig02_climate_mld_seaice_jja_mld1000'
+
+FIG_W, FIG_H = 8.0, 4.65
+SAVED_W = 8.015               # width after bbox_inches='tight' (checked 2026-11-27)
+SCALE = 5.81 / SAVED_W        # printed width in the letter / saved width
+
+
+def pt(p):
+    """native size that prints as p points in the letter"""
+    return p / SCALE
 
 
 def mld_cmap_norm(vmax, n_blue=18):
@@ -34,9 +49,9 @@ def mld_cmap_norm(vmax, n_blue=18):
 
 
 def main():
-    fig = plt.figure(figsize=(20, 9))
-    gs = GridSpec(2, 5, figure=fig, hspace=0.25, wspace=0.08,
-                  left=0.06, right=0.94, top=0.92, bottom=0.1)
+    fig = plt.figure(figsize=(FIG_W, FIG_H))
+    gs = GridSpec(2, 5, figure=fig, hspace=0.582, wspace=0.06,
+                  left=0.05, right=0.995, top=0.9355, bottom=0.1335)
     cols = ['#0000FF', '#0040FF', '#0080FF', '#00BFFF', '#00FFFF', '#00FFB0', '#00FF60',
             '#00FF00', '#60FF00', '#BFFF00', '#FFFF00', '#FFD000', '#FFA000', '#FF6000',
             '#FF2000', '#FF0000', '#CC0000']
@@ -67,36 +82,44 @@ def main():
             ims[(row, col)] = im
             ax.set_extent([-180, 180, -90, -50], crs=ccrs.PlateCarree())
             ax.add_feature(cfeature.LAND, facecolor='lightgray', zorder=2)
-            ax.coastlines(linewidth=0.5, zorder=3)
-            ax.gridlines(draw_labels=False, linewidth=0.5, alpha=0.5, linestyle='--')
-            ax.text(0.02, 0.98, f'({chr(97 + panel)})', transform=ax.transAxes, fontsize=11,
-                    fontweight='bold', va='top', ha='left',
-                    bbox=dict(boxstyle='round', facecolor='white', alpha=0.8, edgecolor='none'))
+            ax.coastlines(linewidth=0.5 / SCALE, zorder=3)
+            ax.gridlines(draw_labels=False, linewidth=0.5 / SCALE, alpha=0.5, linestyle='--')
+            ax.spines['geo'].set_linewidth(0.75 / SCALE)
+            # panel letter just above the map's top-left corner (on the title line in
+            # row 1), so that at print size it does not hide the ice edge in (i), (j)
+            ax.text(0.0, 1.0, f'({chr(97 + panel)})', fontsize=pt(9), fontweight='bold',
+                    va='baseline', ha='left',
+                    transform=offset_copy(ax.transAxes, fig=fig, y=4, units='points'))
             panel += 1
             if row == 0:
-                ax.set_title(P.exp_labels[exp], fontsize=12, fontweight='bold')
+                ax.set_title(P.exp_labels[exp], fontsize=pt(9), fontweight='bold', pad=4)
             if col == 0:
-                ax.text(-0.12, 0.5, 'MLD' if var == 'MLD1' else 'Sea Ice', transform=ax.transAxes,
-                        fontsize=12, fontweight='bold', rotation=90, va='center', ha='right')
+                ax.text(-0.05, 0.5, 'MLD' if var == 'MLD1' else 'Sea Ice', transform=ax.transAxes,
+                        fontsize=pt(9), fontweight='bold', rotation=90, va='center', ha='right')
 
     def cbar(row, c0, c1, label, frac=0.8):
         p0, p1 = axes[(row, c0)].get_position(), axes[(row, c1)].get_position()
         w = (p1.x1 - p0.x0) * frac
         x0 = (p0.x0 + p1.x1 - w) / 2
-        cax = fig.add_axes([x0, p0.y0 - 0.045, w, 0.015])
+        gap, height = 0.07 / FIG_H, 0.09 / FIG_H      # inches below the maps
+        cax = fig.add_axes([x0, p0.y0 - gap - height, w, height])
         cb = fig.colorbar(ims[(row, c0)], cax=cax, orientation='horizontal')
-        cb.set_label(label, fontsize=10)
-        cb.ax.tick_params(labelsize=8)
+        cb.set_label(label, fontsize=pt(8.5), fontweight='bold', labelpad=2)
+        cb.ax.tick_params(labelsize=pt(8), labelcolor='black', width=0.6 / SCALE, pad=2)
+        cb.outline.set_linewidth(0.6 / SCALE)
         return cb
 
-    cb = cbar(0, 0, 2, 'MLD (m), PI, MH, LIG')
+    cb = cbar(0, 0, 2, 'MLD (m), PI, MH, LIG', frac=0.9)
     cb.set_ticks([0, 50, 200, 400, 600, 800, 1000])
-    cb = cbar(0, 3, 4, 'MLD (m), LGM, MIS3')
+    cb = cbar(0, 3, 4, 'MLD (m), LGM, MIS3', frac=1.0)
     cb.set_ticks([0, 50, 100, 200, 300, 400])
+    # at print size the 0 and 50 labels run together on this shorter bar; the 0 tick
+    # mark stays, its label is left out (the a-c bar beside it shows 0 and 50)
+    cb.set_ticklabels(['', '50', '100', '200', '300', '400'])
     cbar(1, 0, 4, 'Sea Ice (fraction)', frac=0.6)
 
-    for ext in ('pdf', 'png'):
-        plt.savefig(f'{OUT}.{ext}', dpi=300, bbox_inches='tight')
+    for ext, dpi in (('pdf', 300), ('png', 690)):   # png keeps the old ~5500 px width
+        plt.savefig(f'{OUT}.{ext}', dpi=dpi, bbox_inches='tight')
         print('saved', f'{OUT}.{ext}')
     plt.close()
 

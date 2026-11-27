@@ -9,6 +9,7 @@ import matplotlib.pyplot as plt
 import matplotlib.colors as mcolors
 import matplotlib.ticker as mticker
 import matplotlib.path as mpath
+import matplotlib.patheffects as pe
 import netCDF4 as nc
 import cartopy.crs as ccrs
 import cartopy.feature as cfeature
@@ -79,28 +80,58 @@ levels_anm = np.array([-1500, -1000, -800, -600, -400, -300, -200, -150,
 cmap_anm = plt.cm.get_cmap('RdBu_r', len(levels_anm) - 1)
 norm_anm = mcolors.BoundaryNorm(levels_anm, cmap_anm.N)
 
-# ---- Figure layout ----
-# 2 rows: row1=5 panels, row2=4 panels (centered)
+# ---- Sizes (2026-11-27) ----
+# The figure is drawn near the size it is printed at (letter: 5.81 in wide;
+# manuscript: \textwidth), so these are close to printed points. Before this date
+# it was 18 in wide and every text shrank to 3-7 pt on the page.
+FS_TITLE = 10.2   # panel titles, bold
+FS_PANEL = 10.2   # (a), (b), ... bold
+FS_CBLAB = 9.2    # colour bar labels, bold
+FS_CBTICK = 9.0   # colour bar tick labels
+FS_GEO = 8.5      # latitude and meridian labels
+LW_COAST = 0.6
+
+# ---- Figure layout (inches) ----
+# 2 rows: row1=5 panels, row2=4 panels (centered), each row with its colour bar.
+FIG_W = 6.4
+SIDE = 0.36       # outside the outer maps: the 60/120 W and E labels
+GAP = 0.04        # between maps (no labels sit there)
+A = (FIG_W - 2 * SIDE - 4 * GAP) / 5
+TOP = 0.27        # panel titles
+CB_DROP = 0.20    # map bottom to colour bar top: the 180 deg label
+CB_H = 0.09
+MID = 0.71        # colour bar 1 ticks and label, then row 2 titles
+BOTTOM = 0.64     # rotated tick labels and label of colour bar 2
+FIG_H = TOP + A + CB_DROP + CB_H + MID + A + CB_DROP + CB_H + BOTTOM
+
 proj = ccrs.SouthPolarStereo()
-fig = plt.figure(figsize=(18, 13))
+fig = plt.figure(figsize=(FIG_W, FIG_H))
 
-import matplotlib.gridspec as gridspec
-# 3 rows: row0=panels, row1=abs colorbar, row2=anomaly panels, row3=anm colorbar
-gs = gridspec.GridSpec(4, 10, figure=fig,
-                       height_ratios=[4, 0.22, 4, 0.22],
-                       hspace=0.55, wspace=0.16,
-                       left=0.02, right=0.98, top=0.95, bottom=0.07)
 
-axes_row1 = [fig.add_subplot(gs[0, i*2:(i*2+2)], projection=proj) for i in range(5)]
-axes_row2 = [fig.add_subplot(gs[2, 1+i*2:(1+i*2+2)], projection=proj) for i in range(4)]
+def rect(x0, y_top, w, h):
+    """Figure-fraction rectangle from inches (y_top measured from the top)."""
+    return [x0 / FIG_W, (FIG_H - y_top - h) / FIG_H, w / FIG_W, h / FIG_H]
+
+
+Y_ROW1 = TOP
+Y_CB1 = Y_ROW1 + A + CB_DROP
+Y_ROW2 = Y_CB1 + CB_H + MID
+Y_CB2 = Y_ROW2 + A + CB_DROP
+X_ROW2 = (FIG_W - (4 * A + 3 * GAP)) / 2
+
+axes_row1 = [fig.add_axes(rect(SIDE + i * (A + GAP), Y_ROW1, A, A), projection=proj)
+             for i in range(5)]
+axes_row2 = [fig.add_axes(rect(X_ROW2 + i * (A + GAP), Y_ROW2, A, A), projection=proj)
+             for i in range(4)]
 
 panel_labels = list('abcdefghi')
 
-def plot_polar(ax, data, lat, lon, norm, cmap, label, title, first_col=True):
+def plot_polar(ax, data, lat, lon, norm, cmap, label, title, first_col=True,
+               last_col=False):
     ax.set_extent([-180, 180, -90, LAT_CUTOFF], crs=ccrs.PlateCarree())
     set_circular_boundary(ax)
     ax.add_feature(cfeature.LAND, color='lightgray', zorder=3)
-    ax.coastlines(linewidth=0.4, color='k', zorder=4)
+    ax.coastlines(linewidth=LW_COAST, color='k', zorder=4)
 
     # pcolormesh needs 2D lon/lat
     lon2d, lat2d = np.meshgrid(lon, lat)
@@ -119,7 +150,11 @@ def plot_polar(ax, data, lat, lon, norm, cmap, label, title, first_col=True):
     # Every panel is labelled. With the columns spaced apart there is room for
     # the full set outside the circle; 0 deg is omitted because it falls under
     # the panel title.
-    LON_LABELS = (-120, -60, 60, 120, 180)
+    # Since 2026-11-27, at the printed size, the 60/120 W labels are drawn on the
+    # first map of each row and the 60/120 E labels on the last one, as in
+    # Figs. 3/4; between two maps there is no room for both. 180 deg stays on
+    # every map.
+    LON_LABELS = ((-120, -60) if first_col else ()) + ((60, 120) if last_col else ()) + (180,)
 
     gl = ax.gridlines(draw_labels=False, linewidth=0.6, alpha=0.8,
                       linestyle='--', color='gray', zorder=5)
@@ -143,24 +178,28 @@ def plot_polar(ax, data, lat, lon, norm, cmap, label, title, first_col=True):
         ha = 'center' if abs(_np.sin(th)) < 0.3 else ('left' if _np.sin(th) > 0 else 'right')
         va = 'center' if abs(_np.cos(th)) < 0.3 else ('bottom' if _np.cos(th) > 0 else 'top')
         ax.text(x, y, lab, transform=ax.transAxes, ha=ha, va=va,
-                fontsize=8, color='#111111', zorder=6, clip_on=False)
+                fontsize=FS_GEO, color='black', zorder=6, clip_on=False)
+    # thin white halo (no box) so the 180 deg grid line and the coast do not
+    # run through the digits at the printed size
     for la in (-60, -70, -80):
         ax.text(150, la, '%d°S' % abs(la), transform=ccrs.PlateCarree(),
-                ha='center', va='center', fontsize=8, color='#111111',
-                zorder=6)
+                ha='center', va='center', fontsize=FS_GEO, color='black',
+                zorder=6,
+                path_effects=[pe.withStroke(linewidth=1.8, foreground='white')])
 
     # panel label
-    ax.text(0.03, 0.97, f'({label})', transform=ax.transAxes,
-            fontsize=19, fontweight='bold', va='top', ha='left',
+    ax.text(0.0, 1.0, f'({label})', transform=ax.transAxes,
+            fontsize=FS_PANEL, fontweight='bold', va='top', ha='left', color='black',
             bbox=dict(facecolor='white', edgecolor='none', alpha=0.7, pad=1))
     # title
-    ax.set_title(title, fontsize=21, fontweight='bold', pad=6)
+    ax.set_title(title, fontsize=FS_TITLE, fontweight='bold', pad=3, color='black')
     return im
 
 # Row 1: absolute values
 for i, (exp, name) in enumerate(zip(exps, exp_names)):
     im1 = plot_polar(axes_row1[i], ages[exp], lat, lon,
-                     norm_abs, cmap_abs, panel_labels[i], name, first_col=(i == 0))
+                     norm_abs, cmap_abs, panel_labels[i], name, first_col=(i == 0),
+                     last_col=(i == 4))
 
 # Row 2: anomalies
 for i, (exp, name) in enumerate(zip(paleo, paleo_names)):
@@ -168,30 +207,37 @@ for i, (exp, name) in enumerate(zip(paleo, paleo_names)):
     # set |anm| < 5 to masked (white gap between -5 and 5)
     anm = np.ma.masked_where(np.abs(anm) < 5, anm)
     im2 = plot_polar(axes_row2[i], anm, lat, lon,
-                     norm_anm, cmap_anm, panel_labels[5+i], name, first_col=(i == 0))
+                     norm_anm, cmap_anm, panel_labels[5+i], name, first_col=(i == 0),
+                     last_col=(i == 3))
 
 # ---- Colorbars ----
-# Absolute colorbar in gs row 1
-cax1 = fig.add_subplot(gs[1, 1:9])
+# Both bars span the five maps of row 1, so that the rotated anomaly tick labels
+# at -50/-25 and 25/50 (one colour step apart) stay clear of each other.
+CB_W = 5 * A + 4 * GAP
+cax1 = fig.add_axes(rect(SIDE, Y_CB1, CB_W, CB_H))
 cb1 = plt.colorbar(plt.cm.ScalarMappable(norm=norm_abs, cmap=cmap_abs),
                    cax=cax1, orientation='horizontal')
-cb1.set_label('Age (years)', fontsize=19)
-cb1.ax.tick_params(labelsize=15)
+cb1.set_label('Age (years)', fontsize=FS_CBLAB, fontweight='bold', color='black',
+              labelpad=2)
 cb1.set_ticks(np.arange(0, 2501, 500))
 
-# Anomaly colorbar in gs row 3
-cax2 = fig.add_subplot(gs[3, 1:9])
+cax2 = fig.add_axes(rect(SIDE, Y_CB2, CB_W, CB_H))
 cb2 = plt.colorbar(plt.cm.ScalarMappable(norm=norm_anm, cmap=cmap_anm),
                    cax=cax2, orientation='horizontal', extend='both')
-cb2.set_label('Age anomaly (years)', fontsize=19)
-cb2.ax.tick_params(labelsize=14)
+cb2.set_label('Age anomaly (years)', fontsize=FS_CBLAB, fontweight='bold',
+              color='black', labelpad=2)
 tick_vals = [-1500, -800, -400, -200, -100, -50, -25,
               25, 50, 100, 200, 400, 800, 1500]
 cb2.set_ticks(tick_vals)
-cb2.ax.set_xticklabels([str(v) for v in tick_vals], rotation=45, ha='right')
+cb2.ax.set_xticklabels([str(v) for v in tick_vals], rotation=45, ha='right',
+                       rotation_mode='anchor')
+for cb in (cb1, cb2):
+    cb.ax.tick_params(labelsize=FS_CBTICK, labelcolor='black', width=0.6,
+                      length=3, pad=2)
+    cb.outline.set_linewidth(0.6)
 
 outfile = 'figures/age_horizontal_3900m_combined.pdf'
 plt.savefig(outfile, dpi=150, bbox_inches='tight')
 print(f'Saved: {outfile}')
-plt.savefig(outfile.replace('.pdf', '.png'), dpi=150, bbox_inches='tight')
+plt.savefig(outfile.replace('.pdf', '.png'), dpi=400, bbox_inches='tight')
 print(f'Saved: {outfile.replace(".pdf", ".png")}')

@@ -2,6 +2,9 @@
 
 按时间倒序。2026-11-08 从根 CLAUDE.md 压缩迁来，同主题已合并，只留结论；逐次细节在 git 历史里。具体数字多在 `nc_paper/NEW_ANALYSIS_RESULTS.md` 和 `docs/`。
 
+### 2026-11-27 10:05
+总管 questions-ef 转用户 09:16 手机消息（信有更新；审所有图，A4 打印要看清，放大加黑，不许遮挡）。信：拉下 TeXPage 7e48fc9–0c1d2cc（15:23–16:19 +0800），按她 5 条批注改，脚本 `nc_paper/docx_to_tex/pass_20261127c/edits_1127c_{revised,letter,figs}.py`。R1 模式评估后补讨论里和 Pellichero 比的三段原文；R1 第 20 条补引言 SAM 第 2–5 句原文；R2 她加的不确定性几句与原句合并；Lhardy 段稿件同步成她的五句（Shi 2025、Green 2022 和末两句随之删去，首句补 Lhardy 出处）；摘要同步 WMT 并补 (WMT) 定义；L114 Ross 句同步。信里图 R3 按她「先替换成另一个海冰文件」换成 A2 那两个文件出的试看版（`--pi-other`，图注加品红注）。图：6 个子代理分组放大全部 18 张底图（印出最小字 2.5–4.7 → 7.5–8 pt），稿件同底图一并换，A4 改整版宽，A4/R5 图注删去 10-14 就不画的 200 m 橙线，R1 年龄图经线那句按新图改。清单 `pass_20261127c/fig_font_checklist.md`。TexPage 6a1cb6a（文字与 R3）、772216d（2 tex、17 PNG、14 PDF），3 分钟后逐字节核对一致；编译信 43 页、稿 50 页，0 error。
+
 ### 2026-11-27 05:40
 用户 11-27 08:30–12:15（+0800）线上改信，05:21 要求先把审稿人 1、2 的回复与审稿人 3 对齐（questions-14 转）。脚本 `nc_paper/docx_to_tex/pass_20261127/edits_1127_{revised,letter}.py`，对照表 `alignment_R1R2_R3.md`。稿件按她改过的引文同步（摘要删「balance … set by sea ice extent」句、A13 段、Heuzé 段去 by construction、2.4 节删「两种响应大小……correlation」段、A10 段 pack→ice、2.1 节 MLD 句删 70%/97%、2.3 节径流句截短），另把 LIG 冰缘「约 1°」标成环极平均，state 名统一大写。R1「模式局限」改成与 R3 同一套论证（冰期没有开阔洋对流，旧的「同一偏差在差值里抵消」删去），R1 第 23 条与 R2 brine 条补 A13 结论，R2 不再说 SAM 节缩短（2.4 节约 1,430 词，投稿版约 730）。图 R3（`fig_seaice_obs/`）按她的要求改成 JJA 两格。她两问的答案：A13 阈值是每态 0.02 细格曲线上转换率掉到峰值 10% 以下的等密线（PI 36.93）；Fig. 2a 在 37 处读到约 20 Sv 是 0.2 粗格把 36.89→36.93 的陡降平均进去、再连线的效果，细格穿过 37.0 只有 2.5 Sv。Pellichero 上层转换是 22 ± 4 Sv（信里原写 ±5）。TexPage 9635651（两份 tex）、d4d9c79（图）；本地编译修订稿 49 页、信 41 页，0 error。
 

@@ -24,6 +24,11 @@ mixed layers are visible; above 200 m the steps are 300, 400, 600, 800 m.
 Previous version: figures/versions/figR17_mld_pi_vs_obs_v20261126pre.*
 2026-11-26: the white seam along 180 deg is closed by regrid_closed (only the
 columns next to the dateline change).
+2026-11-27: text enlarged for an A4 printout of the reply letter, where the figure
+prints 5.81 in wide. Font sizes are given as printed points through pt(); the
+figure is smaller (7.6 in) so lines print thicker too; the colour bar is wider so
+the 200-800 labels do not touch. Data, levels and colours unchanged.
+Previous version: figures/versions/figR17_mld_pi_vs_obs_v20261127pre.*
 """
 import glob
 import numpy as np
@@ -34,6 +39,7 @@ import matplotlib.pyplot as plt
 import matplotlib.path as mpath
 import cartopy.crs as ccrs
 import cartopy.feature as cfeature
+from cartopy.mpl.ticker import LatitudeFormatter
 from scipy.interpolate import griddata
 
 ORAS5 = '/pool/data/ICDC/ocean_syntheses/oras5/ORCA025/somxl010/opa0'
@@ -42,6 +48,22 @@ MESH = '/home/a/a270064/bb1029/inputs/mesh_core2/fesom.mesh.diag.nc'
 
 mpl.rcParams.update({'font.family': 'sans-serif',
                      'font.sans-serif': ['DejaVu Sans'], 'pdf.fonttype': 42})
+
+FIG_W, FIG_H = 7.6, 4.2
+SCALE = 5.81 / FIG_W          # printed width in the letter / saved width
+
+
+def pt(p):
+    """native size that prints as p points in the letter"""
+    return p / SCALE
+
+
+class LatEvery10(LatitudeFormatter):
+    """Inline latitude labels sit at 150E, where the 65S and 75S labels would
+    cover coastal mixed layers; only 70S and 80S are labelled. All gridlines stay."""
+    def __call__(self, value, pos=None):
+        return super().__call__(value, pos) if round(value) % 10 == 0 else ''
+
 
 GX = np.arange(-180, 180.5, 0.8)
 GY = np.arange(-78, -57, 0.4)
@@ -116,9 +138,9 @@ def oras5_jja():
 panels = [('(a)  AWI-ESM2, pre-industrial', model_pi()),
           ('(b)  ORAS5 reanalysis, 1990-2009', oras5_jja())]
 
-fig = plt.figure(figsize=(11.6, 6.3))
-gs = fig.add_gridspec(1, 2, wspace=0.08, left=0.05, right=0.96,
-                      top=0.92, bottom=0.17)
+fig = plt.figure(figsize=(FIG_W, FIG_H))
+gs = fig.add_gridspec(1, 2, wspace=0.12, left=0.05, right=0.95,
+                      top=0.89, bottom=0.21)
 proj = ccrs.SouthPolarStereo()
 levels = np.array([0, 25, 50, 75, 100, 125, 150, 175, 200, 300, 400, 600, 800])
 norm = mpl.colors.BoundaryNorm(levels, ncolors=256, extend='max')
@@ -130,20 +152,24 @@ for c, (title, grid) in enumerate(panels):
     cf = ax.contourf(GX, GY, grid, levels=levels, cmap='YlGnBu', norm=norm,
                      extend='max', transform=ccrs.PlateCarree())
     ax.add_feature(cfeature.LAND, facecolor='#999999', zorder=3)
-    gl = ax.gridlines(draw_labels=True, linewidth=0.5, color='gray',
+    gl = ax.gridlines(draw_labels=True, linewidth=0.5 / SCALE, color='gray',
                       alpha=0.5, linestyle='--', x_inline=False, y_inline=True)
     gl.top_labels = gl.right_labels = gl.bottom_labels = False
-    gl.ylabel_style = {'size': 9, 'color': '#333333'}
-    ax.set_title(title, fontsize=15, fontweight='bold', pad=10)
+    gl.yformatter = LatEvery10()
+    gl.xlabel_style = {'size': pt(8), 'color': 'black'}
+    gl.ylabel_style = {'size': pt(8), 'color': 'black'}
+    ax.spines['geo'].set_linewidth(0.75 / SCALE)
+    ax.set_title(title, fontsize=pt(9.5), fontweight='bold', pad=6)
 
-cax = fig.add_axes([0.30, 0.095, 0.40, 0.028])
+cax = fig.add_axes([0.18, 0.125, 0.64, 0.032])
 cb = fig.colorbar(cf, cax=cax, orientation='horizontal',
                   ticks=[0, 50, 100, 150, 200, 300, 400, 600, 800])
-cb.set_label('JJA mixed layer depth (m)', fontsize=13)
-cb.ax.tick_params(labelsize=11)
+cb.set_label('JJA mixed layer depth (m)', fontsize=pt(8.5), fontweight='bold')
+cb.ax.tick_params(labelsize=pt(8), labelcolor='black', width=0.6 / SCALE)
+cb.outline.set_linewidth(0.6 / SCALE)
 
 fig.savefig('figures/figR17_mld_pi_vs_obs.pdf', dpi=400)
-fig.savefig('figures/figR17_mld_pi_vs_obs.png', dpi=200)
+fig.savefig('figures/figR17_mld_pi_vs_obs.png', dpi=305)
 print('saved figures/figR17_mld_pi_vs_obs.{pdf,png}')
 
 # numbers for the caption: where they agree and where they do not

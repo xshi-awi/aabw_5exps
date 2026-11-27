@@ -33,15 +33,21 @@ UNIT = 'kg m$^{-2}$ month$^{-1}$'
 UNIT_TXT = 'kg m-2 month-1'
 DQ_LINE = -15.0                       # W m-2, contour on the total heat row of A3
 DQ_COLOR = '#5b1a8c'                  # dark purple, distinct from the black ice edge
+# 2026-11-27 A4 readability pass: the letter prints both figures 5.81 in wide, so they are
+# drawn at that width and every font size and line width below is the printed size.
+PRINT_W = 5.81                        # in
+PNG_DPI = 585                         # 5.81 in x 585 = 3399 px, about the old 3400 px
+PDF_DPI = 600                         # raster of the filled contours inside the PDF
 
 HEAT_VARS = ['total_heat_diff', 'radiative_diff', 'turbulent_diff']
 FW_VARS = ['total_fw_diff', 'seaice_fw_diff', 'other_fw_diff']
+# Row labels get extra line breaks so that they fit beside one printed panel (2026-11-27).
 ROWS_A3 = [('H_total', 'Total heat flux'),
-           ('H_rad', 'Radiative\n(shortwave + longwave)'),
-           ('H_turb', 'Turbulent\n(sensible + latent)')]
-ROWS_A4 = [('F_total', 'Total freshwater flux\n(sea ice included)'),
+           ('H_rad', 'Radiative\n(shortwave\n+ longwave)'),
+           ('H_turb', 'Turbulent\n(sensible\n+ latent)')]
+ROWS_A4 = [('F_total', 'Total\nfreshwater\nflux (sea ice\nincluded)'),
            ('F_ice', 'Sea ice'),
-           ('F_other', 'Other\n(net precipitation + runoff)')]
+           ('F_other', 'Other\n(net\nprecipitation\n+ runoff)')]
 KEYS = [k for k, _ in ROWS_A3 + ROWS_A4]
 
 
@@ -126,13 +132,13 @@ def plot(res, rows, outbase, vmax, dq_line=False):
     cmap = plt.get_cmap('RdBu_r')
 
     ncol, nrow = 5, len(rows)
-    FW, L, R, gap = 17.0, 0.075, 0.99, 0.006
-    w = (R - L - gap * (ncol - 1)) / ncol
-    pw_in = w * FW
-    bot_in, top_in, vgap_in = 1.35, 0.55, 0.08
+    FW = PRINT_W
+    left_in, right_in, gap_in = 0.60, 0.03, 0.035      # left margin holds the row labels
+    pw_in = (FW - left_in - right_in - gap_in * (ncol - 1)) / ncol
+    bot_in, top_in, vgap_in = 1.08, 0.24, 0.20         # vgap holds the panel letters
     FH = bot_in + top_in + nrow * pw_in + (nrow - 1) * vgap_in
     fig = plt.figure(figsize=(FW, FH))
-    h = pw_in / FH
+    L, w, gap, h = left_in / FW, pw_in / FW, gap_in / FW, pw_in / FH
 
     for r, (key, rlab) in enumerate(rows):
         for c, exp in enumerate(EXPS):
@@ -152,40 +158,46 @@ def plot(res, rows, outbase, vmax, dq_line=False):
                           linewidths=0.9, zorder=3)
             if dq_line and r == 0:
                 ax.tricontour(tri, d['dq'][sel], levels=[DQ_LINE], colors=DQ_COLOR,
-                              linewidths=0.8, linestyles='--', zorder=3.5)
+                              linewidths=0.9, linestyles='--', zorder=3.5)
             ax.set_extent([-180, 180, -90, LAT_SO], crs=pc)
+            ax.spines['geo'].set_linewidth(0.6)
 
-            gl = ax.gridlines(crs=pc, draw_labels=False, linewidth=0.5, color='#555555',
-                              alpha=0.5, linestyle='--', zorder=4)
+            gl = ax.gridlines(crs=pc, draw_labels=False, linewidth=0.5, color='#444444',
+                              alpha=0.6, linestyle='--', zorder=4)
             gl.xlocator = mticker.FixedLocator(np.arange(-180, 180, 60))
             gl.ylocator = mticker.FixedLocator([-80, -70, -60, -50])
-            for la in (-50, -60, -70, -80):
-                ax.text(150, la, f'{abs(la)}°S', transform=pc, ha='center', va='center',
-                        fontsize=8, color='#111111', zorder=6,
-                        bbox=dict(facecolor='white', edgecolor='none', alpha=0.7, pad=0.4))
-            ax.text(0.03, 0.97, f'({chr(97 + r * ncol + c)})', transform=ax.transAxes,
-                    fontsize=14, fontweight='bold', va='top', ha='left', zorder=7,
-                    bbox=dict(boxstyle='round,pad=0.25', facecolor='white', alpha=0.9))
+            if r == nrow - 1 and c == 0:   # same grid in every panel; label it once, in (k)
+                for la in (-50, -70):          # two labels fit at printed size
+                    ax.text(150, la, f'{abs(la)}°S', transform=pc, ha='center', va='center',
+                            fontsize=8, color='k', zorder=6,
+                            bbox=dict(facecolor='white', edgecolor='none', alpha=0.7, pad=0.3))
+            # panel letter above the panel, so that it hides no data
+            fig.text(x0, y0 + h + 0.03 / FH, f'({chr(97 + r * ncol + c)})', fontsize=9,
+                     fontweight='bold', color='k', va='bottom', ha='left')
             if r == 0:
-                ax.set_title(LABELS[exp], fontsize=18, fontweight='bold', pad=6)
+                ax.set_title(LABELS[exp], fontsize=10, fontweight='bold', color='k', pad=3)
             if c == 0:
-                fig.text(x0 - 0.010, y0 + h / 2, rlab, rotation=90, ha='right', va='center',
-                         fontsize=14, fontweight='bold', multialignment='center')
+                fig.text(x0 - 0.04 / FW, y0 + h / 2, rlab, rotation=90, ha='right', va='center',
+                         fontsize=8.5, fontweight='bold', color='k', multialignment='center',
+                         linespacing=1.1)
 
-    cax = fig.add_axes([0.20, 0.85 / FH, 0.5, 0.2 / FH])
+    cax = fig.add_axes([0.19, (bot_in - 0.24) / FH, 0.62, 0.10 / FH])
     sm = plt.cm.ScalarMappable(norm=plt.Normalize(-vmax, vmax), cmap=cmap)
     cb = fig.colorbar(sm, cax=cax, orientation='horizontal', extend='both',
                       ticks=np.linspace(-vmax, vmax, 9))
-    cb.ax.tick_params(labelsize=12)
-    cb.set_label(f'Surface density flux anomaly, high minus low SAM ({UNIT}); '
-                 'positive = densification', fontsize=13)
+    cb.ax.tick_params(labelsize=8, width=0.6, length=3, colors='k')
+    cb.outline.set_linewidth(0.6)
+    cb.set_label(f'Surface density flux anomaly, high minus low SAM ({UNIT});\n'
+                 'positive = densification', fontsize=8.5, fontweight='bold', color='k',
+                 labelpad=2, linespacing=1.15)
     handles = [Line2D([], [], color='k', lw=0.9, label='JJA 15% sea ice edge')]
     if dq_line:
-        handles.append(Line2D([], [], color=DQ_COLOR, lw=1.2, ls='--',
-                              label='total heat flux anomaly = $-$15 W m$^{-2}$\n(panels a–e)'))
-    fig.legend(handles=handles, loc='center left', bbox_to_anchor=(0.715, 0.95 / FH),
-               frameon=False, fontsize=11.5, handlelength=2.2)
-    for ext, dpi in (('png', 200), ('pdf', 300)):
+        handles.append(Line2D([], [], color=DQ_COLOR, lw=1.0, ls='--',
+                              label='total heat flux anomaly = $-$15 W m$^{-2}$ (panels a–e)'))
+    fig.legend(handles=handles, loc='lower center', bbox_to_anchor=(0.5, 0.05 / FH),
+               ncol=len(handles), frameon=False, fontsize=8, handlelength=2.2,
+               columnspacing=1.6, borderaxespad=0, labelcolor='k')
+    for ext, dpi in (('png', PNG_DPI), ('pdf', PDF_DPI)):
         fig.savefig(f'{outbase}.{ext}', dpi=dpi)
     plt.close(fig)
     print(f'saved {outbase}.png/.pdf')

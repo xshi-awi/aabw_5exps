@@ -2,11 +2,11 @@
 
 AWI-ESM 五个气候态（PI / MH / LIG / LGM / MIS3）南大洋表面水团转换（WMT）的热、盐强迫分解与 SAM 调制。论文已投 Nature Communications，现处大修阶段。远程 origin = https://github.com/xshi-awi/aabw_5exps
 
-## 当前状态（2026-11-27 05:40）
+## 当前状态（2026-11-27 10:05）
 
 - **在做什么**：NC 大修。修订稿 `nc_paper/build/revised.tex`；回复信是 TexPage 上的 `revision/response_new.tex`（线上是主版本，用户在线改）。旧的 `RESPONSE_LETTER.md` 流水线和 04/05 文件留着不动。
-- **上一步做完了什么**：11-26 三轮线上批注（`nc_paper/docx_to_tex/pass_20261126{,b,c}/`：A13 形成位置、西风机制、平衡只留 SST/AMOC 并引 PMIP4 判据、180° 白缝等）。11-27 用户转向审稿人 1、2，先要求和审稿人 3 对齐：`pass_20261127/`，对照表 `alignment_R1R2_R3.md`；R1「模式局限」与第 23 条、R2 brine 和 SAM 回复按 R3 改，稿件按她改过的引文同步，信里图 R3 改成 JJA 两格（TexPage 9635651、d4d9c79）。
-- **下一步**：等用户继续改审稿人 1、2 的回复；待她定的见 `log/OPEN.md` 末三条（批注 8、PI 海冰重算 EE1/FS/FX 先不动、A10 去留、LGM/MIS3 起步出处、fresh bias 出处、2.4 节长度）。之后填致谢与基金，回填 Zenodo DOI。
+- **上一步做完了什么**：11-27 上午审稿人 1、2 对齐审稿人 3（`pass_20261127/`）。11-27 下午（`pass_20261127c/`）按她 5 条批注改信与稿，信里 18 张底图全部按 A4 打印放大（清单 `fig_font_checklist.md`），稿件同底图一并换；图 R3 暂为她要看的试看版（A2 的海冰文件）。TexPage 6a1cb6a、772216d。
+- **下一步**：等她看 R3 试看版和放大后的图；待她定的见 `log/OPEN.md` 末两条。之后填致谢与基金，回填 Zenodo DOI。
 - **动手前必须知道的**：
   - 投稿稿是 `nc_paper/nc-main.tex`（sn-jnl.cls，5 位作者）；修订在 `nc_paper/build/revised.tex`。`nc_paper/main.tex` 是旧 AGU 版，不是投稿稿。
   - 改 response_new.tex 前先 pull，以线上为准；用户在改的文件等她停手 10 分钟再推；只推自己改的文件，推完至少等 3 分钟核 md5。别用 `sync_texpage.sh push`。
@@ -59,4 +59,5 @@ AWI-ESM 五个气候态（PI / MH / LIG / LGM / MIS3）南大洋表面水团转�
 - 后台长任务早看输出，别等跑完才发现第一个实验就崩了。
 - 引用极值时空间范围要和文字一致；附和审稿人的猜测前先算。
 - `plot_climate_patterns_jja.py` 的 `jja_months=[5,6,7,8]` 是 6–9 月，不是 JJA（Fig. 1、A1、A2 受影响；11-25 起图注与正文写 June-September，脚本未改）。
+- 图按信里的印出宽出图（`\rfig{0.9}` 为 5.81 in，稿件版心 5.15 in），脚本里直接写印出磅数，刻度不小于 7.5 pt。大画布配小字再缩进去，印出来只有 3 pt 左右（11-27 信里 18 张图全部返工，`docs/figure_registry.md`）。
 - `pi/a_ice_clim.nc` 和 `pi/a_ice_reg.nc` 是被覆盖的 2090–2099 别的 run，PI 海冰用 `pi/a_ice_*_beta.nc`（2300–2399）。本机 python 要 `python3 -s`，否则 ~/.local 的 pandas 让 xarray 解不开时间（`log/PITFALLS.md`）。

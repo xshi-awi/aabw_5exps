@@ -550,6 +550,90 @@ def pick_tick_format(vmax_nice):
     else:
         return '%.3f'
 
+# ----------------------------------------------------------------------------
+# Sizes (2026-11-27). The figure is drawn near the size it is printed at (letter:
+# 5.81 in wide; manuscript: \textwidth), so these are close to printed points.
+# Before this date the figure was 15 in wide and every text shrank to 3-7 pt.
+# ----------------------------------------------------------------------------
+FS_TITLE = 10.2   # column headings, bold
+FS_PANEL = 10.0   # (a), (b), ... bold
+FS_ROW = 9.2      # row names on the left, bold
+FS_CBLAB = 9.2    # colour bar labels, bold
+FS_CBTICK = 9.0   # colour bar tick labels
+FS_GEO = 8.2      # latitude and meridian labels
+LW_COAST = 0.6
+LW_GRID = 0.55
+
+# Layout in inches: maps are square and placed by hand so the frame, the labels
+# outside it and the colour bars line up exactly.
+FIG_W = 6.3
+MAP_L = 0.95      # left of the first map: row name, then the 60/120 W labels
+MAP_R = 0.43      # right of the last map: the 60/120 E labels
+MAP_G = 0.06      # between columns (no labels sit there)
+TOP = 0.28        # column headings
+ROW_G = 0.25      # between rows: the 180 deg label under each map
+BOTTOM = 0.66     # 180 deg label, colour bar, its ticks and label
+MAP_A = (FIG_W - MAP_L - MAP_R - 4 * MAP_G) / 5
+FIG_H = TOP + 3 * MAP_A + 2 * ROW_G + BOTTOM
+
+
+# Row names with line breaks only (the words are those of var_titles below).
+ROW_NAMES = {
+    'Total Heat': 'Total Heat',
+    'SW + LW (Radiation)': 'SW + LW\n(Radiation)',
+    'LH + SH (Turbulent)': 'LH + SH\n(Turbulent)',
+    'Total Freshwater': 'Total\nFreshwater',
+    'Sea Ice Alone': 'Sea Ice Alone',
+    'Other FW (net precipitation + runoff)': 'Other FW (net\nprecipitation\n+ runoff)',
+}
+for _k, _v in ROW_NAMES.items():
+    assert _v.replace('\n', ' ') == _k
+
+
+def map_rect(row, col):
+    """Axes rectangle (figure fraction) of the map in this row and column."""
+    x0 = MAP_L + col * (MAP_A + MAP_G)
+    y0 = FIG_H - TOP - (row + 1) * MAP_A - row * ROW_G
+    return [x0 / FIG_W, y0 / FIG_H, MAP_A / FIG_W, MAP_A / FIG_H]
+
+
+def add_row_name(fig, row, text):
+    """Row name left of the map, clear of the 60/120 W labels."""
+    x0, y0, w, h = map_rect(row, 0)
+    fig.text(x0 - 0.45 / FIG_W, y0 + 0.5 * h, text, rotation=90,
+             ha='right', va='center', multialignment='center',
+             fontsize=FS_ROW, fontweight='bold', color='black')
+
+
+def add_bottom_colorbars(fig, cf_pi, cf_anom, ticks_pi, fmt_pi, ticks_anom, fmt_anom):
+    """PI bar under the first column, anomaly bar under columns 2-5.
+
+    Both are pulled in from the gap between columns 1 and 2 so that the last PI
+    tick label and the first anomaly tick label cannot touch."""
+    pi = map_rect(2, 0)
+    a1 = map_rect(2, 1)
+    a4 = map_rect(2, 4)
+    y = pi[1] - 0.29 / FIG_H
+    hgt = 0.09 / FIG_H
+    inset_pi = 0.08 / FIG_W
+    inset_an = 0.12 / FIG_W
+    cax_pi = fig.add_axes([pi[0] + inset_pi, y, pi[2] - 2 * inset_pi, hgt])
+    cb_pi = plt.colorbar(cf_pi, cax=cax_pi, orientation='horizontal',
+                         ticks=ticks_pi, format=fmt_pi)
+    cb_pi.set_label('PI (same unit)', fontsize=FS_CBLAB, fontweight='bold',
+                    color='black', labelpad=2)
+    x0 = a1[0] + inset_an
+    cax_an = fig.add_axes([x0, y, a4[0] + a4[2] - x0, hgt])
+    cb_an = plt.colorbar(cf_anom, cax=cax_an, orientation='horizontal',
+                         ticks=ticks_anom, format=fmt_anom)
+    cb_an.set_label(f'Anomaly relative to PI ({UNIT_LABEL})', fontsize=FS_CBLAB,
+                    fontweight='bold', color='black', labelpad=2)
+    for cb in (cb_pi, cb_an):
+        cb.ax.tick_params(labelsize=FS_CBTICK, labelcolor='black', width=0.6,
+                          length=3, pad=2)
+        cb.outline.set_linewidth(0.6)
+
+
 def plot_field(ax, lon_2d, lat_2d, data, vmin, vmax, cmap, panel_label,
                label_axes=False, col=0, ncol=5):
     """绘制场"""
@@ -563,27 +647,33 @@ def plot_field(ax, lon_2d, lat_2d, data, vmin, vmax, cmap, panel_label,
 
     # 陆地要在数据之上,使用zorder=2
     ax.add_feature(cfeature.LAND, facecolor='lightgray', zorder=2)
-    ax.coastlines(resolution='110m', linewidth=0.5, color='black', zorder=3)
+    ax.coastlines(resolution='110m', linewidth=LW_COAST, color='black', zorder=3)
+    ax.spines['geo'].set_linewidth(0.7)
 
     ax.text(0.02, 0.98, panel_label, transform=ax.transAxes,
-            fontsize=15, weight='bold', va='top', ha='left',
-            bbox=dict(boxstyle='round,pad=0.3', facecolor='white', alpha=0.85),
+            fontsize=FS_PANEL, weight='bold', va='top', ha='left', color='black',
+            bbox=dict(boxstyle='round,pad=0.2', facecolor='white', alpha=0.85,
+                      linewidth=0.6),
             zorder=4)
 
-    gl = ax.gridlines(draw_labels=False, linewidth=0.5, alpha=0.3, linestyle='--')
+    gl = ax.gridlines(draw_labels=False, linewidth=LW_GRID, color='gray',
+                      alpha=0.4, linestyle='--')
     gl.xlocator = mticker.FixedLocator(np.arange(-180, 180, 60))
     gl.ylocator = mticker.FixedLocator(np.arange(-80, -49, 10))
 
     # Every panel is labelled. These panels are square, so the corners are free
     # and the meridian labels can sit in them without touching the next column.
     # Latitudes go along 150 deg E, where the Indian sector leaves a quiet strip.
+    # Since 2026-11-27 only 60 and 80 deg S are labelled: at the printed size the
+    # 50 deg S label covered the open-ocean corner and the 70 deg S label the
+    # coastal signal; the frame edge midpoints are 50 deg S.
     if label_axes:
-        for la in (-50, -60, -70, -80):
+        for la in (-60, -80):
             ax.text(150, la, '%d°S' % abs(la), transform=ccrs.PlateCarree(),
-                    ha='center', va='center', fontsize=7.5, color='#111111',
+                    ha='center', va='center', fontsize=FS_GEO, color='black',
                     zorder=5,
                     bbox=dict(facecolor='white', edgecolor='none', alpha=0.65,
-                              pad=0.4))
+                              pad=0.3))
         # One label per meridian, outside the frame at the point where that
         # meridian meets it. Western meridians on the leftmost column only and
         # eastern ones on the rightmost, so no label sits between two panels;
@@ -605,7 +695,7 @@ def plot_field(ax, lon_2d, lat_2d, data, vmin, vmax, cmap, panel_label,
             # coordinates. clip_on is already False, so text outside the axes
             # still draws; wspace provides the room between columns.
             dx, dy = ax_x - 0.5, ax_y - 0.5
-            PAD = 0.015
+            PAD = 0.03
             if abs(lon) == 180:                 # bottom edge
                 ax_x, ax_y = 0.5, -PAD
             else:                               # left or right edge
@@ -622,7 +712,7 @@ def plot_field(ax, lon_2d, lat_2d, data, vmin, vmax, cmap, panel_label,
             else:
                 ha, va = ('left' if dx > 0 else 'right'), 'center'
             ax.text(ax_x, ax_y, lab, transform=ax.transAxes, ha=ha, va=va,
-                    fontsize=7, color='#111111', zorder=5, clip_on=False)
+                    fontsize=FS_GEO, color='black', zorder=5, clip_on=False)
 
     return cf
 
@@ -632,9 +722,7 @@ def plot_field(ax, lon_2d, lat_2d, data, vmin, vmax, cmap, panel_label,
 print('步骤 6: 绘制图1 - 热通量引起的密度趋势...')
 print('-'*80)
 
-fig = plt.figure(figsize=(15, 10.5))
-gs = GridSpec(3, 5, figure=fig, hspace=0.12, wspace=0.12,
-              left=0.05, right=0.95, top=0.96, bottom=0.05)
+fig = plt.figure(figsize=(FIG_W, FIG_H))
 
 var_keys = ['heat_total', 'heat_radiation', 'heat_turbulent']
 var_titles = ['Total Heat', 'SW + LW (Radiation)', 'LH + SH (Turbulent)']
@@ -644,7 +732,8 @@ var_titles_pi = ['Total Heat', 'SW + LW', 'LH + SH']
 exp_list = list(EXPERIMENTS.keys())
 
 # 使用统一的colorbar范围
-ticks_pi, vmax_pi_nice = get_nice_ticks(heat_pi_vmax_abs, n_ticks=5)
+# 3 ticks on the narrow PI bar (5 collide at the printed size); range unchanged
+ticks_pi, vmax_pi_nice = get_nice_ticks(heat_pi_vmax_abs, n_ticks=3)
 ticks_anom, vmax_anom_nice = get_nice_ticks(heat_anom_vmax_abs, n_ticks=5)
 fmt_pi = pick_tick_format(vmax_pi_nice)
 fmt_anom = pick_tick_format(vmax_anom_nice)
@@ -658,7 +747,7 @@ for row, (var_key, var_title, var_title_pi) in enumerate(zip(var_keys, var_title
     all_axes = []
 
     # 第1列: PI (使用统一的PI范围)
-    ax = fig.add_subplot(gs[row, 0], projection=ccrs.SouthPolarStereo())
+    ax = fig.add_axes(map_rect(row, 0), projection=ccrs.SouthPolarStereo())
     # extent in projected metres, matching the data exactly, so the frame
     # coincides with the axes edge and labels can be placed against it
     _H = 4651194.0
@@ -674,11 +763,11 @@ for row, (var_key, var_title, var_title_pi) in enumerate(zip(var_keys, var_title
     all_cfs.append(cf_pi)
     # climate-state column headings on the top row (Reviewer 1, comment 17)
     if row == 0:
-        ax.set_title('PI', fontsize=19, fontweight='bold', pad=10)
+        ax.set_title('PI', fontsize=FS_TITLE, fontweight='bold', pad=4, color='black')
 
     # 第2-5列: 异常 (使用统一的异常范围)
     for col, exp in enumerate(exp_list, start=1):
-        ax = fig.add_subplot(gs[row, col], projection=ccrs.SouthPolarStereo())
+        ax = fig.add_axes(map_rect(row, col), projection=ccrs.SouthPolarStereo())
         # extent in projected metres, matching the data exactly, so the frame
         # coincides with the axes edge and labels can be placed against it
         _H = 4651194.0
@@ -695,29 +784,16 @@ for row, (var_key, var_title, var_title_pi) in enumerate(zip(var_keys, var_title
         if row == 0:
             EXPNAME = {'mh': 'MH', 'lig': 'LIG', 'lgm': 'LGM', 'mis': 'MIS3'}
             ax.set_title(EXPNAME.get(exp, exp.upper()) + ' $-$ PI',
-                         fontsize=19, fontweight='bold', pad=10)
+                         fontsize=FS_TITLE, fontweight='bold', pad=4, color='black')
 
     # Row label on the left. All rows share one PI range and one anomaly range in the
     # same unit, so the colour bars are drawn once, under the bottom row (2026-11-22,
     # user comment on the letter figure: "you may just keep the bottom color bar").
-    pos0 = all_axes[0].get_position()
-    fig.text(pos0.x0 - 0.05, 0.5 * (pos0.y0 + pos0.y1), var_title.replace(' (', '\n('),
-             rotation=90, ha='center', va='center', fontsize=16, fontweight='bold')
+    add_row_name(fig, row, ROW_NAMES[var_title])
     if row != len(var_keys) - 1:
         continue
-    cbar_ax_pi = fig.add_axes([pos0.x0, pos0.y0 - 0.055, pos0.width, 0.018])
-    cbar_pi = plt.colorbar(all_cfs[0], cax=cbar_ax_pi, orientation='horizontal',
-                           ticks=ticks_pi, format=fmt_pi)
-    cbar_pi.set_label('PI (same unit)', fontsize=14)
-    cbar_pi.ax.tick_params(labelsize=14)
-
-    pos1 = all_axes[1].get_position()
-    pos4 = all_axes[4].get_position()
-    cbar_ax_anom = fig.add_axes([pos1.x0, pos1.y0 - 0.055, pos4.x1 - pos1.x0, 0.018])
-    cbar_anom = plt.colorbar(all_cfs[1], cax=cbar_ax_anom, orientation='horizontal',
-                             ticks=ticks_anom, format=fmt_anom)
-    cbar_anom.set_label(f'Anomaly relative to PI ({UNIT_LABEL})', fontsize=16)
-    cbar_anom.ax.tick_params(labelsize=14)
+    add_bottom_colorbars(fig, all_cfs[0], all_cfs[1], ticks_pi, fmt_pi,
+                         ticks_anom, fmt_anom)
 
 output_file1 = 'figures/surface_heat_density_tendency_from_raw_jja.pdf'
 plt.savefig(output_file1, dpi=200, bbox_inches='tight')
@@ -730,9 +806,7 @@ plt.close()
 print('\n步骤 7: 绘制图2 - 淡水通量引起的密度趋势...')
 print('-'*80)
 
-fig = plt.figure(figsize=(15, 10.5))
-gs = GridSpec(3, 5, figure=fig, hspace=0.12, wspace=0.12,
-              left=0.05, right=0.95, top=0.96, bottom=0.05)
+fig = plt.figure(figsize=(FIG_W, FIG_H))
 
 var_keys = ['mass_total', 'mass_seaice', 'mass_other']
 var_titles = ['Total Freshwater', 'Sea Ice Alone', 'Other FW (net precipitation + runoff)']
@@ -754,7 +828,7 @@ for row, (var_key, var_title, var_title_pi) in enumerate(zip(var_keys, var_title
     all_axes = []
 
     # 第1列: PI (使用统一的PI范围)
-    ax = fig.add_subplot(gs[row, 0], projection=ccrs.SouthPolarStereo())
+    ax = fig.add_axes(map_rect(row, 0), projection=ccrs.SouthPolarStereo())
     # extent in projected metres, matching the data exactly, so the frame
     # coincides with the axes edge and labels can be placed against it
     _H = 4651194.0
@@ -770,11 +844,11 @@ for row, (var_key, var_title, var_title_pi) in enumerate(zip(var_keys, var_title
     all_cfs.append(cf_pi)
     # climate-state column headings on the top row (Reviewer 1, comment 17)
     if row == 0:
-        ax.set_title('PI', fontsize=19, fontweight='bold', pad=10)
+        ax.set_title('PI', fontsize=FS_TITLE, fontweight='bold', pad=4, color='black')
 
     # 第2-5列: 异常 (使用统一的异常范围)
     for col, exp in enumerate(exp_list, start=1):
-        ax = fig.add_subplot(gs[row, col], projection=ccrs.SouthPolarStereo())
+        ax = fig.add_axes(map_rect(row, col), projection=ccrs.SouthPolarStereo())
         # extent in projected metres, matching the data exactly, so the frame
         # coincides with the axes edge and labels can be placed against it
         _H = 4651194.0
@@ -791,29 +865,16 @@ for row, (var_key, var_title, var_title_pi) in enumerate(zip(var_keys, var_title
         if row == 0:
             EXPNAME = {'mh': 'MH', 'lig': 'LIG', 'lgm': 'LGM', 'mis': 'MIS3'}
             ax.set_title(EXPNAME.get(exp, exp.upper()) + ' $-$ PI',
-                         fontsize=19, fontweight='bold', pad=10)
+                         fontsize=FS_TITLE, fontweight='bold', pad=4, color='black')
 
     # Row label on the left. All rows share one PI range and one anomaly range in the
     # same unit, so the colour bars are drawn once, under the bottom row (2026-11-22,
     # user comment on the letter figure: "you may just keep the bottom color bar").
-    pos0 = all_axes[0].get_position()
-    fig.text(pos0.x0 - 0.05, 0.5 * (pos0.y0 + pos0.y1), var_title.replace(' (', '\n('),
-             rotation=90, ha='center', va='center', fontsize=16, fontweight='bold')
+    add_row_name(fig, row, ROW_NAMES[var_title])
     if row != len(var_keys) - 1:
         continue
-    cbar_ax_pi = fig.add_axes([pos0.x0, pos0.y0 - 0.055, pos0.width, 0.018])
-    cbar_pi = plt.colorbar(all_cfs[0], cax=cbar_ax_pi, orientation='horizontal',
-                           ticks=ticks_pi, format=fmt_pi)
-    cbar_pi.set_label('PI (same unit)', fontsize=14)
-    cbar_pi.ax.tick_params(labelsize=14)
-
-    pos1 = all_axes[1].get_position()
-    pos4 = all_axes[4].get_position()
-    cbar_ax_anom = fig.add_axes([pos1.x0, pos1.y0 - 0.055, pos4.x1 - pos1.x0, 0.018])
-    cbar_anom = plt.colorbar(all_cfs[1], cax=cbar_ax_anom, orientation='horizontal',
-                             ticks=ticks_anom, format=fmt_anom)
-    cbar_anom.set_label(f'Anomaly relative to PI ({UNIT_LABEL})', fontsize=16)
-    cbar_anom.ax.tick_params(labelsize=14)
+    add_bottom_colorbars(fig, all_cfs[0], all_cfs[1], ticks_pi, fmt_pi,
+                         ticks_anom, fmt_anom)
 
 output_file2 = 'figures/surface_freshwater_density_tendency_from_raw_jja.pdf'
 plt.savefig(output_file2, dpi=200, bbox_inches='tight')

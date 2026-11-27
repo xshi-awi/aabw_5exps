@@ -51,40 +51,53 @@ def ice_ticks(ax):
         ax.axvline(ice[e], ymin=0.93, ymax=1.0, color=COL[e], lw=2.5)
 
 
-def style(ax, title, ylab, xlim=(-75, -20)):
+def style(ax, title, ylab, xlim=(-75, -20), tsize=10, lsize=9, ksize=8, weight='normal'):
+    # defaults are the original sizes (figure 2); figure 1 passes F1 below
     ax.set_xlim(*xlim)
-    ax.set_title(title, fontsize=10, loc='left')
-    ax.set_ylabel(ylab, fontsize=9)
+    ax.set_title(title, fontsize=tsize, loc='left', fontweight=weight)
+    ax.set_ylabel(ylab, fontsize=lsize, fontweight=weight)
     ax.grid(alpha=0.3)
-    ax.tick_params(labelsize=8)
-    ax.set_xlabel('latitude (°N)', fontsize=9)
+    ax.tick_params(labelsize=ksize)
+    ax.set_xlabel('latitude (°N)', fontsize=lsize, fontweight=weight)
 
 
 # ---------------------------------------------------------------- figure 1: profiles
-fig, axs = plt.subplots(3, 2, figsize=(11, 11))
-ax = axs.ravel()
+# Letter Fig. R23 prints this 5.81 in wide (0.9 linewidth). 2026-11-27 readability pass: 7.5 in square,
+# so sizes print at x0.775: ticks 10 -> 7.8 pt, axis labels and legend 10.5 -> 8.1 pt,
+# panel titles (with their letters) 12 bold -> 9.3 pt, suptitle 11 -> 8.5 pt.
+F1 = dict(tsize=12, lsize=10.5, ksize=10, weight='bold')
+fig = plt.figure(figsize=(7.5, 7.65))   # W/H >= 0.98 keeps the 5.81 in letter width
+# spacer rows: the gap under row 1 holds its x label plus the two-line title of (c), the gap under row 2
+# only a one-line title (fixed margins; tight_layout gives every row the space of the tallest title)
+gs = fig.add_gridspec(5, 2, height_ratios=[1, 0.745, 1, 0.585, 1], hspace=0, wspace=0.235,
+                      left=0.08, right=0.975, top=0.835, bottom=0.062)
+ax = [fig.add_subplot(gs[r, c]) for r in (0, 2, 4) for c in (0, 1)]
 for e in EXPS:
     kw = dict(color=COL[e], ls=LS[e], lw=1.6, label=LABEL[e])
     ax[0].plot(lat, v('u10', e), **kw)
     ax[1].plot(lat, v('u250', e), **kw)
     ax[2].plot(lat, v('ts_oc_grad', e), **kw)
-    ax[2].plot(latf, v('sst_fesom_grad', e), color=COL[e], ls=LS[e], lw=0.8, alpha=0.6)
+    ax[2].plot(latf, v('sst_fesom_grad', e), color=COL[e], ls=LS[e], lw=1.0, alpha=0.6)
     ax[3].plot(lat, v('T850_grad', e), **kw)
     ax[4].plot(lat, v('eady850_500', e), **kw)
     ax[5].plot(lat, v('T250_grad', e), **kw)
 jet_marks(ax[0], 'u10')
-style(ax[0], '(a) 10 m zonal wind (dots: maximum)', 'm s$^{-1}$')
-style(ax[1], '(b) 250 hPa zonal wind', 'm s$^{-1}$')
-style(ax[2], '(c) dT/dy of surface temperature over ocean boxes\n(thin: FESOM SST)', 'K per 1000 km')
-style(ax[3], '(d) dT/dy at 850 hPa', 'K per 1000 km')
-style(ax[4], '(e) Eady growth rate 850–500 hPa', 'day$^{-1}$')
-style(ax[5], '(f) dT/dy at 250 hPa', 'K per 1000 km')
+style(ax[0], '(a) 10 m zonal wind\n(dots: maximum)', 'm s$^{-1}$', **F1)
+style(ax[1], '(b) 250 hPa zonal wind', 'm s$^{-1}$', **F1)
+style(ax[2], '(c) dT/dy of surface temperature\nover ocean boxes (thin: FESOM SST)', 'K per 1000 km', **F1)
+style(ax[3], '(d) dT/dy at 850 hPa', 'K per 1000 km', **F1)
+style(ax[4], '(e) Eady growth rate 850–500 hPa', 'day$^{-1}$', **F1)
+style(ax[5], '(f) dT/dy at 250 hPa', 'K per 1000 km', **F1)
 for a in ax:
     ice_ticks(a)
-ax[0].legend(fontsize=8, ncol=5, loc='lower center')
-fig.suptitle('JJA zonal means, AWI-ESM 100-yr climatologies; coloured ticks at top = sea-ice edge (ECHAM, 15%)', fontsize=10)
-fig.tight_layout()
-fig.savefig(HERE / 'fig_profiles_JJA.png', dpi=150)
+# state legend in one row under the title: inside (a) it covered the curves at this font size
+h, l = ax[0].get_legend_handles_labels()
+fig.legend(h, l, loc='upper center', bbox_to_anchor=(0.5, 0.937), ncol=5, fontsize=10.5, frameon=False,
+           handlelength=2.2, columnspacing=1.6)
+fig.suptitle('JJA zonal means, AWI-ESM 100-yr climatologies;\ncoloured ticks at top = sea-ice edge (ECHAM, 15%)',
+             fontsize=11, y=0.993)
+# 240 dpi: 1800 px, >= 300 px per printed inch in the letter
+fig.savefig(HERE / 'fig_profiles_JJA.png', dpi=240)
 plt.close(fig)
 
 # ---------------------------------------------------------------- figure 2: anomalies vs PI

@@ -7,6 +7,10 @@ Row 2  SAM composite sea ice concentration anomaly, JJA
 
 Together these show the wind perturbation that drives the Ekman divergence, and
 the sea ice response that carries the salt pump, for all five climate states.
+
+2026-11-27 (A4 readability): drawn at the printed width 5.81 in, so every size below is
+the printed size in pt. Gridline labels are drawn by hand: longitudes outside the outer
+columns, two latitudes in panel (a) only. Old: figures/versions/*_v20261127pre.*
 """
 import numpy as np
 import xarray as xr
@@ -26,7 +30,12 @@ THRESH = 1.2
 LAT_MAX = -45
 
 mpl.rcParams.update({'font.family': 'sans-serif',
-                     'font.sans-serif': ['DejaVu Sans'], 'pdf.fonttype': 42})
+                     'font.sans-serif': ['DejaVu Sans'], 'pdf.fonttype': 42,
+                     'text.color': 'k', 'axes.labelcolor': 'k',
+                     'xtick.color': 'k', 'ytick.color': 'k'})
+PRINT_W = 5.81          # in, width of the figure in the letter
+PNG_DPI = 723           # 5.81 in x 723 = 4200 px, the old pixel width
+PC = ccrs.PlateCarree()
 
 
 def regrid_closed(lon, lat, val, GX, GY):
@@ -57,6 +66,36 @@ def circular(ax):
     ax.set_boundary(mpath.Path(c * 0.5 + 0.5, closed=True), transform=ax.transAxes)
 
 
+def gridlines(ax):
+    ax.gridlines(draw_labels=False, linewidth=0.5, color='#555555', alpha=0.6,
+                 linestyle='--')
+    ax.spines['geo'].set_linewidth(0.6)
+
+
+def lon_labels(ax, side):
+    """60/120 deg labels just outside the circle, on the outer side of the figure."""
+    sgn = -1 if side == 'W' else 1
+    tr = PC._as_mpl_transform(ax)
+    for lo in (60, 120):
+        ax.annotate(f'{lo}°{side}', xy=(sgn * lo, LAT_MAX), xycoords=tr,
+                    xytext=(sgn * 4, 0), textcoords='offset points', fontsize=8,
+                    ha='right' if side == 'W' else 'left', va='center',
+                    annotation_clip=False)
+
+
+def lat_labels(ax):
+    for la in (-60, -80):
+        ax.text(150, la, f'{abs(la)}°S', transform=PC, ha='center', va='center',
+                fontsize=8, zorder=6,
+                bbox=dict(facecolor='white', edgecolor='none', alpha=0.7, pad=0.3))
+
+
+def panel_letter(ax, letter):
+    """Above the top-left corner of the square axes, outside the circular map."""
+    ax.text(-0.07, 1.04, f'({letter})', transform=ax.transAxes, fontsize=9,
+            fontweight='bold', va='top', ha='left')
+
+
 def sam_phases(exp):
     d = xr.open_dataset(f'{exp}/100years/slp_mergetime.nc')
     v = [x for x in d.data_vars if d[x].ndim == 3][0]
@@ -72,13 +111,24 @@ def sam_phases(exp):
     return np.where(sam > m + THRESH * s)[0], np.where(sam < m - THRESH * s)[0]
 
 
-fig = plt.figure(figsize=(21, 9.8))
-gs = fig.add_gridspec(2, 5, hspace=0.42, wspace=0.06,
-                      left=0.045, right=0.985, top=0.92, bottom=0.15)
+# layout in inches (printed size)
+FW = PRINT_W
+left, right, gap = 0.72, 0.38, 0.05          # left/right hold the longitude labels
+D = (FW - left - right - 4 * gap) / 5        # side of one square map
+top, below, between, bottom = 0.24, 0.60, 0.14, 0.04   # below = colorbar + ticks + label
+FH = top + D + below + between + D + below + bottom
+y_row = [FH - top - D, bottom + below]       # bottom edge of row 1 and row 2
+fig = plt.figure(figsize=(FW, FH))
 proj = ccrs.SouthPolarStereo()
 letters = 'abcdefghij'
 p = 0
 cf1 = cf2 = None
+
+
+def map_axes(row, col):
+    return fig.add_axes([(left + col * (D + gap)) / FW, y_row[row] / FH, D / FW, D / FH],
+                        projection=proj)
+
 
 for c, (e, lab) in enumerate(zip(EXPS, LABELS)):
     hi, lo = sam_phases(e)
@@ -92,7 +142,7 @@ for c, (e, lab) in enumerate(zip(EXPS, LABELS)):
     anom = tx[hi].mean(axis=0) - tx[lo].mean(axis=0)
     d.close()
 
-    ax = fig.add_subplot(gs[0, c], projection=proj)
+    ax = map_axes(0, c)
     ax.set_extent([-180, 180, -90, LAT_MAX], crs=ccrs.PlateCarree())
     circular(ax)
     lon_c = np.concatenate([lon, [360.0]])
@@ -100,18 +150,18 @@ for c, (e, lab) in enumerate(zip(EXPS, LABELS)):
     cf1 = ax.contourf(lon_c, lat, anom_c, levels=np.arange(-0.12, 0.121, 0.01),
                       cmap='PuOr_r', extend='both', transform=ccrs.PlateCarree())
     ax.add_feature(cfeature.LAND, facecolor='#999999', zorder=3)
-    gl = ax.gridlines(draw_labels=True, linewidth=0.5, color='gray', alpha=0.5,
-                      linestyle='--', x_inline=False, y_inline=True)
-    gl.top_labels = gl.right_labels = gl.bottom_labels = False
-    gl.ylabel_style = {'size': 9, 'color': '#333333'}
-    ax.set_title(lab, fontsize=20, fontweight='bold', pad=8)
-    ax.text(0.03, 0.97, f'({letters[p]})', transform=ax.transAxes, fontsize=15,
-            fontweight='bold', va='top',
-            bbox=dict(facecolor='white', edgecolor='none', alpha=0.75, pad=1))
+    gridlines(ax)
+    ax.set_title(lab, fontsize=10, fontweight='bold', pad=4)
+    panel_letter(ax, letters[p])
     p += 1
     if c == 0:
-        ax.text(-0.10, 0.5, 'Zonal wind stress', transform=ax.transAxes, rotation=90,
-                va='center', ha='center', fontsize=16, fontweight='bold')
+        lon_labels(ax, 'W')
+        lat_labels(ax)                  # same grid in every panel; label it once
+        fig.text(0.31 / FW, (y_row[0] + D / 2) / FH, 'Zonal wind\nstress', rotation=90,
+                 va='center', ha='right', fontsize=8.5, fontweight='bold',
+                 multialignment='center', linespacing=1.1)
+    if c == 4:
+        lon_labels(ax, 'E')
 
     # ---------------- row 2: sea ice concentration anomaly (FESOM nodes)
     m = xr.open_dataset(f'/home/a/a270064/bb1029/inputs/{MESH[e]}/fesom.mesh.diag.nc')
@@ -128,36 +178,34 @@ for c, (e, lab) in enumerate(zip(EXPS, LABELS)):
     GX, GY = np.meshgrid(gx, gy)
     grid = regrid_closed(flon[sel], flat[sel], dai[sel], GX, GY)
 
-    ax = fig.add_subplot(gs[1, c], projection=proj)
+    ax = map_axes(1, c)
     ax.set_extent([-180, 180, -90, LAT_MAX], crs=ccrs.PlateCarree())
     circular(ax)
     cf2 = ax.contourf(gx, gy, grid, levels=np.arange(-0.20, 0.201, 0.02),
                       cmap='RdBu_r', extend='both', transform=ccrs.PlateCarree())
     ax.add_feature(cfeature.LAND, facecolor='#999999', zorder=3)
-    gl = ax.gridlines(draw_labels=True, linewidth=0.5, color='gray', alpha=0.5,
-                      linestyle='--', x_inline=False, y_inline=True)
-    gl.top_labels = gl.right_labels = gl.bottom_labels = False
-    gl.ylabel_style = {'size': 9, 'color': '#333333'}
-    ax.text(0.03, 0.97, f'({letters[p]})', transform=ax.transAxes, fontsize=15,
-            fontweight='bold', va='top',
-            bbox=dict(facecolor='white', edgecolor='none', alpha=0.75, pad=1))
+    gridlines(ax)
+    panel_letter(ax, letters[p])
     p += 1
     if c == 0:
-        ax.text(-0.10, 0.5, 'Sea ice concentration', transform=ax.transAxes,
-                rotation=90, va='center', ha='center', fontsize=16, fontweight='bold')
+        lon_labels(ax, 'W')
+        fig.text(0.31 / FW, (y_row[1] + D / 2) / FH, 'Sea ice\nconcentration', rotation=90,
+                 va='center', ha='right', fontsize=8.5, fontweight='bold',
+                 multialignment='center', linespacing=1.1)
+    if c == 4:
+        lon_labels(ax, 'E')
 
-cax1 = fig.add_axes([0.20, 0.545, 0.60, 0.014])
-cb1 = fig.colorbar(cf1, cax=cax1, orientation='horizontal',
-                   ticks=np.arange(-0.12, 0.121, 0.04))
-cb1.set_label('Zonal wind stress anomaly, high $-$ low SAM  (N m$^{-2}$)', fontsize=14)
-cb1.ax.tick_params(labelsize=12)
-
-cax2 = fig.add_axes([0.20, 0.055, 0.60, 0.015])
-cb2 = fig.colorbar(cf2, cax=cax2, orientation='horizontal',
-                   ticks=np.arange(-0.2, 0.21, 0.1))
-cb2.set_label('Sea ice concentration anomaly, high $-$ low SAM', fontsize=14)
-cb2.ax.tick_params(labelsize=12)
+for row, cf, ticks, label in (
+        (0, cf1, np.arange(-0.12, 0.121, 0.04),
+         'Zonal wind stress anomaly, high $-$ low SAM  (N m$^{-2}$)'),
+        (1, cf2, np.arange(-0.2, 0.21, 0.1),
+         'Sea ice concentration anomaly, high $-$ low SAM')):
+    cax = fig.add_axes([0.20, (y_row[row] - 0.10 - 0.09) / FH, 0.60, 0.09 / FH])
+    cb = fig.colorbar(cf, cax=cax, orientation='horizontal', ticks=ticks)
+    cb.set_label(label, fontsize=8.5, fontweight='bold', labelpad=2)
+    cb.ax.tick_params(labelsize=8, width=0.6, length=3)
+    cb.outline.set_linewidth(0.6)
 
 fig.savefig('figures/figR5_sam_wind_ice.pdf', dpi=400)
-fig.savefig('figures/figR5_sam_wind_ice.png', dpi=200)
+fig.savefig('figures/figR5_sam_wind_ice.png', dpi=PNG_DPI)
 print('saved figures/figR5_sam_wind_ice.{pdf,png}')

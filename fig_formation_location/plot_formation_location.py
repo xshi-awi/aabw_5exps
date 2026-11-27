@@ -37,11 +37,31 @@ LAT_EDGE = -55.0
 C_SHELF, C_CONV, C_ICE, C_FREE = '#2a78d6', '#eb6834', '#1baf7a', '#eda100'
 C_COAST_PACK = '#86b6ef'      # lighter step of the shelf blue, drawn with hatching
 
+# Letter: inserted at 0.95 linewidth = 6.13 in wide (height cap 5.93 in, so W/H >= 1.034 keeps the
+# full width). P(pt) is the native size that prints at pt on that page (2026-11-27 readability pass).
+FW, FH = 8.5, 8.2
+PRINT_W = 6.13
+
+
+def P(pt):
+    return pt * FW / PRINT_W
+
+
+def box(x, y, w, h):
+    """axes rectangle given in inches from the lower left corner"""
+    return [x / FW, y / FH, w / FW, h / FH]
+
+
 mpl.rcParams.update({'font.family': 'sans-serif',
                      'font.sans-serif': ['Arial', 'Helvetica', 'DejaVu Sans'],
-                     'font.size': 10, 'pdf.fonttype': 42, 'ps.fonttype': 42,
+                     'font.size': P(8.2), 'pdf.fonttype': 42, 'ps.fonttype': 42,
+                     'xtick.labelsize': P(7.6), 'ytick.labelsize': P(7.6),
+                     'text.color': 'black', 'axes.labelcolor': 'black',
+                     'xtick.color': 'black', 'ytick.color': 'black',
+                     'axes.labelweight': 'bold',
                      'axes.spines.top': False, 'axes.spines.right': False,
-                     'axes.edgecolor': '#333333', 'axes.linewidth': 0.8})
+                     'axes.edgecolor': 'black', 'axes.linewidth': 0.8,
+                     'xtick.major.width': 0.8, 'ytick.major.width': 0.8})
 PROJ = ccrs.SouthPolarStereo()
 
 
@@ -93,13 +113,16 @@ def stacked(ax, vals, colors, hatches, xlab, ylab, title, letter):
         dn += np.where(v < 0, v, 0)
     tot = vals.sum(axis=1)
     for i in range(len(x)):
-        ax.text(x[i], up[i], f'{tot[i]:.1f}', ha='center', va='bottom', fontsize=9, color='#222222')
+        ax.text(x[i], up[i], f'{tot[i]:.1f}', ha='center', va='bottom', fontsize=P(8.2), color='black')
     ax.set_xticks(x)
-    ax.set_xticklabels(xlab, fontsize=9)
-    ax.set_ylabel(ylab)
-    ax.axhline(0, color='#555555', lw=0.6)
-    ax.set_title(title, fontsize=10, loc='left')
-    ax.text(-0.12, 1.06, letter, transform=ax.transAxes, fontsize=12, fontweight='bold')
+    # one line per bar, slanted: two-line labels are wider than the bar spacing at this size
+    ax.set_xticklabels(xlab, fontsize=P(7.6), rotation=25, ha='right', rotation_mode='anchor')
+    ax.set_ylabel(ylab, fontsize=P(8.2), fontweight='bold')
+    ax.yaxis.set_major_locator(mpl.ticker.MaxNLocator(5, integer=True))
+    ax.axhline(0, color='black', lw=0.75)
+    ax.set_title(title, fontsize=P(8.2), fontweight='bold', loc='left')
+    ax.annotate(letter, xy=(0, 1), xycoords='axes fraction', xytext=(-P(30), P(3)),
+                textcoords='offset points', fontsize=P(9.5), fontweight='bold', va='bottom')
     ax.set_ylim(min(0, dn.min() * 1.1), up.max() * 1.15)
 
 
@@ -107,11 +130,13 @@ def main():
     ice_edge = '--no-ice-edge' not in sys.argv[1:]
     out = 'fig_formation_location' + ('' if ice_edge else '_noice')
     D = {e: load(e) for e in EXPS}
-    fig = plt.figure(figsize=(15.5, 12.8))
-    gs = fig.add_gridspec(3, 5, height_ratios=[1, 1, 0.95], hspace=0.30, wspace=0.06,
-                          left=0.045, right=0.925, top=0.93, bottom=0.07)
-    rows = [('F_jja_dense_sig10', 'densest tail, $\\sigma_2 \\geq \\sigma_{10}$'),
-            ('F_jja_peakbin', 'peak density class')]
+    fig = plt.figure(figsize=(FW, FH))
+    # layout in inches: maps of diameter DM with gaps GM, left margin LM for row titles and the 90W label
+    LM, DM, GM = 0.66, 1.36, 0.245
+    map_top = [7.70, 5.52]
+    cb_y = [5.835, 3.755]              # lower edge of the horizontal colour bars
+    rows = [('F_jja_dense_sig10', 'densest tail,\n$\\sigma_2 \\geq \\sigma_{10}$'),
+            ('F_jja_peakbin', 'peak density\nclass')]
     for ri, (var, rtitle) in enumerate(rows):
         sel = [(D[e]['lat'] < LAT_EDGE) for e in EXPS]
         if ri == 0:
@@ -124,7 +149,7 @@ def main():
             cmap = 'RdBu_r'
         for ci, e in enumerate(EXPS):
             d = D[e]
-            ax = fig.add_subplot(gs[ri, ci], projection=PROJ)
+            ax = fig.add_axes(box(LM + ci * (DM + GM), map_top[ri] - DM, DM, DM), projection=PROJ)
             ax.set_extent([-180, 180, -90, LAT_EDGE], ccrs.PlateCarree())
             circular(ax)
             ax.set_facecolor('#d0d0d0')
@@ -136,63 +161,69 @@ def main():
                 k = (f >= 0.1) & (d['lat'] < LAT_EDGE + 1)
                 o = np.argsort(f[k])
                 xy = d['tri'].x[k][o], d['tri'].y[k][o]
-                pc = ax.scatter(*xy, c=f[k][o], s=6, cmap=cmap, norm=norm, linewidths=0,
+                # s=1.8 at this figure size prints the same dot size as s=6 did at 15.5 in wide
+                pc = ax.scatter(*xy, c=f[k][o], s=1.8, cmap=cmap, norm=norm, linewidths=0,
                                 rasterized=True, zorder=3)
             else:
                 pc = ax.tripcolor(d['tri'], f, shading='gouraud', cmap=cmap,
                                   norm=norm, rasterized=True)
-            ax.gridlines(xlocs=[-180, -90, 0, 90], ylocs=[], color='#9a9a9a', lw=0.4, alpha=0.7)
+            ax.gridlines(xlocs=[-180, -90, 0, 90], ylocs=[], color='#9a9a9a', lw=0.55, alpha=0.7)
             if ci == 0 and ri == 0:
-                for lo, t in [(0, '0$^\\circ$'), (90, '90$^\\circ$E'), (180, '180$^\\circ$'), (-90, '90$^\\circ$W')]:
-                    ax.text(lo, -57.3, t, transform=ccrs.PlateCarree(), fontsize=7, color='#555555',
-                            ha='center', va='center')
-            ax.tricontour(d['tri'], d['bottom_depth'], levels=[1000], colors='#262626', linewidths=0.6)
+                # 90W and 90E outside the rim, along it; 0 and 180 left out (no room inside the
+                # 55-60S band at a readable size, and the two side labels fix the orientation)
+                for lo, t in [(90, '90$^\\circ$E'), (-90, '90$^\\circ$W')]:
+                    ax.text(lo, -52.6, t, transform=ccrs.PlateCarree(), fontsize=P(7.6), color='black',
+                            ha='center', va='center', rotation=90, clip_on=False)
+            ax.tricontour(d['tri'], d['bottom_depth'], levels=[1000], colors='#262626', linewidths=0.75)
             if ice_edge:
-                ax.tricontour(d['tri'], d['aice_jja'], levels=[0.15], colors='k', linewidths=1.1,
+                ax.tricontour(d['tri'], d['aice_jja'], levels=[0.15], colors='k', linewidths=1.0,
                               linestyles='--')
             if (d['mld1_jja'][d['lat'] < LAT_EDGE] > 400).any():
-                ax.tricontour(d['tri'], d['mld1_jja'], levels=[400], colors='#7b3294', linewidths=1.3)
+                ax.tricontour(d['tri'], d['mld1_jja'], levels=[400], colors='#7b3294', linewidths=1.1)
             ax.plot(np.linspace(-180, 180, 361), np.full(361, -60.0), transform=ccrs.PlateCarree(),
-                    color='#555555', lw=0.7, ls=':')
+                    color='#555555', lw=0.75, ls=':')
             cls = (f'$\\sigma_2 \\geq$ {d["sig10"]:.2f}' if ri == 0 else f'$\\sigma_2$ {d["peak_bin"]}')
-            ax.text(0.5, -0.07, cls, transform=ax.transAxes, ha='center', va='top', fontsize=10)
+            ax.text(0.5, -0.045, cls, transform=ax.transAxes, ha='center', va='top', fontsize=P(8.2))
             if ri == 0:
-                ax.set_title(LABEL[e], fontsize=13, fontweight='bold', pad=6)
+                ax.set_title(LABEL[e], fontsize=P(9), fontweight='bold', pad=P(3))
             if ci == 0:
-                ax.text(-0.10, 1.03, 'ab'[ri], transform=ax.transAxes, fontsize=13, fontweight='bold')
-                ax.text(-0.085, 0.5, rtitle, transform=ax.transAxes, rotation=90, ha='center',
-                        va='center', fontsize=10)
-        cax = fig.add_axes([0.94, 0.70 - ri * 0.30, 0.009, 0.19])
-        cb = fig.colorbar(pc, cax=cax, extend='both' if ri else 'max')
-        cb.set_label(f'JJA density flux ({UNIT})' + ('\n(nodes with flux $\\geq$ 0.1)' if ri == 0 else ''),
-                     fontsize=8.5)
-        cb.ax.tick_params(labelsize=8)
-    handles = [Line2D([], [], color='#262626', lw=0.6, label='1000 m isobath'),
-               Line2D([], [], color='k', lw=1.1, ls='--', label='JJA 15% sea-ice edge'),
-               Line2D([], [], color='#7b3294', lw=1.3, label='JJA MLD 400 m'),
-               Line2D([], [], color='#555555', lw=0.7, ls=':', label='60$^\\circ$S (WMT domain)')]
+                ax.text(-0.43, 1.0, 'ab'[ri], transform=ax.transAxes, fontsize=P(9.5), fontweight='bold',
+                        ha='left', va='bottom')
+                ax.text(-0.30, 0.5, rtitle, transform=ax.transAxes, rotation=90, ha='center',
+                        va='center', fontsize=P(8.2), fontweight='bold', multialignment='center')
+        cax = fig.add_axes(box(LM + 0.25, cb_y[ri], 3.4, 0.11))
+        cb = fig.colorbar(pc, cax=cax, orientation='horizontal', extend='both' if ri else 'max')
+        cb.ax.tick_params(labelsize=P(7.6), width=0.8)
+        cb.outline.set_linewidth(0.8)
+        cax.text(1.075, 0.5, f'JJA density flux ({UNIT})' + ('\n(nodes with flux $\\geq$ 0.1)' if ri == 0 else ''),
+                 transform=cax.transAxes, ha='left', va='center', fontsize=P(8.2), fontweight='bold')
+    handles = [Line2D([], [], color='#262626', lw=0.75, label='1000 m isobath'),
+               Line2D([], [], color='k', lw=1.0, ls='--', label='JJA 15% sea-ice edge'),
+               Line2D([], [], color='#7b3294', lw=1.1, label='JJA MLD 400 m'),
+               Line2D([], [], color='#555555', lw=0.75, ls=':', label='60$^\\circ$S (WMT domain)')]
     if not ice_edge:
         handles.pop(1)
-    fig.legend(handles=handles, loc='upper center', bbox_to_anchor=(0.485, 0.998), ncol=len(handles),
-               frameon=False, fontsize=9.5)
+    fig.legend(handles=handles, loc='upper center', bbox_to_anchor=(0.5, 0.999), ncol=len(handles),
+               frameon=False, fontsize=P(8.2), handlelength=1.8, columnspacing=1.1, borderaxespad=0.1)
 
     # ------------------------------------------------ bars
-    gsb = gs[2, :].subgridspec(1, 3, wspace=0.28)
     keys = [D[e]['key'] for e in EXPS]
     dep_col = [C_SHELF, C_CONV, C_ICE, C_FREE]
     dep_hat = [None, None, None, None]
-    xl_peak = [f'{LABEL[k["exp"]]}\n{k["peak_bin"][0]:.1f}-{k["peak_bin"][1]:.1f}' for k in keys]
-    xl_d = [f'{LABEL[k["exp"]]}\n$\\geq${k["sig10"]:.2f}' for k in keys]
-    ax = fig.add_subplot(gsb[0])
+    xl_peak = [f'{LABEL[k["exp"]]} {k["peak_bin"][0]:.1f}-{k["peak_bin"][1]:.1f}' for k in keys]
+    xl_d = [f'{LABEL[k["exp"]]} $\\geq${k["sig10"]:.2f}' for k in keys]
+    BY, BH, BW, BX = 1.45, 1.64, 2.2, [0.68, 3.48, 6.28]
+    ylab = 'JJA transformation\n(Sv)'
+    ax = fig.add_axes(box(BX[0], BY, BW, BH))
     stacked(ax, np.array([k['depth1000']['peak_bin_jja'] for k in keys]), dep_col, dep_hat,
-            xl_peak, 'JJA transformation (Sv)', 'Peak class, by depth and ice', 'c')
-    ax = fig.add_subplot(gsb[1])
+            xl_peak, ylab, 'Peak class,\nby depth and ice', 'c')
+    ax = fig.add_axes(box(BX[1], BY, BW, BH))
     stacked(ax, np.array([k['depth1000']['sig10_jja'] for k in keys]), dep_col, dep_hat,
-            xl_d, 'JJA transformation (Sv)', 'Densest tail, by depth and ice', 'd')
-    ax = fig.add_subplot(gsb[2])
+            xl_d, ylab, 'Densest tail,\nby depth and ice', 'd')
+    ax = fig.add_axes(box(BX[2], BY, BW, BH))
     stacked(ax, np.array([k['coast200']['sig10_jja'] for k in keys]),
             [C_SHELF, C_COAST_PACK, C_CONV, C_ICE, C_FREE], [None, '////', None, None, None],
-            xl_d, 'JJA transformation (Sv)', 'Densest tail, by distance to coast', 'e')
+            xl_d, ylab, 'Densest tail,\nby distance to coast', 'e')
     leg = [Patch(facecolor=C_SHELF, label='shelf/slope (H < 1000 m) | c, d'),
            Patch(facecolor=C_SHELF, label='within 200 km of coast, ice < 0.7 | e'),
            Patch(facecolor=C_COAST_PACK, hatch='////', edgecolor='white',
@@ -200,9 +231,10 @@ def main():
            Patch(facecolor=C_CONV, label='deep/offshore, MLD > 400 m'),
            Patch(facecolor=C_ICE, label='deep/offshore, under sea ice'),
            Patch(facecolor=C_FREE, label='deep/offshore, ice-free')]
-    fig.legend(handles=leg, loc='lower center', bbox_to_anchor=(0.5, 0.0), ncol=6, frameon=False,
-               fontsize=8.6, handlelength=1.6, columnspacing=1.2)
-    for ext, dpi in [('png', 200), ('pdf', 300)]:
+    fig.legend(handles=leg, loc='lower center', bbox_to_anchor=(0.5, 0.0), ncol=2, frameon=False,
+               fontsize=P(8.2), handlelength=1.6, columnspacing=2.0, labelspacing=0.3, borderaxespad=0.05)
+    # letter PNG: 360 dpi gives 3060 px, about the old width (>= 300 px per printed inch)
+    for ext, dpi in [('png', 360), ('pdf', 300)]:
         fig.savefig(f'{HERE}/{out}.{ext}', dpi=dpi)
     print(f'saved {out}.{{png,pdf}}')
 

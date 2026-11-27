@@ -34,6 +34,7 @@
 
 ## History
 
+- 2026-11-27 09:40 用户在信里批注「先替换成另一个海冰文件，我看看效果如何」：加 `--pi-other`，读 A2 用的 `pi/a_ice_reg.nc` 与 `pi/a_ice_clim.nc`（2090–2099，非论文 PI），出 `figR21_seaice_obs_pi9099.*`，信里 \rfig 暂换成它并在图注加品红试看注；Weddell 框 JJA 平均密集度 18%（正确 PI 8%），Ross 冰缘两版都约差 1.2°。同时 JJA 两格图按 A4 打印放大字号：figsize 10.5×6.2 → 7.4×4.5 英寸（印出 0.79 倍），标题 11.5 粗体、色标标题 10.5 粗体、刻度与经纬度 9.8 全黑，海岸线与网格线 0.7；`decorate` 加了字号、颜色、线宽参数（六格版不变）。旧图 `versions/figR21_seaice_obs_v20261127b_pre.*`。TexPage 6a1cb6a。
 - 2026-11-27 05:48 用户先说「把对比海冰的那个 contour 去掉」，按钮 GH 定为两条 15% 线都去：默认改成不画线（png md5 43be98e0），图注删掉讲线的那句。TexPage 8d5070a（信）、ba77cda（图）；服务器 05:51 把图还原成旧版（3b4af39），05:54 重推 9052511，05:58 核过。
 - 2026-11-27 用户在信里批注「只画 jja……a 画海冰，b 画差异，其他的不要了……简单对比一段话」：加 `make_figure_jja`，默认出两格 JJA 版（png md5 c8901d29），六格版改由 `--six` 出；旧图存 `versions/figR21_seaice_obs_v20261127pre.*`（ec81f0b2）。信里文字压成一段（6–8 月数字）。TexPage d4d9c79。
 - 2026-11-25 用户按钮 FT「用正确 PI 的 SI 画法版」：a/b/d/e 改用 SI 画法（正确 PI），TexPage 9115556。旧版 `versions/figR21_seaice_obs_v20261122b.*`。

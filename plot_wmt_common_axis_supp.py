@@ -16,24 +16,27 @@ from pathlib import Path
 # ============================================================================
 # Nature-style publication aesthetics
 # ============================================================================
+# 2026-11-27 readability pass: the letter prints this figure 5.81 in wide (0.9 linewidth). The PDF is
+# about 9.07 in wide, so sizes print at x0.64: ticks 12 -> 7.7 pt, labels/legend 13 -> 8.3 pt,
+# titles 14 -> 9.0 pt, panel letters 14.5 -> 9.3 pt. All text black.
 mpl.rcParams.update({
     'font.family': 'sans-serif',
     'font.sans-serif': ['Arial', 'Helvetica', 'DejaVu Sans'],
-    'font.size': 16,
-    'axes.titlesize': 20,
-    'axes.labelsize': 18,
-    'xtick.labelsize': 15,
-    'ytick.labelsize': 15,
-    'legend.fontsize': 16,
-    'axes.linewidth': 1.2,
-    'axes.edgecolor': '#333333',
-    'axes.labelcolor': '#222222',
-    'xtick.color': '#333333',
-    'ytick.color': '#333333',
-    'xtick.major.width': 1.2,
-    'ytick.major.width': 1.2,
-    'xtick.major.size': 5,
-    'ytick.major.size': 5,
+    'font.size': 12,
+    'axes.titlesize': 14,
+    'axes.labelsize': 13,
+    'xtick.labelsize': 12,
+    'ytick.labelsize': 12,
+    'legend.fontsize': 13,
+    'axes.linewidth': 1.0,
+    'axes.edgecolor': 'black',
+    'axes.labelcolor': 'black',
+    'xtick.color': 'black',
+    'ytick.color': 'black',
+    'xtick.major.width': 1.0,
+    'ytick.major.width': 1.0,
+    'xtick.major.size': 4,
+    'ytick.major.size': 4,
     'xtick.minor.size': 3,
     'ytick.minor.size': 3,
     'xtick.direction': 'out',
@@ -92,11 +95,11 @@ def plot_wmt_comparison(season_name, month_selector=None):
         月份列表（1-12），None表示全年平均
     """
 
-    fig, axes = plt.subplots(4, 5, figsize=(20, 15.5),
+    fig, axes = plt.subplots(4, 5, figsize=(9.0, 7.4),
                               sharey=False)
-    # Generous spacing for a clean, breathable journal layout
-    fig.subplots_adjust(left=0.10, right=0.985, top=0.955, bottom=0.13,
-                        hspace=0.32, wspace=0.28)
+    # y tick labels only in the left column (common axis), x tick labels only in the bottom row
+    fig.subplots_adjust(left=0.15, right=0.99, top=0.955, bottom=0.15,
+                        hspace=0.13, wspace=0.08)
 
     # 子图标签 (a)(b)...
     panel_labels = [chr(ord('a') + i) for i in range(20)]
@@ -120,11 +123,11 @@ def plot_wmt_comparison(season_name, month_selector=None):
             if not file_path.exists():
                 print(f'  ⚠ 文件不存在: {file_path}')
                 ax.text(0.5, 0.5, 'Data Not Available',
-                       ha='center', va='center', fontsize=14,
-                       color='#888888', transform=ax.transAxes)
+                       ha='center', va='center', fontsize=12,
+                       color='black', transform=ax.transAxes)
                 if row_idx == 0:
-                    ax.set_title(f'{exp_title}', fontsize=22, fontweight='bold',
-                                 pad=12, color='#111111')
+                    ax.set_title(f'{exp_title}', fontsize=14, fontweight='bold',
+                                 pad=6, color='black')
                 ax.grid(True, alpha=0.25, linestyle='--', linewidth=0.6)
                 continue
 
@@ -213,7 +216,7 @@ def plot_wmt_comparison(season_name, month_selector=None):
                            (total_wmt_mean + total_wmt_std).values,
                            color='#888888', alpha=0.30, linewidth=0, zorder=5)
             l_total, = ax.plot(sigma2, total_wmt_mean.values,
-                   color=COL_TOTAL, linestyle='-', linewidth=3.0,
+                   color=COL_TOTAL, linestyle='-', linewidth=2.2,
                    label='Total WMT', solid_capstyle='round',
                    zorder=10)
 
@@ -223,7 +226,7 @@ def plot_wmt_comparison(season_name, month_selector=None):
                            (total_heat_mean + total_heat_std).values,
                            color=COL_HEAT, alpha=0.20, linewidth=0, zorder=4)
             l_heat, = ax.plot(sigma2, total_heat_mean.values,
-                   color=COL_HEAT, linestyle='-', linewidth=2.6,
+                   color=COL_HEAT, linestyle='-', linewidth=1.8,
                    label='Heat', solid_capstyle='round',
                    zorder=8)
 
@@ -233,7 +236,7 @@ def plot_wmt_comparison(season_name, month_selector=None):
                            (seaice_fw_mean + seaice_fw_std).values,
                            color=COL_SEAICE, alpha=0.20, linewidth=0, zorder=3)
             l_si, = ax.plot(sigma2, seaice_fw_mean.values,
-                   color=COL_SEAICE, linestyle='-', linewidth=2.4,
+                   color=COL_SEAICE, linestyle='-', linewidth=1.6,
                    label='Sea-ice FW', solid_capstyle='round',
                    zorder=6)
 
@@ -243,7 +246,7 @@ def plot_wmt_comparison(season_name, month_selector=None):
                            (other_fw_mean + other_fw_std).values,
                            color=COL_OTHERFW, alpha=0.20, linewidth=0, zorder=2)
             l_oth, = ax.plot(sigma2, other_fw_mean.values,
-                   color=COL_OTHERFW, linestyle='-', linewidth=2.4,
+                   color=COL_OTHERFW, linestyle='-', linewidth=1.6,
                    label='Other FW', solid_capstyle='round',
                    zorder=6)
 
@@ -262,38 +265,39 @@ def plot_wmt_comparison(season_name, month_selector=None):
             # ====================================================================
             # X-axis label & tick labels only on bottom row
             if row_idx == len(REGIONS) - 1:
-                ax.set_xlabel(r'$\sigma_2$  (kg m$^{-3}$)', fontsize=18,
-                              labelpad=8, color='#111111')
+                ax.set_xlabel(r'$\sigma_2$  (kg m$^{-3}$)', fontsize=13,
+                              labelpad=4, color='black', fontweight='bold')
             else:
                 ax.set_xlabel('')
                 ax.tick_params(axis='x', labelbottom=False)
 
             # Y-axis label only on leftmost column
             if col_idx == 0:
-                ax.set_ylabel('WMT  (Sv)', fontsize=17,
-                              labelpad=6, color='#111111')
+                ax.set_ylabel('WMT  (Sv)', fontsize=13,
+                              labelpad=3, color='black', fontweight='bold')
             else:
                 ax.set_ylabel('')
+                ax.tick_params(axis='y', labelleft=False)
 
             # 第一行显示实验名称
             if row_idx == 0:
-                ax.set_title(f'{exp_title}', fontsize=22, fontweight='bold',
-                             pad=12, color='#111111')
+                ax.set_title(f'{exp_title}', fontsize=14, fontweight='bold',
+                             pad=6, color='black')
 
             # 第一列显示区域名称（左侧 row label, outside the y-axis label）
             if col_idx == 0:
-                ax.annotate(region_title,
+                ax.annotate(region_title.replace(' ', '\n'),
                             xy=(0, 0.5), xycoords='axes fraction',
-                            xytext=(-95, 0), textcoords='offset points',
+                            xytext=(-80, 0), textcoords='offset points',
                             rotation=90, ha='center', va='center',
-                            fontsize=22, fontweight='bold', color='#111111',
-                            annotation_clip=False)
+                            fontsize=13.5, fontweight='bold', color='black',
+                            multialignment='center', annotation_clip=False)
 
-            # 子图标签放左上角内部 (Nature style, parenthesized)
+            # 子图标签放右上角内部：字号放大后放左上角会碰到间冰期曲线的上升段
             panel_idx = row_idx * 5 + col_idx
-            ax.text(0.04, 0.94, f'({panel_labels[panel_idx]})',
-                   transform=ax.transAxes, fontsize=18, fontweight='bold',
-                   ha='left', va='top', color='#111111')
+            ax.text(0.96, 0.95, f'({panel_labels[panel_idx]})',
+                   transform=ax.transAxes, fontsize=14.5, fontweight='bold',
+                   ha='right', va='top', color='black')
 
             # 网格和零线 (subtle)
             ax.grid(True, alpha=0.25, linestyle='--', linewidth=0.6,
@@ -307,10 +311,13 @@ def plot_wmt_comparison(season_name, month_selector=None):
 
             # common y-axis across ALL panels (supplementary variant)
             ax.set_ylim(-45, 90)
+            # same ticks as the 20-in version had; the auto locator thins them at this size
+            ax.set_xticks([36, 37, 38])
+            ax.set_yticks([-25, 0, 25, 50, 75])
 
             # Tick polish
-            ax.tick_params(axis='both', which='major', labelsize=15,
-                           pad=4, color='#333333')
+            ax.tick_params(axis='both', which='major', labelsize=12,
+                           pad=3, color='black')
 
             ds.close()
 
@@ -327,20 +334,20 @@ def plot_wmt_comparison(season_name, month_selector=None):
     if legend_handles is not None:
         leg = fig.legend(handles=legend_handles,
                    loc='lower center',
-                   bbox_to_anchor=(0.5, 0.025),
+                   bbox_to_anchor=(0.57, 0.0),
                    ncol=4,
                    frameon=True,
                    fancybox=False,
-                   edgecolor='#333333',
+                   edgecolor='black',
                    facecolor='white',
                    framealpha=1.0,
-                   fontsize=18,
-                   handlelength=2.6,
-                   handletextpad=0.8,
-                   columnspacing=2.5,
-                   borderpad=0.8,
-                   labelcolor='#111111')
-        leg.get_frame().set_linewidth(1.0)
+                   fontsize=13,
+                   handlelength=2.4,
+                   handletextpad=0.6,
+                   columnspacing=2.0,
+                   borderpad=0.5,
+                   labelcolor='black')
+        leg.get_frame().set_linewidth(0.8)
 
     # Save as PDF (vector) and high-res PNG for previews
     plt.savefig(filename, dpi=400, bbox_inches='tight')

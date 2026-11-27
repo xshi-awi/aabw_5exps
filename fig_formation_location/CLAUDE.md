@@ -40,6 +40,7 @@
 
 ## History
 
+- 2026-11-27 字号加大（信里印 6.13 in 宽，按印出磅数设字号：刻度 7.6、文字 8.2、行标题 9、面板字母 9.5 pt，全黑）：画布 8.5×8.2 in、按英寸手排；色标改横放在每行地图下方；柱图 x 标签改单行斜 25°；经度标签只留 90°W/90°E 放圈外；散点 s=1.8 保持印出点径不变。旧图存 `versions/*_v20261127pre.*`。
 - 2026-11-26 08:33 用户按钮 GC「A13 也去掉」：稿里 `figS_formation_location.pdf` 换成 `_noice.pdf`，图注删掉 15% 冰缘（TexPage 8cabb9a）。现在信里 R12 和稿里 A13 一致，都不带冰缘线。
 - 2026-11-26 07:10 用户要求回复信 Fig. R12 去掉海冰等值线：加 `--no-ice-edge`，`_noice.png` 拷成 `nc_paper/SUBMISSION/letter_figs/figS_formation_location.png`（TexPage 347461d）。稿里 SI A13（`build/figures/figS_formation_location.pdf`）仍带冰缘线，图注也还写着 15% winter sea ice edge，要不要一起去掉等用户定。
 - 2026-11-26 新建。三个脚本、图、numbers.txt。复现五个态论文曲线，加 0.02 bin 拆分、深度/离岸两套分区、MLD2 与带宽敏感性。

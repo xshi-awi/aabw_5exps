@@ -44,6 +44,7 @@
 
 ## History
 
+- 2026-11-27 A4 可读性：图按信里印出的 5.81 in 宽直接画，字号就是印刷磅值（刻度和图例 8 pt，色标标题和行标题 8.5 pt 粗体，面板字母 9 pt 粗体挪到面板上方，列标题 10 pt），纬度标注只在 (k) 留 50°S、70°S，行标题加换行，图例改一行放色标下；PNG 585 dpi。数据、色标、两个 numbers txt 不变（md5 相同）。旧版在 `versions/*_v20261127pre.*`。需要 gsw 在 PYTHONPATH 上。
 - 2026-11-25 新增 `plot_sam_density_components.py` 与 A3/A4 密度版（TexPage 4d59b5f、638d640，信 6e32b68、3a40d9f）。正文 2.4 节的海区据 `numbers_heatloss15.txt`：间冰期失热多 15 W m⁻² 的面积 90–97% 在冰缘以北开阔洋，主要在 60–140°E 与 180–120°W；冰期冰缘纬圈平均 55.2/56.2°S，冰下超过 15 W m⁻² 的只占 1–3%。figR22 不再进信，文件留着。
 
 - 2026-11-22 新建脚本、图和 numbers.txt。PI 冰掩膜由 `a_ice_clim.nc` 换成 `a_ice_clim_beta.nc` 并加 history 闸门，增加 1.2σ 重算和平均态对照。

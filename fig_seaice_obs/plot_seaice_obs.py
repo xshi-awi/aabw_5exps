@@ -67,6 +67,13 @@ SIX = '--six' in sys.argv
 EDGE_MODE = ('withedges' if '--with-edges' in sys.argv else 'noobsedge' if '--no-obs-edge' in sys.argv
              else 'edgesb' if '--edges-b-only' in sys.argv else 'noedges')
 PI_REG = f'{BASE}/pi/a_ice_reg_beta.nc'   # 1-degree PI, model years 2300-2399 (not pi/a_ice_reg.nc)
+# --pi-other (user note 2026-11-27 09:xx "先替换成另一个海冰文件，我看看效果如何"): the JJA figure
+# drawn from the files that SI Fig. A2 reads, pi/a_ice_reg.nc (1 degree) and pi/a_ice_clim.nc
+# (mesh). Both are the 2090-2099 mean of an unidentified run, NOT the paper's PI years.
+# Written as figR21_seaice_obs_pi9099.*. Numbers in seaice_numbers.txt are not affected.
+PI_OTHER = '--pi-other' in sys.argv
+if PI_OTHER:
+    PI_REG = f'{BASE}/pi/a_ice_reg.nc'
 
 
 def say(s=''):
@@ -494,7 +501,7 @@ def main():
     if SIX:
         make_figure(o, m, W_grid, pi_clim, oext, oare, pext, pare)
     else:
-        make_figure_jja(o, W_grid, pi_clim)
+        make_figure_jja(o, W_grid, pi_9099 if PI_OTHER else pi_clim)
 
 
 def polynyas(o, F):
@@ -564,21 +571,21 @@ def map_axes(fig, spec, laea):
     return ax
 
 
-def decorate(ax):
+def decorate(ax, fs=8.5, col='#222222', lw_coast=0.4, lw_grid=0.5, lon_lat=-46.6):
     ax.add_feature(cfeature.LAND.with_scale('50m'), facecolor='#9e9e9e',
                    edgecolor='none', zorder=3)
-    ax.coastlines('50m', linewidth=0.4, color='#444444', zorder=4)
+    ax.coastlines('50m', linewidth=lw_coast, color='#444444', zorder=4)
     ax.gridlines(crs=ccrs.PlateCarree(), xlocs=np.arange(-180, 181, 60),
-                 ylocs=[-80, -70, -60], linewidth=0.5, color='#555555',
+                 ylocs=[-80, -70, -60], linewidth=lw_grid, color='#555555',
                  alpha=0.6, linestyle='--', zorder=5)
     for la in (-60, -70):
-        ax.text(150, la, f'{-la}°S', transform=ccrs.PlateCarree(), fontsize=8.5,
-                ha='center', va='center', zorder=6, color='#222222',
+        ax.text(150, la, f'{-la}°S', transform=ccrs.PlateCarree(), fontsize=fs,
+                ha='center', va='center', zorder=6, color=col,
                 bbox=dict(boxstyle='round,pad=0.12', fc='white', ec='none', alpha=0.75))
     for lo, lab in [(0, '0°'), (60, '60°E'), (120, '120°E'), (180, '180°'),
                     (-120, '120°W'), (-60, '60°W')]:
-        ax.text(lo, -46.6, lab, transform=ccrs.PlateCarree(), fontsize=8.5,
-                ha='center', va='center', clip_on=False, color='#222222')
+        ax.text(lo, lon_lat, lab, transform=ccrs.PlateCarree(), fontsize=fs,
+                ha='center', va='center', clip_on=False, color=col)
 
 
 def smooth_si(data, sigma=1.5):
@@ -776,8 +783,11 @@ def make_figure_jja(o, W_grid, pi_clim):
     cmap.set_under('#0000FF')
     cmap_d = mpl.cm.get_cmap('RdBu')
     norm_d = mpl.colors.BoundaryNorm(np.arange(-90, 91, 20), cmap_d.N, extend='both')
-    fig = plt.figure(figsize=(10.5, 6.2))
-    gs = fig.add_gridspec(1, 2, left=0.04, right=0.96, top=0.88, bottom=0.2, wspace=0.18)
+    # 2026-11-27: printed 5.8 in wide in the letter. Figure 7.4 in wide, so every size below
+    # prints at 0.79 of its value (titles 9 pt, labels and ticks >= 7.7 pt, all black).
+    fig = plt.figure(figsize=(7.4, 4.5))
+    gs = fig.add_gridspec(1, 2, left=0.035, right=0.965, top=0.86, bottom=0.235, wspace=0.12)
+    FS_T, FS_L, FS_TK = 11.5, 10.5, 9.8
 
     def lines(ax, panel):
         if EDGE_MODE == 'noedges' or (EDGE_MODE == 'edgesb' and panel == 'a'):
@@ -789,6 +799,9 @@ def make_figure_jja(o, W_grid, pi_clim):
         ax.contour(X, Y, np.where(o['ocean'], mod, np.nan), levels=[THR],
                    colors=C_MOD, linewidths=1.6, linestyles='--', transform=laea, zorder=4)
 
+    def deco(ax):
+        decorate(ax, fs=FS_TK, col='black', lw_coast=0.7, lw_grid=0.7, lon_lat=-46.0)
+
     ax_a = map_axes(fig, gs[0, 0], laea)
     ax_a.set_facecolor('white')
     g = smooth_si(np.where(a < 0.01, np.nan, a)) * 100
@@ -797,38 +810,42 @@ def make_figure_jja(o, W_grid, pi_clim):
     pm = ax_a.contourf(L, La, gc, levels=np.arange(10, 101, 5), cmap=cmap, extend='min',
                        transform=ccrs.PlateCarree())
     lines(ax_a, 'a')
-    decorate(ax_a)
-    ax_a.set_title('(a)  AWI-ESM2 PI, JJA', fontsize=12.5, pad=26, loc='left')
+    deco(ax_a)
+    ax_a.set_title('(a)  AWI-ESM2 PI, JJA', fontsize=FS_T, fontweight='bold', pad=25)
 
     ax_b = map_axes(fig, gs[0, 1], laea)
     pd = ax_b.pcolormesh(X, Y, (mod - obs) * 100, cmap=cmap_d, norm=norm_d, transform=laea,
                          shading='nearest', rasterized=True)
     lines(ax_b, 'b')
-    decorate(ax_b)
-    ax_b.set_title('(b)  PI minus OSI SAF 1979–2008, JJA', fontsize=12.5, pad=26, loc='left')
+    deco(ax_b)
+    ax_b.set_title('(b)  PI minus OSI SAF 1979–2008, JJA', fontsize=FS_T, fontweight='bold', pad=25)
 
     pa, pb = ax_a.get_position(), ax_b.get_position()
-    cax = fig.add_axes([pa.x0 + 0.04, 0.115, pa.width - 0.08, 0.025])
+    cax = fig.add_axes([pa.x0 + 0.03, 0.135, pa.width - 0.06, 0.03])
     cb = fig.colorbar(pm, cax=cax, orientation='horizontal', ticks=np.arange(10, 101, 10),
                       extend='min')
-    cb.set_label('Sea ice concentration (%)', fontsize=11)
-    cb.ax.tick_params(labelsize=9.5)
-    cax2 = fig.add_axes([pb.x0 + 0.04, 0.115, pb.width - 0.08, 0.025])
+    cb.set_label('Sea ice concentration (%)', fontsize=FS_L, fontweight='bold')
+    cb.ax.tick_params(labelsize=FS_TK, labelcolor='black', width=0.8)
+    cb.outline.set_linewidth(0.8)
+    cax2 = fig.add_axes([pb.x0 + 0.03, 0.135, pb.width - 0.06, 0.03])
     cb2 = fig.colorbar(pd, cax=cax2, orientation='horizontal', ticks=np.arange(-90, 91, 30),
                        extend='both')
-    cb2.set_label('Concentration difference (%)', fontsize=11)
-    cb2.ax.tick_params(labelsize=9.5)
+    cb2.set_label('Concentration difference (%)', fontsize=FS_L, fontweight='bold')
+    cb2.ax.tick_params(labelsize=FS_TK, labelcolor='black', width=0.8)
+    cb2.outline.set_linewidth(0.8)
     hl = [mpl.lines.Line2D([], [], color=C_OBS, lw=1.4, label='OSI SAF 15%'),
           mpl.lines.Line2D([], [], color=C_MOD, lw=1.6, ls='--', label='PI 15%')]
     if EDGE_MODE == 'noobsedge':
         hl = hl[1:]
     if EDGE_MODE != 'noedges':
         fig.legend(handles=hl, loc='lower center', bbox_to_anchor=(0.5, 0.0), ncol=len(hl),
-                   fontsize=10, frameon=False)
+                   fontsize=FS_L, frameon=False)
     suf = '' if EDGE_MODE == 'noedges' else f'_{EDGE_MODE}'
+    if PI_OTHER:
+        suf += '_pi9099'
     for ext in ('png', 'pdf'):
         fn = os.path.join(HERE, f'figR21_seaice_obs{suf}.{ext}')
-        fig.savefig(fn, dpi=200 if ext == 'png' else 300)
+        fig.savefig(fn, dpi=290 if ext == 'png' else 300)
         print('saved', fn)
 
 
