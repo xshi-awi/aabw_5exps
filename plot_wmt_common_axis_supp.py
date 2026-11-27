@@ -71,7 +71,7 @@ EXPERIMENTS = [
     ('mh', 'MH'),
     ('lig', 'LIG'),
     ('lgm', 'LGM'),
-    ('mis', 'MIS')
+    ('mis', 'MIS3')
 ]
 
 # 基础路径
