@@ -34,7 +34,7 @@
 
 ## History
 
-- 2026-11-27 05:48 用户先说「把对比海冰的那个 contour 去掉」，按钮 GH 定为两条 15% 线都去：默认改成不画线（png md5 43be98e0），图注删掉讲线的那句。TexPage 8d5070a（信）、ba77cda（图）。
+- 2026-11-27 05:48 用户先说「把对比海冰的那个 contour 去掉」，按钮 GH 定为两条 15% 线都去：默认改成不画线（png md5 43be98e0），图注删掉讲线的那句。TexPage 8d5070a（信）、ba77cda（图）；服务器 05:51 把图还原成旧版（3b4af39），05:54 重推 9052511，05:58 核过。
 - 2026-11-27 用户在信里批注「只画 jja……a 画海冰，b 画差异，其他的不要了……简单对比一段话」：加 `make_figure_jja`，默认出两格 JJA 版（png md5 c8901d29），六格版改由 `--six` 出；旧图存 `versions/figR21_seaice_obs_v20261127pre.*`（ec81f0b2）。信里文字压成一段（6–8 月数字）。TexPage d4d9c79。
 - 2026-11-25 用户按钮 FT「用正确 PI 的 SI 画法版」：a/b/d/e 改用 SI 画法（正确 PI），TexPage 9115556。旧版 `versions/figR21_seaice_obs_v20261122b.*`。
 - 2026-11-25 `compare_si_weddell.py`：SI 原图 Weddell 满圈来自被覆盖的 PI 文件（框内着色 90%），换正确 PI 只剩 55–67%。不要用 `pi/a_ice_reg.nc` 出信里的图（总管 11-25 定）。
